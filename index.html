@@ -290,6 +290,249 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 @media(max-width:1100px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }}
 @media(max-width:800px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }.sg4{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:1fr}}
 
+/* ══════════════════════════════════════════════════
+   📱 모바일 반응형 (768px 이하)
+══════════════════════════════════════════════════ */
+
+/* 햄버거 버튼 */
+.hbg-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.hbg-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--t2);
+  border-radius: 2px;
+  transition: all .25s;
+}
+.hbg-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hbg-btn.open span:nth-child(2) { opacity: 0; }
+.hbg-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* 모바일 드로어 오버레이 */
+.mob-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 190;
+}
+.mob-overlay.show { display: block; }
+
+/* 모바일 사이드 드로어 */
+.mob-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 260px;
+  height: 100%;
+  background: var(--bg2);
+  border-right: 1px solid var(--bd);
+  z-index: 195;
+  transition: left .25s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.mob-drawer.open { left: 0; }
+.mob-drawer-hdr {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mob-drawer-hdr .ico2 {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg,var(--a2),var(--g2));
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.mob-drawer-hdr span { font-weight: 700; font-size: 17px; }
+.mob-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 8px;
+}
+.mob-nb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  color: var(--t2);
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all .15s;
+  margin-bottom: 2px;
+}
+.mob-nb:hover { background: var(--bg3); color: var(--tx); }
+.mob-nb.active { background: rgba(88,166,255,.12); color: var(--ac); }
+.mob-drawer-ftr {
+  padding: 12px 8px;
+  border-top: 1px solid var(--bd);
+}
+.mob-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg3);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.mob-user .udot2 {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gr);
+  flex-shrink: 0;
+}
+.mob-user-info { flex: 1; min-width: 0; }
+.mob-user-nm { font-size: 15px; font-weight: 600; }
+.mob-user-rl { font-size: 13px; color: var(--t2); }
+.mob-logout {
+  width: 100%;
+  padding: 10px;
+  background: rgba(248,81,73,.1);
+  border: 1px solid rgba(248,81,73,.25);
+  border-radius: 8px;
+  color: var(--re);
+  font-size: 15px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all .15s;
+}
+.mob-logout:hover { background: rgba(248,81,73,.18); }
+
+@media(max-width:768px) {
+  /* 바디 기본 폰트 크기 */
+  body { font-size: 15px; }
+
+  /* 로그인 박스 */
+  .lbox { width: calc(100vw - 32px); max-width: 400px; padding: 28px 20px; }
+  .ltit { font-size: 22px; }
+  .lsub { font-size: 15px; }
+  .fg input { font-size: 16px; }
+  .lbtn { font-size: 17px; }
+
+  /* 헤더 */
+  .hdr { padding: 0 14px; height: 54px; }
+  .hdr-logo { font-size: 17px; }
+  .hdr-logo .ico { width: 24px; height: 24px; font-size: 16px; }
+  .hnav { display: none; } /* PC 네비 숨김 */
+  .hr { display: none; }  /* PC 유저뱃지 숨김 */
+  .hbg-btn { display: flex; margin-left: auto; }
+
+  /* 메인 패딩 */
+  .main { padding: 14px 12px; }
+
+  /* 페이지 고정 레이아웃 높이 조정 */
+  #pg_master, #pg_setup, #pg_progress {
+    height: calc(100vh - 90px);
+  }
+
+  /* 통계카드: 2열→1열 */
+  .sg4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .sc { padding: 14px 16px; }
+  .sl { font-size: 13px; }
+  .sv { font-size: 24px; }
+  .ss { font-size: 13px; }
+
+  /* 대시보드 그리드 */
+  .grid2 { grid-template-columns: 1fr; gap: 12px; }
+  .card { padding: 14px; }
+  .ch { font-size: 15px; }
+
+  /* 기업 그리드 */
+  .cgrid { grid-template-columns: 1fr; gap: 10px; }
+
+  /* 필터바 */
+  .flt { flex-direction: column; }
+  .si { min-width: unset; font-size: 15px; }
+  .fse { font-size: 15px; }
+
+  /* 테이블 폰트 */
+  .tbl { font-size: 13px; }
+  .tbl th { padding: 8px 8px; font-size: 12px; }
+  .tbl td { padding: 7px 8px; }
+
+  /* 진행현황 스텝바 */
+  .pr-stepbar { flex-wrap: wrap; border-radius: 8px; }
+  .pr-step {
+    flex: 0 0 calc(20% - 1px);
+    min-width: 0;
+    padding: 10px 4px 8px;
+    border-bottom: 1px solid var(--bd);
+  }
+  .pr-se { font-size: 20px; }
+  .pr-ss { font-size: 13px; line-height: 1.2; }
+  .pr-sc { font-size: 13px; }
+  .pr-pbar { width: 70%; height: 4px; }
+  .pr-pct { font-size: 16px; }
+
+  /* 진행현황 통계카드 */
+  .pr-stat-row { flex-wrap: wrap; gap: 8px; }
+  .pr-stat-card { flex: 0 0 calc(50% - 4px); padding: 8px 12px; gap: 8px; }
+  .pr-stat-lbl { font-size: 12px; }
+  .pr-stat-val { font-size: 18px; }
+
+  /* Setup 3컬럼 → 1컬럼 */
+  .s3col { display: flex; flex-direction: column; gap: 0; }
+  .spanel { min-height: 200px; max-height: 45vh; }
+
+  /* 모달 */
+  .mdl { width: 96vw !important; max-height: 90vh; }
+  .mhdr h3 { font-size: 16px; }
+  .mbdy { padding: 14px; }
+  .mftr { padding: 10px 14px; }
+  .frow { grid-template-columns: 1fr; gap: 8px; }
+  .frow.s1 { grid-template-columns: 1fr; }
+  .flbl { font-size: 12px; }
+  .finp, .fslc, .fta { font-size: 14px; padding: 7px 9px; }
+
+  /* 버튼 */
+  .btn { font-size: 14px; padding: 7px 12px; }
+  .bsm { font-size: 13px; padding: 5px 10px; }
+
+  /* 페이지 헤더 */
+  .ph { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 14px; }
+  .pt { font-size: 19px; }
+  .ps { font-size: 13px; }
+
+  /* 편집 버튼 */
+  .editBtn { width: 30px; height: 26px; font-size: 13px; }
+
+  /* Master DB 스크롤 높이 */
+  .m-scroll-body { max-height: calc(100vh - 300px); }
+
+  /* 토스트 위치 */
+  #tw { right: 8px; top: 58px; }
+  .toast { min-width: 180px; font-size: 14px; padding: 8px 11px; }
+}
+
+@media(max-width:400px) {
+  .sg4 { grid-template-columns: 1fr 1fr; }
+  .pr-step { flex: 0 0 calc(33.33% - 1px); }
+  .pr-stat-card { flex: 0 0 100%; }
+  .hdr-logo span { display: none; } /* 로고 텍스트 숨김 */
+}
+
 
 /* ══ 공통: 페이지 고정 헤더 + 스크롤 바디 ══════════ */
 #pg_master, #pg_setup, #pg_progress {
@@ -624,7 +867,34 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <div class="ubadge"><div class="udot"></div><span id="uNm">-</span><span class="urole" id="uRl">-</span></div>
       <button class="lout" onclick="doLogout()">로그아웃</button>
     </div>
+    <button class="hbg-btn" id="hbgBtn" onclick="toggleDrawer()" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+  <div class="mob-overlay" id="mobOverlay" onclick="closeDrawer()"></div>
+  <div class="mob-drawer" id="mobDrawer">
+    <div class="mob-drawer-hdr">
+      <div class="ico2">⚙️</div>
+      <span>EQ-PMS</span>
+    </div>
+    <nav class="mob-nav">
+      <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo('dashboard')">📊 대시보드</button>
+      <button class="mob-nb" data-mp="master"    onclick="mobNavTo('master')">📋 Master DB</button>
+      <button class="mob-nb" data-mp="setup"     onclick="mobNavTo('setup')">⚙️ 프로세스 Setup</button>
+      <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')">📈 진행 현황</button>
+      <button class="mob-nb" data-mp="company"   onclick="mobNavTo('company')">🏢 기업 관리</button>
+    </nav>
+    <div class="mob-drawer-ftr">
+      <div class="mob-user">
+        <div class="udot2"></div>
+        <div class="mob-user-info">
+          <div class="mob-user-nm" id="mobUNm">-</div>
+          <div class="mob-user-rl" id="mobURl">-</div>
+        </div>
+      </div>
+      <button class="mob-logout" onclick="doLogout()">🚪 로그아웃</button>
+    </div>
+  </div>
   <main class="main">
     <div id="pg_dashboard"></div>
     <div id="pg_master"    style="display:none"></div>
@@ -772,6 +1042,8 @@ function doLogin() {
     gid('app').style.display = 'block';
     gid('uNm').textContent = state.curUser.name;
     gid('uRl').textContent = state.curUser.role;
+    var mn = gid('mobUNm'); if (mn) mn.textContent = state.curUser.name;
+    var mr = gid('mobURl'); if (mr) mr.textContent = state.curUser.role;
     gid('loginErr').style.display = 'none';
     appInit();
     toast('로그인 성공', state.curUser.name + '님 환영합니다!', 'success');
@@ -831,6 +1103,10 @@ function navTo(p) {
   document.querySelectorAll('.nb').forEach(function(b) { b.classList.remove('active'); });
   var btn = document.querySelector('.nb[data-p="' + p + '"]');
   if (btn) btn.classList.add('active');
+  // 모바일 드로어 active 동기화
+  document.querySelectorAll('.mob-nb').forEach(function(b) { b.classList.remove('active'); });
+  var mb = document.querySelector('.mob-nb[data-mp="' + p + '"]');
+  if (mb) mb.classList.add('active');
   if      (p === 'dashboard') pgDash();
   else if (p === 'master')    pgMaster();
   else if (p === 'setup')     pgSetup();
@@ -1649,14 +1925,52 @@ function dlCSV(data, fname) {
 /* ── MODAL ──────────────────────────────────────────── */
 function CM(id) { gid(id).style.display = 'none'; }
 
+/* ── 모바일 드로어 ───────────────────────────────────── */
+function toggleDrawer() {
+  var drawer = gid('mobDrawer');
+  var overlay = gid('mobOverlay');
+  var btn = gid('hbgBtn');
+  var isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    drawer.classList.remove('open');
+    overlay.classList.remove('show');
+    btn.classList.remove('open');
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.add('show');
+    btn.classList.add('open');
+  }
+}
+function closeDrawer() {
+  var drawer = gid('mobDrawer');
+  var overlay = gid('mobOverlay');
+  var btn = gid('hbgBtn');
+  drawer.classList.remove('open');
+  overlay.classList.remove('show');
+  if (btn) btn.classList.remove('open');
+}
+function mobNavTo(p) {
+  closeDrawer();
+  navTo(p);
+  // 모바일 드로어 메뉴 active 상태 업데이트
+  document.querySelectorAll('.mob-nb').forEach(function(b) { b.classList.remove('active'); });
+  var mb = document.querySelector('.mob-nb[data-mp="' + p + '"]');
+  if (mb) mb.classList.add('active');
+}
+
 /* ── EVENTS ─────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function(){
-  // 창 크기 변경 시 레이아웃 재계산
+  // 창 크기 변경 시 레이아웃 재계산 + 드로어 닫기
   window.addEventListener('resize', function() {
+    if (window.innerWidth > 768) closeDrawer();
     ['pg_master','pg_setup','pg_progress'].forEach(function(id) {
       var pg = document.getElementById(id);
       if (pg && pg.style.display !== 'none') adjustPageLayout(id);
     });
+  });
+  // ESC 키로 드로어 닫기
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeDrawer();
   });
   gid('btnLogin').addEventListener('click', doLogin);
   gid('loginPw').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
