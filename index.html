@@ -1,1 +1,1670 @@
-<html><head><title>EQ-PMS Loading</title></head><body><h1>EQ-PMS</h1><p>Full app loading soon...</p></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EQ-PMS | 설비투자 프로세스 관리 시스템</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;
+  --bd:#30363d;--bd2:#21262d;
+  --tx:#e6edf3;--t2:#8b949e;--t3:#6e7681;
+  --ac:#58a6ff;--a2:#1f6feb;
+  --gr:#3fb950;--g2:#238636;
+  --or:#f0883e;--re:#f85149;--pu:#bc8cff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:19px;line-height:1.65}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+
+/* LOGIN */
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%)}
+.lbox{background:var(--bg2);border:1px solid var(--bd);border-radius:16px;padding:44px 38px;width:400px}
+.llogo{display:flex;align-items:center;gap:11px;margin-bottom:26px}
+.llogo-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.llogo h1{font-size:22px;font-weight:700}
+.llogo p{font-size:17px;color:var(--t2)}
+.ltit{font-size:26px;font-weight:700;margin-bottom:5px}
+.lsub{color:var(--t2);font-size:18px;margin-bottom:24px}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:17px;font-weight:600;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.fg input{width:100%;padding:9px 13px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:19px;font-family:inherit;outline:none;transition:border-color .2s}
+.fg input:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(88,166,255,.1)}
+.lbtn{width:100%;padding:11px;background:linear-gradient(135deg,var(--a2),#388bfd);border:none;border-radius:7px;color:#fff;font-size:20px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:4px}
+.lbtn:hover{opacity:.9;transform:translateY(-1px)}
+.lerr{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);border-radius:7px;padding:9px 13px;color:var(--re);font-size:18px;margin-top:9px;display:none}
+.lhint{margin-top:16px;padding:11px 13px;background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;font-size:17px;color:var(--t2)}
+.lhint strong{color:var(--ac)}
+
+/* APP */
+#app{display:none}
+.hdr{background:var(--bg2);border-bottom:1px solid var(--bd);padding:0 28px;display:flex;align-items:center;gap:12px;height:62px;position:sticky;top:0;z-index:200}
+.hdr-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;flex-shrink:0}
+.hdr-logo .ico{width:28px;height:28px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.hnav{display:flex;gap:2px;flex:1;margin-left:4px}
+.nb{padding:5px 11px;border-radius:6px;border:none;background:transparent;color:var(--t2);font-size:18px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
+.nb:hover{background:var(--bg3);color:var(--tx)}
+.nb.active{background:var(--bg3);color:var(--ac)}
+.hr{display:flex;align-items:center;gap:9px;margin-left:auto}
+.ubadge{display:flex;align-items:center;gap:6px;padding:4px 11px;background:var(--bg3);border:1px solid var(--bd);border-radius:18px;font-size:17px}
+.udot{width:6px;height:6px;border-radius:50%;background:var(--gr)}
+.urole{color:var(--t2);font-size:15px;background:var(--bg);padding:1px 5px;border-radius:3px}
+.lout{padding:4px 10px;border:1px solid var(--bd);border-radius:5px;background:transparent;color:var(--t2);font-size:17px;cursor:pointer;font-family:inherit;transition:all .15s}
+.lout:hover{border-color:var(--re);color:var(--re)}
+
+/* MAIN */
+.main{padding:24px 28px;max-width:100%;margin:0}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.pt{font-size:25px;font-weight:700}
+.ps{font-size:17px;color:var(--t2);margin-top:2px}
+
+/* STATS */
+.sg4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+.sc{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:22px 24px}
+.sl{font-size:16px;color:var(--t2);margin-bottom:5px;font-weight:500}
+.sv{font-size:32px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.ss{font-size:16px;color:var(--t2);margin-top:2px}
+
+/* STEP BAR */
+.psbar{display:flex;margin-bottom:20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.ps{flex:1;padding:16px 8px;text-align:center;font-size:15px;font-weight:500;color:var(--t2);cursor:pointer;border-right:1px solid var(--bd);transition:all .15s;position:relative}
+.ps:last-child{border-right:none}
+.ps:hover{background:var(--bg3);color:var(--tx)}
+.ps.active{background:rgba(88,166,255,.15);color:var(--ac);border-bottom:2px solid var(--ac)}
+.pse{font-size:24px;display:block;margin-bottom:3px}
+.pss{font-size:17px;line-height:1.4;word-break:keep-all;font-weight:600}
+.psn{position:absolute;top:4px;right:5px;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;font-size:14px;padding:2px 6px;color:var(--t2)}
+.ps.active .psn{background:rgba(88,166,255,.2);border-color:rgba(88,166,255,.4);color:var(--ac);font-weight:700}
+
+/* FILTER */
+.flt{display:flex;gap:8px;margin-bottom:13px;align-items:center;flex-wrap:wrap}
+.si{flex:1;min-width:180px;padding:9px 14px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;transition:border-color .2s}
+.si:focus{border-color:var(--ac)}
+.si::placeholder{color:var(--t3)}
+.fsel{padding:9px 12px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;cursor:pointer}
+
+/* TABLE */
+.tw{overflow-x:auto;border-radius:8px;border:1px solid var(--bd)}
+.m-scroll-body .tw{border:none;border-radius:0}
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed;word-break:break-all;font-size:18px}
+.tbl thead tr{background:var(--bg3);border-bottom:1px solid var(--bd)}
+.tbl th{padding:12px 14px;text-align:left;font-weight:600;color:var(--t2);font-size:16px;white-space:nowrap;border-right:1px solid var(--bd2)}
+.tbl th:last-child{border-right:none}
+.tbl tbody tr{border-bottom:1px solid var(--bd2);transition:background .1s}
+.tbl tbody tr:last-child{border-bottom:none}
+.tbl tbody tr:hover{background:var(--bg3)}
+.tbl td{padding:8px 12px;border-right:1px solid var(--bd2);vertical-align:middle;line-height:1.4}
+.tbl td:last-child{border-right:none}
+.fw{font-weight:500;min-width:110px;word-break:keep-all}
+.sm{font-size:17px}
+.t2{color:var(--t2)}
+.t3{color:var(--t3)}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* BADGES */
+.b{display:inline-flex;align-items:center;padding:1px 6px;border-radius:9px;font-size:16px;font-weight:500;white-space:nowrap}
+.br{background:rgba(63,185,80,.12);color:var(--gr);border:1px solid rgba(63,185,80,.25)}
+.bo{background:rgba(88,166,255,.12);color:var(--ac);border:1px solid rgba(88,166,255,.25)}
+.bc{background:rgba(240,136,62,.12);color:var(--or);border:1px solid rgba(240,136,62,.25)}
+.bw{background:rgba(188,140,255,.12);color:var(--pu);border:1px solid rgba(188,140,255,.25)}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:8px;border:none;font-size:18px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.bp{background:var(--a2);color:#fff}.bp:hover{background:#388bfd}
+.bg{background:var(--g2);color:#fff}.bg:hover{background:#2ea043}
+.bs{background:var(--bg3);border:1px solid var(--bd);color:var(--tx)}.bs:hover{background:var(--bg4)}
+.bd{background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.28);color:var(--re)}.bd:hover{background:rgba(248,81,73,.22)}
+.bw{background:rgba(240,136,62,.12);border:1px solid rgba(240,136,62,.28);color:var(--or)}.bw:hover{background:rgba(240,136,62,.22)}
+.bsm{padding:4px 9px;font-size:17px}
+.bxs{padding:2px 7px;font-size:16px}
+
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:22px}
+.ch{font-size:18px;font-weight:600;display:block;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.mt14{margin-top:14px}
+.mb7{margin-bottom:7px}
+.mb9{margin-bottom:9px}
+.mb12{margin-bottom:12px}
+.mt8{margin-top:8px}
+.mt10{margin-top:10px}
+.flex-sb{display:flex;justify-content:space-between;align-items:center}
+.flex-g{display:flex;gap:7px;align-items:center}
+.flex4{display:flex;gap:12px;flex-wrap:wrap}
+.ml-auto{margin-left:auto}
+
+/* PROGRESS BAR */
+.pb{background:var(--bg3);border-radius:3px;height:5px;overflow:hidden}
+.pf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g2),var(--gr));transition:width .5s ease}
+
+/* CHART BARS */
+.brow{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.blbl{width:65px;font-size:16px;color:var(--t2);text-align:right;flex-shrink:0}
+.btrack{flex:1;background:var(--bg3);border-radius:3px;height:16px;position:relative}
+.bfill{height:100%;background:linear-gradient(90deg,var(--a2),var(--ac));border-radius:3px}
+.bval{position:absolute;right:5px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--t2);font-family:'JetBrains Mono',monospace}
+
+/* CHIP */
+.chip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:6px;font-size:14px;background:var(--bg3);border:1px solid var(--bd);color:var(--t2);white-space:normal;word-break:keep-all;text-align:center;line-height:1.4}
+
+/* EMPTY */
+.empty{text-align:center;padding:44px 20px;color:var(--t2)}
+.ei{font-size:42px;margin-bottom:10px}
+.empty h3{font-size:20px;margin-bottom:5px;color:var(--tx)}
+
+/* TOAST */
+.tw2{position:fixed;top:60px;right:14px;z-index:9000;display:flex;flex-direction:column;gap:6px}
+#tw{display:flex;flex-direction:column;gap:6px}
+.toast{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 13px;min-width:250px;animation:tin .22s ease;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.toast.success{border-color:rgba(63,185,80,.4)}
+.toast.error{border-color:rgba(248,81,73,.4)}
+@keyframes tin{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+
+/* MODAL */
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px)}
+.mdl{background:var(--bg2);border:1px solid var(--bd);border-radius:13px;width:700px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.5)}
+.mhdr{padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1}
+.mhdr h3{font-size:20px;font-weight:600}
+.mcls{width:28px;height:28px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.mcls:hover{border-color:var(--re);color:var(--re)}
+.mbdy{padding:20px}
+.mftr{padding:13px 20px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:7px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.frow.s1{grid-template-columns:1fr}
+.flbl{font-size:16px;font-weight:600;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+.finp,.fslc,.fta{width:100%;padding:7px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;transition:border-color .2s}
+.finp:focus,.fslc:focus,.fta:focus{border-color:var(--ac);box-shadow:0 0 0 2px rgba(88,166,255,.1)}
+.fta{resize:vertical;min-height:65px}
+.fdiv{display:flex;align-items:center;gap:8px;margin:14px 0 10px}
+.fdln{flex:1;height:1px;background:var(--bd)}
+.fdlb{font-size:15px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1px}
+
+/* HIGHLIGHT */
+.hl,mark.hl{background:rgba(240,200,62,.3);border-radius:2px;padding:0 2px;font-style:normal}
+
+/* ─── SETUP PAGE ─────────────────────────────────── */
+.topbar{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:16px 24px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar select{max-width:260px;padding:7px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;cursor:pointer}
+.topbar select:focus{border-color:var(--ac)}
+.info-badge{display:flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.2);border-radius:14px;font-size:17px;color:var(--gr);font-weight:500}
+
+.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }
+.spanel { background:var(--bg2); border:1px solid var(--bd); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; min-height:0; }
+.shdr{padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg3);display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:600;gap:8px;flex-wrap:wrap}
+.ssearch{padding:7px 11px;border-bottom:1px solid var(--bd);background:var(--bg2)}
+.ssearch input{width:100%;padding:5px 9px;background:var(--bg);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;transition:border-color .15s}
+.ssearch input:focus{border-color:var(--ac)}
+
+/* Proc list */
+#sProcList,#sMastBody,#sSelBody{flex:1;overflow-y:auto}
+.pi{padding:10px 14px;border-bottom:1px solid var(--bd2);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .12s}
+.pi:last-child{border-bottom:none}
+.pi:hover{background:var(--bg3)}
+.pi.active{background:rgba(88,166,255,.08);border-left:2px solid var(--ac)}
+.pnm{font-size:18px;font-weight:500}
+.psb{font-size:16px;color:var(--t2);margin-top:1px}
+.pst{text-align:right;font-size:17px}
+.psc{font-weight:600;color:var(--gr)}
+.pstot{color:var(--t2)}
+
+/* Master items */
+.mgrp{display:flex;align-items:center;justify-content:space-between;padding:5px 11px;background:var(--bg3);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
+.mgn{font-size:16px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px}
+.mgc{display:flex;align-items:center;gap:5px;font-size:16px;color:var(--t2);cursor:pointer}
+.mcard{padding:10px 11px;border-bottom:1px solid var(--bd2);display:flex;align-items:flex-start;gap:9px;transition:background .1s;cursor:pointer}
+.mcard:last-child{border-bottom:none}
+.mcard:hover{background:rgba(255,255,255,.02)}
+.mcard.msel{background:rgba(63,185,80,.05)}
+.mchk{width:15px;height:15px;accent-color:var(--gr);flex-shrink:0;margin-top:2px;cursor:pointer}
+.mb{flex:1;min-width:0}
+.mt{font-size:18px;font-weight:500;margin-bottom:2px;word-break:keep-all}
+.mc2{font-size:16px;color:var(--t2);line-height:1.4;margin-bottom:3px;word-break:keep-all}
+.mm{display:flex;gap:4px;flex-wrap:wrap}
+
+/* Selected items */
+.sitem{border-bottom:1px solid var(--bd2)}
+.sitem:last-child{border-bottom:none}
+.sih{padding:9px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .1s}
+.sih:hover{background:rgba(255,255,255,.02)}
+.sin{width:18px;height:18px;border-radius:50%;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--ac);flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.sit{font-size:18px;font-weight:500;flex:1;word-break:keep-all}
+.stog{font-size:17px;color:var(--t2);transition:transform .2s;display:inline-block}
+.sib{padding:0 12px 12px;border-top:1px solid var(--bd2);background:rgba(88,166,255,.03)}
+.sf{margin-top:8px}
+.sfl{font-size:15px;font-weight:600;color:var(--t3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+.sfin{width:100%;padding:5px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;transition:border-color .15s}
+.sfin:focus{border-color:var(--ac)}
+.sfta{width:100%;padding:5px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;resize:vertical;min-height:50px;transition:border-color .15s}
+.sfta:focus{border-color:var(--ac)}
+.sfrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.drow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px}
+.dl{font-size:15px;color:var(--t3);margin-bottom:2px}
+.rmv{padding:2px 7px;border-radius:4px;border:1px solid rgba(248,81,73,.3);background:rgba(248,81,73,.08);color:var(--re);font-size:16px;cursor:pointer;font-family:inherit;transition:all .15s}
+.rmv:hover{background:rgba(248,81,73,.2)}
+.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:30px;text-align:center;color:var(--t2)}
+.sempty p{font-size:17px}
+.edit-hint{color:var(--ac);font-size:15px}
+
+/* ── Master DB: 검색바 상단 고정, 테이블 스크롤 ─── */
+.m-sticky-hdr{
+  position:sticky;
+  top:62px;
+  z-index:100;
+  background:var(--bg);
+  padding-bottom:12px;
+}
+.m-scroll-body{
+  overflow-y:auto;
+  max-height:calc(100vh - 340px);
+  min-height:300px;
+}
+.m-scroll-body .tw{border:none;border-radius:0}
+.m-scroll-body .tbl thead tr{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:var(--bg3);
+  box-shadow:0 1px 0 var(--bd);
+}
+
+/* Save bar */
+.savebar{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:11px 16px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#saveStats{display:flex;gap:14px;font-size:18px;color:var(--t2)}
+#saveStats b{color:var(--tx)}
+
+/* COMPANY */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.ccard{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:16px;transition:all .2s}
+.ccard:hover{border-color:var(--ac);transform:translateY(-1px)}
+.cnm{font-size:19px;font-weight:600;margin-bottom:4px}
+.cmt{font-size:16px;color:var(--t2)}
+.cst{margin-top:11px;display:flex;gap:11px}
+.csv{font-size:23px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.csl{font-size:15px;color:var(--t2)}
+.cnote{margin-top:7px;font-size:16px;color:var(--t3)}
+
+@media(max-width:1100px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }}
+@media(max-width:800px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }.sg4{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:1fr}}
+
+
+/* ══ 공통: 페이지 고정 헤더 + 스크롤 바디 ══════════ */
+#pg_master, #pg_setup, #pg_progress {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 110px);  /* 전체높이 - 헤더62px - main상하패딩48px */
+  overflow: hidden;
+}
+/* 고정 헤더: 타이틀/스텝바/검색바 */
+.pg-hdr {
+  flex-shrink: 0;               /* 절대 줄어들지 않음 */
+  background: var(--bg);
+  padding-bottom: 8px;
+}
+/* 스크롤 바디: 남은 공간 전부 차지 + 세로 스크롤 */
+.pg-body {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+/* Master DB 테이블 래퍼 */
+.mTblWrap {
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.mTblWrap .tw { border: none; border-radius: 0; flex: 1 1 0; overflow-y: auto; min-height: 0; }
+.pg-body .tw { overflow-y: auto; }
+
+/* 테이블 thead 고정 */
+.mTblWrap .tw .tbl thead tr {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg3);
+  box-shadow: 0 1px 0 var(--bd);
+}
+/* 진행현황 */
+#prStat { flex-shrink: 0; padding: 4px 0 12px; }
+#prBody { flex: 1 1 0; overflow-y: auto; min-height: 0; padding: 2px 0 24px; }
+/* Setup s3col */
+.s3col {
+  flex: 1 1 0;
+  min-height: 0;
+}
+/* 편집 버튼 스타일 */
+.editBtn {
+  width: 36px;
+  height: 32px;
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  background: var(--bg3);
+  color: var(--tx);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all .15s;
+}
+.editBtn:hover {
+  border-color: var(--ac);
+  background: rgba(88,166,255,.1);
+}
+/* pg_master가 flex일 때 main 패딩 조정 */
+#pg_master.visible .main {
+  overflow: hidden;
+}
+
+
+/* prBody thead: step-hdr 방식으로 대체됨 */
+#prCont .tw {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+/* prStat: 통계카드 고정 영역 */
+#prStat {
+  padding: 0 0 10px 0;
+}
+
+/* ── 진행현황 단계별 레이아웃 ──────────────────────── */
+.step-block {
+  margin-bottom: 16px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: visible;
+  background: var(--bg2);
+}
+/* 단계 헤더: 단계명 + 진행바 + 컬럼헤더 → 고정 */
+.step-hdr {
+  padding: 14px 16px 0;
+  background: var(--bg2);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--bd);
+  border-radius: 10px 10px 0 0;
+}
+/* thead 용 테이블: 레이아웃 공유를 위해 tbody 테이블과 같은 컬럼 */
+.step-thead-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 8px;
+}
+.step-thead-tbl th {
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--t2);
+  font-size: 15px;
+  white-space: nowrap;
+  border-right: 1px solid var(--bd2);
+  background: var(--bg3);
+}
+.step-thead-tbl th:last-child { border-right: none; }
+/* 바디: tbody 만 스크롤 */
+.step-body {
+  overflow-y: auto;
+  max-height: 400px;
+  border-radius: 0 0 10px 10px;
+}
+.step-body-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.step-body-tbl td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--bd2);
+  border-right: 1px solid var(--bd2);
+  vertical-align: middle;
+  font-size: 15px;
+}
+.step-body-tbl td:last-child { border-right: none; }
+.step-body-tbl tr:last-child td { border-bottom: none; }
+.step-body-tbl tr { transition: background .1s; }
+.step-body-tbl tr:hover { background: var(--bg3); }
+
+
+/* ══ 진행현황 새 스텝바 ══════════════════════════════ */
+.pr-stepbar {
+  display: flex;
+  gap: 0;
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.pr-step {
+  flex: 1;
+  padding: 18px 8px 16px;
+  text-align: center;
+  cursor: pointer;
+  border-right: 1px solid var(--bd);
+  transition: all .15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+}
+.pr-step:last-child { border-right: none; }
+.pr-step:hover { background: var(--bg3); }
+.pr-step.pr-active {
+  background: rgba(88,166,255,.1);
+  border-bottom: 3px solid var(--ac);
+}
+.pr-step-empty { opacity: .4; cursor: default; }
+.pr-step-empty:hover { background: transparent; }
+.pr-se { font-size: 28px; line-height: 1; }
+.pr-ss { font-size: 20px; font-weight: 600; color: var(--t2); word-break: keep-all; line-height: 1.3; }
+.pr-step.pr-active .pr-ss { color: var(--ac); }
+.pr-sc { font-size: 19px; color: var(--t2); font-family: 'JetBrains Mono', monospace; }
+.pr-pbar {
+  width: 80%;
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.pr-pfill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--g2), var(--gr));
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+.pr-pct {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--t2);
+  font-family: 'JetBrains Mono', monospace;
+}
+.pr-pct.pr-done { color: var(--gr); }
+.pr-step.pr-active .pr-pct { color: var(--ac); }
+
+/* ══ 진행현황 항목 영역 ══════════════════════════════ */
+.pr-items-hdr {
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 10px 10px 0 0;
+  padding: 16px 18px 14px;
+  border-bottom: none;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.pr-tbl-wrap {
+  border: 1px solid var(--bd);
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+.pr-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.pr-tbl thead tr {
+  background: var(--bg3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.pr-tbl th {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--t2);
+  font-size: 14px;
+  border-right: 1px solid var(--bd2);
+  white-space: nowrap;
+}
+.pr-tbl th:last-child { border-right: none; }
+.pr-tbl tbody tr { border-bottom: 1px solid var(--bd2); transition: background .1s; }
+.pr-tbl tbody tr:last-child { border-bottom: none; }
+.pr-tbl tbody tr:hover { background: var(--bg3); }
+.pr-tbl td {
+  padding: 10px 12px;
+  border-right: 1px solid var(--bd2);
+  vertical-align: middle;
+  font-size: 15px;
+}
+.pr-tbl td:last-child { border-right: none; }
+.pr-done-row { opacity: .6; }
+.pr-done-row td:nth-child(2) { text-decoration: line-through; color: var(--t2); }
+.pr-chk {
+  width: 18px; height: 18px;
+  accent-color: var(--gr);
+  cursor: pointer;
+}
+
+
+/* ── 진행현황 통계 (compact 가로형) ────────────────── */
+.pr-stat-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.pr-stat-card {
+  flex: 1;
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 9px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pr-stat-lbl {
+  font-size: 14px;
+  color: var(--t2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pr-stat-val {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  margin-left: auto;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ───────────────────────────────────── -->
+<div id="loginScreen">
+  <div class="lbox">
+    <div class="llogo">
+      <div class="llogo-ico">⚙️</div>
+      <div><h1>EQ-PMS</h1><p>설비투자 프로세스 관리 시스템</p></div>
+    </div>
+    <h2 class="ltit">로그인</h2>
+    <p class="lsub">계정 정보를 입력하세요</p>
+    <div class="fg">
+      <label>아이디</label>
+      <input type="text" id="loginId" placeholder="아이디 입력" autocomplete="username">
+    </div>
+    <div class="fg">
+      <label>비밀번호</label>
+      <input type="password" id="loginPw" placeholder="비밀번호 입력" autocomplete="current-password">
+    </div>
+    <button class="lbtn" id="btnLogin">로그인</button>
+    <div class="lerr" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+    <div class="lhint" style="display:none">
+      <strong>테스트 계정</strong><br>
+      관리자: <strong>admin</strong> / <strong>admin1234</strong><br>
+      일반: user / user1234 &nbsp;|&nbsp; 읽기전용: viewer / view1234
+    </div>
+  </div>
+</div>
+
+<!-- ── APP ─────────────────────────────────────── -->
+<div id="app">
+  <header class="hdr">
+    <div class="hdr-logo"><div class="ico">⚙️</div><span>EQ-PMS</span></div>
+    <nav class="hnav">
+      <button class="nb" data-p="dashboard" onclick="navTo('dashboard')">📊 대시보드</button>
+      <button class="nb" data-p="master"    onclick="navTo('master')">📋 Master DB</button>
+      <button class="nb" data-p="setup"     onclick="navTo('setup')">⚙️ 프로세스 Setup</button>
+      <button class="nb" data-p="progress"  onclick="navTo('progress')">📈 진행 현황</button>
+      <button class="nb" data-p="company"   onclick="navTo('company')">🏢 기업 관리</button>
+    </nav>
+    <div class="hr">
+      <div class="ubadge"><div class="udot"></div><span id="uNm">-</span><span class="urole" id="uRl">-</span></div>
+      <button class="lout" onclick="doLogout()">로그아웃</button>
+    </div>
+  </header>
+  <main class="main">
+    <div id="pg_dashboard"></div>
+    <div id="pg_master"    style="display:none"></div>
+    <div id="pg_setup"     style="display:none"></div>
+    <div id="pg_progress"  style="display:none"></div>
+    <div id="pg_company"   style="display:none"></div>
+  </main>
+</div>
+
+<!-- ── MODAL: 항목 편집 ─────────────────────────── -->
+<div class="mov" id="itemModal" style="display:none">
+  <div class="mdl">
+    <div class="mhdr"><h3 id="mT">항목 수정</h3><button class="mcls" onclick="CM('itemModal')">✕</button></div>
+    <div class="mbdy">
+      <input type="hidden" id="mId">
+      <div class="frow">
+        <div><div class="flbl">프로세스 단계</div><select class="fslc" id="mProc"></select></div>
+        <div><div class="flbl">구분</div><input class="finp" id="mCat" placeholder="예: 투자 목적"></div>
+      </div>
+      <div class="frow s1"><div><div class="flbl">세부 검토 항목 *</div><input class="finp" id="mTtl" placeholder="항목명"></div></div>
+      <div class="frow s1"><div><div class="flbl">체크 포인트</div><textarea class="fta" id="mChk"></textarea></div></div>
+      <div class="frow">
+        <div><div class="flbl">필수여부</div><select class="fslc" id="mReq"><option>필수</option><option>조건부 필수</option><option>선택</option><option>권장</option></select></div>
+        <div><div class="flbl">표준일정</div><input class="finp" id="mSch" placeholder="예: 2주"></div>
+      </div>
+      <div class="frow s1"><div><div class="flbl">필요문서</div><input class="finp" id="mDoc"></div></div>
+      <div class="fdiv"><div class="fdln"></div><span class="fdlb">담당 부서</span><div class="fdln"></div></div>
+      <div class="frow">
+        <div><div class="flbl">총괄담당부서</div><input class="finp" id="mD1"></div>
+        <div><div class="flbl">합의부서</div><input class="finp" id="mD2"></div>
+      </div>
+      <div class="frow">
+        <div><div class="flbl">승인부서</div><input class="finp" id="mD3"></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="mftr">
+      <button class="btn bxs bd" id="btnDel" onclick="delItem()" style="margin-right:auto">🗑️ 삭제</button>
+      <button class="btn bs" onclick="CM('itemModal')">취소</button>
+      <button class="btn bg" onclick="saveItem()">💾 저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: 기업 추가 ─────────────────────────── -->
+<div class="mov" id="coModal" style="display:none">
+  <div class="mdl" style="width:420px">
+    <div class="mhdr"><h3>기업 추가</h3><button class="mcls" onclick="CM('coModal')">✕</button></div>
+    <div class="mbdy">
+      <div class="frow s1"><div><div class="flbl">기업명 *</div><input class="finp" id="coNm" placeholder="기업명"></div></div>
+      <div class="frow s1"><div><div class="flbl">업종/분류</div><input class="finp" id="coInd" placeholder="예: 반도체, 디스플레이..."></div></div>
+      <div class="frow s1"><div><div class="flbl">비고</div><textarea class="fta" id="coNote"></textarea></div></div>
+    </div>
+    <div class="mftr">
+      <button class="btn bs" onclick="CM('coModal')">취소</button>
+      <button class="btn bg" onclick="addCo()">+ 등록</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ────────────────────────────────────── -->
+<div style="position:fixed;top:60px;right:14px;z-index:9000" id="tw"></div>
+
+<script>
+var MASTER_DB = [{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"투자 목적","세부검토항목":"투자 배경 및 필요성","체크포인트":"CAPA 부족 / 품질 개선 / 자동화 / 원가절감","필수여부":"필수","필요문서":"투자기획서, 사업계획서","총괄담당부서":"생산기술팀","합의부서":"생산/품질/재무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":1},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"투자 목적","세부검토항목":"전략 연계성","체크포인트":"중장기 사업 전략 및 제품 로드맵 정합성","필수여부":"필수","필요문서":"중장기 전략서","총괄담당부서":"기획팀","합의부서":"생산/영업","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":2},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"투자 목적","세부검토항목":"고객 요구 대응","체크포인트":"고객 승인/Spec 요구 반영 여부","필수여부":"필수","필요문서":"고객 요구사항서","총괄담당부서":"영업/품질","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":3},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"생산능력","세부검토항목":"목표 생산량 및 tact time","체크포인트":"수요 대비 CAPA 적정성(3~5년 수요 반영)","필수여부":"필수","필요문서":"CAPA 분석서, 수요예측","총괄담당부서":"생산기술팀","합의부서":"생산관리","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":4},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"생산능력","세부검토항목":"OEE 반영 실질 CAPA","체크포인트":"OEE(≥70~85%) 반영 실효 생산능력","필수여부":"필수","필요문서":"OEE 분석서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":5},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"생산능력","세부검토항목":"수율(Yield) 반영","체크포인트":"불량률 고려 실질 생산량 확보","필수여부":"필수","필요문서":"수율 분석서","총괄담당부서":"품질팀","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":6},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"생산능력","세부검토항목":"Peak 대응능력","체크포인트":"최대 수요 대응 가능 여부","필수여부":"필수","필요문서":"생산 시나리오","총괄담당부서":"생산관리","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":7},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"제품 적합성","세부검토항목":"적용 제품/모델","체크포인트":"향후 제품 변경 대응성","필수여부":"필수","필요문서":"제품 Spec, 변경계획","총괄담당부서":"생산기술팀","합의부서":"R&D/품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":8},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"제품 적합성","세부검토항목":"제품 Mix 대응","체크포인트":"다품종 생산 가능 여부","필수여부":"필수","필요문서":"제품 포트폴리오","총괄담당부서":"생산기술","합의부서":"R&D","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":9},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"제품 적합성","세부검토항목":"Setup/Changeover","체크포인트":"제품 전환 시간 및 생산 영향","필수여부":"필수","필요문서":"Setup 분석서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":10},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"공정 적합성","세부검토항목":"공정 흐름 및 병목","체크포인트":"기존 공정과 연결성","필수여부":"필수","필요문서":"공정 Flow Chart","총괄담당부서":"생산기술팀","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":11},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"공정 적합성","세부검토항목":"Line Balance","체크포인트":"Cycle Time 균형 여부","필수여부":"필수","필요문서":"Line Balance Sheet","총괄담당부서":"생산기술","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":12},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"공정 적합성","세부검토항목":"공정능력","체크포인트":"Cpk ≥ 1.33 확보 가능성","필수여부":"필수","필요문서":"공정능력 분석서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":13},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"공정 적합성","세부검토항목":"자동화 적합성","체크포인트":"자동화 vs 수작업 경제성 비교","필수여부":"필수","필요문서":"자동화 검토서","총괄담당부서":"생산기술","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":14},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"ROI 분석","세부검토항목":"투자비 vs 효과","체크포인트":"Payback, IRR, NPV","필수여부":"필수","필요문서":"ROI 분석서","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":15},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"ROI 분석","세부검토항목":"BEP 분석","체크포인트":"손익분기점 도달 시점","필수여부":"필수","필요문서":"BEP 분석서","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":16},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"ROI 분석","세부검토항목":"시나리오 분석","체크포인트":"Best/Normal/Worst Case 분석","필수여부":"필수","필요문서":"시나리오 분석서","총괄담당부서":"재무팀","합의부서":"기획","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":17},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"ROI 분석","세부검토항목":"Hidden Cost","체크포인트":"유지보수/Utility/Spare 비용 포함 여부","필수여부":"필수","필요문서":"비용 상세내역","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":18},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"기존 기술 리스크","체크포인트":"기존보완된 항목 반영 여부","필수여부":"필수","필요문서":"기술 검토서","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":19},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"신규 기술 리스크","체크포인트":"신기술 적용 안정성 검증 여부","필수여부":"조건부 필수","필요문서":"기술검증 보고서","총괄담당부서":"생산기술팀","합의부서":"R&D","승인부서":"CTO/경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":20},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"공급/운영 리스크","체크포인트":"Vendor 의존도 및 대응력","필수여부":"필수","필요문서":"Vendor 평가서","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":21},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"일정 리스크","체크포인트":"납기 지연 가능성 및 대응 계획","필수여부":"필수","필요문서":"일정 리스크 분석","총괄담당부서":"구매/생산기술","합의부서":"PM","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":22},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"품질 리스크","체크포인트":"초기 불량률 및 안정화 기간","필수여부":"필수","필요문서":"품질 리스크 분석","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":23},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"운영 리스크","체크포인트":"유지보수 난이도 및 장애 대응성","필수여부":"필수","필요문서":"운영 리스크 평가","총괄담당부서":"생산기술","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":24},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"IT/연동 리스크","체크포인트":"MES/PLC/EAP 연동 가능성","필수여부":"필수","필요문서":"시스템 연동 검토서","총괄담당부서":"IT/MES팀","합의부서":"생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":25},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"리스크","세부검토항목":"공급망 리스크","체크포인트":"핵심 부품 단종 및 수급 안정성","필수여부":"필수","필요문서":"부품 리스크 분석","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":26},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"인력 영향","세부검토항목":"운영 인력 변화","체크포인트":"자동화 수준, 인건비 절감","필수여부":"선택","필요문서":"인력 운영 계획","총괄담당부서":"생산팀","합의부서":"HR","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":27},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"인력 영향","세부검토항목":"인력 재배치","체크포인트":"잉여 인력 활용 계획","필수여부":"선택","필요문서":"인력 재배치 계획","총괄담당부서":"HR","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":28},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"인력 영향","세부검토항목":"교육/Skill Gap","체크포인트":"운영 및 정비 교육 필요성","필수여부":"필수","필요문서":"교육 계획서","총괄담당부서":"HR/생산기술","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":29},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"Layout","세부검토항목":"설치 공간 및 동선","체크포인트":"공장 Layout 적합성","필수여부":"필수","필요문서":"공장 Layout 도면","총괄담당부서":"생산기술팀","합의부서":"시설팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":30},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"Layout","세부검토항목":"물류 동선","체크포인트":"물류 효율성 및 이동 거리 최소화","필수여부":"필수","필요문서":"물류 동선도","총괄담당부서":"물류팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":31},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"Layout","세부검토항목":"안전 동선","체크포인트":"작업자/설비 분리 및 안전 확보","필수여부":"필수","필요문서":"안전 검토서","총괄담당부서":"안전팀","합의부서":"시설팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":32},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"Layout","세부검토항목":"확장성","체크포인트":"향후 증설 가능 여부","필수여부":"필수","필요문서":"Layout 확장 계획","총괄담당부서":"생산기술","합의부서":"시설팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":33},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"Layout","세부검토항목":"Utility 인프라","체크포인트":"전기/에어/냉각 용량 적정성","필수여부":"필수","필요문서":"Utility 검토서","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":34},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"실행 가능성","세부검토항목":"프로젝트 수행 역량","체크포인트":"내부/외부 수행 조직 역량 확보 여부","필수여부":"필수","필요문서":"프로젝트 계획서","총괄담당부서":"생산기술팀","합의부서":"PM/구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":35},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"실행 가능성","세부검토항목":"일정 타당성","체크포인트":"전체 일정 및 Critical Path 검증","필수여부":"필수","필요문서":"Master Schedule","총괄담당부서":"PM","합의부서":"생산/구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":36},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"실행 가능성","세부검토항목":"변경관리 계획","체크포인트":"Spec 변경 및 Risk 대응 프로세스","필수여부":"필수","필요문서":"Change 관리 계획서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":37},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"디지털/시스템","세부검토항목":"MES/ERP 연계","체크포인트":"데이터 수집 및 실적 연동 가능성","필수여부":"필수","필요문서":"시스템 구성도","총괄담당부서":"IT/MES팀","합의부서":"생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":38},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"디지털/시스템","세부검토항목":"데이터 활용","체크포인트":"설비 데이터 분석 및 활용 계획","필수여부":"선택","필요문서":"데이터 전략서","총괄담당부서":"IT/MES팀","합의부서":"품질","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":39},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"유지보수","세부검토항목":"정비 전략","체크포인트":"MTBF/MTTR 목표 설정","필수여부":"필수","필요문서":"정비 전략서","총괄담당부서":"설비보전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":40},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"유지보수","세부검토항목":"Spare 전략","체크포인트":"Critical Spare 확보 여부","필수여부":"필수","필요문서":"Spare List","총괄담당부서":"구매/설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":41},{"프로세스":"설비투자기획(투자 검토 단계 (Business / 전략 검토))","구분":"표준화","세부검토항목":"설비 표준화","체크포인트":"타 라인 확장 및 표준 적용 가능성","필수여부":"선택","필요문서":"표준화 계획서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":42},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"기본 사양","세부검토항목":"설비 기능 정의","체크포인트":"공정 기능, 자동/수동 범위","필수여부":"필수","필요문서":"설비 사양서","총괄담당부서":"생산기술팀","합의부서":"생산/품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":43},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"기본 사양","세부검토항목":"운전 모드 정의","체크포인트":"Auto/Manual/Setup/Recovery 모드 정의","필수여부":"필수","필요문서":"운전 시나리오서","총괄담당부서":"생산기술팀","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":44},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"기본 사양","세부검토항목":"운영 시나리오","체크포인트":"정상/비정상/비상 상황 대응 시나리오 정의","필수여부":"필수","필요문서":"운영 시나리오서","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":45},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"성능 조건","세부검토항목":"생산속도","체크포인트":"CT(Cycle time) 목표 설정","필수여부":"필수","필요문서":"성능 요구서","총괄담당부서":"생산기술팀","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":46},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"성능 조건","세부검토항목":"OEE 목표","체크포인트":"설비 종합효율 목표 설정(≥70~85%)","필수여부":"필수","필요문서":"OEE 목표서","총괄담당부서":"생산기술","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":47},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"성능 조건","세부검토항목":"정밀도","체크포인트":"Cpk ≥ 1.33 설정","필수여부":"필수","필요문서":"품질 기준서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":48},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"성능 조건","세부검토항목":"수율(Yield)","체크포인트":"초기 및 안정 수율 목표 정의","필수여부":"필수","필요문서":"수율 기준서","총괄담당부서":"품질팀","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":49},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"성능 조건","세부검토항목":"가동 안정성","체크포인트":"연속운전 시간 및 MTBF 목표","필수여부":"필수","필요문서":"성능 검증 기준서","총괄담당부서":"생산기술","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":50},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"설비 구성","세부검토항목":"주요 유닛 구성","체크포인트":"Robot, Vision, Conveyor 등","필수여부":"필수","필요문서":"구성도, BOM","총괄담당부서":"생산기술팀","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":51},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"설비 구성","세부검토항목":"표준화 설계","체크포인트":"표준 유닛 적용 및 확장성 고려","필수여부":"선택","필요문서":"표준화 설계서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":52},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"설비 구성","세부검토항목":"모듈화","체크포인트":"유닛별 교체/확장 가능 구조","필수여부":"필수","필요문서":"모듈 설계서","총괄담당부서":"생산기술","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":53},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Interface","세부검토항목":"MES/PLC 연동","체크포인트":"통신 프로토콜 (OPC, Ethernet/IP) 정의","필수여부":"필수","필요문서":"Interface 정의서,제어구성도","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"IT책임자","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":54},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Interface","세부검토항목":"데이터 수집","체크포인트":"생산/품질/알람 데이터 수집 항목 정의","필수여부":"필수","필요문서":"데이터 정의서","총괄담당부서":"MES팀","합의부서":"품질/생산","승인부서":"IT책임자","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":55},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Interface","세부검토항목":"상위 시스템 연계","체크포인트":"ERP/MES/EAP 연동 구조 정의","필수여부":"필수","필요문서":"시스템 구성도","총괄담당부서":"IT/MES팀","합의부서":"생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":56},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Interface","세부검토항목":"추적성","체크포인트":"LOT/Serial 추적 가능 여부","필수여부":"필수","필요문서":"Traceability 정의서","총괄담당부서":"품질팀","합의부서":"MES","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":57},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"품질 조건","세부검토항목":"검사 기준","체크포인트":"불량 검출 기준 설정","필수여부":"필수","필요문서":"검사 기준서","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":58},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"품질 조건","세부검토항목":"검사 방식","체크포인트":"전수/샘플 검사 및 자동검사 적용 여부","필수여부":"필수","필요문서":"검사 계획서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":59},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"품질 조건","세부검토항목":"검사 정확도","체크포인트":"검출율, 오검율 기준 정의","필수여부":"필수","필요문서":"검사 성능 기준서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":60},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"품질 조건","세부검토항목":"불량 처리","체크포인트":"NG 처리 및 분리 방식 정의","필수여부":"필수","필요문서":"불량 처리 기준서","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":61},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"안전","세부검토항목":"안전 규격","체크포인트":"CE, ISO, 인터락 정의","필수여부":"필수","필요문서":"안전 인증서","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":62},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"안전","세부검토항목":"위험성 평가","체크포인트":"Risk Assessment 수행","필수여부":"필수","필요문서":"위험성 평가서","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":63},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"안전","세부검토항목":"비상 대응","체크포인트":"E-Stop, 안전 인터락 설계","필수여부":"필수","필요문서":"안전 회로도","총괄담당부서":"안전팀","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":64},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"안전","세부검토항목":"작업자 안전","체크포인트":"작업자 접근 및 보호 구조","필수여부":"필수","필요문서":"안전 설계서","총괄담당부서":"안전팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":65},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"유지보수","세부검토항목":"정비성","체크포인트":"MTBF, MTTR 목표정의","필수여부":"필수","필요문서":"Maintenance Plan","총괄담당부서":"설비보전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":66},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"유지보수","세부검토항목":"접근성","체크포인트":"정비 접근 용이성 및 작업 공간 확보","필수여부":"필수","필요문서":"정비성 검토서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":67},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"유지보수","세부검토항목":"예방정비","체크포인트":"Predictive/Preventive Maintenance 적용 여부","필수여부":"필수","필요문서":"정비 전략서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":68},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"유지보수","세부검토항목":"원격지원","체크포인트":"Remote 유지보수 가능 여부","필수여부":"선택","필요문서":"원격지원 계획서","총괄담당부서":"IT/설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":69},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Spare Part","세부검토항목":"부품 리스트","체크포인트":"Critical Parts 정의(핵심 부품 Maker, 모델 등)","필수여부":"필수","필요문서":"Spare List","총괄담당부서":"설비보전팀","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":70},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Spare Part","세부검토항목":"재고 전략","체크포인트":"최소 재고 및 공급 리드타임 정의","필수여부":"필수","필요문서":"Spare 관리 기준","총괄담당부서":"구매","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":71},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Utility","세부검토항목":"전기/에어/냉각","체크포인트":"소비량 및 조건 정의","필수여부":"필수","필요문서":"Utility Spec","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":72},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Utility","세부검토항목":"용량 검토","체크포인트":"기존 인프라 수용 가능 여부","필수여부":"필수","필요문서":"Utility 검토서","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":73},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"Utility","세부검토항목":"에너지 효율","체크포인트":"전력 및 에너지 절감 설계","필수여부":"선택","필요문서":"에너지 분석서","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":74},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"도면","세부검토항목":"Layout, P&ID","체크포인트":"2D/3D 도면 작성","필수여부":"필수","필요문서":"2D/3D 도면","총괄담당부서":"생산기술팀","합의부서":"설비","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":75},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"도면","세부검토항목":"전기도면","체크포인트":"제어 및 배선 설계","필수여부":"필수","필요문서":"전기도면","총괄담당부서":"설비기술팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":76},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"도면","세부검토항목":"유틸리티 도면","체크포인트":"에어/전기/냉각 라인 설계","필수여부":"필수","필요문서":"P&ID","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":77},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"운영","세부검토항목":"작업자 인터페이스","체크포인트":"HMI/조작 편의성 설계","필수여부":"필수","필요문서":"HMI 설계서","총괄담당부서":"생산기술","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":78},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"운영","세부검토항목":"작업 표준","체크포인트":"SOP 및 작업 표준 정의","필수여부":"필수","필요문서":"SOP 초안","총괄담당부서":"생산팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":79},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"확장성","세부검토항목":"라인 확장","체크포인트":"향후 증설 및 확장 가능 구조","필수여부":"필수","필요문서":"확장 설계서","총괄담당부서":"생산기술","합의부서":"시설","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":80},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"확장성","세부검토항목":"유연성","체크포인트":"제품 변경 대응 구조","필수여부":"필수","필요문서":"유연 생산 설계서","총괄담당부서":"생산기술","합의부서":"R&D","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":81},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"일정","세부검토항목":"제작일정(설계~납품 일정)","체크포인트":"Lead Time 현실성","필수여부":"필수","필요문서":"일정표","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":82},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"일정","세부검토항목":"FAT/SAT 일정 및 기준","체크포인트":"승인 조건 명확성","필수여부":"필수","필요문서":"FAT/SAT Plan","총괄담당부서":"생산기술","합의부서":"품질, 설비","승인부서":"생산본부장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":83},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"비용","세부검토항목":"장비 가격","체크포인트":"상세 Breakdown 여부","필수여부":"필수","필요문서":"견적서","총괄담당부서":"구매팀","합의부서":"생산기술, 재무","승인부서":"CFO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":84},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"비용","세부검토항목":"설치, 교육, 유지비","체크포인트":"Hidden Cost 여부","필수여부":"필수","필요문서":"Cost Breakdown","총괄담당부서":"구매팀","합의부서":"재무, 생산기술","승인부서":"CFO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":85},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"계약","세부검토항목":"Warranty 기간 및 범위","체크포인트":"무상보증 조건","필수여부":"필수","필요문서":"계약서","총괄담당부서":"구매팀","합의부서":"품질, 생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":86},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"계약","세부검토항목":"납기/성능 미달 시","체크포인트":"패널티 조건 명확성","필수여부":"권장","필요문서":"계약조건","총괄담당부서":"구매팀","합의부서":"법무, 재무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":87},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"교육","세부검토항목":"작업자 운영 교육 계획","체크포인트":"교육 범위/기간","필수여부":"권장","필요문서":"교육 계획서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"생산본부장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":88},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"교육","세부검토항목":"기술이전(매뉴얼 및 기술 문서)","체크포인트":"내부 자립 가능 여부","필수여부":"권장","필요문서":"매뉴얼","총괄담당부서":"생산기술","합의부서":"설비, MES","승인부서":"기술임원","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":89},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"기타","세부검토항목":"레퍼런스(유사 납품 실적)","체크포인트":"신뢰성 검증","필수여부":"필수","필요문서":"실적 리스트","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":90},{"프로세스":"설비 사양정의(설비 사양서 작성 단계 (Technical Spec))","구분":"기타","세부검토항목":"인증(CE, ISO 등)","체크포인트":"글로벌 기준 충족","필수여부":"필수","필요문서":"인증서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"품질임원","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":91},{"프로세스":"투자심의","구분":"투자금액","세부검토항목":"CAPEX 규모","체크포인트":"예산 승인 및 투자 타당성 확보","필수여부":"필수","필요문서":"투자심의서","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":92},{"프로세스":"투자심의","구분":"투자금액","세부검토항목":"투자비 상세 내역","체크포인트":"장비/설치/부대비 세부 Breakdown","필수여부":"필수","필요문서":"CAPEX 상세내역","총괄담당부서":"재무팀","합의부서":"구매/생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":93},{"프로세스":"투자심의","구분":"비용 구성","세부검토항목":"장비/설치/부대비","체크포인트":"숨은 비용 포함 여부","필수여부":"필수","필요문서":"견적서","총괄담당부서":"구매팀","합의부서":"재무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":94},{"프로세스":"투자심의","구분":"비용 구성","세부검토항목":"Hidden Cost","체크포인트":"Utility, 유지보수, Spare 비용 포함 여부","필수여부":"필수","필요문서":"비용 분석서","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":95},{"프로세스":"투자심의","구분":"비용 구성","세부검토항목":"LCC 분석","체크포인트":"Life Cycle Cost(총 소유 비용) 분석","필수여부":"필수","필요문서":"LCC 분석서","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":96},{"프로세스":"투자심의","구분":"일정","세부검토항목":"납기 계획","체크포인트":"양산 일정 영향 여부","필수여부":"필수","필요문서":"일정계획서","총괄담당부서":"생산기술팀","합의부서":"생산관리","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":97},{"프로세스":"투자심의","구분":"일정","세부검토항목":"Master Schedule","체크포인트":"전체 프로젝트 일정 및 Critical Path 검증","필수여부":"필수","필요문서":"Master 일정표","총괄담당부서":"PM/생산기술","합의부서":"구매/생산","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":98},{"프로세스":"투자심의","구분":"일정","세부검토항목":"납기 리스크","체크포인트":"지연 가능성 및 대응 계획","필수여부":"필수","필요문서":"일정 리스크 분석","총괄담당부서":"구매/생산기술","합의부서":"PM","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":99},{"프로세스":"투자심의","구분":"Vendor 평가","세부검토항목":"업체 신뢰성","체크포인트":"레퍼런스, 재무 상태","필수여부":"필수","필요문서":"Vendor 평가표","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":100},{"프로세스":"투자심의","구분":"Vendor 평가","세부검토항목":"기술 역량","체크포인트":"H/W, S/W 기술력 및 대응 능력","필수여부":"필수","필요문서":"기술 평가서","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":101},{"프로세스":"투자심의","구분":"Vendor 평가","세부검토항목":"서비스 대응","체크포인트":"A/S 및 유지보수 대응력","필수여부":"필수","필요문서":"서비스 평가서","총괄담당부서":"구매/설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":102},{"프로세스":"투자심의","구분":"리스크","세부검토항목":"일정/기술 리스크","체크포인트":"대응 계획 수립 확인","필수여부":"필수","필요문서":"리스크 관리표","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":103},{"프로세스":"투자심의","구분":"리스크","세부검토항목":"품질 리스크","체크포인트":"초기 수율 및 불량 안정화 계획","필수여부":"필수","필요문서":"품질 리스크 분석","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":104},{"프로세스":"투자심의","구분":"리스크","세부검토항목":"운영 리스크","체크포인트":"유지보수 난이도 및 운영 안정성","필수여부":"필수","필요문서":"운영 리스크 분석","총괄담당부서":"생산기술","합의부서":"설비보전","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":105},{"프로세스":"투자심의","구분":"리스크","세부검토항목":"공급망 리스크","체크포인트":"핵심 부품 수급 및 단종 리스크","필수여부":"필수","필요문서":"공급망 분석서","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":106},{"프로세스":"투자심의","구분":"리스크","세부검토항목":"IT/연동 리스크","체크포인트":"MES/ERP/PLC 연동 실패 가능성","필수여부":"필수","필요문서":"시스템 리스크 분석","총괄담당부서":"IT/MES팀","합의부서":"생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":107},{"프로세스":"투자심의","구분":"수익성","세부검토항목":"ROI 재검증","체크포인트":"IRR, NPV, Payback 검증","필수여부":"필수","필요문서":"재무 분석서","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":108},{"프로세스":"투자심의","구분":"수익성","세부검토항목":"BEP 분석","체크포인트":"손익분기점 도달 시점","필수여부":"필수","필요문서":"BEP 분석서","총괄담당부서":"재무팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":109},{"프로세스":"투자심의","구분":"수익성","세부검토항목":"시나리오 분석","체크포인트":"Best/Normal/Worst Case 분석","필수여부":"필수","필요문서":"시나리오 분석서","총괄담당부서":"재무팀","합의부서":"기획","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":110},{"프로세스":"투자심의","구분":"수익성","세부검토항목":"Cash Flow","체크포인트":"연도별 현금 흐름 분석","필수여부":"필수","필요문서":"Cash Flow 분석서","총괄담당부서":"재무팀","합의부서":"기획","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":111},{"프로세스":"투자심의","구분":"대안 비교","세부검토항목":"Make vs Buy","체크포인트":"내재화 vs 외주 비교 분석","필수여부":"조건부 필수","필요문서":"비교 분석서","총괄담당부서":"생산기술팀","합의부서":"구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":112},{"프로세스":"투자심의","구분":"대안 비교","세부검토항목":"대체 솔루션","체크포인트":"다수 Vendor 및 기술 대안 비교","필수여부":"필수","필요문서":"기술 비교표","총괄담당부서":"생산기술팀","합의부서":"구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":113},{"프로세스":"투자심의","구분":"대안 비교","세부검토항목":"투자 우선순위","체크포인트":"타 투자안 대비 우선순위 평가","필수여부":"필수","필요문서":"투자 우선순위표","총괄담당부서":"기획/재무","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":114},{"프로세스":"투자심의","구분":"실행 가능성","세부검토항목":"프로젝트 조직","체크포인트":"PM 및 수행 조직 구성 여부","필수여부":"필수","필요문서":"프로젝트 조직도","총괄담당부서":"생산기술팀","합의부서":"HR/구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":115},{"프로세스":"투자심의","구분":"실행 가능성","세부검토항목":"수행 역량","체크포인트":"내부/외부 수행 가능성 검증","필수여부":"필수","필요문서":"수행 역량 평가서","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":116},{"프로세스":"투자심의","구분":"실행 가능성","세부검토항목":"변경관리","체크포인트":"Spec 변경 및 Scope 관리 계획","필수여부":"필수","필요문서":"변경관리 계획서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":117},{"프로세스":"투자심의","구분":"운영 준비","세부검토항목":"인력 운영 계획","체크포인트":"운영/정비 인력 확보 및 교육 계획","필수여부":"필수","필요문서":"인력 계획서","총괄담당부서":"생산팀","합의부서":"HR","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":118},{"프로세스":"투자심의","구분":"운영 준비","세부검토항목":"유지보수 전략","체크포인트":"정비 및 Spare 운영 전략","필수여부":"필수","필요문서":"유지보수 계획서","총괄담당부서":"설비보전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":119},{"프로세스":"투자심의","구분":"디지털/시스템","세부검토항목":"MES/ERP 연계","체크포인트":"시스템 연동 가능성 및 구축 계획","필수여부":"필수","필요문서":"시스템 구성도","총괄담당부서":"IT/MES팀","합의부서":"생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":120},{"프로세스":"투자심의","구분":"디지털/시스템","세부검토항목":"데이터 활용","체크포인트":"설비 데이터 수집 및 활용 계획","필수여부":"선택","필요문서":"데이터 전략서","총괄담당부서":"IT/MES팀","합의부서":"품질","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":121},{"프로세스":"투자심의","구분":"최종 승인","세부검토항목":"투자 의사결정","체크포인트":"Go / No-Go 판단 및 승인","필수여부":"필수","필요문서":"투자심의 의결서","총괄담당부서":"경영진","합의부서":"재무/생산기술","승인부서":"CEO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":122},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"계약조건","세부검토항목":"납기, 지불 조건","체크포인트":"Milestone 기반 지급","필수여부":"필수","필요문서":"계약서, PO","총괄담당부서":"구매팀","합의부서":"재무/생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":123},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"계약조건","세부검토항목":"지불 조건 상세","체크포인트":"선금/중도금/잔금 및 성과 연동 지급","필수여부":"필수","필요문서":"지불 조건서","총괄담당부서":"구매팀","합의부서":"재무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":124},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"계약조건","세부검토항목":"납기 정의","체크포인트":"설계/제작/FAT/SAT 단계별 납기 명확화","필수여부":"필수","필요문서":"일정 명세서","총괄담당부서":"구매/생산기술","합의부서":"PM","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":125},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"사양 확정","세부검토항목":"Final Spec Freeze","체크포인트":"변경관리 기준","필수여부":"필수","필요문서":"Final Spec 문서","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":126},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"사양 확정","세부검토항목":"Scope 정의","체크포인트":"공급 범위(Scope of Supply) 명확화","필수여부":"필수","필요문서":"Scope 정의서","총괄담당부서":"생산기술팀","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":127},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"사양 확정","세부검토항목":"변경관리 프로세스","체크포인트":"Change 요청/승인/비용 반영 기준","필수여부":"필수","필요문서":"변경관리 절차서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":128},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"패널티","세부검토항목":"지연/성능 미달","체크포인트":"지체상금 조건","필수여부":"필수","필요문서":"계약서 조항","총괄담당부서":"구매팀","합의부서":"법무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":129},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"패널티","세부검토항목":"성능 미달 패널티","체크포인트":"CT, UPH, Yield 미달 시 보상 조건","필수여부":"필수","필요문서":"성능보증 조건서","총괄담당부서":"구매/생산기술","합의부서":"품질","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":130},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"패널티","세부검토항목":"보증금/Retention","체크포인트":"잔금 보류 및 성능 보증금 설정","필수여부":"필수","필요문서":"계약 조건서","총괄담당부서":"구매팀","합의부서":"재무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":131},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"FAT/SAT","세부검토항목":"검증 기준 명시","체크포인트":"Acceptance Criteria 정의","필수여부":"필수","필요문서":"Acceptance 기준서","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":132},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"FAT/SAT","세부검토항목":"FAT 기준","체크포인트":"Factory Acceptance Test 항목/합격 기준","필수여부":"필수","필요문서":"FAT 체크리스트","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":133},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"FAT/SAT","세부검토항목":"SAT 기준","체크포인트":"Site Acceptance Test 항목/합격 기준","필수여부":"필수","필요문서":"SAT 체크리스트","총괄담당부서":"생산기술","합의부서":"생산/품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":134},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"FAT/SAT","세부검토항목":"재시험 조건","체크포인트":"Fail 시 재시험 및 비용 부담 기준","필수여부":"필수","필요문서":"Test 재수행 기준서","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":135},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"기술문서","세부검토항목":"기술문서 제공 범위","체크포인트":"운영 매뉴얼, 도면 포함 여부","필수여부":"필수","필요문서":"문서 리스트","총괄담당부서":"생산기술팀","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":136},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"기술문서","세부검토항목":"문서 상세 수준","체크포인트":"전기/기계/PLC/프로그램 포함 여부","필수여부":"필수","필요문서":"문서 명세서","총괄담당부서":"생산기술","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":137},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"기술문서","세부검토항목":"소스코드 제공","체크포인트":"PLC/HMI 프로그램 제공 여부","필수여부":"필수","필요문서":"SW 제공 계약서","총괄담당부서":"생산기술","합의부서":"IT","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":138},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"기술문서","세부검토항목":"문서 제출 시점","체크포인트":"FAT 전/설치 전 문서 제출 기준","필수여부":"필수","필요문서":"문서 일정표","총괄담당부서":"생산기술","합의부서":"PM","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":139},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"교육","세부검토항목":"운영자 교육","체크포인트":"운영자 교육 여부","필수여부":"필수","필요문서":"교육 계획서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":140},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"교육","세부검토항목":"정비 교육","체크포인트":"설비 유지보수 교육 포함 여부","필수여부":"필수","필요문서":"정비 교육 계획서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":141},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"교육","세부검토항목":"교육 검증","체크포인트":"교육 완료 및 숙련도 평가","필수여부":"필수","필요문서":"교육 결과 보고서","총괄담당부서":"생산/설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":142},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"A/S","세부검토항목":"보증기간","체크포인트":"유지보수 조건","필수여부":"필수","필요문서":"유지보수 계약","총괄담당부서":"구매팀","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":143},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"A/S","세부검토항목":"보증 범위","체크포인트":"부품/공임/출장 비용 포함 여부","필수여부":"필수","필요문서":"A/S 조건서","총괄담당부서":"구매팀","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":144},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"A/S","세부검토항목":"대응 SLA","체크포인트":"고장 대응 시간 및 복구 시간 기준","필수여부":"필수","필요문서":"SLA 계약서","총괄담당부서":"구매/설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":145},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"Spare","세부검토항목":"예비품 계약","체크포인트":"Critical Spare 공급 조건","필수여부":"필수","필요문서":"Spare 계약서","총괄담당부서":"구매팀","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":146},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"Spare","세부검토항목":"초기 Spare","체크포인트":"초기 예비품 포함 여부 및 수량","필수여부":"필수","필요문서":"Spare List","총괄담당부서":"설비보전","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":147},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"리스크","세부검토항목":"납기 리스크","체크포인트":"납기 지연 대응 및 대체 계획","필수여부":"필수","필요문서":"리스크 대응계획","총괄담당부서":"구매/생산기술","합의부서":"PM","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":148},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"리스크","세부검토항목":"기술 리스크","체크포인트":"성능 미달 대응 및 개선 책임 정의","필수여부":"필수","필요문서":"기술 리스크 계약서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":149},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"리스크","세부검토항목":"공급망 리스크","체크포인트":"핵심 부품 공급 안정성 확보","필수여부":"필수","필요문서":"부품 공급 계약","총괄담당부서":"구매팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":150},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"디지털/시스템","세부검토항목":"MES/PLC 연동","체크포인트":"시스템 연동 책임 및 범위 정의","필수여부":"필수","필요문서":"Interface 계약서","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":151},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"디지털/시스템","세부검토항목":"데이터 소유권","체크포인트":"설비 데이터 소유 및 활용 권한","필수여부":"필수","필요문서":"데이터 계약서","총괄담당부서":"IT/MES팀","합의부서":"법무","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":152},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"검수/지급","세부검토항목":"검수 기준","체크포인트":"단계별 검수 및 지급 조건 연계","필수여부":"필수","필요문서":"검수 기준서","총괄담당부서":"구매팀","합의부서":"생산기술/재무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":153},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"검수/지급","세부검토항목":"지급 Gate","체크포인트":"FAT/SAT 합격 기준 연동 지급","필수여부":"필수","필요문서":"지급 기준표","총괄담당부서":"재무팀","합의부서":"구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":154},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"계약","세부검토항목":"계약서","체크포인트":"최종 계약서 검토 및 계약 체결","필수여부":"필수","필요문서":"계약서 원본","총괄담당부서":"구매팀","합의부서":"법무","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":155},{"프로세스":"발주(발주 단계 (PO / 계약))","구분":"계약","세부검토항목":"법무 검토","체크포인트":"법적 리스크 및 계약 조건 검토","필수여부":"필수","필요문서":"법무 검토서","총괄담당부서":"법무팀","합의부서":"구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":156},{"프로세스":"제작","구분":"설계 검토","세부검토항목":"Design Review","체크포인트":"설계(DR:Design Review) 승인","필수여부":"필수","필요문서":"DR 회의록","총괄담당부서":"생산기술팀","합의부서":"품질/설비","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":157},{"프로세스":"제작","구분":"설계 검토","세부검토항목":"설계 완성도","체크포인트":"2D/3D, 전기/제어 도면 완성도 검증","필수여부":"필수","필요문서":"설계 검토 체크리스트","총괄담당부서":"생산기술팀","합의부서":"설비/품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":158},{"프로세스":"제작","구분":"설계 검토","세부검토항목":"리스크 반영","체크포인트":"과거 문제/리스크 반영 여부","필수여부":"필수","필요문서":"설계 FMEA","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":159},{"프로세스":"제작","구분":"제작 일정","세부검토항목":"Progress 관리","체크포인트":"주간 진척 관리","필수여부":"필수","필요문서":"Progress Report","총괄담당부서":"Vendor / 생산기술","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":160},{"프로세스":"제작","구분":"제작 일정","세부검토항목":"Master Schedule","체크포인트":"전체 일정 및 Critical Path 관리","필수여부":"필수","필요문서":"Master 일정표","총괄담당부서":"PM/생산기술","합의부서":"구매","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":161},{"프로세스":"제작","구분":"제작 일정","세부검토항목":"납기 리스크","체크포인트":"지연 요인 및 대응 계획","필수여부":"필수","필요문서":"일정 리스크 보고서","총괄담당부서":"생산기술","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":162},{"프로세스":"제작","구분":"품질 관리","세부검토항목":"제작 품질","체크포인트":"부품/조립 품질 확보 여부","필수여부":"필수","필요문서":"검사 성적서","총괄담당부서":"Vendor / 품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":163},{"프로세스":"제작","구분":"품질 관리","세부검토항목":"부품 검증","체크포인트":"주요 부품 인증 및 Spec 적합성","필수여부":"필수","필요문서":"부품 승인서","총괄담당부서":"품질팀","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":164},{"프로세스":"제작","구분":"품질 관리","세부검토항목":"조립 품질","체크포인트":"조립 정밀도 및 품질 기준 충족","필수여부":"필수","필요문서":"조립 검사표","총괄담당부서":"Vendor","합의부서":"품질/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":165},{"프로세스":"제작","구분":"품질 관리","세부검토항목":"공정능력","체크포인트":"초기 Cpk 확보 가능성 검증","필수여부":"필수","필요문서":"공정능력 분석서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":166},{"프로세스":"제작","구분":"변경관리","세부검토항목":"설계 변경","체크포인트":"Change Control","필수여부":"필수","필요문서":"Change Log","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":167},{"프로세스":"제작","구분":"변경관리","세부검토항목":"변경 영향 분석","체크포인트":"성능/비용/일정 영향 평가","필수여부":"필수","필요문서":"변경 영향 분석서","총괄담당부서":"생산기술","합의부서":"재무/품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":168},{"프로세스":"제작","구분":"변경관리","세부검토항목":"변경 승인 프로세스","체크포인트":"변경 승인 및 이력 관리","필수여부":"필수","필요문서":"변경 승인서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":169},{"프로세스":"제작","구분":"중간검사","세부검토항목":"Pre-FAT","체크포인트":"사전 점검","필수여부":"필수","필요문서":"사전 점검표","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":170},{"프로세스":"제작","구분":"중간검사","세부검토항목":"공정 점검","체크포인트":"제작 단계별 중간 품질 점검","필수여부":"필수","필요문서":"중간 검사 기록","총괄담당부서":"Vendor","합의부서":"품질/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":171},{"프로세스":"제작","구분":"중간검사","세부검토항목":"문제 개선","체크포인트":"Punch List 관리 및 개선 완료","필수여부":"필수","필요문서":"Punch List","총괄담당부서":"Vendor/생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":172},{"프로세스":"제작","구분":"FAT 준비","세부검토항목":"Test 시나리오","체크포인트":"기준 충족 여부","필수여부":"필수","필요문서":"FAT Test Plan","총괄담당부서":"생산기술팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":173},{"프로세스":"제작","구분":"FAT 준비","세부검토항목":"FAT 기준 정합성","체크포인트":"Spec vs FAT 기준 일치 여부","필수여부":"필수","필요문서":"FAT 기준서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":174},{"프로세스":"제작","구분":"FAT 준비","세부검토항목":"시험 환경 준비","체크포인트":"유틸리티/자재/조건 준비 여부","필수여부":"필수","필요문서":"FAT 준비 체크리스트","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":175},{"프로세스":"제작","구분":"FAT 준비","세부검토항목":"시험 장비 검증","체크포인트":"측정 장비 및 계측기 검교정","필수여부":"필수","필요문서":"계측기 교정서","총괄담당부서":"품질팀","합의부서":"Vendor","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":176},{"프로세스":"제작","구분":"제어/프로그램","세부검토항목":"PLC/HMI 개발","체크포인트":"제어 로직 및 프로그램 완성도","필수여부":"필수","필요문서":"PLC/HMI 명세서","총괄담당부서":"Vendor","합의부서":"생산기술/IT","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"4주","목표일정":"","id":177},{"프로세스":"제작","구분":"제어/프로그램","세부검토항목":"디버깅","체크포인트":"시뮬레이션 및 사전 오류 제거","필수여부":"필수","필요문서":"디버깅 보고서","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":178},{"프로세스":"제작","구분":"제어/프로그램","세부검토항목":"소스코드 관리","체크포인트":"프로그램 버전 및 백업 관리","필수여부":"필수","필요문서":"SW 관리대장","총괄담당부서":"Vendor","합의부서":"IT/생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":179},{"프로세스":"제작","구분":"인터페이스","세부검토항목":"MES/PLC 연동","체크포인트":"신호 및 데이터 인터페이스 검증","필수여부":"필수","필요문서":"Interface Test 결과서","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":180},{"프로세스":"제작","구분":"인터페이스","세부검토항목":"데이터 검증","체크포인트":"생산/품질/알람 데이터 정상 수집","필수여부":"필수","필요문서":"데이터 검증 보고서","총괄담당부서":"MES팀","합의부서":"품질","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":181},{"프로세스":"제작","구분":"유틸리티","세부검토항목":"전기/에어 연결","체크포인트":"설비 동작 조건 충족 여부","필수여부":"필수","필요문서":"Utility 체크리스트","총괄담당부서":"Vendor","합의부서":"시설/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":182},{"프로세스":"제작","구분":"유틸리티","세부검토항목":"에너지 안정성","체크포인트":"전원/공압 안정성 확보","필수여부":"필수","필요문서":"유틸리티 점검표","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":183},{"프로세스":"제작","구분":"안전","세부검토항목":"안전 검증","체크포인트":"인터락/E-Stop 정상 동작","필수여부":"필수","필요문서":"안전 점검표","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":184},{"프로세스":"제작","구분":"안전","세부검토항목":"위험성 제거","체크포인트":"위험 요소 사전 제거","필수여부":"필수","필요문서":"위험성 평가 개선서","총괄담당부서":"안전팀","합의부서":"Vendor","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":185},{"프로세스":"제작","구분":"문서","세부검토항목":"기술 문서 준비","체크포인트":"FAT 전 제출 문서 완료 여부","필수여부":"필수","필요문서":"문서 리스트","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":186},{"프로세스":"제작","구분":"문서","세부검토항목":"매뉴얼 작성","체크포인트":"운영/정비 매뉴얼 초안 작성","필수여부":"필수","필요문서":"매뉴얼 초안","총괄담당부서":"Vendor","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":187},{"프로세스":"제작","구분":"운영 준비","세부검토항목":"작업성 검증","체크포인트":"작업 편의성 및 HMI 사용성 확인","필수여부":"필수","필요문서":"작업성 평가서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":188},{"프로세스":"제작","구분":"운영 준비","세부검토항목":"정비성 검증","체크포인트":"정비 접근성 및 유지보수 용이성","필수여부":"필수","필요문서":"정비성 평가서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":189},{"프로세스":"FAT(상세 Check List)","구분":"기본 기능","세부검토항목":"설비 동작","체크포인트":"Start/Stop 정상 동작","필수여부":"필수","필요문서":"FAT Report","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":190},{"프로세스":"FAT(상세 Check List)","구분":"기본 기능","세부검토항목":"이상 상황 동작","체크포인트":"Error/Alarm 상황에서 안전 정지 및 복구 가능","필수여부":"필수","필요문서":"비상 시나리오 테스트 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":191},{"프로세스":"FAT(상세 Check List)","구분":"기능 테스트","세부검토항목":"설비 기능 검증","체크포인트":"Spec 충족 여부","필수여부":"필수","필요문서":"시험 결과서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":192},{"프로세스":"FAT(상세 Check List)","구분":"기능 테스트","세부검토항목":"운전 모드 검증","체크포인트":"Auto/Manual/Setup/Recovery 정상 동작","필수여부":"필수","필요문서":"운전 모드 테스트 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":193},{"프로세스":"FAT(상세 Check List)","구분":"기본 기능","세부검토항목":"Cycle 동작","체크포인트":"자동 Cycle 반복 수행","필수여부":"필수","필요문서":"Cycle Test 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":194},{"프로세스":"FAT(상세 Check List)","구분":"기본 기능","세부검토항목":"연속 운전","체크포인트":"장시간 반복 운전 안정성 검증","필수여부":"필수","필요문서":"연속운전 테스트 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":195},{"프로세스":"FAT(상세 Check List)","구분":"성능 테스트","세부검토항목":"Cycle Time","체크포인트":"목표 CT 달성 여부","필수여부":"필수","필요문서":"CT 측정 데이터","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":196},{"프로세스":"FAT(상세 Check List)","구분":"성능","세부검토항목":"생산능력","체크포인트":"UPH 기준 만족","필수여부":"필수","필요문서":"성능 시험 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":197},{"프로세스":"FAT(상세 Check List)","구분":"성능","세부검토항목":"OEE 검증","체크포인트":"가용성/성능/품질 기준 충족 여부","필수여부":"필수","필요문서":"OEE 분석서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":198},{"프로세스":"FAT(상세 Check List)","구분":"성능","세부검토항목":"수율(Yield)","체크포인트":"초기 수율 목표 충족 여부","필수여부":"필수","필요문서":"수율 분석서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":199},{"프로세스":"FAT(상세 Check List)","구분":"제어","세부검토항목":"Recipe 기능","체크포인트":"조건 저장/호출 정상","필수여부":"필수","필요문서":"기능 테스트 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":200},{"프로세스":"FAT(상세 Check List)","구분":"제어","세부검토항목":"파라미터 설정","체크포인트":"공정 변수 설정 가능","필수여부":"필수","필요문서":"설정 검증서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":201},{"프로세스":"FAT(상세 Check List)","구분":"제어","세부검토항목":"파라미터 권한","체크포인트":"사용자 권한별 설정 제한","필수여부":"필수","필요문서":"권한 관리 기준서","총괄담당부서":"생산기술","합의부서":"IT","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":202},{"프로세스":"FAT(상세 Check List)","구분":"인터락","세부검토항목":"안전 기능","체크포인트":"비상정지, 센서","필수여부":"필수","필요문서":"안전 점검표","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":203},{"프로세스":"FAT(상세 Check List)","구분":"안전","세부검토항목":"비상정지 (E-Stop)","체크포인트":"작동 시 즉시 정지","필수여부":"필수","필요문서":"안전 시험 결과","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":204},{"프로세스":"FAT(상세 Check List)","구분":"안전","세부검토항목":"인터락","체크포인트":"안전 조건 미충족 시 동작 제한","필수여부":"필수","필요문서":"인터락 검증서","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":205},{"프로세스":"FAT(상세 Check List)","구분":"안전","세부검토항목":"위험성 검증","체크포인트":"Risk Assessment 반영 여부","필수여부":"필수","필요문서":"위험성 평가서","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":206},{"프로세스":"FAT(상세 Check List)","구분":"품질 테스트","세부검토항목":"검사 기능","체크포인트":"검사 로직 정상 수행","필수여부":"필수","필요문서":"검사 결과","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":207},{"프로세스":"FAT(상세 Check List)","구분":"품질 테스트","세부검토항목":"불량 처리","체크포인트":"NG 처리 및 분리","필수여부":"필수","필요문서":"NG 처리 검증","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":208},{"프로세스":"FAT(상세 Check List)","구분":"품질 테스트","세부검토항목":"불량 검출","체크포인트":"검사 정확도 (검출율/오검율)","필수여부":"필수","필요문서":"검사 정확도 보고서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":209},{"프로세스":"FAT(상세 Check List)","구분":"품질 테스트","세부검토항목":"트레이서빌리티","체크포인트":"LOT/Serial 추적 가능 여부","필수여부":"필수","필요문서":"Traceability Test 결과","총괄담당부서":"품질/MES","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":210},{"프로세스":"FAT(상세 Check List)","구분":"인터페이스","세부검토항목":"PLC 통신","체크포인트":"내부 제어 통신 정상","필수여부":"필수","필요문서":"통신 Test 결과","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":211},{"프로세스":"FAT(상세 Check List)","구분":"인터페이스","세부검토항목":"MES/EAP","체크포인트":"데이터 송수신 테스트","필수여부":"필수","필요문서":"Interface Test","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":212},{"프로세스":"FAT(상세 Check List)","구분":"인터페이스","세부검토항목":"데이터 정확성","체크포인트":"생산/품질 데이터 정합성 검증","필수여부":"필수","필요문서":"데이터 검증 보고서","총괄담당부서":"MES팀","합의부서":"품질","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":213},{"프로세스":"FAT(상세 Check List)","구분":"알람","세부검토항목":"알람 발생","체크포인트":"이상 시 알람 발생","필수여부":"필수","필요문서":"알람 리스트","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":214},{"프로세스":"FAT(상세 Check List)","구분":"알람","세부검토항목":"알람 로그","체크포인트":"이력 저장 기능","필수여부":"필수","필요문서":"로그 기록","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":215},{"프로세스":"FAT(상세 Check List)","구분":"알람","세부검토항목":"알람 대응","체크포인트":"알람별 조치 가이드 제공","필수여부":"필수","필요문서":"알람 매뉴얼","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":216},{"프로세스":"FAT(상세 Check List)","구분":"유틸리티","세부검토항목":"전기","체크포인트":"전원 안정성","필수여부":"필수","필요문서":"전기 점검표","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":217},{"프로세스":"FAT(상세 Check List)","구분":"유틸리티","세부검토항목":"공압","체크포인트":"Air 압력 유지","필수여부":"필수","필요문서":"Utility 점검표","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":218},{"프로세스":"FAT(상세 Check List)","구분":"유틸리티","세부검토항목":"소비량 검증","체크포인트":"전력/에어 소비량 Spec 대비 확인","필수여부":"필수","필요문서":"Utility 측정 보고서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":219},{"프로세스":"FAT(상세 Check List)","구분":"외관","세부검토항목":"설비 상태","체크포인트":"외관/배선 정리","필수여부":"필수","필요문서":"검사 체크리스트","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":220},{"프로세스":"FAT(상세 Check List)","구분":"외관","세부검토항목":"표준 준수","체크포인트":"배선/라벨링/색상 표준 준수","필수여부":"필수","필요문서":"외관 검사표","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":221},{"프로세스":"FAT(상세 Check List)","구분":"문서 확인","세부검토항목":"매뉴얼","체크포인트":"운영/정비 매뉴얼 제공","필수여부":"필수","필요문서":"운영/정비 매뉴얼","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":222},{"프로세스":"FAT(상세 Check List)","구분":"문서 확인","세부검토항목":"도면","체크포인트":"전기/기계 도면 제공","필수여부":"필수","필요문서":"전기도면/기계도면","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":223},{"프로세스":"FAT(상세 Check List)","구분":"문서 확인","세부검토항목":"프로그램","체크포인트":"PLC/HMI 소스코드 제공","필수여부":"필수","필요문서":"SW 백업 파일","총괄담당부서":"Vendor","합의부서":"IT/생산기술","승인부서":"CTO","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":224},{"프로세스":"FAT(상세 Check List)","구분":"문서 확인","세부검토항목":"매뉴얼","체크포인트":"설비동작 및 엔지니어 교육 자료","필수여부":"필수","필요문서":"교육자료","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":225},{"프로세스":"FAT(상세 Check List)","구분":"계측","세부검토항목":"측정 신뢰성","체크포인트":"계측기 검교정 상태 확인","필수여부":"필수","필요문서":"교정 성적서","총괄담당부서":"품질팀","합의부서":"Vendor","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":226},{"프로세스":"FAT(상세 Check List)","구분":"계측","세부검토항목":"측정 반복성","체크포인트":"측정값 반복성/재현성 검증","필수여부":"필수","필요문서":"MSA 결과서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":227},{"프로세스":"FAT(상세 Check List)","구분":"운영성","세부검토항목":"작업성 검증","체크포인트":"작업 편의성 및 동선 확인","필수여부":"필수","필요문서":"작업성 평가서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":228},{"프로세스":"FAT(상세 Check List)","구분":"운영성","세부검토항목":"정비성 검증","체크포인트":"정비 접근성 및 유지보수 용이성","필수여부":"필수","필요문서":"정비성 평가서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":229},{"프로세스":"FAT(상세 Check List)","구분":"Issue 관리","세부검토항목":"Punch List","체크포인트":"개선 항목","필수여부":"필수","필요문서":"Issue List","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":230},{"프로세스":"FAT(상세 Check List)","구분":"Issue 관리","세부검토항목":"조치 완료","체크포인트":"개선 항목 완료 및 재검증","필수여부":"필수","필요문서":"개선 완료 보고서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":231},{"프로세스":"FAT(상세 Check List)","구분":"재시험","세부검토항목":"재시험 기준","체크포인트":"Fail 항목 재시험 조건 및 기준","필수여부":"필수","필요문서":"재시험 기준서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":232},{"프로세스":"FAT(상세 Check List)","구분":"재시험","세부검토항목":"합격 기준","체크포인트":"Go/No-Go 명확 기준 정의","필수여부":"필수","필요문서":"합격 기준서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":233},{"프로세스":"FAT(상세 Check List)","구분":"종합","세부검토항목":"FAT 결과","체크포인트":"주요 기능/성능 종합 평가","필수여부":"필수","필요문서":"FAT 승인서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":234},{"프로세스":"출하(물류/통관)","구분":"포장","세부검토항목":"운송 포장","체크포인트":"파손 방지","필수여부":"필수","필요문서":"Packing List","총괄담당부서":"구매","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":235},{"프로세스":"출하(물류/통관)","구분":"포장","세부검토항목":"포장 기준","체크포인트":"방진/방습/충격 보호 기준 적용 여부","필수여부":"필수","필요문서":"포장 사양서","총괄담당부서":"Vendor/구매","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":236},{"프로세스":"출하(물류/통관)","구분":"포장","세부검토항목":"포장 검수","체크포인트":"출하 전 포장 상태 검증 및 사진 기록","필수여부":"필수","필요문서":"포장 검수 체크리스트","총괄담당부서":"Vendor","합의부서":"구매/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":237},{"프로세스":"출하(물류/통관)","구분":"포장","세부검토항목":"중량물 포장","체크포인트":"중량/대형 설비 특수 포장 적용","필수여부":"필수","필요문서":"중량물 포장 계획서","총괄담당부서":"Vendor","합의부서":"구매/시설","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":238},{"프로세스":"출하(물류/통관)","구분":"운송","세부검토항목":"해상/항공","체크포인트":"일정 관리","필수여부":"필수","필요문서":"BL / 운송계약","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":239},{"프로세스":"출하(물류/통관)","구분":"운송","세부검토항목":"운송 방식 선정","체크포인트":"해상/항공/육상 최적 방식 선정","필수여부":"필수","필요문서":"운송 계획서","총괄담당부서":"구매","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":240},{"프로세스":"출하(물류/통관)","구분":"운송","세부검토항목":"운송 일정 관리","체크포인트":"출하~입고까지 일정 추적 관리","필수여부":"필수","필요문서":"운송 일정표","총괄담당부서":"구매","합의부서":"PM/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":241},{"프로세스":"출하(물류/통관)","구분":"운송","세부검토항목":"운송 리스크","체크포인트":"지연/파손/분실 대응 계획","필수여부":"필수","필요문서":"운송 리스크 관리표","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":242},{"프로세스":"출하(물류/통관)","구분":"운송","세부검토항목":"하역 계획","체크포인트":"항구/공항 하역 및 이동 계획","필수여부":"필수","필요문서":"하역 계획서","총괄담당부서":"구매","합의부서":"물류/시설","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":243},{"프로세스":"출하(물류/통관)","구분":"통관","세부검토항목":"수입 절차","체크포인트":"문서완비, HS Code, 관세","필수여부":"필수","필요문서":"수입신고서","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":244},{"프로세스":"출하(물류/통관)","구분":"통관","세부검토항목":"HS Code 검증","체크포인트":"품목 분류 정확성 및 관세율 검증","필수여부":"필수","필요문서":"HS Code 검토서","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":245},{"프로세스":"출하(물류/통관)","구분":"통관","세부검토항목":"통관 서류","체크포인트":"Invoice, Packing List, BL 등 완비","필수여부":"필수","필요문서":"통관 서류 세트","총괄담당부서":"구매","합의부서":"Vendor","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":246},{"프로세스":"출하(물류/통관)","구분":"통관","세부검토항목":"통관 리스크","체크포인트":"지연 및 추가 비용 발생 가능성","필수여부":"필수","필요문서":"통관 리스크 분석서","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":247},{"프로세스":"출하(물류/통관)","구분":"통관","세부검토항목":"인허가 대응","체크포인트":"특수 장비 수입 승인/인증 여부","필수여부":"조건부 필수","필요문서":"인허가 서류","총괄담당부서":"구매","합의부서":"법무/안전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":248},{"프로세스":"출하(물류/통관)","구분":"보험","세부검토항목":"운송 보험","체크포인트":"리스크 대응, 손상 대비","필수여부":"필수","필요문서":"보험증서","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":249},{"프로세스":"출하(물류/통관)","구분":"보험","세부검토항목":"보험 범위","체크포인트":"파손/분실/지연 포함 여부","필수여부":"필수","필요문서":"보험 계약서","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":250},{"프로세스":"출하(물류/통관)","구분":"보험","세부검토항목":"클레임 절차","체크포인트":"사고 발생 시 보상 절차 정의","필수여부":"필수","필요문서":"보험 클레임 절차서","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":251},{"프로세스":"출하(물류/통관)","구분":"반입 계획","세부검토항목":"공장 입고","체크포인트":"크레인, 이동","필수여부":"필수","필요문서":"반입 계획서","총괄담당부서":"생산기술","합의부서":"시설","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":252},{"프로세스":"출하(물류/통관)","구분":"반입 계획","세부검토항목":"장비 반입 동선","체크포인트":"공장 내 이동 경로 및 장애물 확인","필수여부":"필수","필요문서":"반입 동선도","총괄담당부서":"생산기술","합의부서":"시설/안전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":253},{"프로세스":"출하(물류/통관)","구분":"반입 계획","세부검토항목":"중량물 장비 계획","체크포인트":"크레인/지게차 용량 및 작업 계획","필수여부":"필수","필요문서":"중량물 작업 계획서","총괄담당부서":"시설팀","합의부서":"안전/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":254},{"프로세스":"출하(물류/통관)","구분":"반입 계획","세부검토항목":"설치 일정 연계","체크포인트":"설치 일정과 반입 일정 정합성","필수여부":"필수","필요문서":"설치 연계 일정표","총괄담당부서":"생산기술","합의부서":"PM","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":255},{"프로세스":"출하(물류/통관)","구분":"반입","세부검토항목":"현장 반입","체크포인트":"안전 확보","필수여부":"필수","필요문서":"반입 체크리스트","총괄담당부서":"생산기술","합의부서":"안전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":256},{"프로세스":"출하(물류/통관)","구분":"반입","세부검토항목":"하역 작업","체크포인트":"하역 시 안전 및 설비 손상 방지","필수여부":"필수","필요문서":"하역 작업 체크리스트","총괄담당부서":"시설팀","합의부서":"안전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":257},{"프로세스":"출하(물류/통관)","구분":"반입","세부검토항목":"설비 상태 확인","체크포인트":"반입 후 외관/손상 여부 확인","필수여부":"필수","필요문서":"입고 검사표","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":258},{"프로세스":"출하(물류/통관)","구분":"반입","세부검토항목":"부품 확인","체크포인트":"누락/파손 여부 확인","필수여부":"필수","필요문서":"부품 확인 리스트","총괄담당부서":"생산기술","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":259},{"프로세스":"출하(물류/통관)","구분":"리스크 관리","세부검토항목":"손상 리스크","체크포인트":"운송 중 파손 대응 계획","필수여부":"필수","필요문서":"손상 대응 절차서","총괄담당부서":"구매","합의부서":"재무","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":260},{"프로세스":"출하(물류/통관)","구분":"리스크 관리","세부검토항목":"지연 리스크","체크포인트":"납기 지연 시 대응 계획","필수여부":"필수","필요문서":"지연 대응 계획서","총괄담당부서":"구매","합의부서":"PM","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":261},{"프로세스":"출하(물류/통관)","구분":"리스크 관리","세부검토항목":"비용 리스크","체크포인트":"추가 운송/보관 비용 발생 대응","필수여부":"필수","필요문서":"비용 리스크 분석서","총괄담당부서":"재무","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":262},{"프로세스":"출하(물류/통관)","구분":"문서 관리","세부검토항목":"출하 문서 관리","체크포인트":"출하/운송/통관 문서 관리 체계","필수여부":"필수","필요문서":"문서 관리대장","총괄담당부서":"구매","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":263},{"프로세스":"출하(물류/통관)","구분":"문서 관리","세부검토항목":"이력 관리","체크포인트":"운송 및 반입 이력 기록","필수여부":"필수","필요문서":"이력 관리대장","총괄담당부서":"구매","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":264},{"프로세스":"설치","구분":"반입","세부검토항목":"장비 이동","체크포인트":"안전","필수여부":"필수","필요문서":"작업 계획서","총괄담당부서":"생산기술","합의부서":"안전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":265},{"프로세스":"설치","구분":"반입","세부검토항목":"중량물 작업","체크포인트":"크레인/지게차 용량 및 작업 안전성","필수여부":"필수","필요문서":"중량물 작업 계획서","총괄담당부서":"시설팀","합의부서":"안전/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":266},{"프로세스":"설치","구분":"반입","세부검토항목":"설비 상태 확인","체크포인트":"운송 후 파손/변형 여부 확인","필수여부":"필수","필요문서":"입고 검사표","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":267},{"프로세스":"설치","구분":"설치","세부검토항목":"기계 설치","체크포인트":"수평/수직, Leveling","필수여부":"필수","필요문서":"설치 보고서","총괄담당부서":"생산기술","합의부서":"설비","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":268},{"프로세스":"설치","구분":"설치","세부검토항목":"고정 상태","체크포인트":"Anchor bolt 및 진동 방지 상태","필수여부":"필수","필요문서":"설치 체크리스트","총괄담당부서":"생산기술","합의부서":"설비","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":269},{"프로세스":"설치","구분":"설치","세부검토항목":"설치 위치","체크포인트":"Layout 도면과 일치 여부","필수여부":"필수","필요문서":"Layout 검증서","총괄담당부서":"생산기술","합의부서":"시설","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":270},{"프로세스":"설치","구분":"Utility 연결","세부검토항목":"전기/에어","체크포인트":"안정 공급 여부","필수여부":"필수","필요문서":"Utility 점검표","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":271},{"프로세스":"설치","구분":"Utility 연결","세부검토항목":"전기 연결","체크포인트":"전압/전류/접지 상태 적합성","필수여부":"필수","필요문서":"전기 점검표","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":272},{"프로세스":"설치","구분":"Utility 연결","세부검토항목":"공압/냉각","체크포인트":"압력/유량/온도 조건 충족","필수여부":"필수","필요문서":"Utility 측정 보고서","총괄담당부서":"시설팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":273},{"프로세스":"설치","구분":"Utility 연결","세부검토항목":"네트워크","체크포인트":"MES/PLC 통신 환경 구축","필수여부":"필수","필요문서":"네트워크 구성도","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":274},{"프로세스":"설치","구분":"Alignment","세부검토항목":"정밀 조정","체크포인트":"정렬 정확도","필수여부":"필수","필요문서":"정렬 측정 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":275},{"프로세스":"설치","구분":"Alignment","세부검토항목":"정밀도 검증","체크포인트":"설비 간 정렬 및 공정 기준 만족","필수여부":"필수","필요문서":"정밀도 측정 보고서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":276},{"프로세스":"설치","구분":"Alignment","세부검토항목":"재조정 기준","체크포인트":"허용 오차 및 재조정 기준 정의","필수여부":"필수","필요문서":"정렬 기준서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":277},{"프로세스":"설치","구분":"Dry Run","세부검토항목":"무부하 테스트","체크포인트":"기본 동작 확인","필수여부":"필수","필요문서":"시운전 기록","총괄담당부서":"생산기술","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":278},{"프로세스":"설치","구분":"Dry Run","세부검토항목":"동작 안정성","체크포인트":"이상 진동/소음/간섭 여부","필수여부":"필수","필요문서":"Dry Run 결과서","총괄담당부서":"생산기술","합의부서":"설비보전","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":279},{"프로세스":"설치","구분":"Dry Run","세부검토항목":"제어 검증","체크포인트":"PLC/HMI 기본 제어 정상 동작","필수여부":"필수","필요문서":"제어 테스트 결과","총괄담당부서":"Vendor/생산기술","합의부서":"IT","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":280},{"프로세스":"설치","구분":"안전","세부검토항목":"안전 점검","체크포인트":"위험 요소 제거","필수여부":"필수","필요문서":"안전 점검표","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":281},{"프로세스":"설치","구분":"안전","세부검토항목":"안전장치","체크포인트":"인터락/E-Stop 정상 동작","필수여부":"필수","필요문서":"안전 검증서","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":282},{"프로세스":"설치","구분":"안전","세부검토항목":"작업 안전성","체크포인트":"작업자 접근 및 위험 구역 관리","필수여부":"필수","필요문서":"위험성 평가서","총괄담당부서":"안전팀","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":283},{"프로세스":"설치","구분":"인터페이스","세부검토항목":"설비 연동","체크포인트":"전/후공정 설비 연결 상태","필수여부":"필수","필요문서":"연동 체크리스트","총괄담당부서":"생산기술","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":284},{"프로세스":"설치","구분":"인터페이스","세부검토항목":"데이터 연동","체크포인트":"MES/EAP 데이터 송수신 준비","필수여부":"필수","필요문서":"Interface 점검표","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":285},{"프로세스":"설치","구분":"품질","세부검토항목":"설치 품질 검증","체크포인트":"설치 상태가 품질 영향 없는지 검증","필수여부":"필수","필요문서":"설치 품질 점검표","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":286},{"프로세스":"설치","구분":"품질","세부검토항목":"초기 공정 조건","체크포인트":"기본 공정 조건 세팅 가능 여부","필수여부":"필수","필요문서":"공정 조건 설정서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":287},{"프로세스":"설치","구분":"운영 준비","세부검토항목":"작업성 검증","체크포인트":"작업자 접근성 및 사용성 확인","필수여부":"필수","필요문서":"작업성 평가서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":288},{"프로세스":"설치","구분":"운영 준비","세부검토항목":"정비성 검증","체크포인트":"정비 공간 및 접근성 확보","필수여부":"필수","필요문서":"정비성 평가서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":289},{"프로세스":"설치","구분":"SAT 준비","세부검토항목":"SAT 조건 확인","체크포인트":"SAT 시험 조건 사전 준비","필수여부":"필수","필요문서":"SAT 준비 체크리스트","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":290},{"프로세스":"설치","구분":"SAT 준비","세부검토항목":"자재 준비","체크포인트":"시운전용 자재/제품 준비","필수여부":"필수","필요문서":"자재 준비 리스트","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":291},{"프로세스":"설치","구분":"문서","세부검토항목":"설치 문서","체크포인트":"설치 및 변경 이력 기록","필수여부":"필수","필요문서":"설치 이력서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":292},{"프로세스":"설치","구분":"문서","세부검토항목":"도면 업데이트","체크포인트":"As-built 도면 반영","필수여부":"필수","필요문서":"As-built 도면","총괄담당부서":"생산기술","합의부서":"Vendor","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":293},{"프로세스":"설치","구분":"리스크 관리","세부검토항목":"설치 리스크","체크포인트":"설치 중 문제 및 대응 계획","필수여부":"필수","필요문서":"리스크 관리표","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":294},{"프로세스":"설치","구분":"리스크 관리","세부검토항목":"지연 리스크","체크포인트":"설치 지연 시 대응 계획","필수여부":"필수","필요문서":"일정 대응 계획서","총괄담당부서":"생산기술","합의부서":"PM","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":295},{"프로세스":"시운전/SAT","구분":"설치","세부검토항목":"설비 설치 상태","체크포인트":"수평/고정 상태","필수여부":"필수","필요문서":"설치 점검표","총괄담당부서":"생산기술","합의부서":"설비","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":296},{"프로세스":"시운전/SAT","구분":"설치","세부검토항목":"설비 정합성","체크포인트":"As-built 도면과 설치 상태 일치 여부","필수여부":"필수","필요문서":"설치 검증서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":297},{"프로세스":"시운전/SAT","구분":"설치","세부검토항목":"유틸리티 연결","체크포인트":"전기/Air/네트워크","필수여부":"필수","필요문서":"Utility 체크","총괄담당부서":"시설","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":298},{"프로세스":"시운전/SAT","구분":"설치","세부검토항목":"유틸리티 안정성","체크포인트":"전압/압력/온도 안정성 검증","필수여부":"필수","필요문서":"Utility 측정 보고서","총괄담당부서":"시설","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":299},{"프로세스":"시운전/SAT","구분":"기본 기능","세부검토항목":"설비 동작","체크포인트":"현장 조건에서 정상 동작","필수여부":"필수","필요문서":"SAT Report","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":300},{"프로세스":"시운전/SAT","구분":"기본 기능","세부검토항목":"운전 모드","체크포인트":"Auto/Manual/Recovery 정상 동작","필수여부":"필수","필요문서":"운전 모드 테스트","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":301},{"프로세스":"시운전/SAT","구분":"공정","세부검토항목":"공정 조건","체크포인트":"실제 공정 조건 적용","필수여부":"필수","필요문서":"공정 조건서","총괄담당부서":"생산기술","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":302},{"프로세스":"시운전/SAT","구분":"공정","세부검토항목":"공정 안정성","체크포인트":"조건 변화 시 안정성 유지 여부","필수여부":"필수","필요문서":"공정 안정성 보고서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":303},{"프로세스":"시운전/SAT","구분":"성능","세부검토항목":"Cycle Time","체크포인트":"실제 CT 검증","필수여부":"필수","필요문서":"CT 데이터","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":304},{"프로세스":"시운전/SAT","구분":"성능","세부검토항목":"생산성 (UPH)","체크포인트":"생산량 확인","필수여부":"필수","필요문서":"UPH Report","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":305},{"프로세스":"시운전/SAT","구분":"성능","세부검토항목":"OEE","체크포인트":"가용성/성능/품질 종합 지표 검증","필수여부":"필수","필요문서":"OEE 분석서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":306},{"프로세스":"시운전/SAT","구분":"품질","세부검토항목":"수율 (Yield)","체크포인트":"초기 수율 확보","필수여부":"필수","필요문서":"Yield Report","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":307},{"프로세스":"시운전/SAT","구분":"품질","세부검토항목":"불량률","체크포인트":"불량 발생 수준","필수여부":"필수","필요문서":"품질 분석서","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":308},{"프로세스":"시운전/SAT","구분":"품질","세부검토항목":"공정능력","체크포인트":"Cpk ≥ 기준 충족 여부","필수여부":"필수","필요문서":"Cpk 분석서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":309},{"프로세스":"시운전/SAT","구분":"품질","세부검토항목":"측정 신뢰성","체크포인트":"검사 장비 MSA 확보 여부","필수여부":"필수","필요문서":"MSA 결과서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":310},{"프로세스":"시운전/SAT","구분":"인터페이스","세부검토항목":"MES 연동","체크포인트":"작업지시/실적 연계","필수여부":"필수","필요문서":"Interface Test","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":311},{"프로세스":"시운전/SAT","구분":"인터페이스","세부검토항목":"EAP 연동","체크포인트":"설비 데이터 연동","필수여부":"필수","필요문서":"데이터 검증","총괄담당부서":"MES팀","합의부서":"생산기술","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":312},{"프로세스":"시운전/SAT","구분":"인터페이스","세부검토항목":"데이터 정합성","체크포인트":"실적/품질/알람 데이터 정확성","필수여부":"필수","필요문서":"데이터 검증 보고서","총괄담당부서":"MES팀","합의부서":"품질","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":313},{"프로세스":"시운전/SAT","구분":"인터페이스","세부검토항목":"물류 연동","체크포인트":"AGV/컨베이어 연계","필수여부":"조건부 필수","필요문서":"연동 테스트","총괄담당부서":"생산기술","합의부서":"물류","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":314},{"프로세스":"시운전/SAT","구분":"알람","세부검토항목":"알람 기능","체크포인트":"현장 이상 대응","필수여부":"필수","필요문서":"알람 테스트","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":315},{"프로세스":"시운전/SAT","구분":"알람","세부검토항목":"알람 대응","체크포인트":"알람별 조치 프로세스 정의","필수여부":"필수","필요문서":"알람 대응 매뉴얼","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":316},{"프로세스":"시운전/SAT","구분":"안정성","세부검토항목":"연속 운전","체크포인트":"장시간 운전 테스트","필수여부":"필수","필요문서":"Run Test 결과","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":317},{"프로세스":"시운전/SAT","구분":"안정성","세부검토항목":"고장 발생률","체크포인트":"초기 트러블 발생 수준","필수여부":"필수","필요문서":"Trouble Log","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":318},{"프로세스":"시운전/SAT","구분":"안정성","세부검토항목":"MTBF 검증","체크포인트":"고장 간 평균시간 기준 충족","필수여부":"필수","필요문서":"MTBF 분석서","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":319},{"프로세스":"시운전/SAT","구분":"안전","세부검토항목":"안전장치","체크포인트":"인터락/E-Stop","필수여부":"필수","필요문서":"안전 점검표","총괄담당부서":"안전팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":320},{"프로세스":"시운전/SAT","구분":"안전","세부검토항목":"작업 안전성","체크포인트":"현장 작업자 위험 요소 제거","필수여부":"필수","필요문서":"위험성 평가서","총괄담당부서":"안전팀","합의부서":"생산팀","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":321},{"프로세스":"시운전/SAT","구분":"운영","세부검토항목":"작업자 사용성","체크포인트":"작업 편의성","필수여부":"선택","필요문서":"평가서","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":322},{"프로세스":"시운전/SAT","구분":"운영","세부검토항목":"표준 작업","체크포인트":"SOP 기반 작업 가능 여부","필수여부":"필수","필요문서":"SOP 문서","총괄담당부서":"생산팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":323},{"프로세스":"시운전/SAT","구분":"운영","세부검토항목":"유지보수성","체크포인트":"접근 및 정비 용이성","필수여부":"필수","필요문서":"정비 매뉴얼","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":324},{"프로세스":"시운전/SAT","구분":"운영","세부검토항목":"예비품 확보","체크포인트":"Critical Spare 확보 여부","필수여부":"필수","필요문서":"Spare List","총괄담당부서":"설비보전","합의부서":"구매","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":325},{"프로세스":"시운전/SAT","구분":"교육","세부검토항목":"작업자 교육","체크포인트":"운영 교육 완료","필수여부":"필수","필요문서":"교육 기록","총괄담당부서":"생산팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":326},{"프로세스":"시운전/SAT","구분":"교육","세부검토항목":"정비 교육","체크포인트":"설비 유지보수 교육 완료","필수여부":"필수","필요문서":"정비 교육 기록","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":327},{"프로세스":"시운전/SAT","구분":"문서","세부검토항목":"설치 문서","체크포인트":"Setup 및 변경 이력","필수여부":"필수","필요문서":"Setup 기록","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":328},{"프로세스":"시운전/SAT","구분":"문서","세부검토항목":"기술 문서","체크포인트":"도면/매뉴얼/SW 최신 버전 확보","필수여부":"필수","필요문서":"문서 리스트","총괄담당부서":"Vendor","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":329},{"프로세스":"시운전/SAT","구분":"리스크 관리","세부검토항목":"초기 안정화","체크포인트":"초기 양산 안정화 계획","필수여부":"필수","필요문서":"Ramp-up 계획서","총괄담당부서":"생산기술","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":330},{"프로세스":"시운전/SAT","구분":"리스크 관리","세부검토항목":"잔여 이슈","체크포인트":"미해결 Issue 및 대응 계획","필수여부":"필수","필요문서":"Open Issue List","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":331},{"프로세스":"시운전/SAT","구분":"종합","세부검토항목":"양산 승인","체크포인트":"Go / No-Go 판단","필수여부":"필수","필요문서":"Go/No-Go 승인서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":332},{"프로세스":"시운전/SAT","구분":"종합","세부검토항목":"인수 기준","체크포인트":"Final Acceptance 조건 충족 여부","필수여부":"필수","필요문서":"최종 인수 승인서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":333},{"프로세스":"Qual(검증)","구분":"IQ","세부검토항목":"설치 검증","체크포인트":"도면일치, 설계대로 설치 여부","필수여부":"필수","필요문서":"IQ 문서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":334},{"프로세스":"Qual(검증)","구분":"IQ","세부검토항목":"설비 구성 검증","체크포인트":"설비 구성품/BOM 일치 여부","필수여부":"필수","필요문서":"IQ 체크리스트","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":335},{"프로세스":"Qual(검증)","구분":"IQ","세부검토항목":"유틸리티 검증","체크포인트":"전기/공압/네트워크 조건 적합성","필수여부":"필수","필요문서":"Utility 검증서","총괄담당부서":"품질팀","합의부서":"시설/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":336},{"프로세스":"Qual(검증)","구분":"IQ","세부검토항목":"계측기 검증","체크포인트":"센서/계측기 설치 및 교정 상태","필수여부":"필수","필요문서":"교정 성적서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":337},{"프로세스":"Qual(검증)","구분":"OQ","세부검토항목":"운영 검증","체크포인트":"조건별 성능 확인","필수여부":"필수","필요문서":"OQ 문서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":338},{"프로세스":"Qual(검증)","구분":"OQ","세부검토항목":"공정 조건 검증","체크포인트":"공정 파라미터별 결과 확인","필수여부":"필수","필요문서":"OQ 시험 결과서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":339},{"프로세스":"Qual(검증)","구분":"OQ","세부검토항목":"알람/인터락 검증","체크포인트":"이상 상황 대응 및 보호 기능 검증","필수여부":"필수","필요문서":"OQ 안전 검증서","총괄담당부서":"품질팀","합의부서":"안전/생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":340},{"프로세스":"Qual(검증)","구분":"OQ","세부검토항목":"반복성 검증","체크포인트":"동일 조건 반복 시 결과 일관성","필수여부":"필수","필요문서":"반복성 시험 결과서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":341},{"프로세스":"Qual(검증)","구분":"PQ","세부검토항목":"성능 검증","체크포인트":"양산 품질 적합 판정","필수여부":"필수","필요문서":"PQ 문서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":342},{"프로세스":"Qual(검증)","구분":"PQ","세부검토항목":"양산 조건 검증","체크포인트":"실제 생산 조건에서 품질 확보","필수여부":"필수","필요문서":"PQ 시험 결과서","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":343},{"프로세스":"Qual(검증)","구분":"PQ","세부검토항목":"연속 생산 검증","체크포인트":"장시간 생산 시 품질 안정성","필수여부":"필수","필요문서":"연속 생산 결과서","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":344},{"프로세스":"Qual(검증)","구분":"PQ","세부검토항목":"샘플링 검증","체크포인트":"통계 기반 샘플링 적합성","필수여부":"필수","필요문서":"샘플링 기준서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":345},{"프로세스":"Qual(검증)","구분":"공정능력","세부검토항목":"Cpk","체크포인트":"기준 충족","필수여부":"필수","필요문서":"SPC Report","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":346},{"프로세스":"Qual(검증)","구분":"공정능력","세부검토항목":"공정 안정성","체크포인트":"관리도 기반 안정 상태 유지","필수여부":"필수","필요문서":"SPC 관리도","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":347},{"프로세스":"Qual(검증)","구분":"수율","세부검토항목":"초기 수율","체크포인트":"안정화 여부","필수여부":"필수","필요문서":"Yield 분석","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":348},{"프로세스":"Qual(검증)","구분":"수율","세부검토항목":"수율 개선","체크포인트":"Ramp-up 기간 수율 개선 추이","필수여부":"필수","필요문서":"수율 Trend Report","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":349},{"프로세스":"Qual(검증)","구분":"측정 시스템","세부검토항목":"MSA","체크포인트":"측정 반복성/재현성 확보","필수여부":"필수","필요문서":"MSA 결과서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":350},{"프로세스":"Qual(검증)","구분":"측정 시스템","세부검토항목":"검사 신뢰성","체크포인트":"검사 장비 정확도 검증","필수여부":"필수","필요문서":"검사 검증서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":351},{"프로세스":"Qual(검증)","구분":"데이터 검증","세부검토항목":"데이터 정합성","체크포인트":"MES/품질 데이터 일치 여부","필수여부":"필수","필요문서":"데이터 검증 보고서","총괄담당부서":"MES팀","합의부서":"품질","승인부서":"IT","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":352},{"프로세스":"Qual(검증)","구분":"데이터 검증","세부검토항목":"Traceability","체크포인트":"LOT/Serial 추적 가능 여부","필수여부":"필수","필요문서":"Traceability 결과서","총괄담당부서":"품질/MES","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":353},{"프로세스":"Qual(검증)","구분":"표준화","세부검토항목":"SOP 작성","체크포인트":"작업 표준","필수여부":"필수","필요문서":"작업표준서","총괄담당부서":"생산팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":354},{"프로세스":"Qual(검증)","구분":"표준화","세부검토항목":"표준 준수","체크포인트":"작업자 SOP 준수 여부","필수여부":"필수","필요문서":"SOP 점검표","총괄담당부서":"품질팀","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":355},{"프로세스":"Qual(검증)","구분":"교육","세부검토항목":"작업자 교육","체크포인트":"숙련도","필수여부":"필수","필요문서":"교육 이력","총괄담당부서":"생산팀","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":356},{"프로세스":"Qual(검증)","구분":"교육","세부검토항목":"정비 교육","체크포인트":"설비 유지보수 교육 완료","필수여부":"필수","필요문서":"정비 교육 기록","총괄담당부서":"설비보전","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":357},{"프로세스":"Qual(검증)","구분":"운영 안정화","세부검토항목":"Ramp-up","체크포인트":"초기 양산 안정화 진행","필수여부":"필수","필요문서":"Ramp-up 계획서","총괄담당부서":"생산기술","합의부서":"생산","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"4주","목표일정":"","id":358},{"프로세스":"Qual(검증)","구분":"운영 안정화","세부검토항목":"이슈 관리","체크포인트":"초기 불량 및 트러블 개선","필수여부":"필수","필요문서":"Issue 개선 보고서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"2주","목표일정":"","id":359},{"프로세스":"Qual(검증)","구분":"문서 관리","세부검토항목":"검증 문서","체크포인트":"IQ/OQ/PQ 문서 완결성","필수여부":"필수","필요문서":"Validation Report","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":360},{"프로세스":"Qual(검증)","구분":"문서 관리","세부검토항목":"변경 이력","체크포인트":"검증 중 변경사항 관리","필수여부":"필수","필요문서":"변경 이력서","총괄담당부서":"품질팀","합의부서":"생산기술","승인부서":"공장장","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":361},{"프로세스":"Qual(검증)","구분":"인수 기준","세부검토항목":"Final Acceptance","체크포인트":"인수 승인","필수여부":"필수","필요문서":"인수 승인서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":362},{"프로세스":"Qual(검증)","구분":"인수 기준","세부검토항목":"인수 조건","체크포인트":"성능/품질/문서 기준 충족 여부","필수여부":"필수","필요문서":"Acceptance 기준서","총괄담당부서":"생산기술","합의부서":"품질","승인부서":"경영진","첨부문서":"","완료결과":"","표준일정":"1주","목표일정":"","id":363}];
+
+var USERS = {
+  admin:  { pw: 'admin1234', name: '관리자', role: 'ADMIN' },
+  user:   { pw: 'user1234',  name: '사용자',  role: 'USER'  },
+  viewer: { pw: 'view1234',  name: '뷰어',    role: 'VIEWER'}
+};
+
+var STEPS = [
+  { key: '설비투자기획(투자 검토 단계 (Business / 전략 검토))',   s: '투자기획', e: '📋' },
+  { key: '설비 사양정의(설비 사양서 작성 단계 (Technical Spec))', s: '사양정의', e: '📐' },
+  { key: '투자심의',                                              s: '투자심의', e: '💰' },
+  { key: '발주(발주 단계 (PO / 계약))',                           s: '발주',     e: '📝' },
+  { key: '제작',                                                  s: '제작',     e: '🏭' },
+  { key: 'FAT(상세 Check List)',                                  s: 'FAT',      e: '🔬' },
+  { key: '출하(물류/통관)',                                        s: '출하',     e: '🚢' },
+  { key: '설치',                                                  s: '설치',     e: '🔧' },
+  { key: '시운전/SAT',                                            s: 'SAT',      e: '⚡' },
+  { key: 'Qual(검증)',                                            s: 'Qual',     e: '✅' }
+];
+
+var state = {
+  curUser: null,
+  master: [],
+  companies: [],
+  setups: {},
+  masterStep: 0,
+  setupStep: 0
+};
+
+/* ── UTILS ─────────────────────────────────────────── */
+function gid(id) { return document.getElementById(id); }
+
+function lsGet(k) {
+  try { var v = localStorage.getItem('epms_' + k); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+}
+function lsSet(k, v) {
+  try { localStorage.setItem('epms_' + k, JSON.stringify(v)); } catch(e) {}
+}
+function saveAll() {
+  lsSet('companies', state.companies);
+  lsSet('setups',    state.setups);
+  lsSet('master',    state.master);
+}
+
+function xe(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function hlQ(txt, q) {
+  var s = xe(txt);
+  if (!q) return s;
+  return s.replace(new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')','gi'), '<mark class="hl">$1</mark>');
+}
+
+function bdg(req) {
+  var cls = { '필수':'br', '선택':'bo', '조건부 필수':'bc', '권장':'bw' };
+  return '<span class="b ' + (cls[req] || 'bo') + '">' + xe(req || '-') + '</span>';
+}
+
+function toast(title, msg, type) {
+  var icons = { success:'✅', error:'❌', info:'ℹ️' };
+  var el = document.createElement('div');
+  el.className = 'toast ' + (type || 'info');
+  el.innerHTML = '<span style="font-size:19px">' + (icons[type] || 'ℹ️') + '</span>'
+    + '<div><b style="font-size:18px">' + xe(title) + '</b>'
+    + '<div style="font-size:17px;color:var(--t2)">' + xe(msg) + '</div></div>';
+  gid('tw').appendChild(el);
+  setTimeout(function() { el.remove(); }, 3000);
+}
+
+function canEdit() { return state.curUser && state.curUser.role !== 'VIEWER'; }
+
+/* ── AUTH ───────────────────────────────────────────── */
+function doLogin() {
+  var id = gid('loginId').value.trim();
+  var pw = gid('loginPw').value;
+  if (USERS[id] && USERS[id].pw === pw) {
+    state.curUser = { id: id, name: USERS[id].name, role: USERS[id].role };
+    gid('loginScreen').style.display = 'none';
+    gid('app').style.display = 'block';
+    gid('uNm').textContent = state.curUser.name;
+    gid('uRl').textContent = state.curUser.role;
+    gid('loginErr').style.display = 'none';
+    appInit();
+    toast('로그인 성공', state.curUser.name + '님 환영합니다!', 'success');
+  } else {
+    gid('loginErr').style.display = 'block';
+  }
+}
+
+function doLogout() {
+  state.curUser = null;
+  gid('app').style.display = 'none';
+  gid('loginScreen').style.display = 'flex';
+  gid('loginId').value = '';
+  gid('loginPw').value = '';
+}
+
+/* ── INIT ───────────────────────────────────────────── */
+function appInit() {
+  var saved = lsGet('master');
+  if (saved && saved.length) {
+    state.master = saved;
+  } else {
+    state.master = MASTER_DB.map(function(r, i) {
+      return Object.assign({}, r, { id: r.id || (i + 1) });
+    });
+  }
+  state.companies = lsGet('companies') || [
+    { id:'co1', name:'UTI (유티아이)',  industry:'디스플레이', note:'파일럿 기업', cd:'2026-04-01' },
+    { id:'co2', name:'테스트기업 A',    industry:'반도체',     note:'',           cd:'2026-04-03' }
+  ];
+  state.setups = lsGet('setups') || {};
+  if (!state.setups['co1']) {
+    var ids = state.master.slice(0, 107).map(function(r){ return r.id; });
+    state.setups['co1'] = { sel:ids, custom:{}, done:[], doneAt:{}, tgt:{} };
+  }
+  navTo('dashboard');
+}
+
+/* ── NAV ────────────────────────────────────────────── */
+function adjustPageLayout(pgId) {
+  // pg-hdr 실제 높이 측정 후 pg-body height 동적 조정
+  requestAnimationFrame(function() {
+    var pg   = gid(pgId);
+    var hdr  = pg ? pg.querySelector('.pg-hdr') : null;
+    var body = pg ? pg.querySelector('.pg-body') : null;
+    if (!hdr || !body) return;
+    var pgH  = pg.offsetHeight;
+    var hdrH = hdr.offsetHeight;
+    body.style.height = (pgH - hdrH - 8) + 'px';
+  });
+}
+
+function navTo(p) {
+  ['dashboard','master','setup','progress','company'].forEach(function(pg) {
+    gid('pg_' + pg).style.display = (pg === p) ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nb').forEach(function(b) { b.classList.remove('active'); });
+  var btn = document.querySelector('.nb[data-p="' + p + '"]');
+  if (btn) btn.classList.add('active');
+  if      (p === 'dashboard') pgDash();
+  else if (p === 'master')    pgMaster();
+  else if (p === 'setup')     pgSetup();
+  else if (p === 'progress')  pgProgress();
+  else if (p === 'company')   pgCompany();
+}
+
+/* ── DASHBOARD ──────────────────────────────────────── */
+function pgDash() {
+  var tot = state.master.length;
+  var req = state.master.filter(function(r){ return r['필수여부'] === '필수'; }).length;
+  var avgP = 0;
+  if (state.companies.length) {
+    var s2 = state.companies.reduce(function(a,c){ return a + ((state.setups[c.id]||{}).sel||[]).length; }, 0);
+    avgP = Math.round(s2 / state.companies.length / tot * 100);
+  }
+  var html = '<div class="ph"><h1 class="pt">📊 대시보드</h1><p class="ps">설비투자 프로세스 관리 현황</p></div>'
+    + '<div class="sg4">'
+    + mkStat('📋 Master DB 항목', tot, STEPS.length+'개 단계', 'var(--ac)')
+    + mkStat('🏢 등록 기업', state.companies.length, 'Setup 완료 '+state.companies.filter(function(c){return (state.setups[c.id]||{}).sel;}).length+'개', 'var(--gr)')
+    + mkStat('⚙️ 평균 Setup', avgP+'%', 'Master 대비 적용률', 'var(--or)')
+    + mkStat('✅ 필수 항목', req, '전체의 '+Math.round(req/tot*100)+'%', 'var(--pu)')
+    + '</div>'
+    + '<div class="grid2">'
+    + '<div class="card"><b class="ch">📊 단계별 항목 수</b>' + mkStepBars() + '</div>'
+    + '<div class="card"><b class="ch">🏢 기업별 Setup 현황</b>' + mkCoBars(tot) + '</div>'
+    + '</div>'
+    + '<div class="card mt14"><b class="ch">⚡ 필수여부별 분포</b><div class="flex4">' + mkReqBars(tot) + '</div></div>';
+  gid('pg_dashboard').innerHTML = html;
+}
+
+function mkProgStat(lbl, val, color) {
+  return '<div class="pr-stat-card">'
+    + '<div class="pr-stat-lbl">' + lbl + '</div>'
+    + '<div class="pr-stat-val" style="color:' + color + '">' + val + '</div>'
+    + '</div>';
+}
+
+function mkStat(lbl, val, sub, color) {
+  return '<div class="sc"><div class="sl">' + lbl + '</div><div class="sv" style="color:' + color + '">' + val + '</div><div class="ss">' + sub + '</div></div>';
+}
+
+function mkStepBars() {
+  var max = 1;
+  STEPS.forEach(function(s){ var c=state.master.filter(function(r){return r['프로세스']===s.key;}).length; if(c>max)max=c; });
+  return STEPS.map(function(s){
+    var c = state.master.filter(function(r){return r['프로세스']===s.key;}).length;
+    var w = Math.round(c/max*100);
+    return '<div class="brow"><span class="blbl">' + s.e + ' ' + s.s + '</span>'
+      + '<div class="btrack"><div class="bfill" style="width:' + w + '%"></div>'
+      + '<span class="bval">' + c + '</span></div></div>';
+  }).join('');
+}
+
+function mkCoBars(tot) {
+  if (!state.companies.length) return '<p style="color:var(--t2);padding:10px">등록된 기업이 없습니다</p>';
+  return state.companies.map(function(c){
+    var sel = ((state.setups[c.id]||{}).sel||[]).length;
+    var pct = Math.round(sel/tot*100);
+    return '<div style="margin-bottom:10px"><div class="flex-sb" style="margin-bottom:3px">'
+      + '<span style="font-size:17px;font-weight:500">' + xe(c.name) + '</span>'
+      + '<span style="font-size:16px;color:var(--t2)">' + sel + '개 (' + pct + '%)</span></div>'
+      + '<div class="pb"><div class="pf" style="width:' + pct + '%"></div></div></div>';
+  }).join('');
+}
+
+function mkReqBars(tot) {
+  var types = ['필수','조건부 필수','선택','권장'];
+  var colors = ['var(--gr)','var(--or)','var(--ac)','var(--pu)'];
+  return types.map(function(t, i){
+    var c = state.master.filter(function(r){return r['필수여부']===t;}).length;
+    var pct = Math.round(c/tot*100);
+    return '<div style="flex:1;min-width:140px"><div class="flex-sb" style="margin-bottom:3px">'
+      + '<span style="font-size:17px;font-weight:500;color:' + colors[i] + '">' + t + '</span>'
+      + '<span style="font-size:16px;color:var(--t2)">' + c + ' (' + pct + '%)</span></div>'
+      + '<div class="pb"><div class="pf" style="width:' + pct + '%;background:' + colors[i] + '"></div></div></div>';
+  }).join('');
+}
+
+/* ── MASTER PAGE ────────────────────────────────────── */
+function pgMaster() {
+  var canE = canEdit();
+  var cats = [];
+  state.master.forEach(function(r){ if(r['구분'] && cats.indexOf(r['구분'])<0) cats.push(r['구분']); });
+  cats.sort();
+
+  var stepBar = '<div class="psbar">';
+  STEPS.forEach(function(s, i){
+    var c = state.master.filter(function(r){return r['프로세스']===s.key;}).length;
+    var cls = (state.masterStep===i) ? ' active' : '';
+    stepBar += '<div class="ps' + cls + '" onclick="selMS(' + i + ')">'
+      + '<span class="pse">' + s.e + '</span><span class="pss">' + s.s + '</span>'
+      + '<span class="psn">' + c + '</span></div>';
+  });
+  stepBar += '</div>';
+
+  var catOpts = cats.map(function(c){ return '<option value="' + xe(c) + '">' + xe(c) + '</option>'; }).join('');
+  var html = '<div class="pg-hdr">'
+    + '<div class="ph"><div><h1 class="pt">📋 Master DB</h1>'
+    + '<p class="ps">전체 ' + state.master.length + '개 항목</p></div>'
+    + '<div class="flex-g">'
+    + (canE ? '<button class="btn bp" onclick="openAddItem()">+ 항목 추가</button>' : '')
+    + '<button class="btn bs" onclick="exportMaster()">📥 CSV</button></div></div>'
+    + stepBar
+    + '<div class="flt">'
+    + '<input class="si" id="mSrch" placeholder="🔍 검색..." oninput="renderMTbl()">'
+    + '<select class="fsel" id="mCatF" onchange="renderMTbl()"><option value="">전체 구분</option>' + catOpts + '</select>'
+    + '<select class="fsel" id="mReqF" onchange="renderMTbl()"><option value="">전체 필수여부</option>'
+    + '<option>필수</option><option>조건부 필수</option><option>선택</option><option>권장</option></select>'
+    + '<span id="mCnt" style="font-size:16px;color:var(--t2)"></span></div>'
+    + '</div>'
+    + '<div class="pg-body"><div id="mTbl" class="mTblWrap"></div></div>';
+  gid('pg_master').innerHTML = html;
+  renderMTbl();
+  adjustPageLayout('pg_master');
+}
+
+function selMS(i) { state.masterStep = i; pgMaster(); }
+
+function renderMTbl() {
+  var q   = (gid('mSrch') ? gid('mSrch').value : '').toLowerCase();
+  var cF  = gid('mCatF') ? gid('mCatF').value : '';
+  var rF  = gid('mReqF') ? gid('mReqF').value : '';
+  var canE = canEdit();
+  var key = STEPS[state.masterStep].key;
+  var items = state.master.filter(function(r){ return r['프로세스'] === key; });
+  if (cF) items = items.filter(function(r){ return r['구분'] === cF; });
+  if (rF) items = items.filter(function(r){ return r['필수여부'] === rF; });
+  if (q)  items = items.filter(function(r){
+    return (r['세부검토항목']||'').toLowerCase().indexOf(q) >= 0
+        || (r['체크포인트']||'').toLowerCase().indexOf(q) >= 0
+        || (r['총괄담당부서']||'').toLowerCase().indexOf(q) >= 0;
+  });
+  if (gid('mCnt')) gid('mCnt').textContent = items.length + '개 표시';
+  if (!items.length) { gid('mTbl').innerHTML = '<div class="empty"><div class="ei">🔍</div><h3>검색 결과 없음</h3></div>'; return; }
+
+  var tbl = '<div class="tw"><table class="tbl"><thead><tr>'
+    + '<th style="width:36px">#</th><th style="width:120px">구분</th><th style="width:17%">세부 검토 항목</th><th style="width:27%">체크 포인트</th>'
+    + '<th style="width:82px">필수여부</th><th style="width:15%">필요문서</th><th style="width:9%">총괄담당</th><th style="width:8%">합의</th><th style="width:8%">승인</th><th style="width:64px">일정</th>'
+    + (canE ? '<th style="width:60px;text-align:center">편집</th>' : '') + '</tr></thead><tbody>';
+  items.forEach(function(r){
+    tbl += '<tr>'
+      + '<td class="mono t3" style="white-space:nowrap;vertical-align:middle;text-align:center">' + r.id + '</td>'
+      + '<td><span class="chip">' + xe(r['구분']||'') + '</span></td>'
+      + '<td class="fw">' + hlQ(r['세부검토항목'], q) + '</td>'
+      + '<td class="t2 sm">' + hlQ(r['체크포인트'], q) + '</td>'
+      + '<td>' + bdg(r['필수여부']) + '</td>'
+      + '<td class="t2 sm">' + xe(r['필요문서']||'') + '</td>'
+      + '<td class="sm">' + xe(r['총괄담당부서']||'') + '</td>'
+      + '<td class="t2 sm">' + xe(r['합의부서']||'') + '</td>'
+      + '<td class="t2 sm">' + xe(r['승인부서']||'') + '</td>'
+      + '<td class="mono t2 sm">' + xe(r['표준일정']||'') + '</td>'
+      + (canE ? '<td style="text-align:center;vertical-align:middle;padding:0"><button class="editBtn" onclick="openEditItem(' + r.id + ')">✏️</button></td>' : '')
+      + '</tr>';
+  });
+  tbl += '</tbody></table></div>';
+  gid('mTbl').innerHTML = tbl;
+}
+
+/* ── ITEM MODAL ─────────────────────────────────────── */
+function openEditItem(id) {
+  if (!canEdit()) { toast('권한 없음','수정 권한이 없습니다.','error'); return; }
+  var item = state.master.filter(function(r){ return r.id === id; })[0];
+  if (!item) return;
+  gid('mT').textContent = '항목 수정';
+  gid('mId').value = id;
+  gid('btnDel').style.display = 'inline-flex';
+  fillItemModal(item);
+  gid('itemModal').style.display = 'flex';
+}
+function openAddItem() {
+  if (!canEdit()) return;
+  gid('mT').textContent = '항목 추가';
+  gid('mId').value = '';
+  gid('btnDel').style.display = 'none';
+  fillItemModal({ '프로세스': STEPS[state.masterStep].key,'구분':'','세부검토항목':'','체크포인트':'','필수여부':'필수','필요문서':'','총괄담당부서':'','합의부서':'','승인부서':'','표준일정':'' });
+  gid('itemModal').style.display = 'flex';
+}
+function fillItemModal(r) {
+  gid('mProc').innerHTML = STEPS.map(function(s){
+    return '<option value="' + xe(s.key) + '"' + (r['프로세스']===s.key?' selected':'') + '>' + s.s + ' (' + xe(s.key.slice(0,18)) + '...)</option>';
+  }).join('');
+  gid('mCat').value  = r['구분']||'';        gid('mTtl').value  = r['세부검토항목']||'';
+  gid('mChk').value  = r['체크포인트']||'';   gid('mReq').value  = r['필수여부']||'필수';
+  gid('mSch').value  = r['표준일정']||'';     gid('mDoc').value  = r['필요문서']||'';
+  gid('mD1').value   = r['총괄담당부서']||''; gid('mD2').value   = r['합의부서']||'';
+  gid('mD3').value   = r['승인부서']||'';
+}
+function saveItem() {
+  var id = gid('mId').value;
+  var u = {
+    '프로세스': gid('mProc').value, '구분': gid('mCat').value,
+    '세부검토항목': gid('mTtl').value, '체크포인트': gid('mChk').value,
+    '필수여부': gid('mReq').value,  '표준일정': gid('mSch').value,
+    '필요문서': gid('mDoc').value,  '총괄담당부서': gid('mD1').value,
+    '합의부서': gid('mD2').value,   '승인부서': gid('mD3').value
+  };
+  if (!u['세부검토항목']) { toast('오류','항목명은 필수입니다.','error'); return; }
+  if (id) {
+    var idx = -1;
+    state.master.forEach(function(r,i){ if(r.id===parseInt(id)) idx=i; });
+    if (idx >= 0) state.master[idx] = Object.assign({}, state.master[idx], u);
+    toast('저장','항목이 수정되었습니다.','success');
+  } else {
+    var mx = 0; state.master.forEach(function(r){ if(r.id>mx) mx=r.id; });
+    state.master.push(Object.assign({}, u, { id: mx+1 }));
+    toast('추가','새 항목이 추가되었습니다.','success');
+  }
+  saveAll(); CM('itemModal'); renderMTbl();
+}
+function delItem() {
+  if (!confirm('이 항목을 삭제하시겠습니까?')) return;
+  var id = parseInt(gid('mId').value);
+  state.master = state.master.filter(function(r){ return r.id !== id; });
+  saveAll(); CM('itemModal'); renderMTbl();
+  toast('삭제','항목이 삭제되었습니다.','info');
+}
+
+/* ── SETUP PAGE ─────────────────────────────────────── */
+function pgSetup() {
+  var coOpts = state.companies.map(function(c){
+    return '<option value="' + xe(c.id) + '">' + xe(c.name) + ' (' + xe(c.industry||'-') + ')</option>';
+  }).join('');
+  gid('pg_setup').innerHTML =
+    '<div class="pg-hdr">'
+    + '<div class="ph"><h1 class="pt">⚙️ 프로세스 Setup</h1>'
+    + '<p class="ps">Master DB에서 항목을 선택 → 기업별 커스터마이징</p></div>'
+    + '<div class="topbar">'
+    +   '<b style="font-size:19px">🏢 기업 선택</b>'
+    +   '<div class="flex-g">'
+    +     '<select id="coSel" onchange="loadCo()">'
+    +       '<option value="">— 기업을 선택하세요 —</option>' + coOpts
+    +     '</select>'
+    +     '<button class="btn bp bsm" onclick="navTo(\'company\')">+ 기업 추가</button>'
+    +   '</div>'
+    +   '<span id="siBadge"></span>'
+    +   '<div class="flex-g ml-auto">'
+    +     '<button class="btn bs bsm" onclick="expSetup()">📥 CSV</button>'
+    +     '<button class="btn bg bsm" onclick="saveStp()">💾 저장</button>'
+    +   '</div>'
+    + '</div>'
+    + '</div>'
+    + '<div class="pg-body">'
+    + '<div class="s3col" id="s3col">'
+    +   '<div class="spanel" id="sProcPanel">'
+    +     '<div class="shdr"><span>프로세스 단계</span><span id="siTot" class="t2 sm">0개</span></div>'
+    +     '<div id="sProcList"><div class="sempty"><p>기업을 선택하세요</p></div></div>'
+    +   '</div>'
+    +   '<div class="spanel" id="sMastPanel">'
+    +     '<div class="shdr"><span id="sMastTitle">Master DB</span>'
+    +       '<div class="flex-g" id="sMastBtns"></div></div>'
+    +     '<div class="ssearch"><input id="sMSrch" placeholder="🔍 검색..." oninput="renderSMast()" disabled></div>'
+    +     '<div id="sMastBody"><div class="sempty"><div class="ei">📋</div><p>단계를 선택하세요</p></div></div>'
+    +   '</div>'
+    +   '<div class="spanel" id="sSelPanel">'
+    +     '<div class="shdr"><span>✏️ 선택 항목 (편집)</span><span id="sSelCnt" class="t2 sm">0개</span></div>'
+    +     '<div id="sSelBody"><div class="sempty"><div class="ei">⚙️</div><p>항목을 체크하면 여기서 편집</p></div></div>'
+    +   '</div>'
+    + '</div>'
+    + '<div class="savebar" id="savebar" style="display:none">'
+    +   '<div class="flex-g" id="saveStats"></div>'
+    +   '<div class="flex-g">'
+    +     '<button class="btn bs bsm" onclick="selAll(false)">이 단계 해제</button>'
+    +     '<button class="btn bw bsm" onclick="selReq()">필수만</button>'
+    +     '<button class="btn bg bsm" onclick="saveStp()">💾 저장</button>'
+    +   '</div>'
+    + '</div>'
+    + '</div>';
+  adjustPageLayout('pg_setup');
+}
+
+function loadCo() {
+  var coId = gid('coSel') ? gid('coSel').value : '';
+  if (!coId) {
+    gid('sProcList').innerHTML = '<div class="sempty"><p>기업을 선택하세요</p></div>';
+    gid('siBadge').innerHTML = '';
+    if (gid('savebar')) gid('savebar').style.display = 'none';
+    return;
+  }
+  if (!state.setups[coId]) state.setups[coId] = { sel:[], custom:{}, done:[], doneAt:{}, tgt:{} };
+  state.setupStep = 0;
+  gid('savebar').style.display = 'flex';
+  renderSProc(coId);
+  renderSMast();
+  renderSSel();
+  updBadge(coId);
+}
+
+function updBadge(coId) {
+  var s   = state.setups[coId] || {};
+  var cnt = (s.sel||[]).length;
+  gid('siBadge').innerHTML = cnt ? '<span class="info-badge">✅ ' + cnt + '개 선택됨</span>' : '';
+  if (gid('siTot')) gid('siTot').textContent = cnt + '개';
+  if (gid('sSelCnt')) gid('sSelCnt').textContent = cnt + '개';
+}
+
+function renderSProc(coId) {
+  var sel = {};
+  ((state.setups[coId]||{}).sel||[]).forEach(function(id){ sel[id] = true; });
+  gid('sProcList').innerHTML = STEPS.map(function(s, i){
+    var items = state.master.filter(function(r){ return r['프로세스'] === s.key; });
+    var sc    = items.filter(function(r){ return sel[r.id]; }).length;
+    var cls   = state.setupStep === i ? ' active' : '';
+    return '<div class="pi' + cls + '" onclick="selSStep(\'' + coId + '\',' + i + ')">'
+      + '<div><div class="pnm">' + s.e + ' ' + s.s + '</div>'
+      + '<div class="psb">' + items.length + '개 항목</div></div>'
+      + '<div class="pst"><div class="psc">' + sc + '</div>'
+      + '<div class="pstot">/ ' + items.length + '</div></div>'
+      + '</div>';
+  }).join('');
+}
+
+function selSStep(coId, i) {
+  state.setupStep = i;
+  renderSProc(coId);
+  renderSMast();
+}
+
+function renderSMast() {
+  var coId = gid('coSel') ? gid('coSel').value : '';
+  if (!coId) return;
+  var sel  = {};
+  ((state.setups[coId]||{}).sel||[]).forEach(function(id){ sel[id] = true; });
+  var q    = gid('sMSrch') ? gid('sMSrch').value.toLowerCase() : '';
+  var step = STEPS[state.setupStep];
+  if (gid('sMastTitle')) gid('sMastTitle').textContent = step.e + ' ' + step.key;
+  var all   = state.master.filter(function(r){ return r['프로세스'] === step.key; });
+  var selC  = all.filter(function(r){ return sel[r.id]; }).length;
+  var items = q ? all.filter(function(r){
+    return (r['세부검토항목']||'').toLowerCase().indexOf(q)>=0 || (r['체크포인트']||'').toLowerCase().indexOf(q)>=0;
+  }) : all;
+
+  if (gid('sMSrch')) gid('sMSrch').disabled = false;
+  if (gid('sMastBtns')) gid('sMastBtns').innerHTML =
+    '<button class="btn bxs bs" onclick="selAll(true)">전체</button>'
+    + '<button class="btn bxs bs" onclick="selAll(false)">해제</button>'
+    + '<button class="btn bxs bw" onclick="selReq()">필수만</button>';
+
+  // 그룹별
+  var groups = {}, gOrder = [];
+  items.forEach(function(r){
+    var g = r['구분'] || '기타';
+    if (!groups[g]) { groups[g] = []; gOrder.push(g); }
+    groups[g].push(r);
+  });
+
+  if (!items.length) { gid('sMastBody').innerHTML = '<div class="sempty"><div class="ei">🔍</div><p>검색 결과 없음</p></div>'; return; }
+
+  var html = '';
+  gOrder.forEach(function(g){
+    var gi  = groups[g];
+    var gsc = gi.filter(function(r){ return sel[r.id]; }).length;
+    var chk = gsc === gi.length ? ' checked' : '';
+    html += '<div class="mgrp">'
+      + '<span class="mgn">' + xe(g) + '</span>'
+      + '<label class="mgc"><input type="checkbox"' + chk
+      + ' onchange="grpChk(this,\'' + coId + '\',\'' + g.replace(/\\/g,'\\\\').replace(/'/g,"\\'") + '\')"'
+      + '> <span>' + gsc + '/' + gi.length + '</span></label></div>';
+    gi.forEach(function(r){
+      var isSel = !!sel[r.id];
+      html += '<div class="mcard' + (isSel?' msel':'') + '" id="mc' + r.id + '">'
+        + '<input type="checkbox" class="mchk"' + (isSel?' checked':'')
+        + ' onchange="togItem(\'' + coId + '\',' + r.id + ',this.checked)">'
+        + '<div class="mb">'
+        + '<div class="mt">' + hlQ(r['세부검토항목'], q) + '</div>'
+        + '<div class="mc2">' + hlQ(r['체크포인트'], q) + '</div>'
+        + '<div class="mm">' + bdg(r['필수여부']) + (r['표준일정']?'<span class="chip">⏱ '+xe(r['표준일정'])+'</span>':'') + '</div>'
+        + '</div></div>';
+    });
+  });
+  gid('sMastBody').innerHTML = html;
+  updStats(coId);
+}
+
+function renderSSel() {
+  var coId = gid('coSel') ? gid('coSel').value : '';
+  if (!coId) return;
+  var s    = state.setups[coId] || {};
+  var sel  = new Set(s.sel || []);
+  var cust = s.custom || {};
+  var tgt  = s.tgt || {};
+  var key  = STEPS[state.setupStep].key;
+  var items = state.master.filter(function(r){ return r['프로세스']===key && sel.has(r.id); });
+
+  if (gid('sSelCnt')) gid('sSelCnt').textContent = (s.sel||[]).length + '개 (이 단계:' + items.length + ')';
+  if (!items.length) {
+    gid('sSelBody').innerHTML = '<div class="sempty"><div class="ei">📝</div><p>가운데에서 항목을 체크하세요</p></div>';
+    return;
+  }
+
+  gid('sSelBody').innerHTML = items.map(function(r, idx){
+    var c  = cust[r.id] || {};
+    var d1 = c['총괄담당부서'] !== undefined ? c['총괄담당부서'] : r['총괄담당부서']||'';
+    var d2 = c['합의부서']     !== undefined ? c['합의부서']     : r['합의부서']||'';
+    var d3 = c['승인부서']     !== undefined ? c['승인부서']     : r['승인부서']||'';
+    var cp = c['체크포인트']   !== undefined ? c['체크포인트']   : r['체크포인트']||'';
+    var dc = c['필요문서']     !== undefined ? c['필요문서']     : r['필요문서']||'';
+    var rq = c['필수여부']     !== undefined ? c['필수여부']     : r['필수여부']||'필수';
+    var tg = tgt[r.id] || '';
+
+    return '<div class="sitem">'
+      + '<div class="sih" onclick="togSEl(' + r.id + ')">'
+      + '<span class="sin">' + (idx+1) + '</span>'
+      + '<span class="sit">' + xe(r['세부검토항목']) + '</span>'
+      + '<div class="flex-g">' + bdg(rq) + '<span class="stog" id="stog' + r.id + '">▶</span></div>'
+      + '</div>'
+      + '<div class="sib" id="sib' + r.id + '" style="display:none">'
+      + '<div class="sf"><div class="sfl">체크 포인트 <span class="edit-hint">(수정가능)</span></div>'
+      + '<textarea class="sfta" onchange="updC(\'' + coId + '\',' + r.id + ',\'체크포인트\',this.value)">' + xe(cp) + '</textarea></div>'
+      + '<div class="sfrow">'
+      + '<div class="sf"><div class="sfl">필수여부</div>'
+      + '<select class="sfin" onchange="updC(\'' + coId + '\',' + r.id + ',\'필수여부\',this.value)">'
+      + ['필수','조건부 필수','선택','권장'].map(function(v){ return '<option' + (rq===v?' selected':'') + '>' + v + '</option>'; }).join('')
+      + '</select></div>'
+      + '<div class="sf"><div class="sfl">목표일정</div>'
+      + '<input class="sfin" placeholder="2026-05-01" value="' + xe(tg) + '" onchange="updT(\'' + coId + '\',' + r.id + ',this.value)"></div>'
+      + '</div>'
+      + '<div class="sf"><div class="sfl">필요문서 <span class="edit-hint">(수정가능)</span></div>'
+      + '<input class="sfin" value="' + xe(dc) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'필요문서\',this.value)"></div>'
+      + '<div class="sf"><div class="sfl">📌 담당 부서 <span class="edit-hint" style="color:var(--or)">(기업 맞춤 수정)</span></div>'
+      + '<div class="drow">'
+      + '<div><div class="dl">총괄담당</div><input class="sfin" value="' + xe(d1) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'총괄담당부서\',this.value)"></div>'
+      + '<div><div class="dl">합의부서</div><input class="sfin" value="' + xe(d2) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'합의부서\',this.value)"></div>'
+      + '<div><div class="dl">승인부서</div><input class="sfin" value="' + xe(d3) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'승인부서\',this.value)"></div>'
+      + '</div></div>'
+      + '<div style="margin-top:8px;text-align:right">'
+      + '<button class="rmv" onclick="rmvItem(\'' + coId + '\',' + r.id + ')">✕ 선택 해제</button>'
+      + '</div></div></div>';
+  }).join('');
+}
+
+function togSEl(id) {
+  var b = gid('sib' + id), t = gid('stog' + id);
+  if (!b) return;
+  var open = b.style.display !== 'none';
+  b.style.display = open ? 'none' : 'block';
+  if (t) t.style.transform = open ? '' : 'rotate(90deg)';
+}
+
+function updC(coId, id, field, val) {
+  var s = state.setups[coId];
+  if (!s.custom) s.custom = {};
+  if (!s.custom[id]) s.custom[id] = {};
+  s.custom[id][field] = val;
+}
+function updT(coId, id, val) {
+  var s = state.setups[coId];
+  if (!s.tgt) s.tgt = {};
+  s.tgt[id] = val;
+}
+
+function rmvItem(coId, id) {
+  var s = state.setups[coId];
+  s.sel = s.sel.filter(function(x){ return x !== id; });
+  if (s.custom) delete s.custom[id];
+  updBadge(coId); renderSProc(coId); renderSMast(); renderSSel(); updStats(coId);
+}
+
+function togItem(coId, id, checked) {
+  var s = state.setups[coId];
+  if (checked) { if (s.sel.indexOf(id) < 0) s.sel.push(id); }
+  else { s.sel = s.sel.filter(function(x){ return x !== id; }); if(s.custom) delete s.custom[id]; }
+  var card = gid('mc' + id);
+  if (card) { checked ? card.classList.add('msel') : card.classList.remove('msel'); }
+  updBadge(coId); renderSProc(coId); renderSSel(); updStats(coId);
+}
+
+function grpChk(input, coId, g) {
+  var items = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key && (r['구분']||'기타')===g; });
+  var s = state.setups[coId];
+  items.forEach(function(r){
+    if (input.checked) { if (s.sel.indexOf(r.id)<0) s.sel.push(r.id); }
+    else { s.sel = s.sel.filter(function(x){return x!==r.id;}); if(s.custom) delete s.custom[r.id]; }
+  });
+  updBadge(coId); renderSProc(coId); renderSMast(); renderSSel(); updStats(coId);
+}
+
+function selAll(checked) {
+  var coId = gid('coSel') ? gid('coSel').value : '';
+  if (!coId) return;
+  var items = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key; });
+  var s = state.setups[coId];
+  if (checked) { items.forEach(function(r){ if(s.sel.indexOf(r.id)<0) s.sel.push(r.id); }); }
+  else {
+    var ids = {}; items.forEach(function(r){ ids[r.id]=true; });
+    s.sel = s.sel.filter(function(x){ return !ids[x]; });
+    if (s.custom) items.forEach(function(r){ delete s.custom[r.id]; });
+  }
+  updBadge(coId); renderSProc(coId); renderSMast(); renderSSel(); updStats(coId);
+}
+
+function selReq() {
+  var coId = gid('coSel') ? gid('coSel').value : '';
+  if (!coId) return;
+  var items = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key; });
+  var s = state.setups[coId];
+  var ids = {}; items.forEach(function(r){ ids[r.id]=true; });
+  s.sel = s.sel.filter(function(x){ return !ids[x]; });
+  items.filter(function(r){ return r['필수여부']==='필수'; }).forEach(function(r){ s.sel.push(r.id); });
+  updBadge(coId); renderSProc(coId); renderSMast(); renderSSel(); updStats(coId);
+}
+
+function updStats(coId) {
+  var s = state.setups[coId] || {};
+  var tot = (s.sel||[]).length;
+  var req = state.master.filter(function(r){ return (s.sel||[]).indexOf(r.id)>=0 && r['필수여부']==='필수'; }).length;
+  var si  = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key; });
+  var siS = si.filter(function(r){ return (s.sel||[]).indexOf(r.id)>=0; }).length;
+  if (gid('saveStats')) gid('saveStats').innerHTML =
+    '<span>이 단계: <b>' + siS + '/' + si.length + '</b></span>'
+    + '<span>전체: <b>' + tot + '개</b></span>'
+    + '<span>필수: <b>' + req + '개</b></span>';
+}
+
+function saveStp() {
+  saveAll();
+  toast('저장 완료','프로세스 Setup이 저장되었습니다.','success');
+  var coId = gid('coSel') ? gid('coSel').value : '';
+  if (coId) { renderSProc(coId); updBadge(coId); updStats(coId); }
+}
+
+/* ── PROGRESS PAGE ──────────────────────────────────── */
+function pgProgress() {
+  var opts = state.companies.map(function(c){
+    return '<option value="' + xe(c.id) + '">' + xe(c.name) + '</option>';
+  }).join('');
+  gid('pg_progress').innerHTML =
+    '<div class="pg-hdr">'
+    + '<div class="ph"><div><h1 class="pt">📈 진행 현황</h1>'
+    + '<p class="ps">기업별 프로세스 진행 추적</p></div>'
+    + '<select class="fsel" id="prCoSel" onchange="loadProg()">'
+    + '<option value="">— 기업을 선택하세요 —</option>' + opts
+    + '</select></div>'
+    + '<div id="prStat"></div>'
+    + '<div id="prStepBar"></div>'
+    + '</div>'
+    + '<div class="pg-body"><div id="prBody">'
+    + '<div class="empty"><div class="ei">📈</div><h3>기업을 선택하세요</h3></div>'
+    + '</div></div>';
+  adjustPageLayout('pg_progress');
+}
+
+
+function loadProg() {
+  var coId = gid('prCoSel') ? gid('prCoSel').value : '';
+  if (!coId) {
+    gid('prStat').innerHTML = '';
+    gid('prStepBar').innerHTML = '';
+    gid('prBody').innerHTML = '<div class="empty"><div class="ei">📈</div><h3>기업을 선택하세요</h3></div>';
+    return;
+  }
+  var s = state.setups[coId];
+  if (!s || !s.sel || !s.sel.length) {
+    gid('prStat').innerHTML = '';
+    gid('prStepBar').innerHTML = '';
+    gid('prBody').innerHTML = '<div class="empty"><div class="ei">⚙️</div><h3>Setup을 먼저 완료하세요</h3></div>';
+    return;
+  }
+  if (!state.progressStep) state.progressStep = 0;
+  renderProgStat(coId);
+  renderProgStepBar(coId);
+  renderProgItems(coId);
+  adjustPageLayout('pg_progress');
+}
+
+function renderProgStat(coId) {
+  var s   = state.setups[coId];
+  var sel = new Set(s.sel||[]);
+  var done= new Set(s.done||[]);
+  var tot = sel.size, comp = done.size;
+  var pct = tot ? Math.round(comp/tot*100) : 0;
+  gid('prStat').innerHTML =
+    '<div class="pr-stat-row">'
+    + mkProgStat('📋 전체 항목', tot, 'var(--ac)')
+    + mkProgStat('✅ 완료', comp, 'var(--gr)')
+    + mkProgStat('⏳ 미완료', tot-comp, 'var(--or)')
+    + mkProgStat('📊 전체 진행률', pct+'%', 'var(--pu)')
+    + '</div>';
+}
+
+function renderProgStepBar(coId) {
+  var s    = state.setups[coId];
+  var sel  = new Set(s.sel||[]);
+  var done = new Set(s.done||[]);
+  var html = '<div class="pr-stepbar" id="prStepBarInner">';
+  STEPS.forEach(function(step, i){
+    var items = state.master.filter(function(r){ return r['프로세스']===step.key && sel.has(r.id); });
+    var isActive = (state.progressStep||0) === i;
+    if (!items.length) {
+      html += '<div class="pr-step pr-step-empty" data-coId="' + xe(coId) + '" data-i="' + i + '">'
+        + '<span class="pr-se">' + step.e + '</span>'
+        + '<span class="pr-ss">' + step.s + '</span>'
+        + '<span class="pr-sc t3">-</span>'
+        + '</div>';
+      return;
+    }
+    var sc  = items.filter(function(r){ return done.has(r.id); }).length;
+    var pct = Math.round(sc/items.length*100);
+    html += '<div class="pr-step' + (isActive?' pr-active':'') + '" data-coId="' + xe(coId) + '" data-i="' + i + '">'
+      + '<span class="pr-se">' + step.e + '</span>'
+      + '<span class="pr-ss">' + step.s + '</span>'
+      + '<span class="pr-sc">' + sc + '/' + items.length + '</span>'
+      + '<div class="pr-pbar"><div class="pr-pfill" style="width:' + pct + '%"></div></div>'
+      + '<span class="pr-pct' + (pct===100?' pr-done':'') + '">' + pct + '%</span>'
+      + '</div>';
+  });
+  html += '</div>';
+  gid('prStepBar').innerHTML = html;
+  // 이벤트 위임: 클릭 처리
+  gid('prStepBar').addEventListener('click', function(e){
+    var el = e.target.closest('.pr-step');
+    if (!el || el.classList.contains('pr-step-empty')) return;
+    var ci = el.dataset.coid || el.dataset.coId;
+    var idx = parseInt(el.dataset.i);
+    selProgStep(ci, idx);
+  });
+}
+
+
+function selProgStep(coId, i) {
+  state.progressStep = i;
+  renderProgStepBar(coId);
+  renderProgItems(coId);
+}
+
+function renderProgItems(coId) {
+  var s     = state.setups[coId];
+  var sel   = new Set(s.sel||[]);
+  var done  = new Set(s.done||[]);
+  var canE  = canEdit();
+  var step  = STEPS[state.progressStep||0];
+  var items = state.master.filter(function(r){ return r['프로세스']===step.key && sel.has(r.id); });
+
+  if (!items.length) {
+    gid('prBody').innerHTML = '<div class="empty" style="margin-top:30px">'
+      + '<div class="ei">📭</div><h3>이 단계에 Setup된 항목이 없습니다</h3>'
+      + '<p>프로세스 Setup에서 항목을 선택하세요</p></div>';
+    return;
+  }
+
+  var sc  = items.filter(function(r){ return done.has(r.id); }).length;
+  var pct = Math.round(sc/items.length*100);
+
+  var html = '<div class="pr-items-hdr">'
+    + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
+    + '<b style="font-size:18px">' + step.e + ' ' + step.s + '</b>'
+    + '<span class="t2 sm">' + sc + '/' + items.length + '개 완료</span>'
+    + (pct===100 ? '<span class="b br" style="margin-left:4px">✅ 완료</span>' : '')
+    + '</div>'
+    + '<div class="pb" style="height:7px;margin-bottom:0">'
+    + '<div class="pf" style="width:' + pct + '%"></div></div>'
+    + '</div>'
+    + '<div class="pr-tbl-wrap">'
+    + '<table class="pr-tbl"><thead><tr>'
+    + '<th style="width:50px">완료</th>'
+    + '<th style="width:22%">세부 검토 항목</th>'
+    + '<th style="width:30%">체크 포인트</th>'
+    + '<th style="width:80px">필수여부</th>'
+    + '<th style="width:13%">담당부서</th>'
+    + '<th style="width:11%">필요문서</th>'
+    + '<th style="width:10%">목표일정</th>'
+    + '<th style="width:12%">완료일시</th>'
+    + '</tr></thead><tbody>';
+
+  items.forEach(function(r){
+    var isDone = done.has(r.id);
+    var c  = (s.custom||{})[r.id] || {};
+    var dp = c['총괄담당부서'] !== undefined ? c['총괄담당부서'] : r['총괄담당부서']||'';
+    var dc = c['필요문서']     !== undefined ? c['필요문서']     : r['필요문서']||'';
+    var tg = (s.tgt||{})[r.id] || '';
+    var da = (s.doneAt||{})[r.id] || '';
+    var rq = c['필수여부']     !== undefined ? c['필수여부']     : r['필수여부'];
+    var cp = c['체크포인트']   !== undefined ? c['체크포인트']   : r['체크포인트']||'';
+    html += '<tr class="pr-row' + (isDone?' pr-done-row':'') + '">'
+      + '<td style="text-align:center;vertical-align:middle">'
+      + (canE
+        ? '<input type="checkbox"' + (isDone?' checked':'') + ' class="pr-chk"'
+          + ' data-coid="' + xe(coId) + '" data-id="' + r.id + '">'
+        : (isDone ? '✅' : '⬜'))
+      + '</td>'
+      + '<td class="fw">' + xe(r['세부검토항목']) + '</td>'
+      + '<td class="t2 sm">' + xe(cp) + '</td>'
+      + '<td>' + bdg(rq) + '</td>'
+      + '<td class="sm">' + xe(dp) + '</td>'
+      + '<td class="t2 sm">' + xe(dc) + '</td>'
+      + '<td class="t2 sm">' + xe(tg) + '</td>'
+      + '<td class="t3 sm">' + xe(da) + '</td>'
+      + '</tr>';
+  });
+  html += '</tbody></table></div>';
+  gid('prBody').innerHTML = html;
+
+  // 체크박스 이벤트 위임
+  gid('prBody').addEventListener('change', function(e){
+    var inp = e.target;
+    if (!inp || !inp.classList.contains('pr-chk')) return;
+    var cid = inp.dataset.coid;
+    var rid = parseInt(inp.dataset.id);
+    togDone(cid, rid, inp.checked);
+  });
+}
+
+
+function renderProg() { loadProg(); }
+
+function togDone(coId, id, checked) {
+  var s = state.setups[coId];
+  if (!s.done)   s.done   = [];
+  if (!s.doneAt) s.doneAt = {};
+  if (checked) { if (s.done.indexOf(id)<0) s.done.push(id); s.doneAt[id] = new Date().toLocaleString('ko-KR'); }
+  else { s.done = s.done.filter(function(x){return x!==id;}); delete s.doneAt[id]; }
+  saveAll();
+  renderProgStat(coId);
+  renderProgStepBar(coId);
+  renderProgItems(coId);
+}
+
+
+/* ── COMPANY PAGE ───────────────────────────────────── */
+function pgCompany() {
+  var canE = canEdit();
+  var html = '<div class="ph"><div><h1 class="pt">🏢 기업 관리</h1><p class="ps">등록된 기업 현황</p></div>'
+    + (canE ? '<button class="btn bp" onclick="openAddCo()">+ 기업 추가</button>' : '')
+    + '</div><div class="cgrid">';
+  state.companies.forEach(function(c){
+    var s = state.setups[c.id] || {};
+    var sel  = (s.sel||[]).length, done = (s.done||[]).length;
+    var pct  = sel ? Math.round(done/sel*100) : 0;
+    html += '<div class="ccard">'
+      + '<div class="flex-sb">'
+      + '<div><div class="cnm">' + xe(c.name) + '</div><div class="cmt">' + xe(c.industry||'-') + ' · ' + xe(c.cd||'') + '</div></div>'
+      + (canE ? '<button class="btn bxs bd" onclick="delCo(\'' + c.id + '\')">🗑️</button>' : '')
+      + '</div>'
+      + '<div class="cst">'
+      + '<div><div class="csv" style="color:var(--ac)">' + sel + '</div><div class="csl">Setup</div></div>'
+      + '<div><div class="csv" style="color:var(--gr)">' + done + '</div><div class="csl">완료</div></div>'
+      + '<div><div class="csv" style="color:var(--or)">' + pct + '%</div><div class="csl">진행률</div></div>'
+      + '</div>'
+      + '<div class="pb mt8"><div class="pf" style="width:' + pct + '%"></div></div>'
+      + '<div class="flex-g mt10">'
+      + '<button class="btn bp bsm" onclick="goSetup(\'' + c.id + '\')">⚙️ Setup</button>'
+      + '<button class="btn bs bsm" onclick="goProg(\'' + c.id + '\')">📈 현황</button>'
+      + '</div>'
+      + (c.note ? '<div class="cnote">' + xe(c.note) + '</div>' : '')
+      + '</div>';
+  });
+  if (!state.companies.length) html += '<div class="empty" style="grid-column:1/-1"><div class="ei">🏢</div><h3>등록된 기업이 없습니다</h3><p>오른쪽 상단 버튼으로 추가하세요</p></div>';
+  html += '</div>';
+  gid('pg_company').innerHTML = html;
+}
+
+function openAddCo() {
+  if (!canEdit()) return;
+  gid('coNm').value = ''; gid('coInd').value = ''; gid('coNote').value = '';
+  gid('coModal').style.display = 'flex';
+}
+function addCo() {
+  var nm = gid('coNm').value.trim();
+  if (!nm) { toast('오류','기업명을 입력하세요.','error'); return; }
+  var id = 'co' + Date.now();
+  state.companies.push({ id:id, name:nm, industry:gid('coInd').value, note:gid('coNote').value, cd:new Date().toLocaleDateString('ko-KR') });
+  saveAll(); CM('coModal'); pgCompany();
+  toast('등록 완료', nm + ' 기업이 등록되었습니다.', 'success');
+}
+function delCo(id) {
+  var c = state.companies.filter(function(x){ return x.id===id; })[0];
+  if (!confirm('"' + c.name + '" 기업을 삭제하시겠습니까?')) return;
+  state.companies = state.companies.filter(function(x){ return x.id!==id; });
+  delete state.setups[id];
+  saveAll(); pgCompany();
+  toast('삭제','기업이 삭제되었습니다.','info');
+}
+function goSetup(coId) {
+  navTo('setup');
+  setTimeout(function(){ if(gid('coSel')){ gid('coSel').value = coId; loadCo(); } }, 60);
+}
+function goProg(coId) {
+  navTo('progress');
+  setTimeout(function(){ if(gid('prCoSel')){ gid('prCoSel').value = coId; state.progressStep=0; loadProg(); } }, 60);
+}
+
+/* ── EXPORT ─────────────────────────────────────────── */
+function exportMaster() {
+  var cols = ['id','프로세스','구분','세부검토항목','체크포인트','필수여부','필요문서','총괄담당부서','합의부서','승인부서','표준일정'];
+  var rows = [cols.join(',')];
+  state.master.forEach(function(r){
+    rows.push(cols.map(function(k){ return '"' + String(r[k]||'').replace(/"/g,'""') + '"'; }).join(','));
+  });
+  dlCSV(rows.join('\n'), 'master_' + new Date().toISOString().slice(0,10) + '.csv');
+}
+function expSetup() {
+  var coId = gid('coSel') ? gid('coSel').value : '';
+  if (!coId) { toast('오류','기업을 먼저 선택하세요.','error'); return; }
+  var co = state.companies.filter(function(c){ return c.id===coId; })[0];
+  var s  = state.setups[coId] || {};
+  if (!(s.sel||[]).length) { toast('오류','선택된 항목이 없습니다.','error'); return; }
+  var cols = ['프로세스','구분','세부검토항목','체크포인트','필수여부','필요문서','총괄담당부서','합의부서','승인부서','표준일정','목표일정'];
+  var rows = [cols.join(',')];
+  state.master.filter(function(r){ return (s.sel||[]).indexOf(r.id)>=0; }).forEach(function(r){
+    var c = (s.custom||{})[r.id] || {};
+    function cv(f){ return c[f]!==undefined ? c[f] : r[f]||''; }
+    var vals = [r['프로세스'],r['구분'],r['세부검토항목'],cv('체크포인트'),cv('필수여부'),cv('필요문서'),cv('총괄담당부서'),cv('합의부서'),cv('승인부서'),r['표준일정']||'',(s.tgt||{})[r.id]||''];
+    rows.push(vals.map(function(v){ return '"' + String(v||'').replace(/"/g,'""') + '"'; }).join(','));
+  });
+  dlCSV(rows.join('\n'), 'setup_' + co.name + '_' + new Date().toISOString().slice(0,10) + '.csv');
+}
+function dlCSV(data, fname) {
+  var blob = new Blob(['\uFEFF' + data], { type:'text/csv;charset=utf-8;' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fname;
+  a.click();
+  toast('내보내기','CSV 파일 다운로드 중','success');
+}
+
+/* ── MODAL ──────────────────────────────────────────── */
+function CM(id) { gid(id).style.display = 'none'; }
+
+/* ── EVENTS ─────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function(){
+  // 창 크기 변경 시 레이아웃 재계산
+  window.addEventListener('resize', function() {
+    ['pg_master','pg_setup','pg_progress'].forEach(function(id) {
+      var pg = document.getElementById(id);
+      if (pg && pg.style.display !== 'none') adjustPageLayout(id);
+    });
+  });
+  gid('btnLogin').addEventListener('click', doLogin);
+  gid('loginPw').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+  gid('loginId').addEventListener('keydown', function(e){ if(e.key==='Enter') gid('loginPw').focus(); });
+  gid('itemModal').addEventListener('click', function(e){ if(e.target===this) CM('itemModal'); });
+  gid('coModal').addEventListener('click',   function(e){ if(e.target===this) CM('coModal');   });
+});
+
+</script>
+</body>
+</html>
