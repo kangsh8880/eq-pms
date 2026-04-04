@@ -2813,8 +2813,8 @@ function pgDetail() {
 
   // 단일 스크롤 영역으로 전체를 구성 (flex 체인 문제 우회)
   gid('pg_detail').innerHTML =
-    // 상단 sticky 바 (필터 + 설비명 + 진행률)
-    '<div style="position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+    // 상단 sticky 블록 전체 (필터바 + 설비정보 + 스텝바 함께 고정)
+    '<div id="dtStickyHeader" style="position:sticky;top:0;z-index:10;background:var(--bg2);border-bottom:2px solid var(--bd)">'    + '<div style="background:var(--bg);border-bottom:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
     + '<h1 style="font-size:25px;font-weight:700;margin:0;white-space:nowrap">📊 설비별 실적 현황</h1>'
     + '<span style="font-size:21px;color:var(--t2)">기업</span>'
     + '<select id="dtCoSel" onchange="_dtLoadCo()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:21px;font-family:inherit;outline:none">'
@@ -2849,7 +2849,8 @@ function pgDetail() {
     + '</div>'
     + '</div>'
     // 스텝바
-    + '<div id="dtStepBar" style="overflow-x:auto;border-bottom:1px solid var(--bd)"></div>'
+    + '<div id="dtStepBar" style="overflow-x:auto;background:var(--bg2)"></div>'
+    + '</div>'
     // 본문
     + '<div id="dtBody" style="padding:12px 14px">'
     + '<div class="empty"><div class="ei">📊</div><h3>기업과 설비를 선택하세요</h3></div>'
