@@ -16,13 +16,13 @@
   --or:#f0883e;--re:#f85149;--pu:#bc8cff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:19px;line-height:1.65}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);height:100vh;overflow:hidden;font-size:19px;line-height:1.65}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
 
 /* LOGIN */
-#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%)}
+#loginScreen{display:flex;align-items:center;justify-content:center;position:fixed;inset:0;background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%);z-index:9999}
 .lbox{background:var(--bg2);border:1px solid var(--bd);border-radius:16px;padding:44px 38px;width:400px}
 .llogo{display:flex;align-items:center;gap:11px;margin-bottom:26px}
 .llogo-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:26px}
@@ -41,7 +41,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .lhint strong{color:var(--ac)}
 
 /* APP */
-#app{display:none}
+#app{display:none;flex-direction:column;height:100vh;overflow:hidden;position:relative}
 .hdr{background:var(--bg2);border-bottom:1px solid var(--bd);padding:0 28px;display:flex;align-items:center;gap:12px;height:62px;position:sticky;top:0;z-index:200}
 .hdr-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;flex-shrink:0}
 .hdr-logo .ico{width:28px;height:28px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px}
@@ -57,7 +57,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .lout:hover{border-color:var(--re);color:var(--re)}
 
 /* MAIN */
-.main{padding:24px 28px;max-width:100%;margin:0}
+.main{padding:24px 28px;max-width:100%;margin:0;flex:1 1 0;min-height:0;overflow:hidden}
 .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .pt{font-size:25px;font-weight:700}
 .ps{font-size:17px;color:var(--t2);margin-top:2px}
@@ -66,7 +66,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .sg4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
 .sc{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:22px 24px}
 .sl{font-size:16px;color:var(--t2);margin-bottom:5px;font-weight:500}
-.sv{font-size:32px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.sv{font-size:32px;font-weight:700;font-family:monospace}
 .ss{font-size:16px;color:var(--t2);margin-top:2px}
 
 /* STEP BAR */
@@ -90,9 +90,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 /* TABLE */
 .tw{overflow-x:auto;border-radius:8px;border:1px solid var(--bd)}
 .m-scroll-body .tw{border:none;border-radius:0}
-.tbl{width:100%;border-collapse:collapse;table-layout:fixed;word-break:break-all;font-size:18px}
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed;word-break:break-all;font-size:19px}
 .tbl thead tr{background:var(--bg3);border-bottom:1px solid var(--bd)}
-.tbl th{padding:12px 14px;text-align:left;font-weight:600;color:var(--t2);font-size:16px;white-space:nowrap;border-right:1px solid var(--bd2)}
+.tbl th{padding:12px 14px;text-align:left;font-weight:600;color:var(--t2);font-size:17px;white-space:nowrap;border-right:1px solid var(--bd2)}
 .tbl th:last-child{border-right:none}
 .tbl tbody tr{border-bottom:1px solid var(--bd2);transition:background .1s}
 .tbl tbody tr:last-child{border-bottom:none}
@@ -103,7 +103,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .sm{font-size:17px}
 .t2{color:var(--t2)}
 .t3{color:var(--t3)}
-.mono{font-family:'JetBrains Mono',monospace}
+.mono{font-family:monospace}
 
 /* BADGES */
 .b{display:inline-flex;align-items:center;padding:1px 6px;border-radius:9px;font-size:16px;font-weight:500;white-space:nowrap}
@@ -146,7 +146,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .blbl{width:65px;font-size:16px;color:var(--t2);text-align:right;flex-shrink:0}
 .btrack{flex:1;background:var(--bg3);border-radius:3px;height:16px;position:relative}
 .bfill{height:100%;background:linear-gradient(90deg,var(--a2),var(--ac));border-radius:3px}
-.bval{position:absolute;right:5px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--t2);font-family:'JetBrains Mono',monospace}
+.bval{position:absolute;right:5px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--t2);font-family:monospace}
 
 /* CHIP */
 .chip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:6px;font-size:14px;background:var(--bg3);border:1px solid var(--bd);color:var(--t2);white-space:normal;word-break:keep-all;text-align:center;line-height:1.4}
@@ -230,7 +230,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .sitem:last-child{border-bottom:none}
 .sih{padding:9px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .1s}
 .sih:hover{background:rgba(255,255,255,.02)}
-.sin{width:18px;height:18px;border-radius:50%;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--ac);flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.sin{width:18px;height:18px;border-radius:50%;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--ac);flex-shrink:0;font-family:monospace}
 .sit{font-size:18px;font-weight:500;flex:1;word-break:keep-all}
 .stog{font-size:17px;color:var(--t2);transition:transform .2s;display:inline-block}
 .sib{padding:0 12px 12px;border-top:1px solid var(--bd2);background:rgba(88,166,255,.03)}
@@ -280,12 +280,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
 .ccard{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:16px;transition:all .2s}
 .ccard:hover{border-color:var(--ac);transform:translateY(-1px)}
-.cnm{font-size:19px;font-weight:600;margin-bottom:4px}
-.cmt{font-size:16px;color:var(--t2)}
-.cst{margin-top:11px;display:flex;gap:11px}
-.csv{font-size:23px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.cnm{font-size:19px;font-weight:600;margin-bottom:4px;text-align:center}
+.cmt{font-size:16px;color:var(--t2);text-align:center}
+.cst{margin-top:11px;display:flex;gap:11px;justify-content:center}
+.csv{font-size:23px;font-weight:700;font-family:monospace}
 .csl{font-size:15px;color:var(--t2)}
-.cnote{margin-top:7px;font-size:16px;color:var(--t3)}
+.cnote{text-align:center;margin-top:7px;font-size:16px;color:var(--t3)}
 
 @media(max-width:1100px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }}
 @media(max-width:800px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }.sg4{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:1fr}}
@@ -443,7 +443,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   .main { padding: 14px 12px; }
 
   /* 페이지 고정 레이아웃 높이 조정 */
-  #pg_master, #pg_setup, #pg_progress {
+  #pg_master, #pg_setup, #pg_progress, #pg_equip, #pg_detail {
     height: calc(100vh - 90px);
   }
 
@@ -535,11 +535,15 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 
 
 /* ══ 공통: 페이지 고정 헤더 + 스크롤 바디 ══════════ */
-#pg_master, #pg_setup, #pg_progress {
+#pg_master, #pg_setup, #pg_progress, #pg_equip {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 110px);  /* 전체높이 - 헤더62px - main상하패딩48px */
+  height: calc(100vh - 110px);
   overflow: hidden;
+}
+#pg_detail, #pg_company {
+  overflow-y: auto;
+  height: calc(100vh - 110px);
 }
 /* 고정 헤더: 타이틀/스텝바/검색바 */
 .pg-hdr {
@@ -553,6 +557,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 /* Master DB 테이블 래퍼 */
 .mTblWrap {
@@ -821,6 +826,161 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   margin-left: auto;
 }
 
+/* ══ 🏭 설비 투자 진척 페이지 CSS ══════════════════ */
+
+/* 상단 필터바 */
+.eq-filterbar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  background: var(--bg2); border: 1px solid var(--bd); border-radius: 10px;
+  padding: 12px 16px; margin-bottom: 14px;
+}
+.eq-filterbar select, .eq-filterbar input {
+  padding: 7px 10px; background: var(--bg3); border: 1px solid var(--bd);
+  border-radius: 7px; color: var(--tx); font-size: 14px; font-family: inherit; outline: none;
+}
+.eq-filterbar select:focus, .eq-filterbar input:focus { border-color: var(--ac); }
+.eq-filter-label { font-size: 13px; color: var(--t2); white-space: nowrap; }
+
+/* 진척 현황 메인 테이블 */
+.eq-tbl-wrap {
+  flex: 1 1 0; min-height: 0;
+  border: 1px solid var(--bd); border-radius: 8px;
+  overflow: auto;
+}
+.eq-tbl {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; table-layout: fixed;
+  min-width: 1400px;
+}
+.eq-tbl thead tr { position: sticky; top: 0; z-index: 15; }
+.eq-tbl thead th {
+  background: var(--bg3); padding: 9px 8px;
+  text-align: center; font-size: 12px; font-weight: 600;
+  color: var(--t2); border-right: 1px solid var(--bd2);
+  border-bottom: 1px solid var(--bd); white-space: nowrap;
+}
+.eq-tbl thead th.th-fix { position: sticky; left: 0; z-index: 20; background: var(--bg3); }
+.eq-tbl thead th.th-fix2 { position: sticky; left: 90px; z-index: 20; background: var(--bg3); }
+.eq-tbl thead th.th-fix3 { position: sticky; left: 220px; z-index: 20; background: var(--bg3); }
+.eq-tbl thead th:last-child { border-right: none; }
+.eq-tbl tbody tr { border-bottom: 1px solid var(--bd2); transition: background .1s; }
+.eq-tbl tbody tr:hover { background: var(--bg3); }
+.eq-tbl tbody tr.eq-row-target { background: rgba(88,166,255,.04); }
+.eq-tbl tbody td {
+  padding: 0; border-right: 1px solid var(--bd2);
+  vertical-align: middle; text-align: center;
+}
+.eq-tbl tbody td.td-fix {
+  position: sticky; left: 0; z-index: 5;
+  background: var(--bg2); padding: 7px 8px;
+}
+.eq-tbl tbody td.td-fix2 {
+  position: sticky; left: 90px; z-index: 5;
+  background: var(--bg2); padding: 7px 8px; text-align: left;
+}
+.eq-tbl tbody td.td-fix3 {
+  position: sticky; left: 220px; z-index: 5;
+  background: var(--bg2); padding: 7px 8px; text-align: left;
+}
+.eq-tbl tbody tr:hover td.td-fix,
+.eq-tbl tbody tr:hover td.td-fix2,
+.eq-tbl tbody tr:hover td.td-fix3 { background: var(--bg3); }
+
+/* 날짜 셀 */
+.eq-date-cell {
+  display: flex; flex-direction: column; gap: 1px;
+  padding: 4px 6px; min-height: 48px; justify-content: center;
+}
+.eq-date-row {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px;
+}
+.eq-date-lbl {
+  font-size: 10px; color: var(--t3);
+  background: var(--bg3); border-radius: 3px;
+  padding: 0 3px; white-space: nowrap; flex-shrink: 0;
+}
+.eq-date-input {
+  width: 100%; background: transparent; border: none;
+  color: var(--tx); font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  outline: none; cursor: pointer; padding: 2px 3px;
+  border-radius: 3px; transition: background .15s;
+}
+.eq-date-input:focus { background: var(--bg3); }
+.eq-date-input.eq-date-target { color: var(--ac); }
+.eq-date-input.eq-date-actual { color: var(--gr); }
+.eq-date-input.eq-date-delay { color: var(--re) !important; border-color: rgba(248,81,73,.4) !important; }
+
+/* 진행상태 셀 */
+.eq-step-cell { padding: 3px 5px; }
+.eq-step-done { background: rgba(63,185,80,.15); }
+.eq-step-delay { background: rgba(248,81,73,.1); }
+.eq-step-wip { background: rgba(88,166,255,.1); }
+
+/* 공정/설비 행 구분 */
+.eq-row-proc td.td-fix { background: var(--bg3) !important; font-weight: 700; font-size: 13px; }
+.eq-row-proc td.td-fix2 { background: var(--bg3) !important; font-weight: 600; }
+.eq-row-proc td.td-fix3 { background: var(--bg3) !important; }
+.eq-row-eq td { font-size: 12px; }
+.eq-row-type-lbl {
+  font-size: 10px; padding: 1px 5px; border-radius: 3px; white-space: nowrap;
+}
+.eq-row-type-t { background: rgba(88,166,255,.15); color: var(--ac); }
+.eq-row-type-a { background: rgba(63,185,80,.15); color: var(--gr); }
+
+/* 설비 추가 버튼 */
+.eq-add-row td { padding: 6px 10px; text-align: center; }
+
+/* 진행률 바 인라인 */
+.eq-pct-cell { padding: 4px 8px; text-align: center; }
+.eq-pct-val { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.eq-mini-bar { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; margin-top: 3px; }
+.eq-mini-fill { height: 100%; border-radius: 2px; transition: width .3s; }
+
+/* 설비 편집 버튼 */
+.eq-btn-edit {
+  width: 26px; height: 24px; border: 1px solid var(--bd); border-radius: 4px;
+  background: var(--bg3); color: var(--t2); cursor: pointer; font-size: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all .15s; margin: 0 1px;
+}
+.eq-btn-edit:hover { border-color: var(--ac); color: var(--ac); background: rgba(88,166,255,.1); }
+.eq-btn-del:hover { border-color: var(--re); color: var(--re); background: rgba(248,81,73,.1); }
+
+/* 모달 */
+.eq-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.eq-modal-grid.s1 { grid-template-columns: 1fr; }
+.eq-flbl { font-size: 12px; font-weight: 600; color: var(--t2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .3px; }
+.eq-finp, .eq-fsel {
+  width: 100%; padding: 7px 10px;
+  background: var(--bg3); border: 1px solid var(--bd);
+  border-radius: 7px; color: var(--tx); font-size: 14px;
+  font-family: inherit; outline: none; transition: border-color .2s;
+}
+.eq-finp:focus, .eq-fsel:focus { border-color: var(--ac); }
+
+/* 통계 헤더 */
+.eq-stat-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.eq-stat-card {
+  flex: 1; min-width: 110px;
+  background: var(--bg2); border: 1px solid var(--bd);
+  border-radius: 9px; padding: 9px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.eq-stat-lbl { font-size: 12px; color: var(--t2); }
+.eq-stat-val { font-size: 20px; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-left: auto; }
+
+/* 담당자/업체 chip */
+.eq-chip { font-size: 12px; background: var(--bg3); border: 1px solid var(--bd); border-radius: 4px; padding: 1px 6px; color: var(--t2); white-space: nowrap; }
+
+/* 반응형 */
+@media(max-width:768px) {
+  .eq-filterbar { gap: 6px; }
+  .eq-tbl { font-size: 11px; }
+  .eq-stat-card { min-width: 80px; padding: 7px 10px; }
+  .eq-stat-val { font-size: 16px; }
+}
+
 </style>
 </head>
 <body>
@@ -860,7 +1020,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <button class="nb" data-p="dashboard" onclick="navTo('dashboard')">📊 대시보드</button>
       <button class="nb" data-p="master"    onclick="navTo('master')">📋 Master DB</button>
       <button class="nb" data-p="setup"     onclick="navTo('setup')">⚙️ 프로세스 Setup</button>
-      <button class="nb" data-p="progress"  onclick="navTo('progress')">📈 진행 현황</button>
+      <button class="nb" data-p="progress"  onclick="navTo('progress')">📈 프로세스 진행현황</button>
+      <button class="nb" data-p="equip"     onclick="navTo('equip')">🏭 설비 투자 진척</button>
+      <button class="nb" data-p="detail"    onclick="navTo('detail')">📊 설비별 실적 현황</button>
       <button class="nb" data-p="company"   onclick="navTo('company')">🏢 기업 관리</button>
     </nav>
     <div class="hr">
@@ -881,7 +1043,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo('dashboard')">📊 대시보드</button>
       <button class="mob-nb" data-mp="master"    onclick="mobNavTo('master')">📋 Master DB</button>
       <button class="mob-nb" data-mp="setup"     onclick="mobNavTo('setup')">⚙️ 프로세스 Setup</button>
-      <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')">📈 진행 현황</button>
+      <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')">📈 프로세스 진행현황</button>
+      <button class="mob-nb" data-mp="equip"     onclick="mobNavTo('equip')">🏭 설비 투자 진척</button>
+      <button class="mob-nb" data-mp="detail"    onclick="mobNavTo('detail')">📊 설비별 실적 현황</button>
       <button class="mob-nb" data-mp="company"   onclick="mobNavTo('company')">🏢 기업 관리</button>
     </nav>
     <div class="mob-drawer-ftr">
@@ -900,6 +1064,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
     <div id="pg_master"    style="display:none"></div>
     <div id="pg_setup"     style="display:none"></div>
     <div id="pg_progress"  style="display:none"></div>
+    <div id="pg_equip"     style="display:none"></div>
+    <div id="pg_detail"    style="display:none"></div>
     <div id="pg_company"   style="display:none"></div>
   </main>
 </div>
@@ -985,6 +1151,9 @@ var state = {
   master: [],
   companies: [],
   setups: {},
+  equipments: {},   // { coId: [{id, name, model, qty, amt, note, progress:{stepIdx:doneIds[]}}] }
+  gongMaster: {},   // 공정 Master (기업별 편집 가능) { coId: [...] }
+  vendorMaster: {}, // 설비업체 Master (기업별 편집 가능) { coId: [...] }
   masterStep: 0,
   setupStep: 0
 };
@@ -999,9 +1168,12 @@ function lsSet(k, v) {
   try { localStorage.setItem('epms_' + k, JSON.stringify(v)); } catch(e) {}
 }
 function saveAll() {
-  lsSet('companies', state.companies);
-  lsSet('setups',    state.setups);
-  lsSet('master',    state.master);
+  lsSet('companies',    state.companies);
+  lsSet('setups',       state.setups);
+  lsSet('master',       state.master);
+  lsSet('equipments',   state.equipments);
+  lsSet('gongMaster',   state.gongMaster);
+  lsSet('vendorMaster', state.vendorMaster);
 }
 
 function xe(s) {
@@ -1039,7 +1211,7 @@ function doLogin() {
   if (USERS[id] && USERS[id].pw === pw) {
     state.curUser = { id: id, name: USERS[id].name, role: USERS[id].role };
     gid('loginScreen').style.display = 'none';
-    gid('app').style.display = 'block';
+    gid('app').style.display = 'flex';
     gid('uNm').textContent = state.curUser.name;
     gid('uRl').textContent = state.curUser.role;
     var mn = gid('mobUNm'); if (mn) mn.textContent = state.curUser.name;
@@ -1079,6 +1251,13 @@ function appInit() {
     var ids = state.master.slice(0, 107).map(function(r){ return r.id; });
     state.setups['co1'] = { sel:ids, custom:{}, done:[], doneAt:{}, tgt:{} };
   }
+  state.equipments = lsGet('equipments') || {};
+  // 공정/설비업체 Master (localStorage → 없으면 초기 데이터)
+  state.gongMaster   = lsGet('gongMaster')   || {};
+  state.vendorMaster = lsGet('vendorMaster') || {};
+  // 현재 선택 기업 탭 초기화
+  _coTab = 'company';
+  _coSelId = null;
   navTo('dashboard');
 }
 
@@ -1097,7 +1276,7 @@ function adjustPageLayout(pgId) {
 }
 
 function navTo(p) {
-  ['dashboard','master','setup','progress','company'].forEach(function(pg) {
+  ['dashboard','master','setup','progress','equip','detail','company'].forEach(function(pg) {
     gid('pg_' + pg).style.display = (pg === p) ? 'block' : 'none';
   });
   document.querySelectorAll('.nb').forEach(function(b) { b.classList.remove('active'); });
@@ -1111,6 +1290,8 @@ function navTo(p) {
   else if (p === 'master')    pgMaster();
   else if (p === 'setup')     pgSetup();
   else if (p === 'progress')  pgProgress();
+  else if (p === 'equip')     pgEquip();
+  else if (p === 'detail')    pgDetail();
   else if (p === 'company')   pgCompany();
 }
 
@@ -1635,8 +1816,8 @@ function pgProgress() {
   }).join('');
   gid('pg_progress').innerHTML =
     '<div class="pg-hdr">'
-    + '<div class="ph"><div><h1 class="pt">📈 진행 현황</h1>'
-    + '<p class="ps">기업별 프로세스 진행 추적</p></div>'
+    + '<div class="ph"><div><h1 class="pt">📈 프로세스 진행현황</h1>'
+    + '<p class="ps">기업별 프로세스 체크리스트 진행 추적</p></div>'
     + '<select class="fsel" id="prCoSel" onchange="loadProg()">'
     + '<option value="">— 기업을 선택하세요 —</option>' + opts
     + '</select></div>'
@@ -1796,7 +1977,7 @@ function renderProgItems(coId) {
       + '<td class="t3 sm">' + xe(da) + '</td>'
       + '</tr>';
   });
-  html += '</tbody></table></div>';
+  html += '</tbody></table></div></div>';
   gid('prBody').innerHTML = html;
 
   // 체크박스 이벤트 위임
@@ -1825,37 +2006,1740 @@ function togDone(coId, id, checked) {
 }
 
 
-/* ── COMPANY PAGE ───────────────────────────────────── */
-function pgCompany() {
+/* ══════════════════════════════════════════════════════
+   🏭 설비 투자 진척 페이지 - 공정/설비/투자프로세스 통합 관리
+══════════════════════════════════════════════════════ */
+
+/* 공정 Master 데이터 */
+var GONG_MASTER = [{"seq": 1, "code": "S05-0100", "name": "Sheet Stock", "manager": "", "contact": ""}, {"seq": 2, "code": "F10-0020", "name": "MS Auto Racking1 (PTC)", "manager": "", "contact": ""}, {"seq": 3, "code": "F10-0030", "name": "MS Cleaning", "manager": "", "contact": ""}, {"seq": 4, "code": "F10-0050", "name": "MS Auto Racking2 (CTT)", "manager": "", "contact": ""}, {"seq": 5, "code": "F10-0100", "name": "Glass Lamination", "manager": "", "contact": ""}, {"seq": 6, "code": "F10-0150", "name": "Slit Coater", "manager": "", "contact": ""}, {"seq": 7, "code": "F10-0200", "name": "Auto Racking #01", "manager": "", "contact": ""}, {"seq": 8, "code": "F10-0300", "name": "Post Baking", "manager": "", "contact": ""}, {"seq": 9, "code": "F10-0400", "name": "Part Cut", "manager": "", "contact": ""}, {"seq": 10, "code": "F30-0100", "name": "Chamfering", "manager": "", "contact": ""}, {"seq": 11, "code": "F30-0125", "name": "Edge Etching", "manager": "", "contact": ""}, {"seq": 12, "code": "F30-0150", "name": "Auto Racking1 (TTC)", "manager": "", "contact": ""}, {"seq": 13, "code": "F30-0200", "name": "Stripping & Cleaning", "manager": "", "contact": ""}, {"seq": 14, "code": "F30-0400", "name": "Fine Slimming", "manager": "", "contact": ""}, {"seq": 15, "code": "F30-0600", "name": "Cleaning #01", "manager": "", "contact": ""}, {"seq": 16, "code": "F30-0700", "name": "Auto Racking2 (CTC)", "manager": "", "contact": ""}, {"seq": 17, "code": "F30-0800", "name": "IOX", "manager": "", "contact": ""}, {"seq": 18, "code": "F30-0900", "name": "Auto Racking3 (CTC)", "manager": "", "contact": ""}, {"seq": 19, "code": "F30-1000", "name": "Cleaning #02", "manager": "", "contact": ""}, {"seq": 20, "code": "F30-1100", "name": "Re-Polish", "manager": "", "contact": ""}, {"seq": 21, "code": "F30-1200", "name": "Cleaning #03", "manager": "", "contact": ""}, {"seq": 22, "code": "F30-1300", "name": "FSM", "manager": "", "contact": ""}, {"seq": 23, "code": "F30-1400", "name": "Cleaning #04", "manager": "", "contact": ""}, {"seq": 24, "code": "F30-1500", "name": "Auto Racking4 (CTT)", "manager": "", "contact": ""}, {"seq": 25, "code": "F30-1700", "name": "PF1 Lamination", "manager": "", "contact": ""}, {"seq": 26, "code": "F30-1765", "name": "OQC Inspection", "manager": "", "contact": ""}, {"seq": 27, "code": "F30-2000", "name": "2PB Test", "manager": "", "contact": ""}, {"seq": 28, "code": "S06-0100", "name": "UTG Stock", "manager": "", "contact": ""}, {"seq": 29, "code": "F30-1775", "name": "AOI1", "manager": "", "contact": ""}, {"seq": 30, "code": "F30-1800", "name": "Proof Test", "manager": "", "contact": ""}, {"seq": 31, "code": "S06-0300", "name": "Roll Stock1", "manager": "", "contact": ""}, {"seq": 32, "code": "S06-0500", "name": "Roll Stock2", "manager": "", "contact": ""}, {"seq": 33, "code": "B70-0100", "name": "AOI2", "manager": "", "contact": ""}, {"seq": 34, "code": "B70-0150", "name": "H/C Liner Change", "manager": "", "contact": ""}, {"seq": 35, "code": "B70-0200", "name": "Annealing", "manager": "", "contact": ""}, {"seq": 36, "code": "B70-0300", "name": "BM Print", "manager": "", "contact": ""}, {"seq": 37, "code": "B70-0400", "name": "BM Dry", "manager": "", "contact": ""}, {"seq": 38, "code": "B70-0450", "name": "Final Cure", "manager": "", "contact": ""}, {"seq": 39, "code": "B70-0600", "name": "OCA Lamination", "manager": "", "contact": ""}, {"seq": 40, "code": "B70-0625", "name": "AOI3", "manager": "", "contact": ""}, {"seq": 41, "code": "B70-0675", "name": "OCA Liner Change", "manager": "", "contact": ""}, {"seq": 42, "code": "B70-0650", "name": "RTS", "manager": "", "contact": ""}, {"seq": 43, "code": "B70-0700", "name": "Die Cut", "manager": "", "contact": ""}, {"seq": 44, "code": "B70-0800", "name": "Auto Clave1", "manager": "", "contact": ""}, {"seq": 45, "code": "B70-1000", "name": "Laser Trim (OCA offset)", "manager": "", "contact": ""}, {"seq": 46, "code": "B70-1025", "name": "Laser Cut", "manager": "", "contact": ""}, {"seq": 47, "code": "B70-1050", "name": "Co2 + AOM Laser", "manager": "", "contact": ""}, {"seq": 48, "code": "B70-1075", "name": "Auto Clave2", "manager": "", "contact": ""}, {"seq": 49, "code": "B70-1085", "name": "Visual Inspection1", "manager": "", "contact": ""}, {"seq": 50, "code": "B70-1165", "name": "Heavy PF Lami", "manager": "", "contact": ""}, {"seq": 51, "code": "B70-1175", "name": "Auto Clave3", "manager": "", "contact": ""}, {"seq": 52, "code": "B70-1200", "name": "Laser Trim(Notch)", "manager": "", "contact": ""}, {"seq": 53, "code": "S60-0100", "name": "Film Cell Merge Stock", "manager": "", "contact": ""}, {"seq": 54, "code": "B70-1300", "name": "Shipping PF Lamination(CVL0)", "manager": "", "contact": ""}, {"seq": 55, "code": "B70-1400", "name": "UV PICO Laser", "manager": "", "contact": ""}, {"seq": 56, "code": "B70-1475", "name": "Auto Clave 1 (CVL0)", "manager": "", "contact": ""}, {"seq": 57, "code": "B70-1495", "name": "AOI 3.5", "manager": "", "contact": ""}, {"seq": 58, "code": "B70-1500", "name": "AOI4 #01", "manager": "", "contact": ""}, {"seq": 59, "code": "B70-1550", "name": "Easy PF Lami", "manager": "", "contact": ""}, {"seq": 60, "code": "B70-1600", "name": "Auto Clave4 #01", "manager": "", "contact": ""}, {"seq": 61, "code": "B70-1700", "name": "FG Barcode Inkjet1", "manager": "", "contact": ""}, {"seq": 62, "code": "B70-1800", "name": "Inkjet QR Check1", "manager": "", "contact": ""}, {"seq": 63, "code": "B70-1900", "name": "Visual Inspection2", "manager": "", "contact": ""}, {"seq": 64, "code": "B70-7000", "name": "OQC(CVL0)", "manager": "", "contact": ""}, {"seq": 65, "code": "S70-0100", "name": "Glass Cell Merge Stock", "manager": "", "contact": ""}, {"seq": 66, "code": "B90-0150", "name": "TCVL+AutoClave (CVL0+CVL1+UTG)", "manager": "", "contact": ""}, {"seq": 67, "code": "B90-0175", "name": "Glass Lamination", "manager": "", "contact": ""}, {"seq": 68, "code": "B90-0180", "name": "Laser Cut", "manager": "", "contact": ""}, {"seq": 69, "code": "B90-0300", "name": "Heavy PF Lami2", "manager": "", "contact": ""}, {"seq": 70, "code": "B90-0400", "name": "Easy PF Lami2", "manager": "", "contact": ""}, {"seq": 71, "code": "B90-0450", "name": "Shipping PF Lamination", "manager": "", "contact": ""}, {"seq": 72, "code": "B90-0500", "name": "Auto Clave 5", "manager": "", "contact": ""}, {"seq": 73, "code": "B90-0550", "name": "Auto Clave 2", "manager": "", "contact": ""}, {"seq": 74, "code": "B90-0600", "name": "AOI 5", "manager": "", "contact": ""}, {"seq": 75, "code": "B90-0200", "name": "AOI4 #02", "manager": "", "contact": ""}, {"seq": 76, "code": "B90-1600", "name": "Auto Clave4 #02", "manager": "", "contact": ""}, {"seq": 77, "code": "B90-0700", "name": "FG Barcode Inkjet2", "manager": "", "contact": ""}, {"seq": 78, "code": "B90-0800", "name": "Inkjet QR Check2", "manager": "", "contact": ""}, {"seq": 79, "code": "B90-0900", "name": "Visual Inspection3", "manager": "", "contact": ""}, {"seq": 80, "code": "B90-7000", "name": "OQC", "manager": "", "contact": ""}, {"seq": 81, "code": "F90-0900", "name": "IPQC", "manager": "", "contact": ""}, {"seq": 82, "code": "S90-0100", "name": "Cell Stock", "manager": "", "contact": ""}];
+
+/* 설비업체 Master */
+var VENDOR_MASTER = [{"code": "KR2165423", "name": "ATK", "manager": "", "contact": ""}, {"code": "KR2165424", "name": "KJG", "manager": "", "contact": ""}, {"code": "KR2165425", "name": "OIHKHJH", "manager": "", "contact": ""}, {"code": "KR2165426", "name": "KO-KJGKJHU", "manager": "", "contact": ""}, {"code": "VN56498", "name": "KJ TEC", "manager": "", "contact": ""}, {"code": "KR2165428", "name": "PO HGJ", "manager": "", "contact": ""}, {"code": "KR2165429", "name": "KKJHKJ", "manager": "", "contact": ""}, {"code": "CN98651", "name": "RETTYT", "manager": "", "contact": ""}, {"code": "KR2165431", "name": "OIJN MNBM", "manager": "", "contact": ""}, {"code": "KR2165432", "name": "JGUKK", "manager": "", "contact": ""}];
+
+/* 투자 프로세스 11단계 */
+var INVEST_STEPS = ["투자기획","사양정의","투자심의","발주(계약)","제작","FAT","출하(물류/통관)","설치","시운전/SAT","Qual(검증)","양산"];
+
+/* ─────────────────────────────────────────────────────
+   pgEquip: 메인 진입점
+───────────────────────────────────────────────────── */
+function pgEquip() {
   var canE = canEdit();
-  var html = '<div class="ph"><div><h1 class="pt">🏢 기업 관리</h1><p class="ps">등록된 기업 현황</p></div>'
-    + (canE ? '<button class="btn bp" onclick="openAddCo()">+ 기업 추가</button>' : '')
+  gid('pg_equip').innerHTML =
+    '<div class="pg-hdr">'
+    + '<div class="ph" style="margin-bottom:10px">'
+    + '<div><h1 class="pt">🏭 설비 투자 진척 현황</h1>'
+    + '<p class="ps">공정별 · 설비(호기)별 투자 프로세스 목표일/실적일 관리</p></div>'
+    + '<div class="flex-g" style="align-items:center;gap:8px">'
+    + eqBuildFilterBar()
+    + (canEdit() ? '<button class="btn bp bsm" id="eqAddBtn" onclick="_openEqFromPage()" style="display:none">＋ 설비 추가</button>' : '')
+    + '</div></div>'
+    + '<div id="eqStatRow" class="eq-stat-row"></div>'
+    + '</div>'
+    + '<div class="pg-body"><div id="eqBody" class="eq-tbl-wrap">'
+    + '<div class="empty"><div class="ei">🏭</div><h3>기업을 선택하세요</h3></div>'
+    + '</div></div>';
+  adjustPageLayout('pg_equip');
+  // 기업 선택 이벤트
+  var sel = gid('eqCoSel2');
+  if (sel) sel.addEventListener('change', loadEquipTbl);
+}
+
+function eqBuildFilterBar() {
+  var coOpts = state.companies.map(function(c){
+    return '<option value="' + xe(c.id) + '">' + xe(c.name) + '</option>';
+  }).join('');
+  var canE = canEdit();
+  return '<div class="eq-filterbar">'
+    + '<span class="eq-filter-label">기업</span>'
+    + '<select id="eqCoSel2">'
+    + '<option value="">— 기업 선택 —</option>' + coOpts
+    + '</select>'
+    + '<span class="eq-filter-label">설비업체</span>'
+    + '<select id="eqVendSel" onchange="renderEquipTbl()"><option value="">전체 업체</option></select>'
+    + '<span class="eq-filter-label">공정</span>'
+    + '<select id="eqGongSel" onchange="renderEquipTbl()"><option value="">전체 공정</option></select>'
+    + '</div>';
+}
+
+/* ─────────────────────────────────────────────────────
+   데이터 로드 & 렌더링
+───────────────────────────────────────────────────── */
+function loadEquipTbl() {
+  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
+  if (!coId) {
+    gid('eqStatRow').innerHTML = '';
+    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">🏭</div><h3>기업을 선택하세요</h3></div>';
+    return;
+  }
+  if (!state.equipments[coId]) state.equipments[coId] = [];
+  // 기업별 필터 옵션 갱신
+  var vendSel = gid('eqVendSel');
+  if (vendSel) {
+    var vends = _getVend(coId);
+    vendSel.innerHTML = '<option value="">전체 업체</option>'
+      + vends.map(function(v){ return '<option value="' + xe(v.code) + '">' + xe(v.name) + '</option>'; }).join('');
+  }
+  var gongSel = gid('eqGongSel');
+  if (gongSel) {
+    var gongs = _getGong(coId);
+    gongSel.innerHTML = '<option value="">전체 공정</option>'
+      + gongs.map(function(g){ return '<option value="' + xe(g.code) + '">[' + xe(g.code) + '] ' + xe(g.name) + '</option>'; }).join('');
+  }
+  // 설비 추가 버튼 표시
+  var addBtn = gid('eqAddBtn');
+  if (addBtn) addBtn.style.display = '';
+  renderEquipStat2(coId);
+  renderEquipTbl();
+  adjustPageLayout('pg_equip');
+}
+
+function renderEquipStat2(coId) {
+  var eqs = state.equipments[coId] || [];
+  var tot = eqs.length;
+  var done100 = eqs.filter(function(eq){ return calcEqPct2(eq) === 100; }).length;
+  var avgPct = tot ? Math.round(eqs.reduce(function(a,eq){ return a + calcEqPct2(eq); }, 0) / tot) : 0;
+  var totalAmt = eqs.reduce(function(a,eq){ return a + (parseFloat((eq.amt||'').replace(/,/g,''))||0); }, 0);
+  gid('eqStatRow').innerHTML =
+    '<div class="eq-stat-card"><span class="eq-stat-lbl">🏭 총 설비</span><span class="eq-stat-val" style="color:var(--ac)">' + tot + '대</span></div>'
+    + '<div class="eq-stat-card"><span class="eq-stat-lbl">✅ 양산 완료</span><span class="eq-stat-val" style="color:var(--gr)">' + done100 + '대</span></div>'
+    + '<div class="eq-stat-card"><span class="eq-stat-lbl">📊 평균 진행률</span><span class="eq-stat-val" style="color:var(--pu)">' + avgPct + '%</span></div>'
+    + '<div class="eq-stat-card"><span class="eq-stat-lbl">💰 투자금액</span><span class="eq-stat-val" style="color:var(--or);font-size:15px">' + (totalAmt ? fmtAmt(totalAmt) : '-') + '</span></div>';
+}
+
+function fmtAmt(v) {
+  if (v >= 1e8) return (v/1e8).toFixed(1) + '억원';
+  if (v >= 1e4) return (v/1e4).toFixed(0) + '만원';
+  return v.toLocaleString() + '원';
+}
+
+function calcEqPct2(eq) {
+  var done = 0, tot = INVEST_STEPS.length;
+  INVEST_STEPS.forEach(function(s, i) {
+    if ((eq.actual||{})[i]) done++;
+  });
+  return Math.round(done / tot * 100);
+}
+
+function getStepStatus(eq, si) {
+  var actual = (eq.actual||{})[si] || '';
+  var target = (eq.target||{})[si] || '';
+  if (actual) {
+    if (target && actual > target) return 'delay';
+    return 'done';
+  }
+  if (target) {
+    var today = new Date().toISOString().slice(0,10);
+    if (today > target) return 'delay';
+    return 'wip';
+  }
+  return '';
+}
+
+/* ─────────────────────────────────────────────────────
+   테이블 렌더링 (메인 진척 표)
+───────────────────────────────────────────────────── */
+function renderEquipTbl() {
+  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
+  if (!coId) return;
+  var vendF = gid('eqVendSel') ? gid('eqVendSel').value : '';
+  var gongF = gid('eqGongSel') ? gid('eqGongSel').value : '';
+  var eqs   = (state.equipments[coId] || []);
+  var canE  = canEdit();
+
+  // 필터 적용
+  var filtered = eqs.filter(function(eq) {
+    if (vendF && eq.vendCode !== vendF) return false;
+    if (gongF && eq.gongCode !== gongF) return false;
+    return true;
+  });
+
+  if (!filtered.length) {
+    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">📭</div><h3>등록된 설비가 없습니다</h3>'
+      + (canE ? '<p>상단 "+ 설비 추가" 버튼을 눌러 설비를 등록하세요</p>' : '') + '</div>';
+    return;
+  }
+
+  // 헤더 컬럼폭 정의
+  var stepCW = 118; // 날짜셀 너비
+
+  var html = '<table class="eq-tbl">';
+  // 헤더 1행 (colspan 그룹)
+  html += '<thead><tr>'
+    + '<th class="th-fix" style="width:90px" rowspan="2">PO No<br>/ EQ_ID</th>'
+    + '<th class="th-fix2" style="width:130px" rowspan="2">공정코드 · 공정명</th>'
+    + '<th class="th-fix3" style="width:140px" rowspan="2">설비명<br><span style="font-weight:400;color:var(--t3)">모델 / 설비업체</span></th>'
+    + '<th style="width:50px" rowspan="2">구분</th>'
+    + '<th colspan="' + INVEST_STEPS.length + '" style="background:rgba(88,166,255,.08);color:var(--ac)">설비 투자 프로세스</th>'
+    + '<th style="width:80px" rowspan="2">설비업체<br>담당자</th>'
+    + '<th style="width:80px" rowspan="2">UTI<br>담당자</th>'
+    + '<th style="width:50px" rowspan="2">진행률</th>';
+  if (canE) html += '<th style="width:60px" rowspan="2">관리</th>';
+  html += '</tr><tr>';
+  INVEST_STEPS.forEach(function(s) {
+    html += '<th style="width:' + stepCW + 'px;background:rgba(88,166,255,.05)">' + xe(s) + '</th>';
+  });
+  html += '</tr></thead><tbody>';
+
+  // 공정별 그룹핑
+  var gongMap = {};
+  filtered.forEach(function(eq) { 
+    var k = eq.gongCode || '_none';
+    if (!gongMap[k]) gongMap[k] = [];
+    gongMap[k].push(eq);
+  });
+
+  Object.keys(gongMap).forEach(function(gCode) {
+    var gong = GONG_MASTER.find(function(g){ return g.code === gCode; }) || {code: gCode, name: '미지정'};
+    var rows = gongMap[gCode];
+
+    rows.forEach(function(eq, ri) {
+      var idx = eqs.indexOf(eq);
+      var pct = calcEqPct2(eq);
+      var pctColor = pct === 100 ? 'var(--gr)' : pct >= 50 ? 'var(--ac)' : 'var(--or)';
+      var vend = VENDOR_MASTER.find(function(v){ return v.code === eq.vendCode; });
+      var vendNm = vend ? vend.name : (eq.vendNm || '-');
+
+      html += '<tr class="eq-row-eq">';
+      
+      // PO No / EQ_ID (sticky)
+      html += '<td class="td-fix" style="font-size:11px;font-family:monospace">'
+        + '<div style="color:var(--ac)">' + xe(eq.poNo || '-') + '</div>'
+        + '<div style="color:var(--t3)">' + xe(eq.eqId || '-') + '</div>'
+        + '</td>';
+
+      // 공정 (sticky)
+      html += '<td class="td-fix2">'
+        + '<div style="font-size:11px;color:var(--t3)">' + xe(gong.code) + '</div>'
+        + '<div style="font-size:12px;font-weight:500">' + xe(gong.name) + '</div>'
+        + '</td>';
+
+      // 설비명 / 모델 / 업체 (sticky)
+      html += '<td class="td-fix3">'
+        + '<div style="font-weight:600;font-size:12px">' + xe(eq.name) + '</div>'
+        + '<div style="font-size:11px;color:var(--t2)">' + xe(eq.model || '') + '</div>'
+        + '<div><span class="eq-chip">' + xe(vendNm) + '</span></div>'
+        + '</td>';
+
+      // 구분: 목표/실적 행
+      html += '<td style="padding:0">'
+        + '<div class="eq-date-row" style="padding:3px 6px;border-bottom:1px solid var(--bd2)">'
+        + '<span class="eq-date-lbl" style="background:rgba(88,166,255,.15);color:var(--ac)">목표</span>'
+        + '</div>'
+        + '<div class="eq-date-row" style="padding:3px 6px">'
+        + '<span class="eq-date-lbl" style="background:rgba(63,185,80,.15);color:var(--gr)">실적</span>'
+        + '</div>'
+        + '</td>';
+
+      // 투자 단계 날짜
+      INVEST_STEPS.forEach(function(s, si) {
+        var tgt = (eq.target || {})[si] || '';
+        var act = (eq.actual || {})[si] || '';
+        var status = getStepStatus(eq, si);
+        var bgClass = status === 'done' ? 'eq-step-done' : status === 'delay' ? 'eq-step-delay' : status === 'wip' ? 'eq-step-wip' : '';
+        html += '<td class="' + bgClass + '" style="padding:0;min-width:' + stepCW + 'px">';
+        if (canE) {
+          html += '<div style="border-bottom:1px solid var(--bd2)">'
+            + '<input type="date" class="eq-date-input eq-date-target" value="' + xe(tgt) + '"'
+            + ' data-coid="' + xe(coId) + '" data-idx="' + idx + '" data-si="' + si + '" data-type="target"'
+            + ' onchange="eqSaveDate(this)" title="목표일">'
+            + '</div>'
+            + '<div>'
+            + '<input type="date" class="eq-date-input eq-date-actual" value="' + xe(act) + '"'
+            + ' data-coid="' + xe(coId) + '" data-idx="' + idx + '" data-si="' + si + '" data-type="actual"'
+            + ' onchange="eqSaveDate(this)" title="실적일">'
+            + '</div>';
+        } else {
+          html += '<div style="border-bottom:1px solid var(--bd2);padding:3px 5px;font-size:11px;color:var(--ac);font-family:monospace">' + (tgt||'-') + '</div>'
+            + '<div style="padding:3px 5px;font-size:11px;color:var(--gr);font-family:monospace">' + (act||'-') + '</div>';
+        }
+        html += '</td>';
+      });
+
+      // 설비업체 담당자
+      html += '<td style="font-size:11px;padding:4px 6px">'
+        + '<div>' + xe(eq.vendMgr || '') + '</div>'
+        + '<div style="color:var(--t3)">' + xe(eq.vendTel || '') + '</div>'
+        + '</td>';
+
+      // UTI 담당자
+      html += '<td style="font-size:11px;padding:4px 6px">'
+        + '<div>' + xe(eq.utiMgr || '') + '</div>'
+        + '<div style="color:var(--t3)">' + xe(eq.utiTel || '') + '</div>'
+        + '</td>';
+
+      // 진행률
+      html += '<td class="eq-pct-cell">'
+        + '<div class="eq-pct-val" style="color:' + pctColor + '">' + pct + '%</div>'
+        + '<div class="eq-mini-bar"><div class="eq-mini-fill" style="width:' + pct + '%;background:' + pctColor + '"></div></div>'
+        + '</td>';
+
+      // 관리 버튼
+      if (canE) {
+        html += '<td>'
+          + '<button class="eq-btn-edit" data-co="' + xe(coId) + '" data-idx="' + idx + '" onclick="openEqEditModal(this.dataset.co,parseInt(this.dataset.idx))" title="수정">✏️</button>'
+          + '<button class="eq-btn-edit eq-btn-del" data-co="' + xe(coId) + '" data-idx="' + idx + '" onclick="eqDel(this.dataset.co,parseInt(this.dataset.idx))" title="삭제">🗑️</button>'
+          + '</td>';
+      }
+
+      html += '</tr>';
+    });
+  });
+
+  html += '</tbody></table>';
+  gid('eqBody').innerHTML = html;
+  renderEquipStat2(coId);
+}
+
+/* ─────────────────────────────────────────────────────
+   날짜 저장
+───────────────────────────────────────────────────── */
+function eqSaveDate(inp) {
+  var coId = inp.dataset.coid;
+  var idx  = parseInt(inp.dataset.idx);
+  var si   = parseInt(inp.dataset.si);
+  var type = inp.dataset.type; // 'target' or 'actual'
+  var val  = inp.value;
+
+  var eq = state.equipments[coId][idx];
+  if (!eq.target) eq.target = {};
+  if (!eq.actual) eq.actual = {};
+  if (type === 'target') eq.target[si] = val;
+  else eq.actual[si] = val;
+
+  saveAll();
+
+  // 실적일 지연 색상 처리
+  if (type === 'actual') {
+    var tgtVal = (eq.target||{})[si]||'';
+    var actVal = val;
+    inp.classList.remove('eq-date-delay');
+    if (actVal && tgtVal && actVal > tgtVal) {
+      inp.classList.add('eq-date-delay');
+    }
+  }
+  // 목표일 변경 시: 해당 단계 실적 input도 지연 재계산
+  if (type === 'target') {
+    var actInp = inp.closest('tr') ? inp.closest('tr').querySelector('input[data-si="' + si + '"][data-type="actual"]') : null;
+    if (actInp) {
+      var actVal2 = actInp.value;
+      actInp.classList.remove('eq-date-delay');
+      if (actVal2 && val && actVal2 > val) actInp.classList.add('eq-date-delay');
+    }
+  }
+
+  // 셀 배경색 갱신 (부분)
+  var status = getStepStatus(eq, si);
+  var td = inp.closest('td');
+  if (td) {
+    td.classList.remove('eq-step-done','eq-step-delay','eq-step-wip');
+    if (status) td.classList.add('eq-step-' + status);
+  }
+
+  // 진행률 칸 갱신
+  renderEquipStat2(coId);
+  var row = inp.closest('tr');
+  if (row) {
+    var pctCell = row.querySelector('.eq-pct-cell');
+    if (pctCell) {
+      var pct = calcEqPct2(eq);
+      var pctColor = pct === 100 ? 'var(--gr)' : pct >= 50 ? 'var(--ac)' : 'var(--or)';
+      pctCell.innerHTML = '<div class="eq-pct-val" style="color:' + pctColor + '">' + pct + '%</div>'
+        + '<div class="eq-mini-bar"><div class="eq-mini-fill" style="width:' + pct + '%;background:' + pctColor + '"></div></div>';
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   설비 추가/수정 모달
+───────────────────────────────────────────────────── */
+
+function _openEqFromPage() {
+  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
+  if (!coId) { toast('오류','기업을 먼저 선택하세요.','error'); return; }
+  _openEqModal(coId, null, null);
+}
+function openEqAddModal() {
+  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
+  if (!coId) return;
+  _openEqModal(coId, null, null);
+}
+function openEqEditModal(coId, idx) {
+  var eq = (state.equipments[coId]||[])[idx];
+  _openEqModal(coId, idx, eq||null);
+}
+
+/* ═══════════════════════════════════════════════════
+   📅 커스텀 캘린더 피커
+═══════════════════════════════════════════════════ */
+var _calState = { targetId: null, year: 0, month: 0 };
+
+function _showCal(inputId, stepIdx) {
+  // 이미 열린 캘린더 닫기 (토글)
+  var existing = gid('eqCal');
+  var wasOpen  = _calState.targetId === inputId;
+  if (existing) existing.remove();
+  _calState.targetId = null;
+  if (wasOpen) return; // 같은 버튼 재클릭 → 닫기
+
+  // ② 순차 검증: 중간 빈 단계를 건너뛰고 가장 가까운 이전/이후 날짜 탐색
+  _calState.stepIdx = (stepIdx !== undefined) ? stepIdx : -1;
+  _calState.minDate = null;
+  _calState.maxDate = null;
+
+  if (_calState.stepIdx >= 0) {
+    // 직전 방향으로 값이 있는 가장 가까운 단계 찾기
+    for (var pi = _calState.stepIdx - 1; pi >= 0; pi--) {
+      var prevInp = gid('eqM_tgt_' + pi);
+      if (prevInp && prevInp.value) {
+        _calState.minDate = prevInp.value;
+        break;
+      }
+    }
+    // 직후 방향으로 값이 있는 가장 가까운 단계 찾기
+    for (var ni = _calState.stepIdx + 1; ni < INVEST_STEPS.length; ni++) {
+      var nextInp = gid('eqM_tgt_' + ni);
+      if (nextInp && nextInp.value) {
+        _calState.maxDate = nextInp.value;
+        break;
+      }
+    }
+  }
+
+  var inp = gid(inputId);
+  if (!inp) return;
+  _calState.targetId = inputId;
+
+  var today = new Date();
+  var cur   = inp.value ? new Date(inp.value + 'T00:00:00') : today;
+  _calState.year  = cur.getFullYear();
+  _calState.month = cur.getMonth();
+
+  _renderCal();
+}
+
+function _renderCal(anchorInp) {
+  var old = gid('eqCal');
+  if (old) old.remove();
+
+  var y = _calState.year, m = _calState.month;
+  var inp = gid(_calState.targetId);
+  var selVal = inp ? inp.value : '';
+
+  var MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  var DAYS   = ['일','월','화','수','목','금','토'];
+
+  var first  = new Date(y, m, 1).getDay();
+  var lastD  = new Date(y, m+1, 0).getDate();
+  var today  = new Date(); today.setHours(0,0,0,0);
+
+  var grid = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:6px">';
+  DAYS.forEach(function(d, i) {
+    grid += '<div style="text-align:center;font-size:11px;font-weight:600;color:'+(i===0?'var(--re)':i===6?'var(--ac)':'var(--t2)')+'padding:3px 0">' + d + '</div>';
+  });
+  for (var bi = 0; bi < first; bi++) grid += '<div></div>';
+  for (var d = 1; d <= lastD; d++) {
+    var dt   = new Date(y, m, d);
+    var dStr = y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+    var dow  = dt.getDay();
+    var isToday = dt.getTime() === today.getTime();
+    var isSel   = dStr === selVal;
+    // ② 순차 검증: min/max 날짜 범위 외 비활성
+    var disabled = false;
+    if (_calState.minDate && dStr < _calState.minDate) disabled = true;
+    if (_calState.maxDate && dStr > _calState.maxDate) disabled = true;
+    var bg   = isSel ? 'var(--ac)' : isToday ? 'rgba(88,166,255,.18)' : 'transparent';
+    var col  = disabled ? 'var(--bd)' : isSel ? '#fff' : dow===0 ? 'var(--re)' : dow===6 ? 'var(--ac)' : 'var(--tx)';
+    var fw   = isSel||isToday ? '700' : '400';
+    if (disabled) {
+      grid += '<div style="text-align:center;padding:5px 2px;border-radius:5px;font-size:13px;color:' + col + ';cursor:not-allowed;opacity:.4">' + d + '</div>';
+    } else {
+      grid += '<div onclick="_pickDate(\'' + dStr + '\')" style="text-align:center;padding:5px 2px;border-radius:5px;font-size:13px;cursor:pointer;background:' + bg + ';color:' + col + ';font-weight:' + fw + ';transition:background .12s" onmouseover="this.style.opacity=.75" onmouseout="this.style.opacity=1">' + d + '</div>';
+    }
+  }
+  grid += '</div>';
+
+  var cal = document.createElement('div');
+  cal.id = 'eqCal';
+  cal.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">'
+    + '<button onclick="_calMove(-1)" style="background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);cursor:pointer;width:26px;height:26px;font-size:15px;display:flex;align-items:center;justify-content:center">‹</button>'
+    + '<span style="font-size:14px;font-weight:700">' + y + '년 ' + MONTHS[m] + '</span>'
+    + '<button onclick="_calMove(1)"  style="background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);cursor:pointer;width:26px;height:26px;font-size:15px;display:flex;align-items:center;justify-content:center">›</button>'
+    + '</div>'
+    + '<div onclick="_calClear()" style="text-align:center;font-size:11px;color:var(--re);cursor:pointer;margin-bottom:4px;padding:2px">✕ 날짜 지우기</div>'
+    + grid;
+
+  cal.style.cssText = 'position:fixed;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:12px 10px;width:240px;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.6)';
+
+  // 위치 계산 - 버튼 바로 아래에 표시 (fixed 기준)
+  var btnEl = gid(_calState.targetId + '_btn') || gid(_calState.targetId);
+  if (btnEl) {
+    var rect = btnEl.getBoundingClientRect();
+    var calW = 240, calH = 280;
+    var left = rect.left;
+    var top  = rect.bottom + 4;
+    // 화면 오른쪽 넘침 방지
+    if (left + calW > window.innerWidth - 8) left = window.innerWidth - calW - 8;
+    // 화면 아래 넘침 방지 → 위로 표시
+    if (top + calH > window.innerHeight - 8) top = rect.top - calH - 4;
+    if (left < 4) left = 4;
+    cal.style.left = left + 'px';
+    cal.style.top  = top  + 'px';
+  }
+  document.body.appendChild(cal);
+}
+
+function _calMove(dir) {
+  _calState.month += dir;
+  if (_calState.month > 11) { _calState.month = 0;  _calState.year++; }
+  if (_calState.month < 0)  { _calState.month = 11; _calState.year--; }
+  _renderCal();
+}
+
+function _pickDate(dStr) {
+  var inp = gid(_calState.targetId);
+  if (inp) {
+    inp.value = dStr;
+    // 버튼 라벨 및 색상 업데이트
+    var btn = gid(_calState.targetId + '_btn');
+    var lbl = gid(_calState.targetId + '_lbl');
+    if (btn) btn.style.color = 'var(--ac)';
+    if (lbl) lbl.textContent = dStr;
+
+    // 선택한 날짜가 이후 단계보다 크거나 같으면 이후 단계 날짜 초기화
+    var si = _calState.stepIdx;
+    if (si >= 0) {
+      for (var ni = si + 1; ni < INVEST_STEPS.length; ni++) {
+        var nInp = gid('eqM_tgt_' + ni);
+        if (nInp && nInp.value && nInp.value < dStr) {
+          nInp.value = '';
+          var nBtn = gid('eqM_tgt_' + ni + '_btn');
+          var nLbl = gid('eqM_tgt_' + ni + '_lbl');
+          if (nBtn) nBtn.style.color = 'var(--t3)';
+          if (nLbl) nLbl.textContent = '날짜 선택';
+        } else { break; }
+      }
+      // 선택한 날짜가 이전 단계보다 작거나 같으면 이전 단계 날짜 초기화
+      for (var pi = si - 1; pi >= 0; pi--) {
+        var pInp = gid('eqM_tgt_' + pi);
+        if (pInp && pInp.value && pInp.value > dStr) {
+          pInp.value = '';
+          var pBtn = gid('eqM_tgt_' + pi + '_btn');
+          var pLbl = gid('eqM_tgt_' + pi + '_lbl');
+          if (pBtn) pBtn.style.color = 'var(--t3)';
+          if (pLbl) pLbl.textContent = '날짜 선택';
+        } else { break; }
+      }
+    }
+  }
+  var cal = gid('eqCal');
+  if (cal) cal.remove();
+  _calState.targetId = null;
+}
+
+function _calClear() {
+  var inp = gid(_calState.targetId);
+  if (inp) {
+    inp.value = '';
+    var btn = gid(_calState.targetId + '_btn');
+    var lbl = gid(_calState.targetId + '_lbl');
+    if (btn) btn.style.color = 'var(--t3)';
+    if (lbl) lbl.textContent = '날짜 선택';
+  }
+  var cal = gid('eqCal');
+  if (cal) cal.remove();
+  _calState.targetId = null;
+}
+
+/* ═══════════════════════════════════════════════════
+   설비 추가/수정 모달
+═══════════════════════════════════════════════════ */
+function _openEqModal(coId, idx, eq) {
+  var isEdit = idx !== null && idx !== undefined;
+
+  // ① 기업명 (상단 대형 표시)
+  var co = state.companies.find(function(c){ return c.id === coId; }) || {};
+  var coNm = co.name || coId;
+
+  // 공정/업체 옵션
+  var coGongs = _getGong(coId);
+  var coVends = _getVend(coId);
+  var gOpts = coGongs.map(function(g){
+    var sel = eq && eq.gongCode === g.code ? ' selected' : '';
+    return '<option value="' + xe(g.code) + '"' + sel + '>[' + xe(g.code) + '] ' + xe(g.name) + '</option>';
+  }).join('');
+  var vOpts = '<option value="">— 업체 선택 —</option>' +
+    coVends.map(function(v){
+      var sel = eq && eq.vendCode === v.code ? ' selected' : '';
+      return '<option value="' + xe(v.code) + '"' + sel + '>' + xe(v.name) + '</option>';
+    }).join('');
+
+  // 담당자 초기값 (기업별 Master에서)
+  var initGong = eq ? (coGongs.find(function(g){return g.code===eq.gongCode;})||{}) : {};
+  var initVend = eq ? (coVends.find(function(v){return v.code===eq.vendCode;})||{}) : {};
+  var initVmgr = eq ? (eq.vendMgr||initVend.manager||'') : '';
+  var initVtel = eq ? (eq.vendTel||initVend.contact||'') : '';
+  var initUmgr = eq ? (eq.utiMgr||initGong.manager||'') : '';
+  var initUtel = eq ? (eq.utiTel||initGong.contact||'') : '';
+
+  // ② 프로세스 목표일 행 - 순차 검증 포함
+  var stepRows = '';
+  INVEST_STEPS.forEach(function(s, si) {
+    var tval = eq && eq.target ? (eq.target[si]||'') : '';
+    var inputId = 'eqM_tgt_' + si;
+    stepRows += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
+      + '<div style="width:120px;font-size:13px;font-weight:500;color:var(--t2);flex-shrink:0">'
+      + '<span style="display:inline-block;width:18px;text-align:right;margin-right:5px;font-size:12px;color:var(--t3)">' + (si+1) + '.</span>'
+      + xe(s) + '</div>'
+      + '<input type="hidden" id="' + inputId + '" value="' + xe(tval) + '">'
+      + '<button type="button" id="' + inputId + '_btn"'
+      + ' data-inpid="' + inputId + '" data-si="' + si + '" onclick="_showCal(this.dataset.inpid, parseInt(this.dataset.si))"'
+      + ' style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:' + (tval?'var(--ac)':'var(--t3)') + ';font-size:13px;font-family:inherit;cursor:pointer;transition:border-color .15s">'
+      + '<span id="' + inputId + '_lbl">' + xe(tval||'날짜 선택') + '</span>'
+      + '<span style="font-size:15px;color:var(--t2);flex-shrink:0">📅</span>'
+      + '</button>'
+      + '</div>';
+  });
+
+  // ③ 모달 오버레이: 배경 클릭 무시 (e.stopPropagation 활용)
+  var html = '<div id="eqMdlWrapOv" style="position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px)">'
+    + '<div id="eqMdlBox" style="background:var(--bg2);border:1px solid var(--bd);border-radius:13px;width:640px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.5)" onclick="event.stopPropagation()">'
+    // ① 기업명 헤더
+    + '<div style="padding:14px 20px 10px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1">'
+    + '<div>'
+    + '<div style="font-size:11px;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px">' + (isEdit?'✏️ 설비 수정':'➕ 설비 추가') + '</div>'
+    + '<div style="font-size:22px;font-weight:800;color:var(--ac)">' + xe(coNm) + '</div>'
+    + '</div>'
+    + '<button onclick="_closeEqModal()" style="width:30px;height:30px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center">✕</button>'
+    + '</div>'
+    + '<div style="padding:18px 20px">'
+
+    // 기본 정보
+    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--bd)">📋 기본 정보</div>'
+    + '<div class="eq-modal-grid" style="margin-bottom:10px">'
+    + '<div><div class="eq-flbl">공정 *</div><select class="eq-fsel" id="eqM_gong" onchange="_eqAutoFillGong()"><option value="">— 선택 —</option>' + gOpts + '</select></div>'
+    + '<div><div class="eq-flbl">설비업체 *</div><select class="eq-fsel" id="eqM_vend" onchange="_eqAutoFillVend()">' + vOpts + '</select></div>'
+    + '</div>'
+    + '<div class="eq-modal-grid" style="margin-bottom:10px">'
+    + '<div><div class="eq-flbl">PO No</div><input class="eq-finp" id="eqM_po" placeholder="예: AMM0100002" value="' + xe(eq?eq.poNo||'':'') + '"></div>'
+    + '<div><div class="eq-flbl">EQ_ID (호기)</div><input class="eq-finp" id="eqM_eqid" placeholder="예: 1A1R001" value="' + xe(eq?eq.eqId||'':'') + '"></div>'
+    + '</div>'
+    + '<div class="eq-modal-grid" style="margin-bottom:10px">'
+    + '<div><div class="eq-flbl">설비명 *</div><input class="eq-finp" id="eqM_nm" placeholder="예: MS Auto Racking #1" value="' + xe(eq?eq.name||'':'') + '"></div>'
+    + '<div><div class="eq-flbl">모델명</div><input class="eq-finp" id="eqM_md" placeholder="예: ATK-AR-2024" value="' + xe(eq?eq.model||'':'') + '"></div>'
+    + '</div>'
+    + '<div style="margin-bottom:12px"><div class="eq-flbl">수량</div>'
+    + '<div style="padding:7px 12px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;font-size:14px;color:var(--t2)">1대 (고정)</div>'
+    + '<input type="hidden" id="eqM_qty" value="1"></div>'
+
+    // 담당자
+    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--bd);margin-top:4px">👤 담당자 <span style="font-size:11px;font-weight:400;color:var(--ac);text-transform:none;letter-spacing:0">공정/업체 선택 시 자동 입력</span></div>'
+    + '<div class="eq-modal-grid" style="margin-bottom:10px">'
+    + '<div><div class="eq-flbl">설비업체 담당자명 <span style="color:var(--ac);font-size:10px">← 업체 Master</span></div>'
+    + '<input class="eq-finp" id="eqM_vmgr" placeholder="업체 선택 시 자동입력" value="' + xe(initVmgr) + '"></div>'
+    + '<div><div class="eq-flbl">설비업체 연락처</div>'
+    + '<input class="eq-finp" id="eqM_vtel" inputmode="numeric" pattern="[0-9\-]*" placeholder="업체 선택 시 자동입력" value="' + xe(initVtel) + '"></div>'
+    + '</div>'
+    + '<div class="eq-modal-grid" style="margin-bottom:12px">'
+    + '<div><div class="eq-flbl">' + xe(coNm) + ' 담당자명 <span style="color:var(--gr);font-size:10px">← 공정 Master</span></div>'
+    + '<input class="eq-finp" id="eqM_umgr" placeholder="공정 선택 시 자동입력" value="' + xe(initUmgr) + '"></div>'
+    + '<div><div class="eq-flbl">' + xe(coNm) + ' 연락처</div>'
+    + '<input class="eq-finp" id="eqM_utel" inputmode="numeric" pattern="[0-9\-]*" placeholder="공정 선택 시 자동입력" value="' + xe(initUtel) + '"></div>'
+    + '</div>'
+
+    // ② 투자 프로세스 목표일
+    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--bd)">📅 투자 프로세스 목표일 <span style="font-size:11px;font-weight:400;color:var(--t3);text-transform:none;letter-spacing:0">순차 입력 필수</span></div>'
+    + stepRows
+
+    // 비고
+    + '<div style="margin-top:10px"><div class="eq-flbl">비고</div>'
+    + '<textarea class="eq-finp" id="eqM_note" style="resize:vertical;min-height:48px">' + xe(eq?eq.note||'':'') + '</textarea>'
+    + '</div>'
+    + '</div>'
+
+    // 푸터
+    + '<div style="padding:13px 20px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:7px;position:sticky;bottom:0;background:var(--bg2)">'
+    + '<input type="hidden" id="eqM_coId" value="' + xe(coId) + '">'
+    + '<input type="hidden" id="eqM_idx" value="' + (isEdit?idx:'null') + '">'
+    + '<button class="btn bs" onclick="_closeEqModal()">취소</button>'
+    + '<button class="btn bg" onclick="_saveEqModal(document.getElementById(\'eqM_coId\').value, document.getElementById(\'eqM_idx\').value)">💾 저장</button>'
+    + '</div>'
+    + '</div></div>';
+
+  // ③ 배경 클릭 무시 - 오버레이 자체 클릭 이벤트 제거
+  var wrap = document.createElement('div');
+  wrap.id = 'eqMdlWrap';
+  wrap.innerHTML = html;
+  document.body.appendChild(wrap);
+  // 오버레이 배경 클릭해도 닫히지 않음 (✗ 버튼으로만 닫기)
+  gid('eqMdlWrapOv').addEventListener('click', function(e) {
+    // 배경 클릭 시 캘린더만 닫기 (모달은 닫지 않음)
+    var cal = gid('eqCal');
+    if (cal && !cal.contains(e.target)) { cal.remove(); _calState.targetId = null; }
+  });
+  setTimeout(function(){ var n = gid('eqM_nm'); if(n) n.focus(); }, 50);
+}
+
+
+/* 공정 선택 시 기업 담당자 자동입력 */
+function _eqAutoFillGong() {
+  var coId = gid('eqM_coId') ? gid('eqM_coId').value : null;
+  var code = gid('eqM_gong').value;
+  var g = _getGong(coId).find(function(x){ return x.code === code; });
+  var mgr = gid('eqM_umgr'), tel = gid('eqM_utel');
+  if (g) {
+    if (mgr) { mgr.value = g.manager || ''; mgr.style.color = g.manager ? 'var(--gr)' : ''; }
+    if (tel) { tel.value = g.contact  || ''; tel.style.color = g.contact  ? 'var(--gr)' : ''; }
+  } else {
+    if (mgr && !code) { mgr.value = ''; mgr.style.color = ''; }
+    if (tel && !code) { tel.value = ''; tel.style.color = ''; }
+  }
+}
+
+/* 업체 선택 시 설비업체 담당자 자동입력 */
+function _eqAutoFillVend() {
+  var coId = gid('eqM_coId') ? gid('eqM_coId').value : null;
+  var code = gid('eqM_vend').value;
+  var v = _getVend(coId).find(function(x){ return x.code === code; });
+  var mgr = gid('eqM_vmgr'), tel = gid('eqM_vtel');
+  if (v) {
+    if (mgr) { mgr.value = v.manager || ''; mgr.style.color = v.manager ? 'var(--gr)' : ''; }
+    if (tel) { tel.value = v.contact  || ''; tel.style.color = v.contact  ? 'var(--gr)' : ''; }
+  } else {
+    if (mgr && !code) { mgr.value = ''; mgr.style.color = ''; }
+    if (tel && !code) { tel.value = ''; tel.style.color = ''; }
+  }
+}
+
+function _closeEqModal() {
+  var w = gid('eqMdlWrap');
+  if (w) w.remove();
+}
+
+function _saveEqModal(coId, idx) {
+  var nm   = (gid('eqM_nm').value||'').trim();
+  var gong = gid('eqM_gong').value;
+  var vend = gid('eqM_vend').value;
+  if (!nm) { alert('설비명을 입력하세요.'); return; }
+
+  var isEdit = idx !== null && idx !== 'null' && idx !== '';
+  var oldEq  = isEdit ? ((state.equipments[coId]||[])[parseInt(idx)] || {}) : {};
+
+  var vObj = _getVend(coId).find(function(v){ return v.code === vend; }) || {};
+  var gObj = _getGong(coId).find(function(g){ return g.code === gong; }) || {};
+
+  // ── 목표일/실적일 처리 ──
+  // 신규: 모달 입력값 사용 (비어있으면 빈 문자열), actual 완전 초기화
+  // 수정: 기존 target 유지 + 모달 수정값 반영, actual 유지
+  var newTarget = {};
+  INVEST_STEPS.forEach(function(s, si) {
+    var inp = gid('eqM_tgt_' + si);
+    if (isEdit) {
+      // 수정: 기존값 우선, 모달 입력값으로 덮어씀
+      newTarget[si] = inp ? (inp.value || '') : ((oldEq.target||{})[si] || '');
+    } else {
+      // 신규: 모달 입력값만 (빈 값이면 빈 문자열)
+      newTarget[si] = inp ? (inp.value || '') : '';
+    }
+  });
+
+  var eq = {
+    name:     nm,
+    gongCode: gong,
+    vendCode: vend,
+    vendNm:   vObj.name || '',
+    poNo:     (gid('eqM_po').value||'').trim(),
+    eqId:     (gid('eqM_eqid').value||'').trim(),
+    model:    (gid('eqM_md').value||'').trim(),
+    qty:      '1',
+    vendMgr:  (gid('eqM_vmgr').value||'').trim() || vObj.manager || '',
+    vendTel:  (gid('eqM_vtel').value||'').trim() || vObj.contact || '',
+    utiMgr:   (gid('eqM_umgr').value||'').trim() || gObj.manager || '',
+    utiTel:   (gid('eqM_utel').value||'').trim() || gObj.contact || '',
+    note:     (gid('eqM_note').value||'').trim(),
+    target:   newTarget,
+    // 신규: actual 완전 초기화 / 수정: 기존 actual 유지
+    actual:   isEdit ? (oldEq.actual || {}) : {},
+    // 신규: chkActual(상세 체크리스트 완료일) 초기화 / 수정: 유지
+    chkActual: isEdit ? (oldEq.chkActual || {}) : {},
+    regDate:  oldEq.regDate || new Date().toLocaleDateString('ko-KR')
+  };
+
+  if (!state.equipments[coId]) state.equipments[coId] = [];
+  if (isEdit) {
+    state.equipments[coId][parseInt(idx)] = eq;
+  } else {
+    state.equipments[coId].push(eq);
+  }
+  saveAll();
+  _closeEqModal();
+  // ① 신규 등록: 기업관리 / ② 수정: 설비투자진척 으로 분기
+  if (isEdit) {
+    navTo('equip');
+    setTimeout(function(){
+      var sel = document.getElementById('eqCoSel2');
+      if (sel && sel.value !== coId) { sel.value = coId; loadEquipTbl(); }
+    }, 80);
+  } else {
+    _coTab = 'company';
+    navTo('company');
+  }
+  toast('저장 완료', nm + ' 설비가 저장됐습니다.', 'success');
+}
+
+function eqDel(coId, idx) {
+  var eq = (state.equipments[coId]||[])[idx];
+  if (!eq) return;
+  if (!confirm('[' + eq.name + '] 설비를 삭제하시겠습니까?\n(모든 날짜 데이터가 삭제됩니다)')) return;
+  state.equipments[coId].splice(idx, 1);
+  saveAll();
+  renderEquipTbl();
+  toast('삭제 완료', eq.name + ' 삭제됐습니다.', 'success');
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   📊 설비별 실적 현황 페이지
+   설비(호기) 단위 투자 프로세스 목표일/실적일 + 완료 체크
+═══════════════════════════════════════════════════════ */
+var _dtCoId   = null;
+var _dtEqIdx  = null;
+var _dtStepIdx = 0;
+
+function pgDetail() {
+  var coOpts = state.companies.map(function(c){
+    return '<option value="' + xe(c.id) + '"' + (c.id===_dtCoId?' selected':'') + '>' + xe(c.name) + '</option>';
+  }).join('');
+
+  // 단일 스크롤 영역으로 전체를 구성 (flex 체인 문제 우회)
+  gid('pg_detail').innerHTML =
+    // 상단 sticky 바 (필터 + 설비명 + 진행률)
+    '<div style="position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+    + '<h1 style="font-size:25px;font-weight:700;margin:0;white-space:nowrap">📊 설비별 실적 현황</h1>'
+    + '<span style="font-size:21px;color:var(--t2)">기업</span>'
+    + '<select id="dtCoSel" onchange="_dtLoadCo()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:21px;font-family:inherit;outline:none">'
+    + '<option value="">— 선택 —</option>' + coOpts
+    + '</select>'
+    + '<span style="font-size:21px;color:var(--t2)">설비</span>'
+    + '<select id="dtEqSel" onchange="_dtLoadEq()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:21px;font-family:inherit;outline:none"><option value="">— 선택 —</option></select>'
+    + '<div id="dtEqInfoBar" style="display:none;margin-left:auto;align-items:center;gap:16px;flex-wrap:wrap">'
+    // 설비명
+    + '<span id="dtEqNameLbl" style="font-size:20px;font-weight:700"></span>'
+    // 구분선
+    + '<span style="color:var(--bd);font-size:18px">|</span>'
+    // ① 공정명
+    + '<span style="font-size:14px;color:var(--t2)">공정</span>'
+    + '<span id="dtGongLbl" style="font-size:16px;font-weight:600;color:var(--ac)"></span>'
+    // ② PO No
+    + '<span style="color:var(--bd);font-size:18px">|</span>'
+    + '<span style="font-size:14px;color:var(--t2)">PO No</span>'
+    + '<span id="dtPoLbl" style="font-size:16px;font-weight:600"></span>'
+    // ③ EQ_ID
+    + '<span style="color:var(--bd);font-size:18px">|</span>'
+    + '<span style="font-size:14px;color:var(--t2)">EQ_ID</span>'
+    + '<span id="dtEqIdLbl" style="font-size:16px;font-weight:600"></span>'
+    // ④ 담당자
+    + '<span style="color:var(--bd);font-size:18px">|</span>'
+    + '<span style="font-size:14px;color:var(--t2)">담당자</span>'
+    + '<span id="dtMgrLbl" style="font-size:16px;font-weight:600;color:var(--gr)"></span>'
+    // 진행률
+    + '<span style="color:var(--bd);font-size:18px">|</span>'
+    + '<span id="dtPctLbl" style="font-size:24px;font-weight:800;color:var(--ac)"></span>'
+    + '<span style="font-size:17px;color:var(--t2)">진행률</span>'
+    + '</div>'
+    + '</div>'
+    // 스텝바
+    + '<div id="dtStepBar" style="overflow-x:auto;border-bottom:1px solid var(--bd)"></div>'
+    // 본문
+    + '<div id="dtBody" style="padding:12px 14px">'
+    + '<div class="empty"><div class="ei">📊</div><h3>기업과 설비를 선택하세요</h3></div>'
+    + '</div>';
+
+  if (_dtCoId) {
+    setTimeout(function(){
+      var coSel = document.getElementById('dtCoSel');
+      if (coSel) { coSel.value = _dtCoId; _dtLoadCo(true); }
+    }, 50);
+  }
+}
+
+
+function _dtLoadCo(keepEq) {
+  var coId = document.getElementById('dtCoSel') ? document.getElementById('dtCoSel').value : '';
+  _dtCoId  = coId || null;
+  var eqSel = document.getElementById('dtEqSel');
+  if (!eqSel) return;
+  eqSel.innerHTML = '<option value="">— 설비 선택 —</option>';
+  if (!coId) { _dtClear(); return; }
+  var eqs = state.equipments[coId] || [];
+  eqs.forEach(function(eq, i) {
+    var opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = (i+1) + '호기. ' + eq.name;
+    eqSel.appendChild(opt);
+  });
+  if (keepEq && _dtEqIdx !== null) {
+    eqSel.value = _dtEqIdx;
+    _dtLoadEq();
+  } else {
+    _dtClear();
+  }
+}
+
+function _dtLoadEq() {
+  var coId = document.getElementById('dtCoSel') ? document.getElementById('dtCoSel').value : '';
+  var eqSelEl = document.getElementById('dtEqSel');
+  var eqIdx = eqSelEl ? parseInt(eqSelEl.value) : NaN;
+  if (!coId || isNaN(eqIdx)) { _dtClear(); return; }
+  _dtCoId  = coId;
+  _dtEqIdx = eqIdx;
+  _dtStepIdx = 0;
+  _dtRenderStepBar();
+  _dtRenderBody();
+  _dtUpdateDateCard();
+}
+
+function _dtClear() {
+  _dtEqIdx = null;
+  var sb = document.getElementById('dtStepBar');
+  var bd = document.getElementById('dtBody');
+  if (sb) sb.innerHTML = '';
+  if (bd) bd.innerHTML = '<div class="empty"><div class="ei">📊</div><h3>기업과 설비를 선택하세요</h3></div>';
+}
+
+function _dtRenderStepBar() {
+  var sb = document.getElementById('dtStepBar');
+  if (!sb) return;
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  var today = new Date().toISOString().slice(0,10);
+
+  // ① 각 프로세스 칸에 목표일 + 실적일 모두 표시
+  var html = '<div style="display:flex;gap:0;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">';
+  INVEST_STEPS.forEach(function(stepNm, si) {
+    var tgt = (eq.target||{})[si] || '';
+    var act = (eq.actual||{})[si] || '';
+    var isActive = _dtStepIdx === si;
+    var isDelaySt = act && tgt && act > tgt;  // 실적일 > 목표일 = 지연
+    var icon = act ? (isDelaySt ? '🔴' : '✅') : (tgt && today > tgt) ? '⚠️' : tgt ? '📅' : '⬜';
+    var tgtColor = tgt ? ((!act && tgt < today) ? 'var(--re)' : isDelaySt ? 'var(--re)' : 'var(--ac)') : 'var(--t3)';
+    var actColor = act ? (isDelaySt ? 'var(--re)' : 'var(--gr)') : 'var(--t3)';
+
+    var sInfo = _dtCalcStepInfo(si);
+    var sPct  = sInfo.pct;
+    var sPctColor = sPct===100 ? 'var(--gr)' : sPct>0 ? 'var(--ac)' : 'var(--t3)';
+    html += '<div onclick="_dtSelStep(' + si + ')"'
+      + ' style="flex:1;min-width:60px;padding:8px 4px 6px;text-align:center;cursor:pointer;border-right:1px solid var(--bd);box-sizing:border-box;'
+      + 'background:' + (isActive ? 'rgba(88,166,255,.13)' : 'transparent') + ';'
+      + 'border-bottom:' + (isActive ? '3px solid var(--ac)' : isDelaySt ? '3px solid var(--re)' : '3px solid transparent') + ';'
+      + 'transition:background .12s">'
+      // 아이콘
+      + '<div style="font-size:16px;margin-bottom:2px">' + icon + '</div>'
+      // 단계명
+      + '<div style="font-size:16px;font-weight:' + (isActive?'700':'500') + ';color:' + (isActive?'var(--ac)':isDelaySt?'var(--re)':'var(--t2)') + ';line-height:1.2;margin-bottom:3px;word-break:keep-all">' + xe(stepNm) + '</div>'
+      // 목표일/실적일
+      + '<div style="font-size:15px;font-family:monospace;color:' + tgtColor + ';margin-bottom:1px">' + (tgt || '—') + '</div>'
+      + '<div style="font-size:15px;font-family:monospace;color:' + actColor + ';margin-bottom:4px">' + (act || '—') + '</div>'
+      // 진행률 바 + 숫자
+      + (sInfo.total > 0
+        ? '<div style="margin:0 4px 1px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="width:' + sPct + '%;height:100%;background:' + sPctColor + ';border-radius:2px"></div></div>'
+          + '<div style="font-size:14px;color:' + sPctColor + '">' + sInfo.done + '/' + sInfo.total + '</div>'
+        : '')
+      + '</div>';
+  });
+  html += '</div>';
+  sb.innerHTML = html;
+
+  // 설비정보 바 갱신
+  var infoBar = document.getElementById('dtEqInfoBar');
+  var nameLbl = document.getElementById('dtEqNameLbl');
+  var pctLbl  = document.getElementById('dtPctLbl');
+  var gongLbl = document.getElementById('dtGongLbl');
+  var poLbl   = document.getElementById('dtPoLbl');
+  var eqIdLbl = document.getElementById('dtEqIdLbl');
+  var mgrLbl  = document.getElementById('dtMgrLbl');
+
+  if (infoBar) infoBar.style.display = 'flex';
+  if (nameLbl) nameLbl.textContent = (_dtEqIdx+1) + '호기. ' + eq.name;
+
+  // ① 공정명: gongCode로 gongMaster에서 조회
+  var gongList = state.gongMaster[coId] || [];
+  var gongObj  = gongList.find(function(g){ return g.code === eq.gongCode; }) || {};
+  if (gongLbl) gongLbl.textContent = gongObj.name ? '[' + eq.gongCode + '] ' + gongObj.name : (eq.gongCode || '—');
+
+  // ② PO No
+  if (poLbl) poLbl.textContent = eq.poNo || '—';
+
+  // ③ EQ_ID
+  if (eqIdLbl) eqIdLbl.textContent = eq.eqId || '—';
+
+  // ④ 담당자: gongMaster의 manager 필드
+  if (mgrLbl) mgrLbl.textContent = gongObj.manager ? gongObj.manager + (gongObj.contact ? ' (' + gongObj.contact + ')' : '') : (eq.utiMgr || '—');
+
+  // 진행률
+  var _info1 = _dtCalcInfo(eq);
+  if (pctLbl) pctLbl.innerHTML = '<span style="font-size:19px;color:var(--t2);font-weight:500">' + _info1.done + '/' + _info1.total + '&nbsp;</span><span>' + _info1.pct + '%</span>';
+}
+
+/* ③ 선택 단계 목표일/실적일 카드 갱신 (dtDateCard 제거됨 - noop) */
+function _dtUpdateDateCard() {
+  var card = document.getElementById('dtDateCard');
+  var inner = document.getElementById('dtDateCardInner');
+  if (!card || !inner) return; // 카드 없으면 종료
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) { card.style.display='none'; return; }
+  var canE = canEdit();
+  var si   = _dtStepIdx;
+  var stepNm = INVEST_STEPS[si];
+  var tgt  = (eq.target||{})[si] || '';
+  var act  = (eq.actual||{})[si] || '';
+  var today = new Date().toISOString().slice(0,10);
+  var isDelay   = tgt && act && act > tgt;
+  var isOverdue = tgt && !act && today > tgt;
+  var statusColor = act ? 'var(--gr)' : isOverdue ? 'var(--re)' : tgt ? 'var(--ac)' : 'var(--t3)';
+  var statusLabel = act ? '✅ 실적 완료' : isOverdue ? '⚠️ 지연' : tgt ? '📅 진행중' : '미등록';
+
+  inner.innerHTML =
+    '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px">'
+    + '<span id="dtStepTitle" style="font-size:17px;font-weight:700;color:var(--ac)">' + (si+1) + '. ' + xe(stepNm) + '</span>'
+    + '<span style="font-size:13px;padding:2px 9px;border-radius:7px;background:rgba(0,0,0,.2);color:' + statusColor + ';border:1px solid ' + statusColor + '">' + statusLabel + '</span>'
+    + (isDelay ? '<span style="font-size:13px;color:var(--re)">지연 ' + _dtDayDiff(tgt,act) + '일</span>' : '')
+    + '</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
+    + '<div style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:10px 14px">'
+    + '<div style="font-size:16px;font-weight:600;color:var(--ac);margin-bottom:6px">📅 목표일</div>'
+    + (canE ? '<input type="date" id="dtTgtInp" value="' + xe(tgt) + '" onchange="_dtSaveDate(\'target\',this.value)" style="width:100%;padding:6px 8px;background:var(--bg2);border:1px solid var(--bd);border-radius:6px;color:var(--ac);font-family:monospace;font-size:15px;outline:none">'
+           : '<div style="font-size:17px;font-family:monospace;color:var(--ac)">' + (tgt||'-') + '</div>')
+    + '</div>'
+    + '<div style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:10px 14px">'
+    + '<div style="font-size:16px;font-weight:600;color:var(--gr);margin-bottom:6px">✅ 실적일</div>'
+    + (canE ? '<input type="date" id="dtActInp" value="' + xe(act) + '" onchange="_dtSaveDate(\'actual\',this.value)" style="width:100%;padding:6px 8px;background:var(--bg2);border:1px solid var(--bd);border-radius:6px;color:var(--gr);font-family:monospace;font-size:15px;outline:none">'
+           : '<div style="font-size:17px;font-family:monospace;color:var(--gr)">' + (act||'-') + '</div>')
+    + '</div>'
+    + '</div>';
+  card.style.display = '';
+}
+
+
+function _dtSelStep(si) {
+  _dtStepIdx = si;
+  _dtRenderStepBar();
+  // 왼쪽 테이블 행 강조만 변경
+  var rows = document.querySelectorAll('#dtBody table tbody tr');
+  rows.forEach(function(tr, i) {
+    tr.style.background = (i === si) ? 'rgba(88,166,255,.1)' : 'transparent';
+    var td2 = tr.querySelectorAll('td')[1];
+    if (td2) { td2.style.fontWeight = (i===si)?'700':'400'; td2.style.color = (i===si)?'var(--ac)':'var(--tx)'; }
+  });
+  // 상단 목표일/실적일 카드 갱신
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  var stepNm = INVEST_STEPS[si];
+  var tgt  = (eq.target||{})[si] || '';
+  var act  = (eq.actual||{})[si] || '';
+  var today = new Date().toISOString().slice(0,10);
+  var isDelay   = tgt && act && act > tgt;
+  var isOverdue = tgt && !act && today > tgt;
+  var statusColor = act ? 'var(--gr)' : isOverdue ? 'var(--re)' : tgt ? 'var(--ac)' : 'var(--t3)';
+  var statusLabel = act ? '✅ 실적 완료' : isOverdue ? '⚠️ 지연' : tgt ? '📅 진행중' : '미등록';
+  var canE = canEdit();
+  // 단계명/상태 업데이트
+  var stepTitle = document.getElementById('dtStepTitle');
+  if (stepTitle) {
+    stepTitle.innerHTML = '<span id="dtStepTitle" style="font-size:18px;font-weight:700;color:var(--ac)">' + (si+1) + '. ' + xe(stepNm) + '</span>'
+      + ' <span style="font-size:13px;padding:3px 10px;border-radius:8px;background:rgba(0,0,0,.2);color:' + statusColor + ';border:1px solid ' + statusColor + '">' + statusLabel + '</span>'
+      + (isDelay ? ' <span style="font-size:13px;color:var(--re)">지연 ' + _dtDayDiff(tgt,act) + '일</span>' : '');
+  }
+  // 오른쪽 상세 패널 교체
+  var panel = document.getElementById('dtDetailPanel');
+  if (panel) panel.innerHTML = _dtDetailHtml(eq, si, canE);
+  // (날짜카드 제거됨)
+}
+
+function _dtRenderBody() {
+  var bd = document.getElementById('dtBody');
+  if (!bd) return;
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  var canE = canEdit();
+  var si   = _dtStepIdx;
+  var today = new Date().toISOString().slice(0,10);
+
+  // ── 좌우 flex 레이아웃 ──
+  // 왼쪽(프로세스 요약): 고정폭 / 오른쪽(체크리스트): 남은 공간
+  var html = '<div id="dtSplitWrap" style="display:flex;gap:0;width:100%;box-sizing:border-box;align-items:flex-start">'
+
+  // ── 왼쪽: 프로세스 요약 테이블 ──
+  + '<div id="dtLeftPanel" style="flex:0 0 auto;width:500px;min-width:280px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'
+  + '<div style="padding:10px 14px;border-bottom:1px solid var(--bd);font-size:18px;font-weight:700">📋 프로세스 요약</div>'
+  + '<table style="width:100%;border-collapse:collapse">'
+  + '<thead><tr style="background:var(--bg3)">'
+  + '<th style="padding:7px 8px;text-align:left;color:var(--t2);font-size:15px;border-bottom:1px solid var(--bd)">#</th>'
+  + '<th style="padding:7px 8px;text-align:left;color:var(--t2);font-size:15px;border-bottom:1px solid var(--bd)">프로세스</th>'
+  + '<th style="padding:7px 8px;text-align:center;color:var(--ac);font-size:15px;border-bottom:1px solid var(--bd)">목표일</th>'
+  + '<th style="padding:7px 8px;text-align:center;color:var(--t2);font-size:15px;border-bottom:1px solid var(--bd)">상태</th>'
+  + (canE ? '<th style="padding:7px 8px;text-align:center;color:var(--gr);font-size:15px;border-bottom:1px solid var(--bd)">실적일</th>' : '')
+  + '</tr></thead><tbody>';
+
+  INVEST_STEPS.forEach(function(stepName, i) {
+    var t = (eq.target||{})[i] || '';
+    var a = (eq.actual||{})[i] || '';
+    var isCur = i === si;
+    var isDelay = t && a && a > t;
+    var overdue = t && !a && today > t;
+    var stIcon = a ? (isDelay ? '🔴' : '✅') : overdue ? '⚠️' : t ? '📅' : '⬜';
+    var rowBg = isCur ? 'rgba(88,166,255,.1)' : 'transparent';
+    html += '<tr style="cursor:pointer;background:' + rowBg + ';border-bottom:1px solid var(--bd2)" onclick="_dtSelStep(' + i + ')">'
+      + '<td style="padding:8px 10px;color:var(--t3);font-size:16px;white-space:nowrap">' + (i+1) + '</td>'
+      + '<td style="padding:8px 10px;font-size:17px;font-weight:' + (isCur?'700':'400') + ';color:' + (isCur?'var(--ac)':'var(--tx)') + ';white-space:nowrap">' + xe(stepName) + '</td>'
+      + '<td style="padding:8px 10px;text-align:center;font-family:monospace;font-size:16px;color:' + (isDelay?'var(--re)':'var(--ac)') + ';white-space:nowrap">' + (t||'-') + '</td>'
+      + '<td style="padding:8px 10px;text-align:center;font-size:18px;white-space:nowrap;color:' + (isDelay?'var(--re)':'') + '">' + stIcon + '</td>';
+    if (canE) {
+      html += '<td style="padding:4px 6px;text-align:center">'
+        + '<input type="date" value="' + xe(a) + '" data-si="' + i + '" onchange="_dtSaveDateRow(this)"'
+        + ' onclick="event.stopPropagation()"'
+        + ' style="padding:4px 6px;background:var(--bg3);border:1px solid ' + (isDelay?'rgba(248,81,73,.5)':'var(--bd)') + ';border-radius:5px;color:' + (isDelay?'var(--re)':'var(--gr)') + ';font-size:14px;font-family:monospace;outline:none;width:150px">'
+        + '</td>';
+    }
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>'
+
+  // ── 오른쪽: 상세 체크리스트 컨테이너만 먼저 생성 ──
+  + '<div id="dtResizer" style="flex:0 0 8px;cursor:col-resize;background:transparent;border-left:2px solid var(--bd);border-right:2px solid var(--bd);margin:0 3px;align-self:stretch" onmouseenter="this.style.background=\'rgba(88,166,255,.3)\'" onmouseleave="this.style.background=\'transparent\'"></div>'
+  + '<div id="dtDetailPanel" style="flex:1 1 0;min-width:200px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'
+  + '</div>'
+  + '</div>';
+
+  // innerHTML 먼저 삽입
+  bd.innerHTML = html;
+
+  // 상세 체크리스트는 별도로 삽입 (문자열 연결 문제 방지)
+  var panel = document.getElementById('dtDetailPanel');
+  if (panel) panel.innerHTML = _dtDetailHtml(eq, si, canE);
+
+  // ── 드래그 리사이저 이벤트 ──
+  requestAnimationFrame(function() {
+    var resizer = document.getElementById('dtResizer');
+    var leftPanel = document.getElementById('dtLeftPanel');
+    var wrap = document.getElementById('dtSplitWrap');
+    if (!resizer || !leftPanel || !wrap) return;
+    var startX, startW;
+    resizer.addEventListener('mousedown', function(e) {
+      startX = e.clientX;
+      startW = leftPanel.offsetWidth;
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      function onMove(e2) {
+        var newW = Math.max(280, Math.min(startW + e2.clientX - startX, wrap.offsetWidth - 220));
+        leftPanel.style.width = newW + 'px';
+      }
+      function onUp() {
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+      e.preventDefault();
+    });
+  });
+}
+
+/* ── 선택 단계: 기업 Setup 연계 상세 체크리스트 ── */
+function _dtDetailHtml(eq, si, canE) {
+  var coId = _dtCoId;
+  var setup  = state.setups[coId] || {};
+  var selIds = setup.sel || [];       // 기업이 선택한 MASTER_DB id 목록
+  // 완료 여부: 설비별 eq.chkActual[si][id] 기준
+  var chkSi  = (eq && eq.chkActual && eq.chkActual[si]) ? eq.chkActual[si] : {};
+  var doneIds = Object.keys(chkSi).map(Number);
+  var doneAt  = chkSi;  // {id: date}
+
+  // INVEST_STEPS → MASTER_DB 프로세스명 매핑
+  var stepKeywords = [
+    '설비투자기획','설비 사양정의','투자심의','발주','제작',
+    'FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산'
+  ];
+  var kw = stepKeywords[si] || '';
+
+  // 기업이 선택한 항목 중 이 단계에 해당하는 것만
+  var allItems = MASTER_DB.filter(function(r){
+    return r['프로세스'] && r['프로세스'].indexOf(kw) === 0;
+  });
+  var items = allItems.filter(function(r){ return selIds.indexOf(r['id']) >= 0; });
+
+  // 선택 항목 없으면 전체 표시 (fallback)
+  if (!items.length && allItems.length) items = allItems;
+
+  var doneCnt  = items.filter(function(r){ return chkSi[r['id']]; }).length;
+  var totalCnt = items.length;
+  var pct      = totalCnt ? Math.round(doneCnt/totalCnt*100) : 0;
+
+  var html = '<div style="padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">'
+    + '<div>'
+    + '<span style="font-size:18px;font-weight:700">📝 ' + xe(INVEST_STEPS[si]) + ' 상세 체크리스트</span>'
+    + (selIds.length ? '' : '<span style="font-size:13px;color:var(--or);margin-left:8px">(Setup 미설정 — 전체 표시)</span>')
+    + '</div>'
+    + '<div style="display:flex;align-items:center;gap:12px">'
+    + '<span style="font-size:14px;color:var(--t2)" class="dt-cnt-lbl">' + doneCnt + '/' + totalCnt + '개 완료</span>'
+    + '<div style="width:120px;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden">'
+    + '<div class="pg-bar-fill" style="width:' + pct + '%;height:100%;background:var(--gr);border-radius:4px;transition:width .3s"></div>'
+    + '</div>'
+    + '<span class="dt-pct-lbl" style="font-size:15px;font-weight:700;color:' + (pct===100?'var(--gr)':'var(--ac)') + '">' + pct + '%</span>'
+    + '</div>'
+    + '</div>';
+
+  if (!items.length) {
+    return html + '<div style="padding:32px;text-align:center;color:var(--t2);font-size:15px">해당 단계에 선택된 상세 항목이 없습니다.<br><span style="font-size:13px">프로세스 Setup에서 항목을 추가하세요.</span></div>';
+  }
+
+  // 테이블 헤더
+  html += '<div style="overflow-x:auto">'
+    + '<table style="width:100%;border-collapse:collapse;font-size:15px;table-layout:fixed">'
+    + '<colgroup>'
+    + '<col style="width:40px">'   // 완료
+    + '<col style="width:160px">'  // 세부검토항목
+    + '<col>'                       // 체크포인트
+    + '<col style="width:66px">'   // 필수여부
+    + '<col style="width:110px">'  // 담당부서
+    + '<col style="width:130px">'  // 필요문서
+    + '<col style="width:70px">'   // 목표일정
+    + '<col style="width:140px">'  // 완료일시
+    + '</colgroup>'
+    + '<thead><tr style="background:var(--bg3);position:sticky;top:0;z-index:1">'
+    + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">완료</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">세부 검토 항목</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">체크 포인트</th>'
+    + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">필수여부</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">담당부서</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">필요문서</th>'
+    + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">목표일정</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">완료일시</th>'
+    + '</tr></thead><tbody>';
+
+  items.forEach(function(r) {
+    var id   = r['id'];
+    var done = !!chkSi[id];
+    var at   = chkSi[id] || '';
+    var isMust = r['필수여부'] === '필수';
+    var rowBg = done ? 'rgba(63,185,80,.05)' : 'transparent';
+
+    html += '<tr style="border-bottom:1px solid var(--bd2);background:' + rowBg + ';vertical-align:middle">'
+      // 완료 체크박스
+      + '<td style="padding:5px 8px;text-align:center;vertical-align:middle">'
+      + (canE
+        ? '<input type="checkbox" data-id="' + id + '" data-si="' + si + '" ' + (done?'checked':'') + ' onchange="_dtChkToggle(this)" style="width:18px;height:18px;cursor:pointer;accent-color:var(--gr)">'
+        : '<span style="font-size:18px">' + (done?'✅':'⬜') + '</span>')
+      + '</td>'
+      // 세부검토항목
+      + '<td style="padding:5px 8px;vertical-align:middle">'
+      + '<div style="font-size:17px;font-weight:600;color:' + (done?'var(--gr)':'var(--tx)') + ';text-decoration:' + (done?'line-through':'none') + '">' + xe(r['세부검토항목']||'-') + '</div>'
+      + '</td>'
+      // 체크포인트
+      + '<td style="padding:5px 8px;vertical-align:middle;font-size:16px;color:var(--t2)">' + xe(r['체크포인트']||'-') + '</td>'
+      // 필수여부
+      + '<td style="padding:5px 8px;text-align:center;vertical-align:middle">'
+      + (isMust
+        ? '<span style="font-size:13px;padding:2px 7px;border-radius:5px;background:rgba(248,81,73,.15);color:var(--re);border:1px solid rgba(248,81,73,.3)">필수</span>'
+        : '<span style="font-size:13px;color:var(--t3)">' + xe(r['필수여부']||'선택') + '</span>')
+      + '</td>'
+      // 담당부서
+      + '<td style="padding:5px 8px;vertical-align:middle;font-size:16px;font-weight:600">' + xe(r['총괄담당부서']||'-') + '</td>'
+      // 필요문서
+      + '<td style="padding:5px 8px;vertical-align:middle;font-size:14px;color:var(--t2)">' + xe(r['필요문서']||'-') + '</td>'
+      // 목표일정
+      + '<td style="padding:5px 8px;text-align:center;vertical-align:middle;font-size:14px;color:var(--t2)">' + xe(r['표준일정']||'-') + '</td>'
+      // 완료일시
+      + '<td style="padding:5px 8px;vertical-align:middle">'
+      + (canE
+        ? '<input type="date" value="' + xe(at) + '" data-id="' + id + '" data-si="' + si + '" onchange="_dtChkDateChange(this)" style="padding:3px 6px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--gr);font-size:15px;font-family:monospace;outline:none;width:145px">'
+        : '<span style="font-size:13px;color:var(--gr)">' + (at||'—') + '</span>')
+      + '</td>'
+      + '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  return html;
+}
+
+
+/* ── 체크박스 토글: Setup done/doneAt 구조와 연계 ── */
+function _dtChkToggle(inp) {
+  var id      = parseInt(inp.dataset.id);
+  var si      = parseInt(inp.dataset.si);
+  var checked = inp.checked;
+  var coId    = _dtCoId;
+  var eq      = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  if (!eq.chkActual)     eq.chkActual     = {};
+  if (!eq.chkActual[si]) eq.chkActual[si] = {};
+
+  var today = new Date().toISOString().slice(0,10);
+  if (checked) {
+    eq.chkActual[si][id] = today;
+  } else {
+    delete eq.chkActual[si][id];
+  }
+  saveAll();
+
+  // 해당 행 UI 즉시 업데이트
+  var tr = inp.closest('tr');
+  if (tr) {
+    tr.style.background = checked ? 'rgba(63,185,80,.05)' : 'transparent';
+    var nameCell = tr.querySelectorAll('td')[1];
+    if (nameCell) {
+      var span = nameCell.querySelector('div');
+      if (span) {
+        span.style.color = checked ? 'var(--gr)' : 'var(--tx)';
+        span.style.textDecoration = checked ? 'line-through' : 'none';
+      }
+    }
+    // 완료일 셀 업데이트
+    var atCell = tr.querySelectorAll('td')[7];
+    if (atCell) {
+      var atVal = checked ? today : '';
+      atCell.innerHTML = checked
+        ? '<input type="date" value="' + atVal + '" data-id="' + id + '" data-si="' + si + '" onchange="_dtChkDateChange(this)" style="padding:3px 6px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--gr);font-size:15px;font-family:monospace;outline:none;width:145px">'
+        : '<span style="font-size:13px;color:var(--t3)">—</span>';
+    }
+  }
+
+  // 단계 진행률 갱신 (패널 헤더)
+  var setup  = state.setups[coId] || {};
+  var selIds = setup.sel || [];
+  var stepKeywords = ['설비투자기획','설비 사양정의','투자심의','발주','제작','FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산'];
+  var kw = stepKeywords[si] || '';
+  var allItems = MASTER_DB.filter(function(r){ return r['프로세스'] && r['프로세스'].indexOf(kw)===0; });
+  var items = selIds.length>0 ? allItems.filter(function(r){ return selIds.indexOf(r['id'])>=0; }) : allItems;
+  var chkSi = eq.chkActual[si] || {};
+  var doneCnt = items.filter(function(r){ return chkSi[r['id']]; }).length;
+  var pct = items.length ? Math.round(doneCnt/items.length*100) : 0;
+
+  var bar = document.querySelector('#dtDetailPanel .pg-bar-fill');
+  if (bar) bar.style.width = pct + '%';
+  var pctSpans = document.querySelectorAll('#dtDetailPanel .dt-pct-lbl');
+  pctSpans.forEach(function(sp){ sp.textContent = pct + '%'; sp.style.color = pct===100?'var(--gr)':'var(--ac)'; });
+  var cntSpan = document.querySelector('#dtDetailPanel .dt-cnt-lbl');
+  if (cntSpan) cntSpan.textContent = doneCnt + '/' + items.length + '개 완료';
+
+  // 상단 전체 진행률 갱신
+  var pctLbl2 = document.getElementById('dtPctLbl');
+  if (pctLbl2) { var _i3=_dtCalcInfo(eq); pctLbl2.innerHTML='<span style="font-size:19px;color:var(--t2);font-weight:500">'+_i3.done+'/'+_i3.total+'&nbsp;</span><span>'+_i3.pct+'%</span>'; }
+
+  // 스텝바 갱신
+  _dtRenderStepBar();
+}
+
+/* ── 체크 완료일 날짜 직접 변경 ── */
+function _dtChkDateChange(inp) {
+  var id  = parseInt(inp.dataset.id);
+  var si  = parseInt(inp.dataset.si || '0');
+  var val = inp.value;
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  if (!eq.chkActual)     eq.chkActual     = {};
+  if (!eq.chkActual[si]) eq.chkActual[si] = {};
+  if (val) { eq.chkActual[si][id] = val; }
+  else     { delete eq.chkActual[si][id]; }
+  saveAll();
+}
+
+/* ── 체크 날짜 입력 (구버전 호환) ── */
+function _dtChkDate(inp) {
+  var si  = parseInt(inp.dataset.si);
+  var id  = parseInt(inp.dataset.id);
+  var val = inp.value;
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  if (!eq.chkActual) eq.chkActual = {};
+  if (!eq.chkActual[si]) eq.chkActual[si] = {};
+  if (val) { eq.chkActual[si][id] = val; }
+  else     { delete eq.chkActual[si][id]; }
+  saveAll();
+}
+
+
+function _dtCalcPct(eq) {
+  var done  = INVEST_STEPS.filter(function(s,i){ return !!(eq.actual||{})[i]; }).length;
+  var total = INVEST_STEPS.length;
+  return Math.round(done / total * 100);
+}
+function _dtCalcInfo(eq) {
+  // 설비별 상세항목 진행률 (eq.chkActual 기준)
+  var coId   = _dtCoId;
+  var setup  = state.setups[coId] || {};
+  var selIds = setup.sel || [];   // 기업이 선택한 MASTER_DB id 목록
+
+  if (selIds.length === 0) {
+    return { done: 0, total: 0, pct: 0 };
+  }
+
+  // 설비별 완료된 항목: eq.chkActual[si][id] 에 날짜가 있으면 완료
+  var chkActual = eq.chkActual || {};
+  var doneIds = [];
+  Object.keys(chkActual).forEach(function(si) {
+    Object.keys(chkActual[si]).forEach(function(id) {
+      if (chkActual[si][id]) doneIds.push(parseInt(id));
+    });
+  });
+
+  var total = selIds.length;
+  var done  = selIds.filter(function(id){ return doneIds.indexOf(id) >= 0; }).length;
+  return { done: done, total: total, pct: total ? Math.round(done / total * 100) : 0 };
+}
+
+/* 특정 단계의 기업 선택항목 진행률 계산 */
+function _dtCalcStepInfo(si) {
+  // 설비별 단계 진행률 (eq.chkActual[si] 기준)
+  var coId   = _dtCoId;
+  var setup  = state.setups[coId] || {};
+  var selIds = setup.sel || [];
+  var eq     = (state.equipments[coId]||[])[_dtEqIdx];
+  var stepKeywords = [
+    '설비투자기획','설비 사양정의','투자심의','발주','제작',
+    'FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산'
+  ];
+  var kw = stepKeywords[si] || '';
+  var allItems = MASTER_DB.filter(function(r){ return r['프로세스'] && r['프로세스'].indexOf(kw) === 0; });
+  var items = selIds.length > 0
+    ? allItems.filter(function(r){ return selIds.indexOf(r['id']) >= 0; })
+    : allItems;
+
+  // 설비별 완료 항목
+  var chkSi = (eq && eq.chkActual && eq.chkActual[si]) ? eq.chkActual[si] : {};
+  var total = items.length;
+  var done  = items.filter(function(r){ return chkSi[r['id']]; }).length;
+  return { done: done, total: total, pct: total ? Math.round(done/total*100) : 0 };
+}
+
+function _dtDayDiff(d1, d2) {
+  try { return Math.round((new Date(d2)-new Date(d1))/(1000*60*60*24)); } catch(e){ return 0; }
+}
+
+function _dtSaveDate(type, val) {
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  if (type === 'target') { if (!eq.target) eq.target={}; eq.target[_dtStepIdx] = val; }
+  else                   { if (!eq.actual) eq.actual={}; eq.actual[_dtStepIdx] = val; }
+  saveAll();
+  _dtRenderStepBar();  // 스텝바 갱신 (날짜카드도 내부에서 갱신)
+  // 요약 테이블 해당 행 직접 업데이트
+  var rows = document.querySelectorAll('#dtBody table tbody tr');
+  var si = _dtStepIdx;
+  if (rows[si]) {
+    var t = (eq.target||{})[si]||'', a = (eq.actual||{})[si]||'';
+    var today2 = new Date().toISOString().slice(0,10);
+    var delay2 = t&&a&&a>t, overdue2 = t&&!a&&today2>t;
+    var stIcon2 = a?'✅':overdue2?'⚠️':t?'📅':'⬜';
+    var cells = rows[si].querySelectorAll('td');
+    if (cells[2]) cells[2].textContent = t||'-';
+    if (cells[3]) cells[3].textContent = stIcon2;
+    if (cells[4] && type==='actual') cells[4].querySelector('input') && (cells[4].querySelector('input').value = a);
+  }
+  // 상단 진행률 갱신
+  var pctLbl = document.getElementById('dtPctLbl');
+  if (pctLbl) { var _i2=_dtCalcInfo(eq); pctLbl.innerHTML='<span style="font-size:19px;color:var(--t2);font-weight:500">'+_i2.done+'/'+_i2.total+'&nbsp;</span><span>'+_i2.pct+'%</span>'; }
+  toast('저장', INVEST_STEPS[_dtStepIdx] + ' ' + (type==='target'?'목표일':'실적일') + ' 저장됐습니다.', 'success');
+}
+
+function _dtSaveDateRow(inp) {
+  var si  = parseInt(inp.dataset.si);
+  var val = inp.value;
+  var coId = _dtCoId;
+  var eq   = (state.equipments[coId]||[])[_dtEqIdx];
+  if (!eq) return;
+  if (!eq.actual) eq.actual = {};
+  eq.actual[si] = val;
+  saveAll();
+
+  // 스텝바 해당 칸 아이콘만 업데이트 (전체 재렌더 금지 → 레이아웃 안깨짐)
+  var tgt2 = (eq.target||{})[si]||'';
+  var today2 = new Date().toISOString().slice(0,10);
+  var icon2 = val ? '✅' : (tgt2&&today2>tgt2) ? '⚠️' : tgt2 ? '📅' : '⬜';
+  var stepCells = document.querySelectorAll('#dtStepBar > div > div');
+  if (stepCells[si]) {
+    var iconEl = stepCells[si].querySelector('div:first-child');
+    if (iconEl) iconEl.textContent = icon2;
+  }
+  // 테이블 상태 아이콘만 업데이트
+  var rows = document.querySelectorAll('#dtBody table tbody tr');
+  if (rows[si]) {
+    var cells = rows[si].querySelectorAll('td');
+    var delay2 = tgt2&&val&&val>tgt2, overdue2 = tgt2&&!val&&today2>tgt2;
+    if (cells[3]) cells[3].textContent = val?'✅':overdue2?'⚠️':tgt2?'📅':'⬜';
+  }
+}
+
+function _getGong(coId) {
+  if (!coId) return [];
+  if (!state.gongMaster[coId])
+    state.gongMaster[coId] = GONG_MASTER.map(function(g){ return Object.assign({},g); });
+  return state.gongMaster[coId];
+}
+function _getVend(coId) {
+  if (!coId) return [];
+  if (!state.vendorMaster[coId])
+    state.vendorMaster[coId] = VENDOR_MASTER.map(function(v){ return Object.assign({},v); });
+  return state.vendorMaster[coId];
+}
+
+/* ── COMPANY PAGE ── */
+function pgCompany() {
+  _coTab = _coTab || 'company';
+  var canE = canEdit();
+
+  // 기업 선택 드롭다운 (항상 표시)
+  var coOpts = state.companies.map(function(c){
+    return '<option value="' + xe(c.id) + '"' + (c.id===_coSelId?' selected':'') + '>' + xe(c.name) + '</option>';
+  }).join('');
+  var coPickHtml = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:0;padding:10px 14px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px 8px 0 0;border-bottom:none">'
+    + '<span style="font-size:13px;color:var(--t2);white-space:nowrap;font-weight:600">📌 기업 선택</span>'
+    + '<select style="padding:6px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:14px;font-family:inherit;outline:none;max-width:280px" onchange="_coSelChange(this.value)">'
+    + '<option value="">— 기업을 선택하세요 —</option>' + coOpts + '</select>'
+    + (_coSelId ? '<span style="font-size:13px;color:var(--gr);margin-left:4px">✅ 선택됨</span>' : '<span style="font-size:13px;color:var(--t3)">공정/업체 관리 시 기업 선택 필요</span>')
+    + '</div>';
+
+  // 탭 버튼 (항상 3개 표시, 기업 미선택 시 비활성)
+  var tabStyle = 'padding:8px 16px;border:none;background:transparent;cursor:pointer;font-family:inherit;font-size:15px;transition:all .15s;margin-bottom:-1px;';
+  var tabs = [
+    {key:'company', label:'🏢 기업 관리'},
+    {key:'gong',    label:'⚙️ 공정 Master'},
+    {key:'vendor',  label:'🏭 설비업체 Master'}
+  ];
+  var tabHtml = '<div style="display:flex;gap:4px;border-bottom:1px solid var(--bd);background:var(--bg2);border:1px solid var(--bd);border-top:none;padding:0 14px;border-radius:0 0 0 0">';
+  tabs.forEach(function(t) {
+    var active = _coTab === t.key;
+    var disabled = (t.key !== 'company') && !_coSelId;
+    tabHtml += '<button onclick="' + (disabled ? '' : "_coSwitchTab('" + t.key + "')") + '"'
+      + ' style="' + tabStyle
+      + 'font-weight:' + (active?'700':'500') + ';'
+      + 'color:' + (active?'var(--ac)':disabled?'var(--bd)':'var(--t2)') + ';'
+      + 'border-bottom:' + (active?'2px solid var(--ac)':'2px solid transparent') + ';'
+      + 'cursor:' + (disabled?'not-allowed':'pointer') + '"'
+      + (disabled?' title="기업을 먼저 선택하세요"':'') + '>'
+      + t.label + '</button>';
+  });
+  tabHtml += '</div>';
+
+  var bodyHtml = '';
+  if      (_coTab === 'company') bodyHtml = _renderCoCompany(canE);
+  else if (_coTab === 'gong')    bodyHtml = _renderCoGong(canE);
+  else if (_coTab === 'vendor')  bodyHtml = _renderCoVendor(canE);
+
+  gid('pg_company').innerHTML =
+    '<div class="ph" style="margin-bottom:14px">'
+    + '<div><h1 class="pt">🏢 기업 관리</h1><p class="ps">기업 · 공정 · 설비업체 통합 관리</p></div>'
+    + '</div>'
+    + coPickHtml + tabHtml
+    + '<div style="margin-top:14px">' + bodyHtml + '</div>';
+}
+
+function _coSelChange(coId) {
+  _coSelId = coId || null;
+  if (!_coSelId && (_coTab === 'gong' || _coTab === 'vendor')) _coTab = 'company';
+  pgCompany();
+}
+function _coSwitchTab(key) { _coTab = key; pgCompany(); }
+
+/* 기업 카드에서 공정/업체 탭으로 바로 진입 */
+function goCoMaster(coId, tab) {
+  _coSelId = coId;
+  _coTab   = tab || 'gong';
+  navTo('company');
+}
+
+/* ── 탭1: 기업 관리 ── */
+function _renderCoCompany(canE) {
+  var html = '<div style="display:flex;justify-content:flex-end;margin-bottom:12px">'
+    + (canE ? '<button class="btn bp" onclick="openAddCo()">＋ 기업 추가</button>' : '')
     + '</div><div class="cgrid">';
-  state.companies.forEach(function(c){
+  state.companies.forEach(function(c) {
     var s = state.setups[c.id] || {};
-    var sel  = (s.sel||[]).length, done = (s.done||[]).length;
-    var pct  = sel ? Math.round(done/sel*100) : 0;
+    var sel = (s.sel||[]).length, done = (s.done||[]).length;
+    var pct = sel ? Math.round(done/sel*100) : 0;
+    var eqs = (state.equipments[c.id]||[]).length;
     html += '<div class="ccard">'
-      + '<div class="flex-sb">'
-      + '<div><div class="cnm">' + xe(c.name) + '</div><div class="cmt">' + xe(c.industry||'-') + ' · ' + xe(c.cd||'') + '</div></div>'
+      + '<div class="flex-sb"><div><div class="cnm">' + xe(c.name) + '</div>'
+      + '<div class="cmt">' + xe(c.industry||'-') + ' · ' + xe(c.cd||'') + '</div></div>'
       + (canE ? '<button class="btn bxs bd" onclick="delCo(\'' + c.id + '\')">🗑️</button>' : '')
       + '</div>'
       + '<div class="cst">'
       + '<div><div class="csv" style="color:var(--ac)">' + sel + '</div><div class="csl">Setup</div></div>'
       + '<div><div class="csv" style="color:var(--gr)">' + done + '</div><div class="csl">완료</div></div>'
       + '<div><div class="csv" style="color:var(--or)">' + pct + '%</div><div class="csl">진행률</div></div>'
+      + '<div><div class="csv" style="color:var(--pu)">' + eqs + '</div><div class="csl">설비</div></div>'
       + '</div>'
       + '<div class="pb mt8"><div class="pf" style="width:' + pct + '%"></div></div>'
-      + '<div class="flex-g mt10">'
-      + '<button class="btn bp bsm" onclick="goSetup(\'' + c.id + '\')">⚙️ Setup</button>'
-      + '<button class="btn bs bsm" onclick="goProg(\'' + c.id + '\')">📈 현황</button>'
+      + '<div style="margin-top:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px">'
+      + '<button class="btn bp bsm" style="justify-content:center;font-size:13px;width:100%" onclick="goSetup(\'' + c.id + '\')">⚙️ 프로세스 Setting</button>'
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:13px;width:100%" onclick="goProg(\'' + c.id + '\')">📈 현황</button>'
+      + (canE ? '<button class="btn bsm" style="justify-content:center;font-size:13px;width:100%;background:rgba(188,140,255,.15);border:1px solid rgba(188,140,255,.3);color:var(--pu)" onclick="goEquip(\'' + c.id + '\')">🏭 설비등록</button>' : '<span></span>')
+      + '<button class="btn bxs bs bsm" style="justify-content:center;font-size:13px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'gong\')">⚙️ 공정Master관리</button>'
+      + '<button class="btn bxs bs bsm" style="justify-content:center;font-size:13px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'vendor\')">🏭 업체Master관리</button>'
       + '</div>'
       + (c.note ? '<div class="cnote">' + xe(c.note) + '</div>' : '')
       + '</div>';
   });
-  if (!state.companies.length) html += '<div class="empty" style="grid-column:1/-1"><div class="ei">🏢</div><h3>등록된 기업이 없습니다</h3><p>오른쪽 상단 버튼으로 추가하세요</p></div>';
+  if (!state.companies.length) html += '<div class="empty" style="grid-column:1/-1"><div class="ei">🏢</div><h3>등록된 기업이 없습니다</h3></div>';
   html += '</div>';
-  gid('pg_company').innerHTML = html;
+  return html;
+}
+
+
+/* ── 탭2: 공정 Master CRUD (기업별) ── */
+function _renderCoGong(canE) {
+  if (!_coSelId) return '<div class="empty"><div class="ei">⚙️</div><h3>기업을 선택하세요</h3><p>위에서 기업을 선택하면 해당 기업의 공정 Master를 관리할 수 있습니다.</p></div>';
+  var gongs = _getGong(_coSelId);
+  var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
+    + '<span style="font-size:14px;color:var(--t2)">총 ' + gongs.length + '개 공정</span>'
+    + (canE ? '<button class="btn bp bsm" onclick="_openGongModal(null)">＋ 공정 추가</button>' : '')
+    + '</div>'
+    + '<div class="tw" style="max-height:calc(100vh - 300px);overflow-y:auto"><table class="tbl"><thead><tr>'
+    + '<th style="width:60px">순서</th><th style="width:130px">공정코드</th><th>공정명</th>'
+    + '<th style="width:130px">담당자명</th><th style="width:150px">연락처</th>'
+    + (canE ? '<th style="width:80px">관리</th>' : '')
+    + '</tr></thead><tbody>';
+  gongs.forEach(function(g, i) {
+    html += '<tr>'
+      + '<td style="text-align:center;color:var(--t2);font-size:13px">' + g.seq + '</td>'
+      + '<td style="font-family:monospace;font-size:13px;color:var(--ac)">' + xe(g.code) + '</td>'
+      + '<td style="font-weight:500">' + xe(g.name) + '</td>'
+      + '<td style="font-size:14px">' + xe(g.manager||'-') + '</td>'
+      + '<td style="font-size:14px;color:var(--t2)">' + xe(g.contact||'-') + '</td>'
+      + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGongModal(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGong(' + i + ')">🗑️</button></td>' : '')
+      + '</tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function _openGongModal(idx) {
+  var isEdit = idx !== null;
+  var gongs = _getGong(_coSelId);
+  var g = isEdit ? gongs[idx] : {};
+  var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
+  var html = '<div class="mov" id="gongMdlOv" style="display:flex" onclick="if(event.target===this)_closeGongModal()">'
+    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'✏️ 공정 수정':'➕ 공정 추가') + '</h3>'
+    + '<button class="mcls" onclick="_closeGongModal()">✕</button></div><div class="mbdy">'
+    + '<div class="eq-modal-grid" style="margin-bottom:10px">'
+    + '<div><div class="eq-flbl">공정코드' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="gM_code" value="' + xe(g.code||'') + '" placeholder="예: F10-0020"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '<div><div class="eq-flbl">순서' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'') + '</div>'
+    + '<input class="eq-finp" id="gM_seq" type="number" value="' + xe(g.seq||'') + '" placeholder="숫자"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '</div>'
+    + '<div style="margin-bottom:14px"><div class="eq-flbl">공정명' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="gM_name" value="' + xe(g.name||'') + '" placeholder="예: MS Auto Racking1"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ 담당자 정보만 수정할 수 있습니다.</div>' : '')
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">담당자명</div><input class="eq-finp" id="gM_mgr" value="' + xe(g.manager||'') + '" placeholder="담당자명"></div>'
+    + '<div><div class="eq-flbl">연락처</div><input class="eq-finp" id="gM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(g.contact||'') + '" placeholder="연락처"></div></div>'
+    + '</div><div class="mftr"><input type="hidden" id="gM_idx" value="' + (isEdit?idx:'null') + '">'
+    + '<button class="btn bs" onclick="_closeGongModal()">취소</button>'
+    + '<button class="btn bg" onclick="_saveGong()">💾 저장</button></div></div></div>';
+  var w = document.createElement('div'); w.id = 'gongMdlWrap'; w.innerHTML = html;
+  document.body.appendChild(w);
+  isEdit ? gid('gM_mgr').focus() : gid('gM_code').focus();
+}
+function _closeGongModal() { var w=gid('gongMdlWrap'); if(w) w.remove(); }
+function _saveGong() {
+  var code = (gid('gM_code').value||'').trim(), name = (gid('gM_name').value||'').trim();
+  if (!code || !name) { alert('공정코드와 공정명을 입력하세요.'); return; }
+  var idx = gid('gM_idx').value, isEdit = idx !== 'null';
+  var obj = { seq:parseInt(gid('gM_seq').value)||_getGong(_coSelId).length+1, code:code, name:name, manager:(gid('gM_mgr').value||'').trim(), contact:(gid('gM_tel').value||'').trim() };
+  var gongs = _getGong(_coSelId);
+  if (isEdit) { gongs[parseInt(idx)] = obj; } else { gongs.push(obj); gongs.sort(function(a,b){return a.seq-b.seq;}); }
+  state.gongMaster[_coSelId] = gongs;
+  saveAll(); _closeGongModal(); pgCompany();
+  toast('저장', name + ' 공정이 저장됐습니다.', 'success');
+}
+function _delGong(idx) {
+  var gongs = _getGong(_coSelId);
+  var g = gongs[idx];
+  if (!confirm('[' + g.code + '] ' + g.name + ' 공정을 삭제하시겠습니까?')) return;
+  gongs.splice(idx, 1);
+  state.gongMaster[_coSelId] = gongs;
+  saveAll(); pgCompany();
+  toast('삭제', '공정이 삭제됐습니다.', 'success');
+}
+
+/* ── 탭3: 설비업체 Master CRUD (기업별) ── */
+function _renderCoVendor(canE) {
+  if (!_coSelId) return '<div class="empty"><div class="ei">🏭</div><h3>기업을 선택하세요</h3><p>위에서 기업을 선택하면 해당 기업의 설비업체 Master를 관리할 수 있습니다.</p></div>';
+  var vends = _getVend(_coSelId);
+  var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
+    + '<span style="font-size:14px;color:var(--t2)">총 ' + vends.length + '개 업체</span>'
+    + (canE ? '<button class="btn bp bsm" onclick="_openVendModal(null)">＋ 업체 추가</button>' : '')
+    + '</div>'
+    + '<div class="tw"><table class="tbl"><thead><tr>'
+    + '<th style="width:140px">업체코드</th><th style="width:160px">업체명</th>'
+    + '<th style="width:140px">담당자명</th><th>연락처</th>'
+    + (canE ? '<th style="width:80px">관리</th>' : '')
+    + '</tr></thead><tbody>';
+  vends.forEach(function(v, i) {
+    html += '<tr>'
+      + '<td style="font-family:monospace;font-size:13px;color:var(--ac)">' + xe(v.code) + '</td>'
+      + '<td style="font-weight:600">' + xe(v.name) + '</td>'
+      + '<td style="font-size:14px">' + xe(v.manager||'-') + '</td>'
+      + '<td style="font-size:14px;color:var(--t2)">' + xe(v.contact||'-') + '</td>'
+      + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openVendModal(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delVend(' + i + ')">🗑️</button></td>' : '')
+      + '</tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function _openVendModal(idx) {
+  var isEdit = idx !== null;
+  var vends = _getVend(_coSelId);
+  var v = isEdit ? vends[idx] : {};
+  var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
+  var html = '<div class="mov" id="vendMdlOv" style="display:flex" onclick="if(event.target===this)_closeVendModal()">'
+    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'✏️ 업체 수정':'➕ 업체 추가') + '</h3>'
+    + '<button class="mcls" onclick="_closeVendModal()">✕</button></div><div class="mbdy">'
+    + '<div class="eq-modal-grid" style="margin-bottom:14px">'
+    + '<div><div class="eq-flbl">업체코드' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="vM_code" value="' + xe(v.code||'') + '" placeholder="예: KR2165423"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '<div><div class="eq-flbl">업체명' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="vM_name" value="' + xe(v.name||'') + '" placeholder="업체명"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '</div>'
+    + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ 담당자 정보만 수정할 수 있습니다.</div>' : '')
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">담당자명</div><input class="eq-finp" id="vM_mgr" value="' + xe(v.manager||'') + '" placeholder="담당자명"></div>'
+    + '<div><div class="eq-flbl">연락처</div><input class="eq-finp" id="vM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(v.contact||'') + '" placeholder="연락처"></div></div>'
+    + '</div><div class="mftr"><input type="hidden" id="vM_idx" value="' + (isEdit?idx:'null') + '">'
+    + '<button class="btn bs" onclick="_closeVendModal()">취소</button>'
+    + '<button class="btn bg" onclick="_saveVend()">💾 저장</button></div></div></div>';
+  var w = document.createElement('div'); w.id = 'vendMdlWrap'; w.innerHTML = html;
+  document.body.appendChild(w);
+  isEdit ? gid('vM_mgr').focus() : gid('vM_code').focus();
+}
+function _closeVendModal() { var w=gid('vendMdlWrap'); if(w) w.remove(); }
+function _saveVend() {
+  var code = (gid('vM_code').value||'').trim(), name = (gid('vM_name').value||'').trim();
+  if (!code || !name) { alert('업체코드와 업체명을 입력하세요.'); return; }
+  var idx = gid('vM_idx').value, isEdit = idx !== 'null';
+  var obj = { code:code, name:name, manager:(gid('vM_mgr').value||'').trim(), contact:(gid('vM_tel').value||'').trim() };
+  var vends = _getVend(_coSelId);
+  if (isEdit) { vends[parseInt(idx)] = obj; } else { vends.push(obj); }
+  state.vendorMaster[_coSelId] = vends;
+  saveAll(); _closeVendModal(); pgCompany();
+  toast('저장', name + ' 업체가 저장됐습니다.', 'success');
+}
+function _delVend(idx) {
+  var vends = _getVend(_coSelId);
+  var v = vends[idx];
+  if (!confirm('[' + v.code + '] ' + v.name + ' 업체를 삭제하시겠습니까?')) return;
+  vends.splice(idx, 1);
+  state.vendorMaster[_coSelId] = vends;
+  saveAll(); pgCompany();
+  toast('삭제', '업체가 삭제됐습니다.', 'success');
 }
 
 function openAddCo() {
@@ -1886,6 +3770,21 @@ function goSetup(coId) {
 function goProg(coId) {
   navTo('progress');
   setTimeout(function(){ if(gid('prCoSel')){ gid('prCoSel').value = coId; state.progressStep=0; loadProg(); } }, 60);
+}
+/* ③ 설비관리 버튼 → 설비투자진척 페이지로 이동 + 설비추가 모달 바로 오픈 */
+function goEquip(coId) {
+  navTo('equip');
+  setTimeout(function(){
+    var sel = gid('eqCoSel2');
+    if (sel) {
+      sel.value = coId;
+      loadEquipTbl();
+      // 기업 선택 후 설비추가 모달 자동 오픈 (관리자만)
+      if (canEdit()) {
+        setTimeout(function(){ _openEqModal(coId, null, null); }, 150);
+      }
+    }
+  }, 80);
 }
 
 /* ── EXPORT ─────────────────────────────────────────── */
@@ -1972,6 +3871,14 @@ document.addEventListener('DOMContentLoaded', function(){
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeDrawer();
   });
+  // 연락처 입력 숫자/하이픈만 허용 (동적 생성 포함)
+  document.addEventListener('input', function(e) {
+    var el = e.target;
+    if (el && (el.id === 'gM_tel' || el.id === 'vM_tel' || el.id === 'eqM_vtel' || el.id === 'eqM_utel')) {
+      var v = el.value.replace(/[^0-9\-]/g, '');
+      if (el.value !== v) el.value = v;
+    }
+  });
   gid('btnLogin').addEventListener('click', doLogin);
   gid('loginPw').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
   gid('loginId').addEventListener('keydown', function(e){ if(e.key==='Enter') gid('loginPw').focus(); });
@@ -1980,5 +3887,988 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
+</body>
+</html    html += '<tr style="cursor:pointer;border-bottom:1px solid var(--bd2);background:' + (isCur ? 'rgba(88,166,255,.07)' : 'transparent') + ';transition:background .1s" onclick="_dtSelStep(' + i + ')">'  !DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EQ-PMS | 설비투자 프로세스 관리 시스템</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;
+  --bd:#30363d;--bd2:#21262d;
+  --tx:#e6edf3;--t2:#8b949e;--t3:#6e7681;
+  --ac:#58a6ff;--a2:#1f6feb;
+  --gr:#3fb950;--g2:#238636;
+  --or:#f0883e;--re:#f85149;--pu:#bc8cff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);height:100vh;overflow:hidden;font-size:19px;line-height:1.65}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+
+/* LOGIN */
+#loginScreen{display:flex;align-items:center;justify-content:center;position:fixed;inset:0;background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%);z-index:9999}
+.lbox{background:var(--bg2);border:1px solid var(--bd);border-radius:16px;padding:44px 38px;width:400px}
+.llogo{display:flex;align-items:center;gap:11px;margin-bottom:26px}
+.llogo-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:26px}
+.llogo h1{font-size:22px;font-weight:700}
+.llogo p{font-size:17px;color:var(--t2)}
+.ltit{font-size:26px;font-weight:700;margin-bottom:5px}
+.lsub{color:var(--t2);font-size:18px;margin-bottom:24px}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:17px;font-weight:600;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+.fg input{width:100%;padding:9px 13px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:19px;font-family:inherit;outline:none;transition:border-color .2s}
+.fg input:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(88,166,255,.1)}
+.lbtn{width:100%;padding:11px;background:linear-gradient(135deg,var(--a2),#388bfd);border:none;border-radius:7px;color:#fff;font-size:20px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:4px}
+.lbtn:hover{opacity:.9;transform:translateY(-1px)}
+.lerr{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);border-radius:7px;padding:9px 13px;color:var(--re);font-size:18px;margin-top:9px;display:none}
+.lhint{margin-top:16px;padding:11px 13px;background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;font-size:17px;color:var(--t2)}
+.lhint strong{color:var(--ac)}
+
+/* APP */
+#app{display:none;flex-direction:column;height:100vh;overflow:hidden;position:relative}
+.hdr{background:var(--bg2);border-bottom:1px solid var(--bd);padding:0 28px;display:flex;align-items:center;gap:12px;height:62px;position:sticky;top:0;z-index:200}
+.hdr-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;flex-shrink:0}
+.hdr-logo .ico{width:28px;height:28px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.hnav{display:flex;gap:2px;flex:1;margin-left:4px}
+.nb{padding:5px 11px;border-radius:6px;border:none;background:transparent;color:var(--t2);font-size:18px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
+.nb:hover{background:var(--bg3);color:var(--tx)}
+.nb.active{background:var(--bg3);color:var(--ac)}
+.hr{display:flex;align-items:center;gap:9px;margin-left:auto}
+.ubadge{display:flex;align-items:center;gap:6px;padding:4px 11px;background:var(--bg3);border:1px solid var(--bd);border-radius:18px;font-size:17px}
+.udot{width:6px;height:6px;border-radius:50%;background:var(--gr)}
+.urole{color:var(--t2);font-size:15px;background:var(--bg);padding:1px 5px;border-radius:3px}
+.lout{padding:4px 10px;border:1px solid var(--bd);border-radius:5px;background:transparent;color:var(--t2);font-size:17px;cursor:pointer;font-family:inherit;transition:all .15s}
+.lout:hover{border-color:var(--re);color:var(--re)}
+
+/* MAIN */
+.main{padding:24px 28px;max-width:100%;margin:0;flex:1 1 0;min-height:0;overflow:hidden}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.pt{font-size:25px;font-weight:700}
+.ps{font-size:17px;color:var(--t2);margin-top:2px}
+
+/* STATS */
+.sg4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+.sc{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:22px 24px}
+.sl{font-size:16px;color:var(--t2);margin-bottom:5px;font-weight:500}
+.sv{font-size:32px;font-weight:700;font-family:monospace}
+.ss{font-size:16px;color:var(--t2);margin-top:2px}
+
+/* STEP BAR */
+.psbar{display:flex;margin-bottom:20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.ps{flex:1;padding:16px 8px;text-align:center;font-size:15px;font-weight:500;color:var(--t2);cursor:pointer;border-right:1px solid var(--bd);transition:all .15s;position:relative}
+.ps:last-child{border-right:none}
+.ps:hover{background:var(--bg3);color:var(--tx)}
+.ps.active{background:rgba(88,166,255,.15);color:var(--ac);border-bottom:2px solid var(--ac)}
+.pse{font-size:24px;display:block;margin-bottom:3px}
+.pss{font-size:17px;line-height:1.4;word-break:keep-all;font-weight:600}
+.psn{position:absolute;top:4px;right:5px;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;font-size:14px;padding:2px 6px;color:var(--t2)}
+.ps.active .psn{background:rgba(88,166,255,.2);border-color:rgba(88,166,255,.4);color:var(--ac);font-weight:700}
+
+/* FILTER */
+.flt{display:flex;gap:8px;margin-bottom:13px;align-items:center;flex-wrap:wrap}
+.si{flex:1;min-width:180px;padding:9px 14px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;transition:border-color .2s}
+.si:focus{border-color:var(--ac)}
+.si::placeholder{color:var(--t3)}
+.fsel{padding:9px 12px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;cursor:pointer}
+
+/* TABLE */
+.tw{overflow-x:auto;border-radius:8px;border:1px solid var(--bd)}
+.m-scroll-body .tw{border:none;border-radius:0}
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed;word-break:break-all;font-size:19px}
+.tbl thead tr{background:var(--bg3);border-bottom:1px solid var(--bd)}
+.tbl th{padding:12px 14px;text-align:left;font-weight:600;color:var(--t2);font-size:17px;white-space:nowrap;border-right:1px solid var(--bd2)}
+.tbl th:last-child{border-right:none}
+.tbl tbody tr{border-bottom:1px solid var(--bd2);transition:background .1s}
+.tbl tbody tr:last-child{border-bottom:none}
+.tbl tbody tr:hover{background:var(--bg3)}
+.tbl td{padding:8px 12px;border-right:1px solid var(--bd2);vertical-align:middle;line-height:1.4}
+.tbl td:last-child{border-right:none}
+.fw{font-weight:500;min-width:110px;word-break:keep-all}
+.sm{font-size:17px}
+.t2{color:var(--t2)}
+.t3{color:var(--t3)}
+.mono{font-family:monospace}
+
+/* BADGES */
+.b{display:inline-flex;align-items:center;padding:1px 6px;border-radius:9px;font-size:16px;font-weight:500;white-space:nowrap}
+.br{background:rgba(63,185,80,.12);color:var(--gr);border:1px solid rgba(63,185,80,.25)}
+.bo{background:rgba(88,166,255,.12);color:var(--ac);border:1px solid rgba(88,166,255,.25)}
+.bc{background:rgba(240,136,62,.12);color:var(--or);border:1px solid rgba(240,136,62,.25)}
+.bw{background:rgba(188,140,255,.12);color:var(--pu);border:1px solid rgba(188,140,255,.25)}
+
+/* BUTTONS */
+.btn{padding:8px 16px;border-radius:8px;border:none;font-size:18px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.bp{background:var(--a2);color:#fff}.bp:hover{background:#388bfd}
+.bg{background:var(--g2);color:#fff}.bg:hover{background:#2ea043}
+.bs{background:var(--bg3);border:1px solid var(--bd);color:var(--tx)}.bs:hover{background:var(--bg4)}
+.bd{background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.28);color:var(--re)}.bd:hover{background:rgba(248,81,73,.22)}
+.bw{background:rgba(240,136,62,.12);border:1px solid rgba(240,136,62,.28);color:var(--or)}.bw:hover{background:rgba(240,136,62,.22)}
+.bsm{padding:4px 9px;font-size:17px}
+.bxs{padding:2px 7px;font-size:16px}
+
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:22px}
+.ch{font-size:18px;font-weight:600;display:block;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.mt14{margin-top:14px}
+.mb7{margin-bottom:7px}
+.mb9{margin-bottom:9px}
+.mb12{margin-bottom:12px}
+.mt8{margin-top:8px}
+.mt10{margin-top:10px}
+.flex-sb{display:flex;justify-content:space-between;align-items:center}
+.flex-g{display:flex;gap:7px;align-items:center}
+.flex4{display:flex;gap:12px;flex-wrap:wrap}
+.ml-auto{margin-left:auto}
+
+/* PROGRESS BAR */
+.pb{background:var(--bg3);border-radius:3px;height:5px;overflow:hidden}
+.pf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g2),var(--gr));transition:width .5s ease}
+
+/* CHART BARS */
+.brow{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.blbl{width:65px;font-size:16px;color:var(--t2);text-align:right;flex-shrink:0}
+.btrack{flex:1;background:var(--bg3);border-radius:3px;height:16px;position:relative}
+.bfill{height:100%;background:linear-gradient(90deg,var(--a2),var(--ac));border-radius:3px}
+.bval{position:absolute;right:5px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--t2);font-family:monospace}
+
+/* CHIP */
+.chip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:6px;font-size:14px;background:var(--bg3);border:1px solid var(--bd);color:var(--t2);white-space:normal;word-break:keep-all;text-align:center;line-height:1.4}
+
+/* EMPTY */
+.empty{text-align:center;padding:44px 20px;color:var(--t2)}
+.ei{font-size:42px;margin-bottom:10px}
+.empty h3{font-size:20px;margin-bottom:5px;color:var(--tx)}
+
+/* TOAST */
+.tw2{position:fixed;top:60px;right:14px;z-index:9000;display:flex;flex-direction:column;gap:6px}
+#tw{display:flex;flex-direction:column;gap:6px}
+.toast{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 13px;min-width:250px;animation:tin .22s ease;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.toast.success{border-color:rgba(63,185,80,.4)}
+.toast.error{border-color:rgba(248,81,73,.4)}
+@keyframes tin{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+
+/* MODAL */
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px)}
+.mdl{background:var(--bg2);border:1px solid var(--bd);border-radius:13px;width:700px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.5)}
+.mhdr{padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1}
+.mhdr h3{font-size:20px;font-weight:600}
+.mcls{width:28px;height:28px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.mcls:hover{border-color:var(--re);color:var(--re)}
+.mbdy{padding:20px}
+.mftr{padding:13px 20px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:7px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.frow.s1{grid-template-columns:1fr}
+.flbl{font-size:16px;font-weight:600;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+.finp,.fslc,.fta{width:100%;padding:7px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;transition:border-color .2s}
+.finp:focus,.fslc:focus,.fta:focus{border-color:var(--ac);box-shadow:0 0 0 2px rgba(88,166,255,.1)}
+.fta{resize:vertical;min-height:65px}
+.fdiv{display:flex;align-items:center;gap:8px;margin:14px 0 10px}
+.fdln{flex:1;height:1px;background:var(--bd)}
+.fdlb{font-size:15px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1px}
+
+/* HIGHLIGHT */
+.hl,mark.hl{background:rgba(240,200,62,.3);border-radius:2px;padding:0 2px;font-style:normal}
+
+/* ─── SETUP PAGE ─────────────────────────────────── */
+.topbar{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:16px 24px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar select{max-width:260px;padding:7px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;cursor:pointer}
+.topbar select:focus{border-color:var(--ac)}
+.info-badge{display:flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.2);border-radius:14px;font-size:17px;color:var(--gr);font-weight:500}
+
+.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }
+.spanel { background:var(--bg2); border:1px solid var(--bd); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; min-height:0; }
+.shdr{padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg3);display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:600;gap:8px;flex-wrap:wrap}
+.ssearch{padding:7px 11px;border-bottom:1px solid var(--bd);background:var(--bg2)}
+.ssearch input{width:100%;padding:5px 9px;background:var(--bg);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;transition:border-color .15s}
+.ssearch input:focus{border-color:var(--ac)}
+
+/* Proc list */
+#sProcList,#sMastBody,#sSelBody{flex:1;overflow-y:auto}
+.pi{padding:10px 14px;border-bottom:1px solid var(--bd2);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .12s}
+.pi:last-child{border-bottom:none}
+.pi:hover{background:var(--bg3)}
+.pi.active{background:rgba(88,166,255,.08);border-left:2px solid var(--ac)}
+.pnm{font-size:18px;font-weight:500}
+.psb{font-size:16px;color:var(--t2);margin-top:1px}
+.pst{text-align:right;font-size:17px}
+.psc{font-weight:600;color:var(--gr)}
+.pstot{color:var(--t2)}
+
+/* Master items */
+.mgrp{display:flex;align-items:center;justify-content:space-between;padding:5px 11px;background:var(--bg3);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
+.mgn{font-size:16px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px}
+.mgc{display:flex;align-items:center;gap:5px;font-size:16px;color:var(--t2);cursor:pointer}
+.mcard{padding:10px 11px;border-bottom:1px solid var(--bd2);display:flex;align-items:flex-start;gap:9px;transition:background .1s;cursor:pointer}
+.mcard:last-child{border-bottom:none}
+.mcard:hover{background:rgba(255,255,255,.02)}
+.mcard.msel{background:rgba(63,185,80,.05)}
+.mchk{width:15px;height:15px;accent-color:var(--gr);flex-shrink:0;margin-top:2px;cursor:pointer}
+.mb{flex:1;min-width:0}
+.mt{font-size:18px;font-weight:500;margin-bottom:2px;word-break:keep-all}
+.mc2{font-size:16px;color:var(--t2);line-height:1.4;margin-bottom:3px;word-break:keep-all}
+.mm{display:flex;gap:4px;flex-wrap:wrap}
+
+/* Selected items */
+.sitem{border-bottom:1px solid var(--bd2)}
+.sitem:last-child{border-bottom:none}
+.sih{padding:9px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .1s}
+.sih:hover{background:rgba(255,255,255,.02)}
+.sin{width:18px;height:18px;border-radius:50%;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--ac);flex-shrink:0;font-family:monospace}
+.sit{font-size:18px;font-weight:500;flex:1;word-break:keep-all}
+.stog{font-size:17px;color:var(--t2);transition:transform .2s;display:inline-block}
+.sib{padding:0 12px 12px;border-top:1px solid var(--bd2);background:rgba(88,166,255,.03)}
+.sf{margin-top:8px}
+.sfl{font-size:15px;font-weight:600;color:var(--t3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+.sfin{width:100%;padding:5px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;transition:border-color .15s}
+.sfin:focus{border-color:var(--ac)}
+.sfta{width:100%;padding:5px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;resize:vertical;min-height:50px;transition:border-color .15s}
+.sfta:focus{border-color:var(--ac)}
+.sfrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.drow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px}
+.dl{font-size:15px;color:var(--t3);margin-bottom:2px}
+.rmv{padding:2px 7px;border-radius:4px;border:1px solid rgba(248,81,73,.3);background:rgba(248,81,73,.08);color:var(--re);font-size:16px;cursor:pointer;font-family:inherit;transition:all .15s}
+.rmv:hover{background:rgba(248,81,73,.2)}
+.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:30px;text-align:center;color:var(--t2)}
+.sempty p{font-size:17px}
+.edit-hint{color:var(--ac);font-size:15px}
+
+/* ── Master DB: 검색바 상단 고정, 테이블 스크롤 ─── */
+.m-sticky-hdr{
+  position:sticky;
+  top:62px;
+  z-index:100;
+  background:var(--bg);
+  padding-bottom:12px;
+}
+.m-scroll-body{
+  overflow-y:auto;
+  max-height:calc(100vh - 340px);
+  min-height:300px;
+}
+.m-scroll-body .tw{border:none;border-radius:0}
+.m-scroll-body .tbl thead tr{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:var(--bg3);
+  box-shadow:0 1px 0 var(--bd);
+}
+
+/* Save bar */
+.savebar{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:11px 16px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#saveStats{display:flex;gap:14px;font-size:18px;color:var(--t2)}
+#saveStats b{color:var(--tx)}
+
+/* COMPANY */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.ccard{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:16px;transition:all .2s}
+.ccard:hover{border-color:var(--ac);transform:translateY(-1px)}
+.cnm{font-size:19px;font-weight:600;margin-bottom:4px;text-align:center}
+.cmt{font-size:16px;color:var(--t2);text-align:center}
+.cst{margin-top:11px;display:flex;gap:11px;justify-content:center}
+.csv{font-size:23px;font-weight:700;font-family:monospace}
+.csl{font-size:15px;color:var(--t2)}
+.cnote{text-align:center;margin-top:7px;font-size:16px;color:var(--t3)}
+
+@media(max-width:1100px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }}
+@media(max-width:800px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }.sg4{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════════════════
+   📱 모바일 반응형 (768px 이하)
+══════════════════════════════════════════════════ */
+
+/* 햄버거 버튼 */
+.hbg-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.hbg-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--t2);
+  border-radius: 2px;
+  transition: all .25s;
+}
+.hbg-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hbg-btn.open span:nth-child(2) { opacity: 0; }
+.hbg-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* 모바일 드로어 오버레이 */
+.mob-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 190;
+}
+.mob-overlay.show { display: block; }
+
+/* 모바일 사이드 드로어 */
+.mob-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 260px;
+  height: 100%;
+  background: var(--bg2);
+  border-right: 1px solid var(--bd);
+  z-index: 195;
+  transition: left .25s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.mob-drawer.open { left: 0; }
+.mob-drawer-hdr {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mob-drawer-hdr .ico2 {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg,var(--a2),var(--g2));
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.mob-drawer-hdr span { font-weight: 700; font-size: 17px; }
+.mob-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 8px;
+}
+.mob-nb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  color: var(--t2);
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all .15s;
+  margin-bottom: 2px;
+}
+.mob-nb:hover { background: var(--bg3); color: var(--tx); }
+.mob-nb.active { background: rgba(88,166,255,.12); color: var(--ac); }
+.mob-drawer-ftr {
+  padding: 12px 8px;
+  border-top: 1px solid var(--bd);
+}
+.mob-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg3);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.mob-user .udot2 {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gr);
+  flex-shrink: 0;
+}
+.mob-user-info { flex: 1; min-width: 0; }
+.mob-user-nm { font-size: 15px; font-weight: 600; }
+.mob-user-rl { font-size: 13px; color: var(--t2); }
+.mob-logout {
+  width: 100%;
+  padding: 10px;
+  background: rgba(248,81,73,.1);
+  border: 1px solid rgba(248,81,73,.25);
+  border-radius: 8px;
+  color: var(--re);
+  font-size: 15px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all .15s;
+}
+.mob-logout:hover { background: rgba(248,81,73,.18); }
+
+@media(max-width:768px) {
+  /* 바디 기본 폰트 크기 */
+  body { font-size: 15px; }
+
+  /* 로그인 박스 */
+  .lbox { width: calc(100vw - 32px); max-width: 400px; padding: 28px 20px; }
+  .ltit { font-size: 22px; }
+  .lsub { font-size: 15px; }
+  .fg input { font-size: 16px; }
+  .lbtn { font-size: 17px; }
+
+  /* 헤더 */
+  .hdr { padding: 0 14px; height: 54px; }
+  .hdr-logo { font-size: 17px; }
+  .hdr-logo .ico { width: 24px; height: 24px; font-size: 16px; }
+  .hnav { display: none; } /* PC 네비 숨김 */
+  .hr { display: none; }  /* PC 유저뱃지 숨김 */
+  .hbg-btn { display: flex; margin-left: auto; }
+
+  /* 메인 패딩 */
+  .main { padding: 14px 12px; }
+
+  /* 페이지 고정 레이아웃 높이 조정 */
+  #pg_master, #pg_setup, #pg_progress, #pg_equip, #pg_detail {
+    height: calc(100vh - 90px);
+  }
+
+  /* 통계카드: 2열→1열 */
+  .sg4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .sc { padding: 14px 16px; }
+  .sl { font-size: 13px; }
+  .sv { font-size: 24px; }
+  .ss { font-size: 13px; }
+
+  /* 대시보드 그리드 */
+  .grid2 { grid-template-columns: 1fr; gap: 12px; }
+  .card { padding: 14px; }
+  .ch { font-size: 15px; }
+
+  /* 기업 그리드 */
+  .cgrid { grid-template-columns: 1fr; gap: 10px; }
+
+  /* 필터바 */
+  .flt { flex-direction: column; }
+  .si { min-width: unset; font-size: 15px; }
+  .fse { font-size: 15px; }
+
+  /* 테이블 폰트 */
+  .tbl { font-size: 13px; }
+  .tbl th { padding: 8px 8px; font-size: 12px; }
+  .tbl td { padding: 7px 8px; }
+
+  /* 진행현황 스텝바 */
+  .pr-stepbar { flex-wrap: wrap; border-radius: 8px; }
+  .pr-step {
+    flex: 0 0 calc(20% - 1px);
+    min-width: 0;
+    padding: 10px 4px 8px;
+    border-bottom: 1px solid var(--bd);
+  }
+  .pr-se { font-size: 20px; }
+  .pr-ss { font-size: 13px; line-height: 1.2; }
+  .pr-sc { font-size: 13px; }
+  .pr-pbar { width: 70%; height: 4px; }
+  .pr-pct { font-size: 16px; }
+
+  /* 진행현황 통계카드 */
+  .pr-stat-row { flex-wrap: wrap; gap: 8px; }
+  .pr-stat-card { flex: 0 0 calc(50% - 4px); padding: 8px 12px; gap: 8px; }
+  .pr-stat-lbl { font-size: 12px; }
+  .pr-stat-val { font-size: 18px; }
+
+  /* Setup 3컬럼 → 1컬럼 */
+  .s3col { display: flex; flex-direction: column; gap: 0; }
+  .spanel { min-height: 200px; max-height: 45vh; }
+
+  /* 모달 */
+  .mdl { width: 96vw !important; max-height: 90vh; }
+  .mhdr h3 { font-size: 16px; }
+  .mbdy { padding: 14px; }
+  .mftr { padding: 10px 14px; }
+  .frow { grid-template-columns: 1fr; gap: 8px; }
+  .frow.s1 { grid-template-columns: 1fr; }
+  .flbl { font-size: 12px; }
+  .finp, .fslc, .fta { font-size: 14px; padding: 7px 9px; }
+
+  /* 버튼 */
+  .btn { font-size: 14px; padding: 7px 12px; }
+  .bsm { font-size: 13px; padding: 5px 10px; }
+
+  /* 페이지 헤더 */
+  .ph { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 14px; }
+  .pt { font-size: 19px; }
+  .ps { font-size: 13px; }
+
+  /* 편집 버튼 */
+  .editBtn { width: 30px; height: 26px; font-size: 13px; }
+
+  /* Master DB 스크롤 높이 */
+  .m-scroll-body { max-height: calc(100vh - 300px); }
+
+  /* 토스트 위치 */
+  #tw { right: 8px; top: 58px; }
+  .toast { min-width: 180px; font-size: 14px; padding: 8px 11px; }
+}
+
+@media(max-width:400px) {
+  .sg4 { grid-template-columns: 1fr 1fr; }
+  .pr-step { flex: 0 0 calc(33.33% - 1px); }
+  .pr-stat-card { flex: 0 0 100%; }
+  .hdr-logo span { display: none; } /* 로고 텍스트 숨김 */
+}
+
+
+/* ══ 공통: 페이지 고정 헤더 + 스크롤 바디 ══════════ */
+#pg_master, #pg_setup, #pg_progress, #pg_equip {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 110px);
+  overflow: hidden;
+}
+#pg_detail, #pg_company {
+  overflow-y: auto;
+  height: calc(100vh - 110px);
+}
+/* 고정 헤더: 타이틀/스텝바/검색바 */
+.pg-hdr {
+  flex-shrink: 0;               /* 절대 줄어들지 않음 */
+  background: var(--bg);
+  padding-bottom: 8px;
+}
+/* 스크롤 바디: 남은 공간 전부 차지 + 세로 스크롤 */
+.pg-body {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+/* Master DB 테이블 래퍼 */
+.mTblWrap {
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.mTblWrap .tw { border: none; border-radius: 0; flex: 1 1 0; overflow-y: auto; min-height: 0; }
+.pg-body .tw { overflow-y: auto; }
+
+/* 테이블 thead 고정 */
+.mTblWrap .tw .tbl thead tr {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg3);
+  box-shadow: 0 1px 0 var(--bd);
+}
+/* 진행현황 */
+#prStat { flex-shrink: 0; padding: 4px 0 12px; }
+#prBody { flex: 1 1 0; overflow-y: auto; min-height: 0; padding: 2px 0 24px; }
+/* Setup s3col */
+.s3col {
+  flex: 1 1 0;
+  min-height: 0;
+}
+/* 편집 버튼 스타일 */
+.editBtn {
+  width: 36px;
+  height: 32px;
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  background: var(--bg3);
+  color: var(--tx);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all .15s;
+}
+.editBtn:hover {
+  border-color: var(--ac);
+  background: rgba(88,166,255,.1);
+}
+/* pg_master가 flex일 때 main 패딩 조정 */
+#pg_master.visible .main {
+  overflow: hidden;
+}
+
+
+/* prBody thead: step-hdr 방식으로 대체됨 */
+#prCont .tw {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+/* prStat: 통계카드 고정 영역 */
+#prStat {
+  padding: 0 0 10px 0;
+}
+
+/* ── 진행현황 단계별 레이아웃 ──────────────────────── */
+.step-block {
+  margin-bottom: 16px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: visible;
+  background: var(--bg2);
+}
+/* 단계 헤더: 단계명 + 진행바 + 컬럼헤더 → 고정 */
+.step-hdr {
+  padding: 14px 16px 0;
+  background: var(--bg2);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--bd);
+  border-radius: 10px 10px 0 0;
+}
+/* thead 용 테이블: 레이아웃 공유를 위해 tbody 테이블과 같은 컬럼 */
+.step-thead-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 8px;
+}
+.step-thead-tbl th {
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--t2);
+  font-size: 15px;
+  white-space: nowrap;
+  border-right: 1px solid var(--bd2);
+  background: var(--bg3);
+}
+.step-thead-tbl th:last-child { border-right: none; }
+/* 바디: tbody 만 스크롤 */
+.step-body {
+  overflow-y: auto;
+  max-height: 400px;
+  border-radius: 0 0 10px 10px;
+}
+.step-body-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.step-body-tbl td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--bd2);
+  border-right: 1px solid var(--bd2);
+  vertical-align: middle;
+  font-size: 15px;
+}
+.step-body-tbl td:last-child { border-right: none; }
+.step-body-tbl tr:last-child td { border-bottom: none; }
+.step-body-tbl tr { transition: background .1s; }
+.step-body-tbl tr:hover { background: var(--bg3); }
+
+
+/* ══ 진행현황 새 스텝바 ══════════════════════════════ */
+.pr-stepbar {
+  display: flex;
+  gap: 0;
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.pr-step {
+  flex: 1;
+  padding: 18px 8px 16px;
+  text-align: center;
+  cursor: pointer;
+  border-right: 1px solid var(--bd);
+  transition: all .15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+}
+.pr-step:last-child { border-right: none; }
+.pr-step:hover { background: var(--bg3); }
+.pr-step.pr-active {
+  background: rgba(88,166,255,.1);
+  border-bottom: 3px solid var(--ac);
+}
+.pr-step-empty { opacity: .4; cursor: default; }
+.pr-step-empty:hover { background: transparent; }
+.pr-se { font-size: 28px; line-height: 1; }
+.pr-ss { font-size: 20px; font-weight: 600; color: var(--t2); word-break: keep-all; line-height: 1.3; }
+.pr-step.pr-active .pr-ss { color: var(--ac); }
+.pr-sc { font-size: 19px; color: var(--t2); font-family: 'JetBrains Mono', monospace; }
+.pr-pbar {
+  width: 80%;
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.pr-pfill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--g2), var(--gr));
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+.pr-pct {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--t2);
+  font-family: 'JetBrains Mono', monospace;
+}
+.pr-pct.pr-done { color: var(--gr); }
+.pr-step.pr-active .pr-pct { color: var(--ac); }
+
+/* ══ 진행현황 항목 영역 ══════════════════════════════ */
+.pr-items-hdr {
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 10px 10px 0 0;
+  padding: 16px 18px 14px;
+  border-bottom: none;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.pr-tbl-wrap {
+  border: 1px solid var(--bd);
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+.pr-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.pr-tbl thead tr {
+  background: var(--bg3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.pr-tbl th {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--t2);
+  font-size: 14px;
+  border-right: 1px solid var(--bd2);
+  white-space: nowrap;
+}
+.pr-tbl th:last-child { border-right: none; }
+.pr-tbl tbody tr { border-bottom: 1px solid var(--bd2); transition: background .1s; }
+.pr-tbl tbody tr:last-child { border-bottom: none; }
+.pr-tbl tbody tr:hover { background: var(--bg3); }
+.pr-tbl td {
+  padding: 10px 12px;
+  border-right: 1px solid var(--bd2);
+  vertical-align: middle;
+  font-size: 15px;
+}
+.pr-tbl td:last-child { border-right: none; }
+.pr-done-row { opacity: .6; }
+.pr-done-row td:nth-child(2) { text-decoration: line-through; color: var(--t2); }
+.pr-chk {
+  width: 18px; height: 18px;
+  accent-color: var(--gr);
+  cursor: pointer;
+}
+
+
+/* ── 진행현황 통계 (compact 가로형) ────────────────── */
+.pr-stat-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.pr-stat-card {
+  flex: 1;
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 9px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pr-stat-lbl {
+  font-size: 14px;
+  color: var(--t2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pr-stat-val {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  margin-left: auto;
+}
+
+/* ══ 🏭 설비 투자 진척 페이지 CSS ══════════════════ */
+
+/* 상단 필터바 */
+.eq-filterbar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  background: var(--bg2); border: 1px solid var(--bd); border-radius: 10px;
+  padding: 12px 16px; margin-bottom: 14px;
+}
+.eq-filterbar select, .eq-filterbar input {
+  padding: 7px 10px; background: var(--bg3); border: 1px solid var(--bd);
+  border-radius: 7px; color: var(--tx); font-size: 14px; font-family: inherit; outline: none;
+}
+.eq-filterbar select:focus, .eq-filterbar input:focus { border-color: var(--ac); }
+.eq-filter-label { font-size: 13px; color: var(--t2); white-space: nowrap; }
+
+/* 진척 현황 메인 테이블 */
+.eq-tbl-wrap {
+  flex: 1 1 0; min-height: 0;
+  border: 1px solid var(--bd); border-radius: 8px;
+  overflow: auto;
+}
+.eq-tbl {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; table-layout: fixed;
+  min-width: 1400px;
+}
+.eq-tbl thead tr { position: sticky; top: 0; z-index: 15; }
+.eq-tbl thead th {
+  background: var(--bg3); padding: 9px 8px;
+  text-align: center; font-size: 12px; font-weight: 600;
+  color: var(--t2); border-right: 1px solid var(--bd2);
+  border-bottom: 1px solid var(--bd); white-space: nowrap;
+}
+.eq-tbl thead th.th-fix { position: sticky; left: 0; z-index: 20; background: var(--bg3); }
+.eq-tbl thead th.th-fix2 { position: sticky; left: 90px; z-index: 20; background: var(--bg3); }
+.eq-tbl thead th.th-fix3 { position: sticky; left: 220px; z-index: 20; background: var(--bg3); }
+.eq-tbl thead th:last-child { border-right: none; }
+.eq-tbl tbody tr { border-bottom: 1px solid var(--bd2); transition: background .1s; }
+.eq-tbl tbody tr:hover { background: var(--bg3); }
+.eq-tbl tbody tr.eq-row-target { background: rgba(88,166,255,.04); }
+.eq-tbl tbody td {
+  padding: 0; border-right: 1px solid var(--bd2);
+  vertical-align: middle; text-align: center;
+}
+.eq-tbl tbody td.td-fix {
+  position: sticky; left: 0; z-index: 5;
+  background: var(--bg2); padding: 7px 8px;
+}
+.eq-tbl tbody td.td-fix2 {
+  position: sticky; left: 90px; z-index: 5;
+  background: var(--bg2); padding: 7px 8px; text-align: left;
+}
+.eq-tbl tbody td.td-fix3 {
+  position: sticky; left: 220px; z-index: 5;
+  background: var(--bg2); padding: 7px 8px; text-align: left;
+}
+.eq-tbl tbody tr:hover td.td-fix,
+.eq-tbl tbody tr:hover td.td-fix2,
+.eq-tbl tbody tr:hover td.td-fix3 { background: var(--bg3); }
+
+/* 날짜 셀 */
+.eq-date-cell {
+  display: flex; flex-direction: column; gap: 1px;
+  padding: 4px 6px; min-height: 48px; justify-content: center;
+}
+.eq-date-row {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px;
+}
+.eq-date-lbl {
+  font-size: 10px; color: var(--t3);
+  background: var(--bg3); border-radius: 3px;
+  padding: 0 3px; white-space: nowrap; flex-shrink: 0;
+}
+.eq-date-input {
+  width: 100%; background: transparent; border: none;
+  color: var(--tx); font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  outline: none; cursor: pointer; padding: 2px 3px;
+  border-radius: 3px; transition: background .15s;
+}
+.eq-date-input:focus { background: var(--bg3); }
+.eq-date-input.eq-date-target { color: var(--ac); }
+.eq-date-input.eq-date-actual { color: var(--gr); }
+.eq-date-input.eq-date-delay { color: var(--re) !important; border-color: rgba(248,81,73,.4) !important; }
+
+/* 진행상태 셀 */
+.eq-step-cell { padding: 3px 5px; }
+.eq-step-done { background: rgba(63,185,80,.15); }
+.eq-step-delay { background: rgba(248,81,73,.1); }
+.eq-step-wip { background: rgba(88,166,255,.1); }
+
+/* 공정/설비 행 구분 */
+.eq-row-proc td.td-fix { background: var(--bg3) !important; font-weight: 700; font-size: 13px; }
+.eq-row-proc td.td-fix2 { background: var(--bg3) !important; font-weight: 600; }
+.eq-row-proc td.td-fix3 { background: var(--bg3) !important; }
+.eq-row-eq td { font-size: 12px; }
+.eq-row-type-lbl {
+  font-size: 10px; padding: 1px 5px; border-radius: 3px; white-space: nowrap;
+}
+.eq-row-type-t { background: rgba(88,166,255,.15); color: var(--ac); }
+.eq-row-type-a { background: rgba(63,185,80,.15); color: var(--gr); }
+
+/* 설비 추가 버튼 */
+.eq-add-row td { padding: 6px 10px; text-align: center; }
+
+/* 진행률 바 인라인 */
+.eq-pct-cell { padding: 4px 8px; text-align: center; }
+.eq-pct-val { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.eq-mini-bar { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; margin-top: 3px; }
+.eq-mini-fill { height: 100%; border-radius: 2px; transition: width .3s; }
+
+/* 설비 편집 버튼 */
+.eq-btn-edit {
+  width: 26px; height: 24px; border: 1px solid var(--bd); border-radius: 4px;
+  background: var(--bg3); color: var(--t2); cursor: pointer; font-size: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all .15s; margin: 0 1px;
+}
+.eq-btn-edit:hover { border-color: var(--ac); color: var(--ac); background: rgba(88,166,255,.1); }
+.eq-btn-del:hover { border-color: var(--re); color: var(--re); background: rgba(248,81,73,.1); }
+
+/* 모달 */
+.eq-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.eq-modal-grid.s1 { grid-template-columns: 1fr; }
+.eq-flbl { font-size: 12px; font-weight: 600; color: var(--t2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .3px; }
+.eq-finp, .eq-fsel {
+  width: 100%; padding: 7px 10px;
+  background: var(--bg3); border: 1px solid var(--bd);
+  border-radius: 7px; color: var(--tx); font-size: 14px;
+  font-family: inherit; outline: none; transition: border-color .2s;
+}
+.eq-finp:focus, .eq-fsel:focus { border-color: var(--ac); }
+
+/* 통계 헤더 */
+.eq-stat-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.eq-stat-card {
+  flex: 1; min-width: 110px;
+  background: var(--bg2); border: 1px solid var(--bd);
+  border-radius: 9px; padding: 9px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.eq-stat-lbl { font-size: 12px; color: var(--t2); }
+.eq-stat-val { font-size: 20px; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-left: auto; }
+
+/* 담당자/업체 chip */
+.eq-chip { font-size: 12px; background: var(--bg3); border: 1px solid var(--bd); border-radius: 4px; padding: 1px 6px; color: var(--t2); white-space: nowrap; }
+
+/* 반응형 */
+@media(max-width:768px) {
+  .eq-filterbar { gap: 6px; }
+  .eq-tbl { font-size: 11px; }
+  .eq-stat-card { min-width: 80px; padding: 7px 10px; }
+  .eq-stat-val { font-size: 16px; }
+}
 </body>
 </html>
