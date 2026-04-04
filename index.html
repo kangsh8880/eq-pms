@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/USER/Downloads/index_20.html -->
-<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>EQ-PMS | 설비투자 프로세스 관리 시스템</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./index_files/css2" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;
@@ -1017,13 +1017,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   <header class="hdr">
     <div class="hdr-logo"><div class="ico">⚙️</div><span>EQ-PMS</span></div>
     <nav class="hnav">
-      <button class="nb" data-p="dashboard" onclick="navTo(&#39;dashboard&#39;)">📊 대시보드</button>
-      <button class="nb" data-p="master" onclick="navTo(&#39;master&#39;)">📋 Master DB</button>
-      <button class="nb" data-p="setup" onclick="navTo(&#39;setup&#39;)">⚙️ 프로세스 Setup</button>
-      <button class="nb" data-p="progress" onclick="navTo(&#39;progress&#39;)">📈 프로세스 진행현황</button>
-      <button class="nb" data-p="equip" onclick="navTo(&#39;equip&#39;)">🏭 설비 투자 진척</button>
-      <button class="nb" data-p="detail" onclick="navTo(&#39;detail&#39;)">📊 설비별 실적 현황</button>
-      <button class="nb" data-p="company" onclick="navTo(&#39;company&#39;)">🏢 기업 관리</button>
+      <button class="nb" data-p="dashboard" onclick="navTo('dashboard')">📊 대시보드</button>
+      <button class="nb" data-p="master"    onclick="navTo('master')">📋 Master DB</button>
+      <button class="nb" data-p="setup"     onclick="navTo('setup')">⚙️ 프로세스 Setup</button>
+      <button class="nb" data-p="progress"  onclick="navTo('progress')">📈 프로세스 진행현황</button>
+      <button class="nb" data-p="equip"     onclick="navTo('equip')">🏭 설비 투자 진척</button>
+      <button class="nb" data-p="detail"    onclick="navTo('detail')">📊 설비별 실적 현황</button>
+      <button class="nb" data-p="company"   onclick="navTo('company')">🏢 기업 관리</button>
     </nav>
     <div class="hr">
       <div class="ubadge"><div class="udot"></div><span id="uNm">-</span><span class="urole" id="uRl">-</span></div>
@@ -1040,13 +1040,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <span>EQ-PMS</span>
     </div>
     <nav class="mob-nav">
-      <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo(&#39;dashboard&#39;)">📊 대시보드</button>
-      <button class="mob-nb" data-mp="master" onclick="mobNavTo(&#39;master&#39;)">📋 Master DB</button>
-      <button class="mob-nb" data-mp="setup" onclick="mobNavTo(&#39;setup&#39;)">⚙️ 프로세스 Setup</button>
-      <button class="mob-nb" data-mp="progress" onclick="mobNavTo(&#39;progress&#39;)">📈 프로세스 진행현황</button>
-      <button class="mob-nb" data-mp="equip" onclick="mobNavTo(&#39;equip&#39;)">🏭 설비 투자 진척</button>
-      <button class="mob-nb" data-mp="detail" onclick="mobNavTo(&#39;detail&#39;)">📊 설비별 실적 현황</button>
-      <button class="mob-nb" data-mp="company" onclick="mobNavTo(&#39;company&#39;)">🏢 기업 관리</button>
+      <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo('dashboard')">📊 대시보드</button>
+      <button class="mob-nb" data-mp="master"    onclick="mobNavTo('master')">📋 Master DB</button>
+      <button class="mob-nb" data-mp="setup"     onclick="mobNavTo('setup')">⚙️ 프로세스 Setup</button>
+      <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')">📈 프로세스 진행현황</button>
+      <button class="mob-nb" data-mp="equip"     onclick="mobNavTo('equip')">🏭 설비 투자 진척</button>
+      <button class="mob-nb" data-mp="detail"    onclick="mobNavTo('detail')">📊 설비별 실적 현황</button>
+      <button class="mob-nb" data-mp="company"   onclick="mobNavTo('company')">🏢 기업 관리</button>
     </nav>
     <div class="mob-drawer-ftr">
       <div class="mob-user">
@@ -1061,19 +1061,19 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   </div>
   <main class="main">
     <div id="pg_dashboard"></div>
-    <div id="pg_master" style="display:none"></div>
-    <div id="pg_setup" style="display:none"></div>
-    <div id="pg_progress" style="display:none"></div>
-    <div id="pg_equip" style="display:none"></div>
-    <div id="pg_detail" style="display:none"></div>
-    <div id="pg_company" style="display:none"></div>
+    <div id="pg_master"    style="display:none"></div>
+    <div id="pg_setup"     style="display:none"></div>
+    <div id="pg_progress"  style="display:none"></div>
+    <div id="pg_equip"     style="display:none"></div>
+    <div id="pg_detail"    style="display:none"></div>
+    <div id="pg_company"   style="display:none"></div>
   </main>
 </div>
 
 <!-- ── MODAL: 항목 편집 ─────────────────────────── -->
 <div class="mov" id="itemModal" style="display:none">
   <div class="mdl">
-    <div class="mhdr"><h3 id="mT">항목 수정</h3><button class="mcls" onclick="CM(&#39;itemModal&#39;)">✕</button></div>
+    <div class="mhdr"><h3 id="mT">항목 수정</h3><button class="mcls" onclick="CM('itemModal')">✕</button></div>
     <div class="mbdy">
       <input type="hidden" id="mId">
       <div class="frow">
@@ -1099,7 +1099,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
     </div>
     <div class="mftr">
       <button class="btn bxs bd" id="btnDel" onclick="delItem()" style="margin-right:auto">🗑️ 삭제</button>
-      <button class="btn bs" onclick="CM(&#39;itemModal&#39;)">취소</button>
+      <button class="btn bs" onclick="CM('itemModal')">취소</button>
       <button class="btn bg" onclick="saveItem()">💾 저장</button>
     </div>
   </div>
@@ -1108,14 +1108,14 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 <!-- ── MODAL: 기업 추가 ─────────────────────────── -->
 <div class="mov" id="coModal" style="display:none">
   <div class="mdl" style="width:420px">
-    <div class="mhdr"><h3>기업 추가</h3><button class="mcls" onclick="CM(&#39;coModal&#39;)">✕</button></div>
+    <div class="mhdr"><h3>기업 추가</h3><button class="mcls" onclick="CM('coModal')">✕</button></div>
     <div class="mbdy">
       <div class="frow s1"><div><div class="flbl">기업명 *</div><input class="finp" id="coNm" placeholder="기업명"></div></div>
       <div class="frow s1"><div><div class="flbl">업종/분류</div><input class="finp" id="coInd" placeholder="예: 반도체, 디스플레이..."></div></div>
       <div class="frow s1"><div><div class="flbl">비고</div><textarea class="fta" id="coNote"></textarea></div></div>
     </div>
     <div class="mftr">
-      <button class="btn bs" onclick="CM(&#39;coModal&#39;)">취소</button>
+      <button class="btn bs" onclick="CM('coModal')">취소</button>
       <button class="btn bg" onclick="addCo()">+ 등록</button>
     </div>
   </div>
@@ -3746,11 +3746,11 @@ function _renderCoCompany(canE) {
       + '</div>'
       + '<div class="pb mt8"><div class="pf" style="width:' + pct + '%"></div></div>'
       + '<div style="margin-top:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px">'
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goSetup(\\\'' + c.id + '\\\')">⚙️ 프로세스 Setting</button>'
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goProg(\\\'' + c.id + '\\\')">📈 현황</button>'
-      + (canE ? '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goEquip(\\\'' + c.id + '\\\')">🏭 설비등록</button>' : '<span></span>')
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\\\'' + c.id + '\\\',\\\'gong\\\')">⚙️ 공정Master관리</button>'
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\\\'' + c.id + '\\\',\\\'vendor\\\')">🏭 업체Master관리</button>'
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goSetup(\'' + c.id + '\')">⚙️ 프로세스 Setting</button>'
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goProg(\'' + c.id + '\')">📈 현황</button>'
+      + (canE ? '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goEquip(\'' + c.id + '\')">🏭 설비등록</button>' : '<span></span>')
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'gong\')">⚙️ 공정Master관리</button>'
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'vendor\')">🏭 업체Master관리</button>'
       + '</div>'
       + (c.note ? '<div class="cnote">' + xe(c.note) + '</div>' : '')
       + '</div>';
@@ -4053,15 +4053,15 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
-
-'  !DOCTYPE html&gt;
-
-
-
+</body>
+</html    html += '<tr style="cursor:pointer;border-bottom:1px solid var(--bd2);background:' + (isCur ? 'rgba(88,166,255,.07)' : 'transparent') + ';transition:background .1s" onclick="_dtSelStep(' + i + ')">'  !DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>EQ-PMS | 설비투자 프로세스 관리 시스템</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./index_files/css2" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;
@@ -5037,4 +5037,4 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   .eq-stat-val { font-size: 16px; }
 }
 </body>
-</html></style></body></html>
+</html>
