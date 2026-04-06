@@ -1,0 +1,13 @@
+[data-theme="light"] {
+  --bg:#f6f8fa;--bg2:#ffffff;--bg3:#f0f2f5;--bg4:#e8eaed;
+  --bd:#d0d7de;--bd2:#e8eaed;
+  --tx:#1f2328;--t2:#656d76;--t3:#8b949e;
+  --ac:#0969da;--a2:#0550ae;
+  --gr:#1a7f37;--g2:#116329;
+  --or:#bc4c00;--re:#cf222e;--pu:#8250df;
+}
+[data-theme="light"] #loginScreen{background:linear-gradient(135deg,#f6f8fa 0%,#ffffff 50%,#f6f8fa 100%)}
+[data-theme="light"] ::-webkit-scrollbar-track{background:var(--bg)}
+[data-theme="light"] ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
+[data-theme="light"] .llogo-ico{background:linear-gradient(135deg,var(--a2),var(--g2))}
+[data-theme="light"] .hdr-logo .ico{background:linear-gradient(135deg,var(--a2),var(--g2))}

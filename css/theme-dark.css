@@ -1,0 +1,11 @@
+:root, [data-theme="dark"] {
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;
+  --bd:#30363d;--bd2:#21262d;
+  --tx:#e6edf3;--t2:#8b949e;--t3:#6e7681;
+  --ac:#58a6ff;--a2:#1f6feb;
+  --gr:#3fb950;--g2:#238636;
+  --or:#f0883e;--re:#f85149;--pu:#bc8cff;
+}
+#loginScreen{background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%)}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
