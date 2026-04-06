@@ -587,10 +587,33 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   min-height: 0;
 }
 /* ── 대시보드/기업관리/설비별실적: 테이블 스크롤 + 헤더 고정 ── */
+/* 대시보드 3등분 레이아웃 */
+.dash-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 16px;
+}
+.dash-section {
+  flex: 1 1 0;
+  min-height: 0;
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dash-section-title {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--bd);
+  font-size: 15px;
+  font-weight: 700;
+}
 .dash-tbl-scroll {
   flex: 1 1 0;
-  min-height: 100px;
-  max-height: 50vh;
+  min-height: 0;
   overflow: auto;
 }
 .dash-tbl-scroll table thead tr {
@@ -599,6 +622,20 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   z-index: 5;
   background: var(--bg3);
   box-shadow: 0 1px 0 var(--bd);
+}
+/* 공정/업체 2열 그리드도 균등 */
+.dash-grid-row {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.dash-grid-row > .dash-section {
+  min-height: 0;
+}
+@media(max-width:768px) {
+  .dash-grid-row { grid-template-columns: 1fr; }
 }
 /* 편집 버튼 스타일 */
 .editBtn {
@@ -1344,9 +1381,9 @@ function pgDash() {
     });
   });
 
-  var html = '<div style="padding:14px 16px">'
+  var html = ''
   // ── 기업별 진척 현황 ──
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:16px;font-weight:700;flex-shrink:0">🏢 기업별 설비 투자 진척 현황</div>'  + '<div class="dash-tbl-scroll">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">기업명</th>'  + '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">설비수</th>';
+  + '<div class="dash-section">'  + '<div class="dash-section-title">🏢 기업별 설비 투자 진척 현황</div>'  + '<div class="dash-tbl-scroll">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">기업명</th>'  + '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">설비수</th>';
   STEPS.forEach(function(s){ html += '<th style="padding:9px 8px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:13px">'+xe(s)+'</th>'; });
   html += '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">완료율</th>'  + '</tr></thead><tbody>';
 
@@ -1370,10 +1407,10 @@ function pgDash() {
     html += '<td style="padding:9px 12px;text-align:center;font-size:16px;font-weight:700;color:'+pCol+'">'+totalPct+'%</td>'      + '</tr>';
   });
   html += '</tbody></table></div></div>'
-  // ── 공정별 진척 현황 ──
-  + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">'
+  // ── 공정별 + 설비업체별 ──
+  + '<div class="dash-grid-row">'
   // 공정별
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:16px;font-weight:700;flex-shrink:0">⚙️ 공정별 설비 진척 현황</div>'  + '<div class="dash-tbl-scroll" style="max-height:320px">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">공정명</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">설비</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">완료</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">지연</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">진척률</th>'  + '</tr></thead><tbody>';
+  + '<div class="dash-section">'  + '<div class="dash-section-title">⚙️ 공정별 설비 진척 현황</div>'  + '<div class="dash-tbl-scroll">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">공정명</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">설비</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">완료</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">지연</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">진척률</th>'  + '</tr></thead><tbody>';
 
   // 공정별 집계
   var gongMap = {};
@@ -1399,7 +1436,7 @@ function pgDash() {
   });
   html += '</tbody></table></div></div>'
   // 설비업체별
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:16px;font-weight:700;flex-shrink:0">🏭 설비업체별 진척 현황</div>'  + '<div class="dash-tbl-scroll" style="max-height:320px">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">업체명</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">설비</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">완료</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">지연</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">진척률</th>'  + '</tr></thead><tbody>';
+  + '<div class="dash-section">'  + '<div class="dash-section-title">🏭 설비업체별 진척 현황</div>'  + '<div class="dash-tbl-scroll">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">업체명</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">설비</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">완료</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">지연</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">진척률</th>'  + '</tr></thead><tbody>';
 
   var vendMap = {};
   filteredCos.forEach(function(co){
@@ -1424,7 +1461,7 @@ function pgDash() {
   });
   html += '</tbody></table></div></div>'  + '</div>'
   // ── 설비별 11단계 진척 상세 ──
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:16px;font-weight:700;flex-shrink:0">🔧 설비별 11단계 투자 진척 현황</div>'  + '<div class="dash-tbl-scroll">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">기업</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">호기/설비명</th>';
+  + '<div class="dash-section">'  + '<div class="dash-section-title">🔧 설비별 11단계 투자 진척 현황</div>'  + '<div class="dash-tbl-scroll">'  + '<table style="width:100%;border-collapse:collapse;font-size:14px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">기업</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">호기/설비명</th>';
   STEPS.forEach(function(s,si){
     html += '<th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:13px;color:var(--t2)">'+(si+1)+'.'+xe(s)+'</th>';
   });
@@ -1449,7 +1486,7 @@ function pgDash() {
       html += '<td style="padding:7px 12px;text-align:center">'        + '<div style="font-size:14px;font-weight:700;color:'+pCol+'">'+info.pct+'%</div>'        + '<div style="height:4px;background:var(--bg3);border-radius:2px;margin-top:2px;overflow:hidden">'        + '<div style="width:'+info.pct+'%;height:100%;background:'+pCol+';border-radius:2px"></div>'        + '</div>'        + '</td>'        + '</tr>';
     });
   });
-  html += '</tbody></table></div></div>'  + '</div>';
+  html += '</tbody></table></div></div>';
 
   gid('pg_dashboard').innerHTML = '<div style="display:flex;flex-direction:column;height:100%;overflow:hidden">'    + '<div class="dash-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 18px;border-bottom:1px solid var(--bd)">'    + '<div><h1 style="font-size:18px;font-weight:700;margin:0">📊 대시보드</h1><p style="font-size:13px;color:var(--t2);margin:2px 0 0">기업·공정·설비업체·설비별 투자 프로세스 11단계 진척 현황</p></div>'    + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
     + '<select id="dashCoFilter" onchange="pgDash()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:13px;font-family:inherit;outline:none;cursor:pointer">'
@@ -4656,10 +4693,33 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   min-height: 0;
 }
 /* ── 대시보드/기업관리/설비별실적: 테이블 스크롤 + 헤더 고정 ── */
+/* 대시보드 3등분 레이아웃 */
+.dash-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 16px;
+}
+.dash-section {
+  flex: 1 1 0;
+  min-height: 0;
+  background: var(--bg2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dash-section-title {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--bd);
+  font-size: 15px;
+  font-weight: 700;
+}
 .dash-tbl-scroll {
   flex: 1 1 0;
-  min-height: 100px;
-  max-height: 50vh;
+  min-height: 0;
   overflow: auto;
 }
 .dash-tbl-scroll table thead tr {
@@ -4668,6 +4728,20 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   z-index: 5;
   background: var(--bg3);
   box-shadow: 0 1px 0 var(--bd);
+}
+/* 공정/업체 2열 그리드도 균등 */
+.dash-grid-row {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.dash-grid-row > .dash-section {
+  min-height: 0;
+}
+@media(max-width:768px) {
+  .dash-grid-row { grid-template-columns: 1fr; }
 }
 /* 편집 버튼 스타일 */
 .editBtn {
