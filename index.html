@@ -1021,6 +1021,28 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 
     <button class="lbtn" id="btnLogin">로그인</button>
     <div class="lerr" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+    <div id="patSetupArea" style="margin-top:14px;display:none">
+      <div style="border-top:1px solid var(--bd);padding-top:14px">
+        <div style="font-size:14px;color:var(--or);margin-bottom:8px">
+          ⚠️ GitHub 연결이 필요합니다. PAT를 한번만 입력하면 이후 자동 연결됩니다.
+        </div>
+        <div class="fg">
+          <label style="display:flex;align-items:center;gap:6px;font-size:15px">
+            🔑 GitHub PAT
+            <span style="font-size:11px;color:var(--t2);font-weight:400">(repo 권한 필요)</span>
+            <a href="https://github.com/settings/tokens/new" target="_blank"
+               style="font-size:11px;color:var(--ac);margin-left:4px">발급하기 →</a>
+          </label>
+          <input type="password" id="patInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+            autocomplete="off" style="font-family:monospace;font-size:13px;letter-spacing:1px">
+        </div>
+        <button class="lbtn" id="btnSavePat"
+          style="background:linear-gradient(135deg,var(--g2),#2ea043);margin-top:4px">
+          💾 PAT 저장 후 연결
+        </button>
+        <div class="lerr" id="patErr" style="display:none">PAT를 입력해주세요.</div>
+      </div>
+    </div>
 
     <div class="lhint" style="display:none">
       <strong>테스트 계정</strong><br>
@@ -1049,6 +1071,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
         <span id="syncText">대기중</span>
       </div>
       <div class="ubadge"><div class="udot"></div><span id="uNm">-</span><span class="urole" id="uRl">-</span></div>
+      <button class="lout" onclick="openPatSettings()" title="GitHub 연결 설정"
+        style="margin-right:2px;font-size:15px;padding:4px 8px">🔑</button>
       <button class="lout" onclick="doLogout()">로그아웃</button>
     </div>
     <button class="hbg-btn" id="hbgBtn" onclick="toggleDrawer()" aria-label="메뉴">
@@ -1188,10 +1212,17 @@ var GH = {
   owner: 'kangsh8880',
   repo:  'eq-pms',
   path:  'data/eqpms_state.json',
-  pat:   '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',
+  pat:   null,   // localStorage에서 로드
   sha:   null,
   saveTimer: null
 };
+
+// PAT 로드/저장 (localStorage, 간단 XOR 난독화)
+function ghPatEncode(s){ var k='eqpms2026'; return btoa(s.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^k.charCodeAt(i%k.length));}).join('')); }
+function ghPatDecode(s){ var k='eqpms2026'; return atob(s).split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^k.charCodeAt(i%k.length));}).join(''); }
+function ghPatSave(pat){ try{ localStorage.setItem('_ghp', ghPatEncode(pat)); }catch(e){} }
+function ghPatLoad(){ try{ var v=localStorage.getItem('_ghp'); return v?ghPatDecode(v):null; }catch(e){return null;} }
+function ghPatClear(){ try{ localStorage.removeItem('_ghp'); }catch(e){} }
 
 function ghHeaders() {
   return {
@@ -1379,17 +1410,31 @@ function doLogin() {
     gid('loginErr').style.display = 'block';
     return;
   }
-  state.curUser = { id: id, name: USERS[id].name, role: USERS[id].role };
-  gid('uNm').textContent = state.curUser.name;
-  gid('uRl').textContent = state.curUser.role;
-  var mn = gid('mobUNm'); if (mn) mn.textContent = state.curUser.name;
-  var mr = gid('mobURl'); if (mr) mr.textContent = state.curUser.role;
+  // localStorage에서 PAT 로드
+  var savedPat = ghPatLoad();
+  if (!savedPat) {
+    // PAT 미등록 → 설정 UI 표시
+    gid('patSetupArea').style.display = 'block';
+    // 임시 로그인 정보 저장
+    window._pendingLogin = { id: id, name: USERS[id].name, role: USERS[id].role };
+    return;
+  }
+  GH.pat = savedPat;
+  _doLoginProceed(id, USERS[id].name, USERS[id].role);
+}
+
+function _doLoginProceed(id, name, role) {
+  state.curUser = { id: id, name: name, role: role };
+  gid('uNm').textContent = name;
+  gid('uRl').textContent = role;
+  var mn = gid('mobUNm'); if (mn) mn.textContent = name;
+  var mr = gid('mobURl'); if (mr) mr.textContent = role;
   setSyncStatus('load', '데이터 로드 중...');
   ghLoad().then(function(remote) {
     appInit(remote);
     gid('loginScreen').style.display = 'none';
     gid('app').style.display = 'flex';
-    toast('로그인 성공', state.curUser.name + '님 환영합니다!', 'success');
+    toast('로그인 성공', name + '님 환영합니다!', 'success');
   });
 }
 
@@ -1442,6 +1487,53 @@ function appInit(remote) {
 }
 
 /* ── NAV ────────────────────────────────────────────── */
+/* ── PAT 설정 팝업 ──────────────────────────── */
+function openPatSettings() {
+  var cur = ghPatLoad() || '';
+  var masked = cur ? cur.slice(0,8) + '****************' : '(미설정)';
+  var el = document.createElement('div');
+  el.className = 'mov';
+  el.onclick = function(e){ if(e.target===el) el.remove(); };
+  el.innerHTML = '<div class="mdl" style="max-width:460px">'
+    + '<div class="mhdr"><h3>🔑 GitHub PAT 설정</h3>'
+    + '<button class="mcls" id="patMClose">✕</button></div>'
+    + '<div class="mbdy">'
+    + '<div style="font-size:16px;color:var(--t2);margin-bottom:14px">'
+    + '저장된 PAT: <code style="color:var(--ac);font-size:14px">' + masked + '</code></div>'
+    + '<div class="frow s1"><div class="flbl">새 PAT 입력</div>'
+    + '<input type="password" id="modalPatInput" class="finp" placeholder="ghp_xxxxxxxxxxxx"'
+    + ' autocomplete="off" style="font-family:monospace;font-size:13px"></div>'
+    + '<div style="font-size:12px;color:var(--t3);margin-top:6px">'
+    + '⚠️ PAT는 이 브라우저의 localStorage에만 암호화 저장됩니다.</div>'
+    + '</div>'
+    + '<div class="mftr">'
+    + '<button class="btn bd bsm" id="patMDel">🗑️ 삭제</button>'
+    + '<button class="btn bp bsm" id="patMSave">💾 저장 & 재연결</button>'
+    + '</div></div>';
+  document.body.appendChild(el);
+  document.getElementById('patMClose').onclick = function(){ el.remove(); };
+  document.getElementById('patMDel').onclick = function(){
+    ghPatClear(); el.remove();
+    toast('삭제됨','PAT가 삭제되었습니다','info');
+  };
+  document.getElementById('patMSave').onclick = function(){ _savePatModal(el); };
+}
+
+function _savePatModal(el) {
+  var pat = document.getElementById('modalPatInput').value.trim();
+  if (!pat) { toast('오류', 'PAT를 입력해주세요', 'error'); return; }
+  ghPatSave(pat);
+  GH.pat = pat;
+  GH.sha = null;
+  if (el) el.remove();
+  setSyncStatus('load', '재연결 중...');
+  ghLoad().then(function(remote) {
+    if (remote) mergeAndApply(remote);
+    toast('연결 성공', 'GitHub 데이터 연결 완료', 'success');
+  });
+}
+
+
 function adjustPageLayout(pgId) {
   // pg-hdr 실제 높이 측정 후 pg-body height 동적 조정
   requestAnimationFrame(function() {
@@ -4226,6 +4318,17 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
   gid('btnLogin').addEventListener('click', doLogin);
+  gid('btnSavePat').addEventListener('click', function() {
+    var pat = gid('patInput').value.trim();
+    gid('patErr').style.display = 'none';
+    if (!pat) { gid('patErr').style.display = 'block'; return; }
+    ghPatSave(pat);
+    GH.pat = pat;
+    var p = window._pendingLogin || {};
+    if (p.id) {
+      _doLoginProceed(p.id, p.name, p.role);
+    }
+  });
   gid('loginPw').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
   gid('loginId').addEventListener('keydown', function(e){ if(e.key==='Enter') gid('loginPw').focus(); });
   gid('itemModal').addEventListener('click', function(e){ if(e.target===this) CM('itemModal'); });
