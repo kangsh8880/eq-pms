@@ -15,6 +15,39 @@
   --gr:#3fb950;--g2:#238636;
   --or:#f0883e;--re:#f85149;--pu:#bc8cff;
 }
+/* ── 화이트 테마 ── */
+[data-theme="light"]{
+  --bg:#f6f8fa;--bg2:#ffffff;--bg3:#f0f2f5;--bg4:#e8eaed;
+  --bd:#d0d7de;--bd2:#e8eaed;
+  --tx:#1f2328;--t2:#656d76;--t3:#8c959f;
+  --ac:#0969da;--a2:#0550ae;
+  --gr:#1a7f37;--g2:#116329;
+  --or:#bc4c00;--re:#d1242f;--pu:#8250df;
+}
+[data-theme="light"] body{background:var(--bg)}
+[data-theme="light"] #loginScreen{background:linear-gradient(135deg,#e8edf2 0%,#f6f8fa 50%,#e8edf2 100%)}
+[data-theme="light"] .hdr{background:#ffffff;border-bottom:1px solid var(--bd)}
+[data-theme="light"] .mob-drawer{background:#ffffff}
+[data-theme="light"] .eq-tbl tbody td.td-fix,
+[data-theme="light"] .eq-tbl tbody td.td-fix2,
+[data-theme="light"] .eq-tbl tbody td.td-fix3{background:#ffffff}
+[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix,
+[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix2,
+[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix3{background:var(--bg3)}
+
+/* ── 언어/테마 버튼 ── */
+.hdr-ctrl{display:flex;align-items:center;gap:4px}
+.lang-btn{padding:3px 7px;border:1px solid var(--bd);border-radius:4px;
+  background:transparent;color:var(--t2);font-size:13px;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:all .15s;line-height:1}
+.lang-btn:hover,.lang-btn.active{background:var(--ac);border-color:var(--ac);color:#fff}
+.theme-btn{width:32px;height:20px;border-radius:10px;border:1px solid var(--bd);
+  background:var(--bg3);cursor:pointer;position:relative;transition:all .3s;flex-shrink:0}
+.theme-btn::after{content:'';position:absolute;top:2px;left:2px;
+  width:14px;height:14px;border-radius:50%;background:var(--t2);
+  transition:all .3s}
+[data-theme="light"] .theme-btn{background:#1f6feb}
+[data-theme="light"] .theme-btn::after{left:14px;background:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);height:100vh;overflow:hidden;font-size:19px;line-height:1.65}
 ::-webkit-scrollbar{width:5px;height:5px}
@@ -1008,8 +1041,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <div class="llogo-ico">⚙️</div>
       <div><h1>EQ-PMS</h1><p>설비투자 프로세스 관리 시스템</p></div>
     </div>
-    <h2 class="ltit">로그인</h2>
-    <p class="lsub">계정 정보를 입력하세요</p>
+    <h2 class="ltit" data-i18n="login_title">로그인</h2>
+    <p class="lsub" data-i18n="login_sub">계정 정보를 입력하세요</p>
     <div class="fg">
       <label>아이디</label>
       <input type="text" id="loginId" placeholder="아이디 입력" autocomplete="username">
@@ -1019,7 +1052,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <input type="password" id="loginPw" placeholder="비밀번호 입력" autocomplete="current-password">
     </div>
 
-    <button class="lbtn" id="btnLogin">로그인</button>
+    <button class="lbtn" id="btnLogin" data-i18n="login_btn">로그인</button>
     <div class="lerr" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
     <div id="patSetupArea" style="margin-top:14px;display:none">
       <div style="border-top:1px solid var(--bd);padding-top:14px">
@@ -1057,23 +1090,30 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   <header class="hdr">
     <div class="hdr-logo"><div class="ico">⚙️</div><span>EQ-PMS</span></div>
     <nav class="hnav">
-      <button class="nb" data-p="dashboard" onclick="navTo('dashboard')">📊 대시보드</button>
-      <button class="nb" data-p="master"    onclick="navTo('master')">📋 Master DB</button>
-      <button class="nb" data-p="setup"     onclick="navTo('setup')">⚙️ 프로세스 Setup</button>
-      <button class="nb" data-p="progress"  onclick="navTo('progress')">📈 프로세스 진행현황</button>
-      <button class="nb" data-p="equip"     onclick="navTo('equip')">🏭 설비 투자 진척</button>
-      <button class="nb" data-p="detail"    onclick="navTo('detail')">📊 설비별 실적 현황</button>
-      <button class="nb" data-p="company"   onclick="navTo('company')">🏢 기업 관리</button>
+      <button class="nb" data-p="dashboard" onclick="navTo('dashboard')"><span data-i18n="nav_dashboard">📊 대시보드</span></button>
+      <button class="nb" data-p="master"    onclick="navTo('master')"><span data-i18n="nav_master">📋 Master DB</span></button>
+      <button class="nb" data-p="setup"     onclick="navTo('setup')"><span data-i18n="nav_setup">⚙️ 프로세스 Setup</span></button>
+      <button class="nb" data-p="progress"  onclick="navTo('progress')"><span data-i18n="nav_progress">📈 프로세스 진행현황</span></button>
+      <button class="nb" data-p="equip"     onclick="navTo('equip')"><span data-i18n="nav_equip">🏭 설비 투자 진척</span></button>
+      <button class="nb" data-p="detail"    onclick="navTo('detail')"><span data-i18n="nav_detail">📊 설비별 실적 현황</span></button>
+      <button class="nb" data-p="company"   onclick="navTo('company')"><span data-i18n="nav_company">🏢 기업 관리</span></button>
     </nav>
     <div class="hr">
       <div id="syncStatus" class="sync-badge sync-idle" title="GitHub 동기화 상태">
         <span id="syncIcon">☁️</span>
-        <span id="syncText">대기중</span>
+        <span id="syncText" data-i18n="sync_idle">대기중</span>
       </div>
+      <div class="hdr-ctrl">
+        <button class="lang-btn active" id="lang_ko" onclick="setLang('ko')">한</button>
+        <button class="lang-btn" id="lang_en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="lang_zh" onclick="setLang('zh')">中</button>
+        <button class="lang-btn" id="lang_vi" onclick="setLang('vi')">VI</button>
+      </div>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="테마 전환"></button>
       <div class="ubadge"><div class="udot"></div><span id="uNm">-</span><span class="urole" id="uRl">-</span></div>
       <button class="lout" onclick="openPatSettings()" title="GitHub 연결 설정"
         style="margin-right:2px;font-size:15px;padding:4px 8px">🔑</button>
-      <button class="lout" onclick="doLogout()">로그아웃</button>
+      <button class="lout" id="btnLogout" onclick="doLogout()" data-i18n="logout">로그아웃</button>
     </div>
     <button class="hbg-btn" id="hbgBtn" onclick="toggleDrawer()" aria-label="메뉴">
       <span></span><span></span><span></span>
@@ -1239,8 +1279,11 @@ function setSyncStatus(status, text) {
   if (!badge) return;
   badge.className = 'sync-badge sync-' + status;
   var icons = { idle:'☁️', saving:'🔄', ok:'✅', err:'❌', load:'⏳' };
+  var ikeys = { idle:'sync_idle', saving:'sync_saving', ok:'sync_ok', err:'sync_err', load:'sync_load' };
   icon.textContent = icons[status] || '☁️';
-  txt.textContent  = text;
+  // i18n 키가 있으면 번역, 없으면 전달받은 text 사용
+  txt.textContent = (ikeys[status] && typeof t === 'function') ? t(ikeys[status]) : text;
+  txt.setAttribute('data-i18n', ikeys[status] || '');
 }
 
 // GitHub에서 데이터 불러오기
@@ -1259,7 +1302,8 @@ async function ghLoad() {
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
     GH.sha = data.sha;
-    var decoded = JSON.parse(atob(data.content.replace(/\n/g, '')));
+    var b64 = data.content.replace(/\n/g, '');
+    var decoded = JSON.parse(decodeURIComponent(escape(atob(b64))));
     setSyncStatus('ok', '로드 완료');
     return decoded;
   } catch(e) {
@@ -1449,6 +1493,160 @@ function doLogout() {
   setSyncStatus('idle', '대기중');
 }
 
+/* ══════════════════════════════════════════════════════
+   다국어 (i18n) — 한/영/중/베
+══════════════════════════════════════════════════════ */
+var _lang = localStorage.getItem('eq_lang') || 'ko';
+
+var I18N = {
+  ko: {
+    /* 공통 */
+    logout:'로그아웃', save:'저장', cancel:'취소', delete:'삭제',
+    edit:'수정', add:'추가', search:'검색', close:'닫기', confirm:'확인',
+    total:'전체', required_only:'필수만', all:'전체', yes:'예', no:'아니오',
+    /* 동기화 */
+    sync_idle:'대기중', sync_saving:'저장 중...', sync_ok:'저장됨',
+    sync_err:'저장 실패', sync_load:'로드 중...',
+    /* 로그인 */
+    login_title:'로그인', login_sub:'계정 정보를 입력하세요', login_btn:'로그인',
+    login_id:'아이디', login_pw:'비밀번호', login_err:'아이디 또는 비밀번호가 올바르지 않습니다.',
+    /* 네비 */
+    nav_dashboard:'📊 대시보드', nav_master:'📋 Master DB',
+    nav_setup:'⚙️ 프로세스 Setup', nav_progress:'📈 프로세스 진행현황',
+    nav_equip:'🏭 설비 투자 진척', nav_detail:'📊 설비별 실적 현황',
+    nav_company:'🏢 기업 관리',
+    /* 대시보드 */
+    dash_title:'대시보드', dash_sub:'기업·공정·설비업체·설비별 11단계 진척 현황',
+    dash_co_all:'🏢 전체 기업', dash_refresh:'새로고침',
+    dash_kpi_co:'등록 기업', dash_kpi_eq:'등록 설비',
+    dash_kpi_done:'완료 설비', dash_kpi_delay:'지연 설비',
+    /* 기업관리 */
+    co_add:'+ 기업 추가', co_proc_set:'프로세스 Setting', co_status:'현황',
+    co_eq_add:'설비등록', co_gong_mng:'공정Master관리', co_vend_mng:'업체Master관리',
+    /* 공통 테이블 */
+    col_company:'기업명', col_process:'프로세스', col_step:'단계', col_dept:'부서',
+    col_manager:'담당자', col_contact:'연락처', col_date:'날짜',
+    col_done:'완료', col_delay:'지연', col_rate:'진척률',
+  },
+  en: {
+    logout:'Logout', save:'Save', cancel:'Cancel', delete:'Delete',
+    edit:'Edit', add:'Add', search:'Search', close:'Close', confirm:'OK',
+    total:'All', required_only:'Required', all:'All', yes:'Yes', no:'No',
+    sync_idle:'Idle', sync_saving:'Saving...', sync_ok:'Saved',
+    sync_err:'Save Failed', sync_load:'Loading...',
+    login_title:'Sign In', login_sub:'Enter your credentials', login_btn:'Sign In',
+    login_id:'Username', login_pw:'Password', login_err:'Invalid username or password.',
+    nav_dashboard:'📊 Dashboard', nav_master:'📋 Master DB',
+    nav_setup:'⚙️ Process Setup', nav_progress:'📈 Progress',
+    nav_equip:'🏭 Equipment Progress', nav_detail:'📊 Equipment Detail',
+    nav_company:'🏢 Company',
+    dash_title:'Dashboard', dash_sub:'11-step progress by company/process/vendor/equipment',
+    dash_co_all:'🏢 All Companies', dash_refresh:'Refresh',
+    dash_kpi_co:'Companies', dash_kpi_eq:'Equipment',
+    dash_kpi_done:'Completed', dash_kpi_delay:'Delayed',
+    co_add:'+ Add Company', co_proc_set:'Process Setup', co_status:'Status',
+    co_eq_add:'Add Equipment', co_gong_mng:'Process Master', co_vend_mng:'Vendor Master',
+    col_company:'Company', col_process:'Process', col_step:'Step', col_dept:'Dept',
+    col_manager:'Manager', col_contact:'Contact', col_date:'Date',
+    col_done:'Done', col_delay:'Delay', col_rate:'Progress',
+  },
+  zh: {
+    logout:'退出', save:'保存', cancel:'取消', delete:'删除',
+    edit:'编辑', add:'添加', search:'搜索', close:'关闭', confirm:'确认',
+    total:'全部', required_only:'必填', all:'全部', yes:'是', no:'否',
+    sync_idle:'待机', sync_saving:'保存中...', sync_ok:'已保存',
+    sync_err:'保存失败', sync_load:'加载中...',
+    login_title:'登录', login_sub:'请输入账号信息', login_btn:'登录',
+    login_id:'账号', login_pw:'密码', login_err:'账号或密码错误。',
+    nav_dashboard:'📊 仪表盘', nav_master:'📋 主数据库',
+    nav_setup:'⚙️ 流程设置', nav_progress:'📈 进度状态',
+    nav_equip:'🏭 设备进度', nav_detail:'📊 设备明细',
+    nav_company:'🏢 企业管理',
+    dash_title:'仪表盘', dash_sub:'按企业/工序/供应商/设备的11步进度',
+    dash_co_all:'🏢 全部企业', dash_refresh:'刷新',
+    dash_kpi_co:'企业数', dash_kpi_eq:'设备数',
+    dash_kpi_done:'完成', dash_kpi_delay:'延误',
+    co_add:'+ 添加企业', co_proc_set:'流程设置', co_status:'状态',
+    co_eq_add:'添加设备', co_gong_mng:'工序主数据', co_vend_mng:'供应商主数据',
+    col_company:'企业', col_process:'工序', col_step:'步骤', col_dept:'部门',
+    col_manager:'负责人', col_contact:'联系方式', col_date:'日期',
+    col_done:'完成', col_delay:'延误', col_rate:'进度',
+  },
+  vi: {
+    logout:'Đăng xuất', save:'Lưu', cancel:'Hủy', delete:'Xóa',
+    edit:'Sửa', add:'Thêm', search:'Tìm', close:'Đóng', confirm:'OK',
+    total:'Tất cả', required_only:'Bắt buộc', all:'Tất cả', yes:'Có', no:'Không',
+    sync_idle:'Chờ', sync_saving:'Đang lưu...', sync_ok:'Đã lưu',
+    sync_err:'Lỗi lưu', sync_load:'Đang tải...',
+    login_title:'Đăng nhập', login_sub:'Nhập thông tin tài khoản', login_btn:'Đăng nhập',
+    login_id:'Tài khoản', login_pw:'Mật khẩu', login_err:'Tài khoản hoặc mật khẩu không đúng.',
+    nav_dashboard:'📊 Bảng điều khiển', nav_master:'📋 Master DB',
+    nav_setup:'⚙️ Cài đặt quy trình', nav_progress:'📈 Tiến độ',
+    nav_equip:'🏭 Tiến độ thiết bị', nav_detail:'📊 Chi tiết thiết bị',
+    nav_company:'🏢 Quản lý doanh nghiệp',
+    dash_title:'Bảng điều khiển', dash_sub:'Tiến độ 11 bước theo công ty/quy trình/nhà cung cấp',
+    dash_co_all:'🏢 Tất cả công ty', dash_refresh:'Làm mới',
+    dash_kpi_co:'Công ty', dash_kpi_eq:'Thiết bị',
+    dash_kpi_done:'Hoàn thành', dash_kpi_delay:'Trễ hạn',
+    co_add:'+ Thêm công ty', co_proc_set:'Cài đặt QT', co_status:'Trạng thái',
+    co_eq_add:'Thêm thiết bị', co_gong_mng:'Master quy trình', co_vend_mng:'Master nhà cung cấp',
+    col_company:'Công ty', col_process:'Quy trình', col_step:'Bước', col_dept:'Bộ phận',
+    col_manager:'Phụ trách', col_contact:'Liên hệ', col_date:'Ngày',
+    col_done:'Hoàn thành', col_delay:'Trễ', col_rate:'Tiến độ',
+  }
+};
+
+function t(key) {
+  var d = I18N[_lang] || I18N['ko'];
+  return d[key] || I18N['ko'][key] || key;
+}
+
+function setLang(lang) {
+  _lang = lang;
+  localStorage.setItem('eq_lang', lang);
+  // 언어 버튼 active 상태
+  ['ko','en','zh','vi'].forEach(function(l) {
+    var btn = document.getElementById('lang_' + l);
+    if (btn) btn.className = 'lang-btn' + (l === lang ? ' active' : '');
+  });
+  // data-i18n 요소 일괄 업데이트
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  // html lang 속성
+  document.documentElement.lang = lang === 'ko' ? 'ko' : lang === 'zh' ? 'zh' : lang === 'vi' ? 'vi' : 'en';
+  // 현재 페이지 재렌더링 (동적 생성 콘텐츠 반영)
+  var cur = document.querySelector('.nb.active');
+  if (cur) {
+    var pg = cur.getAttribute('data-p');
+    if (pg) { setTimeout(function(){ navTo(pg); }, 0); }
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   테마 (화이트/다크)
+══════════════════════════════════════════════════════ */
+var _theme = localStorage.getItem('eq_theme') || 'dark';
+
+function applyTheme(theme) {
+  _theme = theme;
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  localStorage.setItem('eq_theme', theme);
+}
+
+function toggleTheme() {
+  applyTheme(_theme === 'dark' ? 'light' : 'dark');
+}
+
+// 페이지 로드 시 테마 적용
+(function(){ applyTheme(_theme); })();
+
+
 /* ── INIT ───────────────────────────────────────────── */
 function appInit(remote) {
   // Master DB 초기화 (항상 내장 데이터 기준)
@@ -1483,6 +1681,13 @@ function appInit(remote) {
 
   _coTab = 'company';
   _coSelId = null;
+  // 테마 적용
+  applyTheme(_theme);
+  // 언어 버튼 초기 상태
+  ['ko','en','zh','vi'].forEach(function(l) {
+    var btn = document.getElementById('lang_' + l);
+    if (btn) btn.className = 'lang-btn' + (l === _lang ? ' active' : '');
+  });
   navTo('dashboard');
 }
 
@@ -4354,6 +4559,39 @@ document.addEventListener('DOMContentLoaded', function(){
   --gr:#3fb950;--g2:#238636;
   --or:#f0883e;--re:#f85149;--pu:#bc8cff;
 }
+/* ── 화이트 테마 ── */
+[data-theme="light"]{
+  --bg:#f6f8fa;--bg2:#ffffff;--bg3:#f0f2f5;--bg4:#e8eaed;
+  --bd:#d0d7de;--bd2:#e8eaed;
+  --tx:#1f2328;--t2:#656d76;--t3:#8c959f;
+  --ac:#0969da;--a2:#0550ae;
+  --gr:#1a7f37;--g2:#116329;
+  --or:#bc4c00;--re:#d1242f;--pu:#8250df;
+}
+[data-theme="light"] body{background:var(--bg)}
+[data-theme="light"] #loginScreen{background:linear-gradient(135deg,#e8edf2 0%,#f6f8fa 50%,#e8edf2 100%)}
+[data-theme="light"] .hdr{background:#ffffff;border-bottom:1px solid var(--bd)}
+[data-theme="light"] .mob-drawer{background:#ffffff}
+[data-theme="light"] .eq-tbl tbody td.td-fix,
+[data-theme="light"] .eq-tbl tbody td.td-fix2,
+[data-theme="light"] .eq-tbl tbody td.td-fix3{background:#ffffff}
+[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix,
+[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix2,
+[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix3{background:var(--bg3)}
+
+/* ── 언어/테마 버튼 ── */
+.hdr-ctrl{display:flex;align-items:center;gap:4px}
+.lang-btn{padding:3px 7px;border:1px solid var(--bd);border-radius:4px;
+  background:transparent;color:var(--t2);font-size:13px;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:all .15s;line-height:1}
+.lang-btn:hover,.lang-btn.active{background:var(--ac);border-color:var(--ac);color:#fff}
+.theme-btn{width:32px;height:20px;border-radius:10px;border:1px solid var(--bd);
+  background:var(--bg3);cursor:pointer;position:relative;transition:all .3s;flex-shrink:0}
+.theme-btn::after{content:'';position:absolute;top:2px;left:2px;
+  width:14px;height:14px;border-radius:50%;background:var(--t2);
+  transition:all .3s}
+[data-theme="light"] .theme-btn{background:#1f6feb}
+[data-theme="light"] .theme-btn::after{left:14px;background:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);height:100vh;overflow:hidden;font-size:19px;line-height:1.65}
 ::-webkit-scrollbar{width:5px;height:5px}
