@@ -1018,21 +1018,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <label>비밀번호</label>
       <input type="password" id="loginPw" placeholder="비밀번호 입력" autocomplete="current-password">
     </div>
-    <div class="fg" style="margin-top:14px;border-top:1px solid var(--bd);padding-top:14px">
-      <label style="display:flex;align-items:center;gap:6px">
-        <span style="font-size:15px">🔑</span>
-        GitHub PAT
-        <span style="font-size:12px;color:var(--t2);font-weight:400">(Personal Access Token)</span>
-      </label>
-      <input type="password" id="loginPat" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-        autocomplete="off" style="font-family:monospace;font-size:13px;letter-spacing:1px">
-      <div style="font-size:11px;color:var(--t3);margin-top:4px">
-        💡 GitHub → Settings → Developer settings → PAT (repo 권한)에서 발급
-      </div>
-    </div>
+
     <button class="lbtn" id="btnLogin">로그인</button>
     <div class="lerr" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
-    <div class="lerr" id="loginErrPat" style="display:none">GitHub PAT를 입력해주세요.</div>
+
     <div class="lhint" style="display:none">
       <strong>테스트 계정</strong><br>
       관리자: <strong>admin</strong> / <strong>admin1234</strong><br>
@@ -1199,8 +1188,8 @@ var GH = {
   owner: 'kangsh8880',
   repo:  'eq-pms',
   path:  'data/eqpms_state.json',
-  pat:   null,   // sessionStorage에만 보관
-  sha:   null,   // 현재 파일 SHA (업데이트 시 필요)
+  pat:   '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',
+  sha:   null,
   saveTimer: null
 };
 
@@ -1383,28 +1372,18 @@ function canEdit() { return state.curUser && state.curUser.role !== 'VIEWER'; }
 
 /* ── AUTH ───────────────────────────────────────────── */
 function doLogin() {
-  var id  = gid('loginId').value.trim();
-  var pw  = gid('loginPw').value;
-  var pat = gid('loginPat').value.trim();
-  gid('loginErr').style.display    = 'none';
-  gid('loginErrPat').style.display = 'none';
+  var id = gid('loginId').value.trim();
+  var pw = gid('loginPw').value;
+  gid('loginErr').style.display = 'none';
   if (!USERS[id] || USERS[id].pw !== pw) {
     gid('loginErr').style.display = 'block';
     return;
   }
-  if (!pat) {
-    gid('loginErrPat').style.display = 'block';
-    return;
-  }
-  // PAT를 sessionStorage에만 보관 (새로고침 시 사라짐)
-  sessionStorage.setItem('gh_pat', pat);
-  GH.pat = pat;
   state.curUser = { id: id, name: USERS[id].name, role: USERS[id].role };
   gid('uNm').textContent = state.curUser.name;
   gid('uRl').textContent = state.curUser.role;
   var mn = gid('mobUNm'); if (mn) mn.textContent = state.curUser.name;
   var mr = gid('mobURl'); if (mr) mr.textContent = state.curUser.role;
-  // GitHub에서 데이터 로드 후 앱 초기화
   setSyncStatus('load', '데이터 로드 중...');
   ghLoad().then(function(remote) {
     appInit(remote);
@@ -1416,15 +1395,12 @@ function doLogin() {
 
 function doLogout() {
   if (GH.saveTimer) { clearTimeout(GH.saveTimer); GH.saveTimer = null; }
-  sessionStorage.removeItem('gh_pat');
-  GH.pat = null;
   GH.sha = null;
   state.curUser = null;
   gid('app').style.display = 'none';
   gid('loginScreen').style.display = 'flex';
-  gid('loginId').value  = '';
-  gid('loginPw').value  = '';
-  gid('loginPat').value = '';
+  gid('loginId').value = '';
+  gid('loginPw').value = '';
   setSyncStatus('idle', '대기중');
 }
 
