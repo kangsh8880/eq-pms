@@ -5943,7 +5943,584 @@
     }
   ],
   "equipments": {},
-  "gongMaster": {},
+  "gongMaster": {
+    "co2": [
+      {
+        "seq": 1,
+        "code": "S05-0100",
+        "name": "Sheet Stock",
+        "manager": "KANG",
+        "contact": "82105241236521"
+      },
+      {
+        "seq": 2,
+        "code": "F10-0020",
+        "name": "MS Auto Racking1 (PTC)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 3,
+        "code": "F10-0030",
+        "name": "MS Cleaning",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 4,
+        "code": "F10-0050",
+        "name": "MS Auto Racking2 (CTT)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 5,
+        "code": "F10-0100",
+        "name": "Glass Lamination",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 6,
+        "code": "F10-0150",
+        "name": "Slit Coater",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 7,
+        "code": "F10-0200",
+        "name": "Auto Racking #01",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 8,
+        "code": "F10-0300",
+        "name": "Post Baking",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 9,
+        "code": "F10-0400",
+        "name": "Part Cut",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 10,
+        "code": "F30-0100",
+        "name": "Chamfering",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 11,
+        "code": "F30-0125",
+        "name": "Edge Etching",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 12,
+        "code": "F30-0150",
+        "name": "Auto Racking1 (TTC)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 13,
+        "code": "F30-0200",
+        "name": "Stripping & Cleaning",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 14,
+        "code": "F30-0400",
+        "name": "Fine Slimming",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 15,
+        "code": "F30-0600",
+        "name": "Cleaning #01",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 16,
+        "code": "F30-0700",
+        "name": "Auto Racking2 (CTC)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 17,
+        "code": "F30-0800",
+        "name": "IOX",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 18,
+        "code": "F30-0900",
+        "name": "Auto Racking3 (CTC)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 19,
+        "code": "F30-1000",
+        "name": "Cleaning #02",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 20,
+        "code": "F30-1100",
+        "name": "Re-Polish",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 21,
+        "code": "F30-1200",
+        "name": "Cleaning #03",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 22,
+        "code": "F30-1300",
+        "name": "FSM",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 23,
+        "code": "F30-1400",
+        "name": "Cleaning #04",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 24,
+        "code": "F30-1500",
+        "name": "Auto Racking4 (CTT)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 25,
+        "code": "F30-1700",
+        "name": "PF1 Lamination",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 26,
+        "code": "F30-1765",
+        "name": "OQC Inspection",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 27,
+        "code": "F30-2000",
+        "name": "2PB Test",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 28,
+        "code": "S06-0100",
+        "name": "UTG Stock",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 29,
+        "code": "F30-1775",
+        "name": "AOI1",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 30,
+        "code": "F30-1800",
+        "name": "Proof Test",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 31,
+        "code": "S06-0300",
+        "name": "Roll Stock1",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 32,
+        "code": "S06-0500",
+        "name": "Roll Stock2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 33,
+        "code": "B70-0100",
+        "name": "AOI2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 34,
+        "code": "B70-0150",
+        "name": "H/C Liner Change",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 35,
+        "code": "B70-0200",
+        "name": "Annealing",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 36,
+        "code": "B70-0300",
+        "name": "BM Print",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 37,
+        "code": "B70-0400",
+        "name": "BM Dry",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 38,
+        "code": "B70-0450",
+        "name": "Final Cure",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 39,
+        "code": "B70-0600",
+        "name": "OCA Lamination",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 40,
+        "code": "B70-0625",
+        "name": "AOI3",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 41,
+        "code": "B70-0675",
+        "name": "OCA Liner Change",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 42,
+        "code": "B70-0650",
+        "name": "RTS",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 43,
+        "code": "B70-0700",
+        "name": "Die Cut",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 44,
+        "code": "B70-0800",
+        "name": "Auto Clave1",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 45,
+        "code": "B70-1000",
+        "name": "Laser Trim (OCA offset)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 46,
+        "code": "B70-1025",
+        "name": "Laser Cut",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 47,
+        "code": "B70-1050",
+        "name": "Co2 + AOM Laser",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 48,
+        "code": "B70-1075",
+        "name": "Auto Clave2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 49,
+        "code": "B70-1085",
+        "name": "Visual Inspection1",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 50,
+        "code": "B70-1165",
+        "name": "Heavy PF Lami",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 51,
+        "code": "B70-1175",
+        "name": "Auto Clave3",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 52,
+        "code": "B70-1200",
+        "name": "Laser Trim(Notch)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 53,
+        "code": "S60-0100",
+        "name": "Film Cell Merge Stock",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 54,
+        "code": "B70-1300",
+        "name": "Shipping PF Lamination(CVL0)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 55,
+        "code": "B70-1400",
+        "name": "UV PICO Laser",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 56,
+        "code": "B70-1475",
+        "name": "Auto Clave 1 (CVL0)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 57,
+        "code": "B70-1495",
+        "name": "AOI 3.5",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 58,
+        "code": "B70-1500",
+        "name": "AOI4 #01",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 59,
+        "code": "B70-1550",
+        "name": "Easy PF Lami",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 60,
+        "code": "B70-1600",
+        "name": "Auto Clave4 #01",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 61,
+        "code": "B70-1700",
+        "name": "FG Barcode Inkjet1",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 62,
+        "code": "B70-1800",
+        "name": "Inkjet QR Check1",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 63,
+        "code": "B70-1900",
+        "name": "Visual Inspection2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 64,
+        "code": "B70-7000",
+        "name": "OQC(CVL0)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 65,
+        "code": "S70-0100",
+        "name": "Glass Cell Merge Stock",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 66,
+        "code": "B90-0150",
+        "name": "TCVL+AutoClave (CVL0+CVL1+UTG)",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 67,
+        "code": "B90-0175",
+        "name": "Glass Lamination",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 68,
+        "code": "B90-0180",
+        "name": "Laser Cut",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 69,
+        "code": "B90-0300",
+        "name": "Heavy PF Lami2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 70,
+        "code": "B90-0400",
+        "name": "Easy PF Lami2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 71,
+        "code": "B90-0450",
+        "name": "Shipping PF Lamination",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 72,
+        "code": "B90-0500",
+        "name": "Auto Clave 5",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 73,
+        "code": "B90-0550",
+        "name": "Auto Clave 2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 74,
+        "code": "B90-0600",
+        "name": "AOI 5",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 75,
+        "code": "B90-0200",
+        "name": "AOI4 #02",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 76,
+        "code": "B90-1600",
+        "name": "Auto Clave4 #02",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 77,
+        "code": "B90-0700",
+        "name": "FG Barcode Inkjet2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 78,
+        "code": "B90-0800",
+        "name": "Inkjet QR Check2",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 79,
+        "code": "B90-0900",
+        "name": "Visual Inspection3",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 80,
+        "code": "B90-7000",
+        "name": "OQC",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 81,
+        "code": "F90-0900",
+        "name": "IPQC",
+        "manager": "",
+        "contact": ""
+      },
+      {
+        "seq": 82,
+        "code": "S90-0100",
+        "name": "Cell Stock",
+        "manager": "",
+        "contact": ""
+      }
+    ]
+  },
   "vendorMaster": {
     "co2": [
       {
@@ -6008,5 +6585,5 @@
       }
     ]
   },
-  "_savedAt": "2026-04-16T08:36:46.452Z"
+  "_savedAt": "2026-04-16T08:37:21.622Z"
 }
