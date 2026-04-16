@@ -5956,8 +5956,8 @@
         "seq": 2,
         "code": "F10-0020",
         "name": "MS Auto Racking1 (PTC)",
-        "manager": "",
-        "contact": ""
+        "manager": "KANG",
+        "contact": "821032521232165"
       },
       {
         "seq": 3,
@@ -6585,5 +6585,5 @@
       }
     ]
   },
-  "_savedAt": "2026-04-16T08:37:21.622Z"
+  "_savedAt": "2026-04-16T08:37:33.689Z"
 }
