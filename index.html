@@ -1154,16 +1154,16 @@ var USERS = {
 };
 
 var STEPS = [
-  { key: '설비투자기획(투자 검토 단계 (Business / 전략 검토))',   s: '투자기획', e: '📋' },
-  { key: '설비 사양정의(설비 사양서 작성 단계 (Technical Spec))', s: '사양정의', e: '📐' },
-  { key: '투자심의',                                              s: '투자심의', e: '💰' },
-  { key: '발주(발주 단계 (PO / 계약))',                           s: '발주',     e: '📝' },
-  { key: '제작',                                                  s: '제작',     e: '🏭' },
-  { key: 'FAT(상세 Check List)',                                  s: 'FAT',      e: '🔬' },
-  { key: '출하(물류/통관)',                                        s: '출하',     e: '🚢' },
-  { key: '설치',                                                  s: '설치',     e: '🔧' },
-  { key: '시운전/SAT',                                            s: 'SAT',      e: '⚡' },
-  { key: 'Qual(검증)',                                            s: 'Qual',     e: '✅' }
+  { key: '설비투자기획(투자 검토 단계 (Business / 전략 검토))',   s: 'steps_0', e: '📋' },
+  { key: '설비 사양정의(설비 사양서 작성 단계 (Technical Spec))', s: 'steps_1', e: '📐' },
+  { key: '투자심의',                                              s: 'steps_2', e: '💰' },
+  { key: '발주(발주 단계 (PO / 계약))',                           s: 'steps_3', e: '📝' },
+  { key: '제작',                                                  s: 'steps_4', e: '🏭' },
+  { key: 'FAT(상세 Check List)',                                  s: 'steps_5', e: '🔬' },
+  { key: '출하(물류/통관)',                                        s: 'steps_6', e: '🚢' },
+  { key: '설치',                                                  s: 'steps_7', e: '🔧' },
+  { key: '시운전/SAT',                                            s: 'steps_8', e: '⚡' },
+  { key: 'Qual(검증)',                                            s: 'steps_9', e: '✅' }
 ];
 
 var state = {
@@ -1509,6 +1509,16 @@ var I18N = {
     lbl_basic_info:'기본 정보', lbl_manager_info:'담당자',
     lbl_proc_dates:'투자 프로세스 목표일',
     lbl_from_proc:'공정 Master', lbl_from_vend:'업체 Master',
+    invest_proc_title:'투자 프로세스',
+    step_planning:'투자기획', step_spec:'사양정의', step_review:'투자심의',
+    step_order:'발주(계약)', step_mfg:'제작', step_fat:'FAT',
+    step_ship:'출하/통관', step_install:'설치', step_trial:'시운전/SAT',
+    step_qual:'Qual(검증)', step_mass:'양산',
+    steps_0:'투자기획', steps_1:'사양정의', steps_2:'투자심의',
+    steps_3:'발주', steps_4:'제작', steps_5:'FAT',
+    steps_6:'출하', steps_7:'설치', steps_8:'SAT', steps_9:'Qual',
+    lbl_tgt_date:'목표일', lbl_act_date:'실적일',
+    msg_saved:'저장됐습니다',
   },
   en:{
     logout:'Logout', save:'Save', cancel:'Cancel', delete:'Delete',
@@ -1591,6 +1601,16 @@ var I18N = {
     lbl_basic_info:'Basic Info', lbl_manager_info:'Manager',
     lbl_proc_dates:'Investment Process Target Dates',
     lbl_from_proc:'Process Master', lbl_from_vend:'Vendor Master',
+    invest_proc_title:'Investment Process',
+    step_planning:'Planning', step_spec:'Specification', step_review:'Inv. Review',
+    step_order:'Order/PO', step_mfg:'Manufacturing', step_fat:'FAT',
+    step_ship:'Shipping', step_install:'Installation', step_trial:'Trial/SAT',
+    step_qual:'Qual', step_mass:'Mass Prod',
+    steps_0:'Planning', steps_1:'Spec', steps_2:'Review',
+    steps_3:'Order', steps_4:'Mfg', steps_5:'FAT',
+    steps_6:'Shipping', steps_7:'Install', steps_8:'SAT', steps_9:'Qual',
+    lbl_tgt_date:'Target date', lbl_act_date:'Actual date',
+    msg_saved:'Saved',
   },
   zh:{
     logout:'退出', save:'保存', cancel:'取消', delete:'删除',
@@ -1673,88 +1693,108 @@ var I18N = {
     lbl_basic_info:'基本信息', lbl_manager_info:'负责人',
     lbl_proc_dates:'投资流程目标日',
     lbl_from_proc:'工序主数据', lbl_from_vend:'供应商主数据',
+    invest_proc_title:'投资流程',
+    step_planning:'投资规划', step_spec:'规格定义', step_review:'投资审查',
+    step_order:'发注(合同)', step_mfg:'制造', step_fat:'FAT',
+    step_ship:'出货/通关', step_install:'安装', step_trial:'试运行/SAT',
+    step_qual:'Qual(验证)', step_mass:'量产',
+    steps_0:'规划', steps_1:'规格', steps_2:'审查',
+    steps_3:'发注', steps_4:'制造', steps_5:'FAT',
+    steps_6:'出货', steps_7:'安装', steps_8:'试运行', steps_9:'Qual',
+    lbl_tgt_date:'目标日', lbl_act_date:'实际日',
+    msg_saved:'已保存',
   },
   vi:{
-    logout:'Dang xuat', save:'Luu', cancel:'Huy', delete:'Xoa',
-    edit:'Sua', add:'Them', search:'Tim', close:'Dong', all:'Tat ca',
-    save_icon:'Luu', co_add:'+ Them cong ty', eq_add:'+ Them thiet bi',
-    sync_idle:'Cho', sync_saving:'Dang luu...', sync_ok:'Da luu',
-    sync_err:'Loi', sync_load:'Dang tai...',
-    login_title:'Dang nhap', login_sub:'Nhap thong tin', login_btn:'Dang nhap',
-    nav_dashboard:'📊 Bang dieu khien', nav_master:'📋 Master DB',
-    nav_setup:'⚙️ Cai dat QT', nav_progress:'📈 Tien do',
-    nav_equip:'🏭 Tien do TB', nav_detail:'📊 Chi tiet TB',
-    nav_company:'🏢 Quan ly',
-    dash_sub:'Tien do 11 buoc theo cong ty/quy trinh/nha cung cap',
-    dash_co_all:'🏢 Tat ca cong ty', dash_refresh:'🔄 Lam moi',
-    dash_kpi_co:'Cong ty', dash_kpi_eq:'Thiet bi',
-    dash_kpi_done:'Hoan thanh', dash_kpi_delay:'Tre han',
-    dash_co_table:'🏢 Tien do thiet bi theo cong ty',
-    dash_proc_table:'⚙️ Tien do theo quy trinh',
-    dash_vend_table:'🏭 Tien do theo nha cung cap',
-    dash_eq_table:'🔧 Tien do 11 buoc theo thiet bi',
-    col_co:'Cong ty', col_eq_cnt:'Thiet bi', col_process:'Quy trinh',
-    col_vend:'Nha CC', col_eq:'TB', col_done:'Xong',
-    col_delay:'Tre', col_rate:'Tien do', col_equip:'Ten thiet bi',
-    col_category:'Phan loai', col_task:'Hang muc', col_point:'Diem KT',
-    col_req:'Bat buoc', col_doc:'Tai lieu', col_dept1:'Phu trach',
-    col_dept2:'Xem xet', col_dept3:'Phe duyet', col_schedule:'Lich trinh',
-    col_proc_code:'Ma QT', col_proc_name:'Ten QT',
-    col_vend_code:'Ma NCC', col_eq_name:'Ten TB', col_model:'Model',
+    logout:'Đăng xuất', save:'Lưu', cancel:'Hủy', delete:'Xóa',
+    edit:'Sửa', add:'Thêm', search:'Tìm', close:'Đóng', all:'Tất cả',
+    save_icon:'Lưu', co_add:'+ Thêm công ty', eq_add:'+ Thêm thiết bị',
+    sync_idle:'Chờ', sync_saving:'Đang lưu...', sync_ok:'Đã lưu',
+    sync_err:'Lỗi', sync_load:'Đang tải...',
+    login_title:'Đăng nhập', login_sub:'Nhập thông tin tài khoản', login_btn:'Đăng nhập',
+    nav_dashboard:'📊 Bảng điều khiển', nav_master:'📋 Master DB',
+    nav_setup:'⚙️ Cài đặt QT', nav_progress:'📈 Tiến độ',
+    nav_equip:'🏭 Tiến độ TB', nav_detail:'📊 Chi tiết TB',
+    nav_company:'🏢 Quản lý',
+    dash_sub:'Tiến độ 11 bước theo công ty/quy trình/nhà cung cấp',
+    dash_co_all:'🏢 Tất cả công ty', dash_refresh:'🔄 Làm mới',
+    dash_kpi_co:'Công ty', dash_kpi_eq:'Thiết bị',
+    dash_kpi_done:'Hoàn thành', dash_kpi_delay:'Trễ hạn',
+    dash_co_table:'🏢 Tiến độ thiết bị theo công ty',
+    dash_proc_table:'⚙️ Tiến độ theo quy trình',
+    dash_vend_table:'🏭 Tiến độ theo nhà cung cấp',
+    dash_eq_table:'🔧 Tiến độ 11 bước theo thiết bị',
+    col_co:'Công ty', col_eq_cnt:'Thiết bị', col_process:'Quy trình',
+    col_vend:'Nhà CC', col_eq:'TB', col_done:'Xong',
+    col_delay:'Trễ', col_rate:'Tiến độ', col_equip:'Tên thiết bị',
+    col_category:'Phân loại', col_task:'Hạng mục', col_point:'Điểm KT',
+    col_req:'Bắt buộc', col_doc:'Tài liệu', col_dept1:'Phụ trách',
+    col_dept2:'Xem xét', col_dept3:'Phê duyệt', col_schedule:'Lịch trình',
+    col_proc_code:'Mã QT', col_proc_name:'Tên QT',
+    col_vend_code:'Mã NCC', col_eq_name:'Tên TB', col_model:'Model',
     col_po:'PO No', col_eqid:'EQ_ID',
-    master_sub:'hang muc', req_all:'Tat ca loai',
-    req_req:'Bat buoc', req_cond:'Co dieu kien', req_opt:'Tuy chon', req_rec:'Khuyen nghi',
-    item_edit:'Sua hang muc', item_add:'Them hang muc',
-    setup_sub:'Chon hang muc tu Master DB',
-    setup_select_co:'Chon cong ty',
-    prog_sub:'Theo doi checklist theo cong ty',
-    prog_total:'Tong tien do',
-    prog_lbl_total:'Tong', prog_lbl_done:'Xong', prog_lbl_remain:'Chua xong',
-    equip_sub:'Quan ly ngay muc tieu/thuc te',
-    equip_filter_co:'Cong ty', equip_filter_proc:'Tat ca QT',
-    equip_filter_vend:'Tat ca NCC', equip_stat_avg:'TB tien do',
-    detail_select_co:'Cong ty', detail_select_eq:'Thiet bi',
-    co_sub:'Quan ly tong hop cong ty QT NCC',
-    co_add:'+ Them cong ty', co_proc_set:'Cai dat QT',
-    co_status:'Trang thai', co_eq_add:'Them TB',
+    master_sub:'hạng mục', req_all:'Tất cả loại',
+    req_req:'Bắt buộc', req_cond:'Có điều kiện', req_opt:'Tùy chọn', req_rec:'Khuyến nghị',
+    item_edit:'Sửa hạng mục', item_add:'Thêm hạng mục',
+    setup_sub:'Chọn hạng mục từ Master DB theo công ty',
+    setup_select_co:'Chọn công ty',
+    prog_sub:'Theo dõi checklist theo công ty',
+    prog_total:'Tổng tiến độ',
+    prog_lbl_total:'Tổng', prog_lbl_done:'Xong', prog_lbl_remain:'Chưa xong',
+    equip_sub:'Quản lý ngày mục tiêu/thực tế',
+    equip_filter_co:'Công ty', equip_filter_proc:'Tất cả QT',
+    equip_filter_vend:'Tất cả NCC', equip_stat_avg:'TB tiến độ',
+    detail_select_co:'Công ty', detail_select_eq:'Thiết bị',
+    co_sub:'Quản lý tổng hợp: công ty, QT, NCC',
+    co_add:'+ Thêm công ty', co_proc_set:'Cài đặt QT',
+    co_status:'Trạng thái', co_eq_add:'Thêm TB',
     co_gong_mng:'QL Master QT', co_vend_mng:'QL Master NCC',
-    co_tab_co:'Cong ty', co_tab_proc:'Master QT',
+    co_tab_co:'Công ty', co_tab_proc:'Master QT',
     co_tab_vend:'Master NCC',
-    co_lbl_eq:'Thiet bi', co_lbl_total:'Tong HM', co_lbl_done:'Hoan thanh',
-    proc_add:'+ Them QT', vend_add:'+ Them NCC',
-    modal_co_add:'Them cong ty', modal_eq_add:'Them thiet bi',
-    sel_co:'Chon cong ty', sel_eq:'Chon thiet bi',
-    empty_co:'Chon cong ty', empty_setup:'Hoan thanh Setup truoc',
-    empty_detail:'Chon cong ty va thiet bi',
-    empty_step:'Khong co hang muc o buoc nay',
-    empty_eq:'Chua co thiet bi',
-    empty_search:'Khong co ket qua',
-    empty_sel:'Chon hang muc de chinh sua',
-    lbl_process:'Quy trinh', lbl_manager:'Phu trach', lbl_progress:'Tien do',
-    lbl_code:'Ma', lbl_order:'Thu tu', lbl_contact:'Lien he',
-    lbl_name:'Ten', lbl_date_tgt:'Muc tieu', lbl_date_act:'Thuc te',
-    lbl_date_clear:'Xoa ngay',
-    lbl_req_notice:'co the sua', lbl_dept_notice:'tuy chinh cong ty',
-    lbl_auto_fill:'Tu dong dien khi chon',
-    lbl_seq_notice:'Nhap theo thu tu',
-    lbl_qty_fixed:'1 cai co dinh',
-    lbl_eq_type:'Loai', lbl_tgt_hdr:'Muc tieu', lbl_act_hdr:'Thuc te',
-    lbl_vend_mgr:'Phu trach NCC', lbl_uti_mgr:'Phu trach',
-    pat_title:'Cai dat PAT',
-    pat_current:'PAT hien tai', pat_input:'PAT moi',
-    pat_warning:'PAT chi luu ma hoa tren may',
-    pat_del:'Xoa', pat_save:'Luu va Ket noi lai',
-    pat_none:'chua dat',
-    stat_this_step:'Buoc nay', stat_total:'Tong', stat_req:'Bat buoc',
-    btn_all:'Tat ca', btn_dismiss:'Bo chon', btn_dismiss_step:'Bo chon buoc nay',
-    step_setup_add:'Chon hang muc o Cai dat QT',
-    modal_proc_add:'Them QT', modal_proc_edit:'Sua QT',
-    modal_vend_add:'Them NCC', modal_vend_edit:'Sua NCC',
-    modal_eq_modal_add:'Them TB', modal_eq_modal_edit:'Sua TB',
-    lbl_no_edit:'Khong the sua', lbl_edit_mgr_only:'Chi sua phu trach',
-    lbl_basic_info:'Thong tin co ban', lbl_manager_info:'Phu trach',
-    lbl_proc_dates:'Ngay muc tieu quy trinh',
+    co_lbl_eq:'Thiết bị', co_lbl_total:'Tổng HM', co_lbl_done:'Hoàn thành',
+    proc_add:'+ Thêm QT', vend_add:'+ Thêm NCC',
+    modal_co_add:'Thêm công ty', modal_eq_add:'Thêm thiết bị',
+    sel_co:'Chọn công ty', sel_eq:'Chọn thiết bị',
+    empty_co:'Chọn công ty', empty_setup:'Hoàn thành Setup trước',
+    empty_detail:'Chọn công ty và thiết bị',
+    empty_step:'Không có hạng mục ở bước này',
+    empty_eq:'Chưa có thiết bị',
+    empty_search:'Không có kết quả',
+    empty_sel:'Chọn hạng mục để chỉnh sửa',
+    lbl_process:'Quy trình', lbl_manager:'Phụ trách', lbl_progress:'Tiến độ',
+    lbl_code:'Mã', lbl_order:'Thứ tự', lbl_contact:'Liên hệ',
+    lbl_name:'Tên', lbl_date_tgt:'Mục tiêu', lbl_date_act:'Thực tế',
+    lbl_date_clear:'Xóa ngày',
+    lbl_req_notice:'có thể sửa', lbl_dept_notice:'tùy chỉnh công ty',
+    lbl_auto_fill:'Tự động điền khi chọn',
+    lbl_seq_notice:'Nhập theo thứ tự',
+    lbl_qty_fixed:'1 cái (cố định)',
+    lbl_eq_type:'Loại', lbl_tgt_hdr:'Mục tiêu', lbl_act_hdr:'Thực tế',
+    lbl_vend_mgr:'Phụ trách NCC', lbl_uti_mgr:'Phụ trách',
+    pat_title:'Cài đặt PAT',
+    pat_current:'PAT hiện tại', pat_input:'PAT mới',
+    pat_warning:'PAT chỉ lưu mã hóa trên máy',
+    pat_del:'Xóa', pat_save:'Lưu & Kết nối lại',
+    pat_none:'(chưa đặt)',
+    stat_this_step:'Bước này', stat_total:'Tổng', stat_req:'Bắt buộc',
+    btn_all:'Tất cả', btn_dismiss:'Bỏ chọn', btn_dismiss_step:'Bỏ chọn bước này',
+    step_setup_add:'Chọn hạng mục ở Cài đặt QT',
+    modal_proc_add:'Thêm QT', modal_proc_edit:'Sửa QT',
+    modal_vend_add:'Thêm NCC', modal_vend_edit:'Sửa NCC',
+    modal_eq_modal_add:'Thêm TB', modal_eq_modal_edit:'Sửa TB',
+    lbl_no_edit:'Không thể sửa', lbl_edit_mgr_only:'Chỉ sửa phụ trách',
+    lbl_basic_info:'Thông tin cơ bản', lbl_manager_info:'Phụ trách',
+    lbl_proc_dates:'Ngày mục tiêu quy trình',
     lbl_from_proc:'Master QT', lbl_from_vend:'Master NCC',
+    invest_proc_title:'Quy trình đầu tư',
+    step_planning:'Lập kế hoạch', step_spec:'Định nghĩa KT', step_review:'Xem xét ĐT',
+    step_order:'Đặt hàng', step_mfg:'Chế tạo', step_fat:'FAT',
+    step_ship:'Xuất hàng', step_install:'Lắp đặt', step_trial:'Chạy thử/SAT',
+    step_qual:'Qual(Kiểm định)', step_mass:'Sản xuất ĐL',
+    steps_0:'Lập KH', steps_1:'Định nghĩa', steps_2:'Xem xét',
+    steps_3:'Đặt hàng', steps_4:'Chế tạo', steps_5:'FAT',
+    steps_6:'Xuất hàng', steps_7:'Lắp đặt', steps_8:'SAT', steps_9:'Qual',
+    lbl_tgt_date:'Ngày mục tiêu', lbl_act_date:'Ngày thực tế',
+    msg_saved:'Đã lưu',
   }
 };
 
@@ -2072,7 +2112,7 @@ function pgMaster() {
     var c = state.master.filter(function(r){return r['프로세스']===s.key;}).length;
     var cls = (state.masterStep===i) ? ' active' : '';
     stepBar += '<div class="ps' + cls + '" onclick="selMS(' + i + ')">'
-      + '<span class="pse">' + s.e + '</span><span class="pss">' + s.s + '</span>'
+      + '<span class="pse">' + s.e + '</span><span class="pss">' + t(s.s) + '</span>'
       + '<span class="psn">' + c + '</span></div>';
   });
   stepBar += '</div>';
@@ -2573,7 +2613,7 @@ function renderProgStepBar(coId) {
     if (!items.length) {
       html += '<div class="pr-step pr-step-empty" data-coId="' + xe(coId) + '" data-i="' + i + '">'
         + '<span class="pr-se">' + step.e + '</span>'
-        + '<span class="pr-ss">' + step.s + '</span>'
+        + '<span class="pr-ss">' + t(step.s) + '</span>'
         + '<span class="pr-sc t3">-</span>'
         + '</div>';
       return;
@@ -2582,7 +2622,7 @@ function renderProgStepBar(coId) {
     var pct = Math.round(sc/items.length*100);
     html += '<div class="pr-step' + (isActive?' pr-active':'') + '" data-coId="' + xe(coId) + '" data-i="' + i + '">'
       + '<span class="pr-se">' + step.e + '</span>'
-      + '<span class="pr-ss">' + step.s + '</span>'
+      + '<span class="pr-ss">' + t(step.s) + '</span>'
       + '<span class="pr-sc">' + sc + '/' + items.length + '</span>'
       + '<div class="pr-pbar"><div class="pr-pfill" style="width:' + pct + '%"></div></div>'
       + '<span class="pr-pct' + (pct===100?' pr-done':'') + '">' + pct + '%</span>'
@@ -2627,7 +2667,7 @@ function renderProgItems(coId) {
 
   var html = '<div class="pr-items-hdr">'
     + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
-    + '<b style="font-size:18px">' + step.e + ' ' + step.s + '</b>'
+    + '<b style="font-size:18px">' + step.e + ' ' + t(step.s) + '</b>'
     + '<span class="t2 sm">' + sc + '/' + items.length + ' ' + t('col_done') + '</span>'
     + (pct===100 ? '<span class="b br" style="margin-left:4px">✅ 완료</span>' : '')
     + '</div>'
@@ -2712,6 +2752,16 @@ var VENDOR_MASTER = [{"code": "KR2165423", "name": "ATK", "manager": "", "contac
 
 /* 투자 프로세스 11단계 */
 var INVEST_STEPS = ["투자기획","사양정의","투자심의","발주(계약)","제작","FAT","출하(물류/통관)","설치","시운전/SAT","Qual(검증)","양산"];
+/* 투자 프로세스 단계명 다국어 변환 */
+var INVEST_STEP_KEYS = [
+  'step_planning','step_spec','step_review','step_order','step_mfg',
+  'step_fat','step_ship','step_install','step_trial','step_qual','step_mass'
+];
+function getStepName(i) {
+  var key = INVEST_STEP_KEYS[i];
+  if (!key) return INVEST_STEPS[i] || '';
+  return t(key) || INVEST_STEPS[i] || '';
+}
 
 /* ─────────────────────────────────────────────────────
    pgEquip: 메인 진입점
@@ -2869,8 +2919,8 @@ function renderEquipTbl() {
     + '<th style="width:50px" rowspan="2">' + t('col_rate') + '</th>';
   if (canE) html += '<th style="width:60px" rowspan="2">' + t('edit') + '</th>';
   html += '</tr><tr>';
-  INVEST_STEPS.forEach(function(s) {
-    html += '<th style="width:' + stepCW + 'px;background:rgba(88,166,255,.05)">' + xe(s) + '</th>';
+  INVEST_STEPS.forEach(function(s, _si) {
+    html += '<th style="width:' + stepCW + 'px;background:rgba(88,166,255,.05)">' + xe(getStepName(_si)) + '</th>';
   });
   html += '</tr></thead><tbody>';
 
@@ -3284,7 +3334,7 @@ function _openEqModal(coId, idx, eq) {
     stepRows += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'
       + '<div style="width:120px;font-size:13px;font-weight:500;color:var(--t2);flex-shrink:0">'
       + '<span style="display:inline-block;width:18px;text-align:right;margin-right:5px;font-size:12px;color:var(--t3)">' + (si+1) + '.</span>'
-      + xe(s) + '</div>'
+      + getStepName(si) + '</div>'
       + '<input type="hidden" id="' + inputId + '" value="' + xe(tval) + '">'
       + '<button type="button" id="' + inputId + '_btn"'
       + ' data-inpid="' + inputId + '" data-si="' + si + '" onclick="_showCal(this.dataset.inpid, parseInt(this.dataset.si))"'
@@ -3645,7 +3695,8 @@ function _dtRenderStepBar() {
 
   // ① 각 프로세스 칸에 목표일 + 실적일 모두 표시
   var html = '<div style="display:flex;gap:0;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">';
-  INVEST_STEPS.forEach(function(stepNm, si) {
+  INVEST_STEPS.forEach(function(_stepNm, si) {
+    var stepNm = getStepName(si);
     var tgt = (eq.target||{})[si] || '';
     var act = (eq.actual||{})[si] || '';
     var isActive = _dtStepIdx === si;
@@ -3720,7 +3771,7 @@ function _dtUpdateDateCard() {
   if (!eq) { card.style.display='none'; return; }
   var canE = canEdit();
   var si   = _dtStepIdx;
-  var stepNm = INVEST_STEPS[si];
+  var stepNm = getStepName(si);
   var tgt  = (eq.target||{})[si] || '';
   var act  = (eq.actual||{})[si] || '';
   var today = new Date().toISOString().slice(0,10);
@@ -3765,7 +3816,7 @@ function _dtSelStep(si) {
   var coId = _dtCoId;
   var eq   = (state.equipments[coId]||[])[_dtEqIdx];
   if (!eq) return;
-  var stepNm = INVEST_STEPS[si];
+  var stepNm = getStepName(si);
   var tgt  = (eq.target||{})[si] || '';
   var act  = (eq.actual||{})[si] || '';
   var today = new Date().toISOString().slice(0,10);
@@ -3813,7 +3864,8 @@ function _dtRenderBody() {
   + (canE ? '<th style="padding:7px 8px;text-align:center;color:var(--gr);font-size:15px;border-bottom:1px solid var(--bd)">실적일</th>' : '')
   + '</tr></thead><tbody>';
 
-  INVEST_STEPS.forEach(function(stepName, i) {
+  INVEST_STEPS.forEach(function(_stepName, i) {
+    var stepName = getStepName(i);
     var t = (eq.target||{})[i] || '';
     var a = (eq.actual||{})[i] || '';
     var isCur = i === si;
@@ -3911,7 +3963,7 @@ function _dtDetailHtml(eq, si, canE) {
 
   var html = '<div style="padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--bg2)">'
     + '<div>'
-    + '<span style="font-size:18px;font-weight:700">📝 ' + xe(INVEST_STEPS[si]) + ' 상세 체크리스트</span>'
+    + '<span style="font-size:18px;font-weight:700">📝 ' + xe(getStepName(si)) + ' ' + t('invest_proc_title') + '</span>'
     + (selIds.length ? '' : '<span style="font-size:13px;color:var(--or);margin-left:8px">(Setup 미설정 — 전체 표시)</span>')
     + '</div>'
     + '<div style="display:flex;align-items:center;gap:12px">'
@@ -4175,7 +4227,7 @@ function _dtSaveDate(type, val) {
   // 상단 진행률 갱신
   var pctLbl = document.getElementById('dtPctLbl');
   if (pctLbl) { var _i2=_dtCalcInfo(eq); pctLbl.innerHTML='<span style="font-size:19px;color:var(--t2);font-weight:500">'+_i2.done+'/'+_i2.total+'&nbsp;</span><span>'+_i2.pct+'%</span>'; }
-  toast('저장', INVEST_STEPS[_dtStepIdx] + ' ' + (type==='target'?'목표일':'실적일') + ' 저장됐습니다.', 'success');
+  toast(t('save'), getStepName(_dtStepIdx) + ' ' + (type==='target'?t('lbl_tgt_date'):t('lbl_act_date')) + ' ' + t('msg_saved'), 'success');
 }
 
 function _dtSaveDateRow(inp) {
