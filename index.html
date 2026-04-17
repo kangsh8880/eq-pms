@@ -1005,8 +1005,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <div class="llogo-ico">⚙️</div>
       <div><h1>EQ-PMS</h1><p>설비투자 프로세스 관리 시스템</p></div>
     </div>
-    <h2 class="ltit">로그인</h2>
-    <p class="lsub">계정 정보를 입력하세요</p>
+    <h2 class="ltit" data-i18n="login_title">로그인</h2>
+    <p class="lsub" data-i18n="login_sub">계정 정보를 입력하세요</p>
     <div class="fg">
       <label>아이디</label>
       <input type="text" id="loginId" placeholder="아이디 입력" autocomplete="username">
@@ -1015,7 +1015,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <label>비밀번호</label>
       <input type="password" id="loginPw" placeholder="비밀번호 입력" autocomplete="current-password">
     </div>
-    <button class="lbtn" id="btnLogin">로그인</button>
+    <button class="lbtn" id="btnLogin" data-i18n="login_btn">로그인</button>
     <div class="lerr" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
     <div class="lhint" style="display:none">
       <strong>테스트 계정</strong><br>
@@ -1031,12 +1031,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
     <div class="hdr-logo"><div class="ico">⚙️</div><span>EQ-PMS</span></div>
     <nav class="hnav">
       <button class="nb" data-p="dashboard" onclick="navTo('dashboard')"><span data-i18n="nav_dashboard">📊 대시보드</span></button>
-      <button class="nb" data-p="master"    onclick="navTo('master')">📋 Master DB</button>
-      <button class="nb" data-p="setup"     onclick="navTo('setup')">⚙️ 프로세스 Setup</button>
-      <button class="nb" data-p="progress"  onclick="navTo('progress')">📈 프로세스 진행현황</button>
-      <button class="nb" data-p="equip"     onclick="navTo('equip')">🏭 설비 투자 진척</button>
-      <button class="nb" data-p="detail"    onclick="navTo('detail')">📊 설비별 실적 현황</button>
-      <button class="nb" data-p="company"   onclick="navTo('company')">🏢 기업 관리</button>
+      <button class="nb" data-p="master"    onclick="navTo('master')"><span data-i18n="nav_master">📋 Master DB</span></button>
+      <button class="nb" data-p="setup"     onclick="navTo('setup')"><span data-i18n="nav_setup">⚙️ 프로세스 Setup</span></button>
+      <button class="nb" data-p="progress"  onclick="navTo('progress')"><span data-i18n="nav_progress">📈 프로세스 진행현황</span></button>
+      <button class="nb" data-p="equip"     onclick="navTo('equip')"><span data-i18n="nav_equip">🏭 설비 투자 진척</span></button>
+      <button class="nb" data-p="detail"    onclick="navTo('detail')"><span data-i18n="nav_detail">📊 설비별 실적 현황</span></button>
+      <button class="nb" data-p="company"   onclick="navTo('company')"><span data-i18n="nav_company">🏢 기업 관리</span></button>
     </nav>
     <div class="hr">
       <div style="display:flex;align-items:center;gap:3px;margin-right:6px">
@@ -1061,12 +1061,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
     </div>
     <nav class="mob-nav">
       <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo('dashboard')"><span data-i18n="nav_dashboard">📊 대시보드</span></button>
-      <button class="mob-nb" data-mp="master"    onclick="mobNavTo('master')">📋 Master DB</button>
-      <button class="mob-nb" data-mp="setup"     onclick="mobNavTo('setup')">⚙️ 프로세스 Setup</button>
-      <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')">📈 프로세스 진행현황</button>
-      <button class="mob-nb" data-mp="equip"     onclick="mobNavTo('equip')">🏭 설비 투자 진척</button>
-      <button class="mob-nb" data-mp="detail"    onclick="mobNavTo('detail')">📊 설비별 실적 현황</button>
-      <button class="mob-nb" data-mp="company"   onclick="mobNavTo('company')">🏢 기업 관리</button>
+      <button class="mob-nb" data-mp="master"    onclick="mobNavTo('master')"><span data-i18n="nav_master">📋 Master DB</span></button>
+      <button class="mob-nb" data-mp="setup"     onclick="mobNavTo('setup')"><span data-i18n="nav_setup">⚙️ 프로세스 Setup</span></button>
+      <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')"><span data-i18n="nav_progress">📈 프로세스 진행현황</span></button>
+      <button class="mob-nb" data-mp="equip"     onclick="mobNavTo('equip')"><span data-i18n="nav_equip">🏭 설비 투자 진척</span></button>
+      <button class="mob-nb" data-mp="detail"    onclick="mobNavTo('detail')"><span data-i18n="nav_detail">📊 설비별 실적 현황</span></button>
+      <button class="mob-nb" data-mp="company"   onclick="mobNavTo('company')"><span data-i18n="nav_company">🏢 기업 관리</span></button>
     </nav>
     <div class="mob-drawer-ftr">
       <div class="mob-user">
@@ -1356,7 +1356,7 @@ function saveAll() {
 // PAT 설정 팝업
 function openPatSettings() {
   var cur = ghPatLoad() || '';
-  var masked = cur ? cur.slice(0,8) + '****************' : '(미설정)';
+  var masked = cur ? cur.slice(0,8) + '****************' : t('pat_none');
   var el = document.createElement('div');
   el.className = 'mov';
   el.onclick = function(e){ if(e.target===el) el.remove(); };
@@ -1365,16 +1365,16 @@ function openPatSettings() {
     + '<button class="mcls" id="patMClose">✕</button></div>'
     + '<div class="mbdy">'
     + '<div style="font-size:16px;color:var(--t2);margin-bottom:14px">'
-    + '저장된 PAT: <code style="color:var(--ac);font-size:14px">' + masked + '</code></div>'
-    + '<div class="frow s1"><div class="flbl">새 PAT 입력</div>'
+    + t('pat_current') + ': <code style="color:var(--ac);font-size:14px">' + masked + '</code></div>'
+    + '<div class="frow s1"><div class="flbl">' + t('pat_input') + '</div>'
     + '<input type="password" id="modalPatInput" class="finp" placeholder="ghp_xxxxxxxxxxxx"'
     + ' autocomplete="off" style="font-family:monospace;font-size:13px"></div>'
     + '<div style="font-size:12px;color:var(--t3);margin-top:6px">'
-    + '⚠️ PAT는 이 브라우저의 localStorage에만 암호화 저장됩니다.</div>'
+    + t('pat_warning') + '</div>'
     + '</div>'
     + '<div class="mftr">'
-    + '<button class="btn bd bsm" id="patMDel">🗑️ 삭제</button>'
-    + '<button class="btn bp bsm" id="patMSave">💾 저장 & 재연결</button>'
+    + '<button class="btn bd bsm" id="patMDel">' + t('pat_del') + '</button>'
+    + '<button class="btn bp bsm" id="patMSave">' + t('pat_save') + '</button>'
     + '</div></div>';
   document.body.appendChild(el);
   document.getElementById('patMClose').onclick = function(){ el.remove(); };
@@ -1453,7 +1453,11 @@ var I18N = {
     col_category:'구분', col_task:'세부검토항목', col_point:'체크포인트',
     col_req:'필수여부', col_doc:'필요문서', col_dept1:'총괄담당',
     col_dept2:'합의', col_dept3:'승인', col_schedule:'표준일정',
+    col_proc_code:'공정코드', col_proc_name:'공정명',
+    col_vend_code:'업체코드', col_eq_name:'설비명', col_model:'모델',
+    col_po:'PO No', col_eqid:'EQ_ID (호기)',
     master_sub:'항목', req_all:'전체 필수여부',
+    req_req:'필수', req_cond:'조건부 필수', req_opt:'선택', req_rec:'권장',
     item_edit:'항목 수정', item_add:'항목 추가',
     setup_sub:'Master DB에서 항목을 선택',
     setup_select_co:'기업을 선택하세요',
@@ -1475,11 +1479,41 @@ var I18N = {
     modal_co_add:'기업 추가', modal_eq_add:'설비 추가',
     sel_co:'기업을 선택하세요', sel_eq:'설비를 선택하세요',
     empty_co:'기업을 선택하세요', empty_setup:'Setup을 먼저 완료하세요',
+    empty_detail:'기업과 설비를 선택하세요',
+    empty_step:'이 단계에 Setup된 항목이 없습니다',
+    empty_eq:'등록된 설비가 없습니다',
+    empty_search:'검색 결과 없음',
+    empty_sel:'항목을 체크하면 여기서 편집',
+    lbl_process:'공정', lbl_manager:'담당자', lbl_progress:'진행률',
+    lbl_code:'코드', lbl_order:'순서', lbl_contact:'연락처',
+    lbl_name:'이름', lbl_date_tgt:'목표일', lbl_date_act:'실적일',
+    lbl_date_clear:'날짜 지우기',
+    lbl_req_notice:'수정가능', lbl_dept_notice:'기업 맞춤 수정',
+    lbl_auto_fill:'공정/업체 선택 시 자동 입력',
+    lbl_seq_notice:'순차 입력 필수',
+    lbl_qty_fixed:'1대 (고정)',
+    lbl_eq_type:'구분', lbl_tgt_hdr:'목표', lbl_act_hdr:'실적',
+    lbl_vend_mgr:'설비업체 담당자', lbl_uti_mgr:'담당자',
+    pat_title:'GitHub PAT 설정',
+    pat_current:'저장된 PAT', pat_input:'새 PAT 입력',
+    pat_warning:'PAT는 로컬에만 암호화 저장됩니다',
+    pat_del:'삭제', pat_save:'저장 및 재연결',
+    pat_none:'(미설정)',
+    stat_this_step:'이 단계', stat_total:'전체', stat_req:'필수',
+    btn_all:'전체', btn_dismiss:'선택 해제', btn_dismiss_step:'이 단계 해제',
+    step_setup_add:'프로세스 Setup에서 항목을 선택하세요',
+    modal_proc_add:'공정 추가', modal_proc_edit:'공정 수정',
+    modal_vend_add:'업체 추가', modal_vend_edit:'업체 수정',
+    modal_eq_modal_add:'설비 추가', modal_eq_modal_edit:'설비 수정',
+    lbl_no_edit:'수정 불가', lbl_edit_mgr_only:'담당자 정보만 수정 가능',
+    lbl_basic_info:'기본 정보', lbl_manager_info:'담당자',
+    lbl_proc_dates:'투자 프로세스 목표일',
+    lbl_from_proc:'공정 Master', lbl_from_vend:'업체 Master',
   },
   en:{
     logout:'Logout', save:'Save', cancel:'Cancel', delete:'Delete',
     edit:'Edit', add:'Add', search:'Search', close:'Close', all:'All',
-    save_icon:'💾 Save', co_add:'+ Add Company', eq_add:'＋ Add Equip',
+    save_icon:'Save', co_add:'+ Add Company', eq_add:'+ Add Equip',
     sync_idle:'Idle', sync_saving:'Saving...', sync_ok:'Saved',
     sync_err:'Failed', sync_load:'Loading...',
     login_title:'Sign In', login_sub:'Enter your credentials', login_btn:'Sign In',
@@ -1501,33 +1535,67 @@ var I18N = {
     col_category:'Category', col_task:'Task', col_point:'Checkpoint',
     col_req:'Required', col_doc:'Document', col_dept1:'Owner',
     col_dept2:'Review', col_dept3:'Approve', col_schedule:'Schedule',
+    col_proc_code:'Process Code', col_proc_name:'Process Name',
+    col_vend_code:'Vendor Code', col_eq_name:'Equipment', col_model:'Model',
+    col_po:'PO No', col_eqid:'EQ_ID',
     master_sub:'items', req_all:'All Types',
+    req_req:'Required', req_cond:'Conditional', req_opt:'Optional', req_rec:'Recommended',
     item_edit:'Edit Item', item_add:'Add Item',
     setup_sub:'Select items from Master DB per company',
     setup_select_co:'Select Company',
     prog_sub:'Track checklist progress by company',
-    prog_total:'📊 Total Progress',
+    prog_total:'Total Progress',
     prog_lbl_total:'Total', prog_lbl_done:'Done', prog_lbl_remain:'Remaining',
     equip_sub:'Manage target / actual dates',
     equip_filter_co:'Company', equip_filter_proc:'All Process',
-    equip_filter_vend:'All Vendor', equip_stat_avg:'📊 Avg Progress',
+    equip_filter_vend:'All Vendor', equip_stat_avg:'Avg Progress',
     detail_select_co:'Company', detail_select_eq:'Equipment',
     co_sub:'Manage company, process and vendor',
-    co_add:'+ Add Company', co_proc_set:'⚙️ Process Setup',
-    co_status:'📈 Status', co_eq_add:'🏭 Add Equip',
-    co_gong_mng:'⚙️ Process Master', co_vend_mng:'🏭 Vendor Master',
-    co_tab_co:'🏢 Company', co_tab_proc:'⚙️ Process Master',
-    co_tab_vend:'🏭 Vendor Master',
+    co_add:'+ Add Company', co_proc_set:'Process Setup',
+    co_status:'Status', co_eq_add:'Add Equip',
+    co_gong_mng:'Process Master', co_vend_mng:'Vendor Master',
+    co_tab_co:'Company', co_tab_proc:'Process Master',
+    co_tab_vend:'Vendor Master',
     co_lbl_eq:'Equip', co_lbl_total:'Total Items', co_lbl_done:'Completed',
     proc_add:'+ Add Process', vend_add:'+ Add Vendor',
     modal_co_add:'Add Company', modal_eq_add:'Add Equipment',
     sel_co:'Select Company', sel_eq:'Select Equipment',
     empty_co:'Select a company', empty_setup:'Complete Setup first',
+    empty_detail:'Select company and equipment',
+    empty_step:'No items set up for this step',
+    empty_eq:'No equipment registered',
+    empty_search:'No results found',
+    empty_sel:'Check items to edit here',
+    lbl_process:'Process', lbl_manager:'Manager', lbl_progress:'Progress',
+    lbl_code:'Code', lbl_order:'Order', lbl_contact:'Contact',
+    lbl_name:'Name', lbl_date_tgt:'Target', lbl_date_act:'Actual',
+    lbl_date_clear:'Clear date',
+    lbl_req_notice:'editable', lbl_dept_notice:'custom by company',
+    lbl_auto_fill:'Auto-filled on selection',
+    lbl_seq_notice:'Sequential input required',
+    lbl_qty_fixed:'1 unit (fixed)',
+    lbl_eq_type:'Type', lbl_tgt_hdr:'Target', lbl_act_hdr:'Actual',
+    lbl_vend_mgr:'Vendor Manager', lbl_uti_mgr:'UTI Manager',
+    pat_title:'GitHub PAT Settings',
+    pat_current:'Current PAT', pat_input:'New PAT',
+    pat_warning:'PAT is stored locally encrypted',
+    pat_del:'Delete', pat_save:'Save & Reconnect',
+    pat_none:'(not set)',
+    stat_this_step:'This step', stat_total:'Total', stat_req:'Required',
+    btn_all:'All', btn_dismiss:'Deselect', btn_dismiss_step:'Deselect step',
+    step_setup_add:'Select items in Process Setup',
+    modal_proc_add:'Add Process', modal_proc_edit:'Edit Process',
+    modal_vend_add:'Add Vendor', modal_vend_edit:'Edit Vendor',
+    modal_eq_modal_add:'Add Equipment', modal_eq_modal_edit:'Edit Equipment',
+    lbl_no_edit:'Cannot edit', lbl_edit_mgr_only:'Manager info only',
+    lbl_basic_info:'Basic Info', lbl_manager_info:'Manager',
+    lbl_proc_dates:'Investment Process Target Dates',
+    lbl_from_proc:'Process Master', lbl_from_vend:'Vendor Master',
   },
   zh:{
     logout:'退出', save:'保存', cancel:'取消', delete:'删除',
     edit:'编辑', add:'添加', search:'搜索', close:'关闭', all:'全部',
-    save_icon:'💾 保存', co_add:'+ 添加企业', eq_add:'＋ 添加设备',
+    save_icon:'保存', co_add:'+ 添加企业', eq_add:'+ 添加设备',
     sync_idle:'待机', sync_saving:'保存中...', sync_ok:'已保存',
     sync_err:'失败', sync_load:'加载中...',
     login_title:'登录', login_sub:'请输入账号信息', login_btn:'登录',
@@ -1549,28 +1617,62 @@ var I18N = {
     col_category:'分类', col_task:'检查项目', col_point:'检查点',
     col_req:'必填', col_doc:'所需文件', col_dept1:'主管',
     col_dept2:'协议', col_dept3:'审批', col_schedule:'标准周期',
+    col_proc_code:'工序代码', col_proc_name:'工序名称',
+    col_vend_code:'供应商代码', col_eq_name:'设备名', col_model:'型号',
+    col_po:'PO号', col_eqid:'EQ_ID',
     master_sub:'项目', req_all:'全部类型',
+    req_req:'必填', req_cond:'条件必填', req_opt:'选填', req_rec:'推荐',
     item_edit:'编辑项目', item_add:'添加项目',
     setup_sub:'从主数据库选择项目进行企业定制',
     setup_select_co:'选择企业',
     prog_sub:'按企业追踪检查清单进度',
-    prog_total:'📊 整体进度',
+    prog_total:'整体进度',
     prog_lbl_total:'总计', prog_lbl_done:'完成', prog_lbl_remain:'未完成',
     equip_sub:'按设备管理目标日/实际日',
     equip_filter_co:'企业', equip_filter_proc:'全部工序',
-    equip_filter_vend:'全部供应商', equip_stat_avg:'📊 平均进度',
+    equip_filter_vend:'全部供应商', equip_stat_avg:'平均进度',
     detail_select_co:'企业', detail_select_eq:'设备',
     co_sub:'企业·工序·供应商综合管理',
-    co_add:'+ 添加企业', co_proc_set:'⚙️ 流程设置',
-    co_status:'📈 状态', co_eq_add:'🏭 添加设备',
-    co_gong_mng:'⚙️ 工序主数据管理', co_vend_mng:'🏭 供应商主数据管理',
-    co_tab_co:'🏢 企业管理', co_tab_proc:'⚙️ 工序主数据',
-    co_tab_vend:'🏭 供应商主数据',
+    co_add:'+ 添加企业', co_proc_set:'流程设置',
+    co_status:'状态', co_eq_add:'添加设备',
+    co_gong_mng:'工序主数据管理', co_vend_mng:'供应商主数据管理',
+    co_tab_co:'企业管理', co_tab_proc:'工序主数据',
+    co_tab_vend:'供应商主数据',
     co_lbl_eq:'设备数', co_lbl_total:'总项目数', co_lbl_done:'完成数',
     proc_add:'+ 添加工序', vend_add:'+ 添加供应商',
     modal_co_add:'添加企业', modal_eq_add:'添加设备',
     sel_co:'选择企业', sel_eq:'选择设备',
     empty_co:'请选择企业', empty_setup:'请先完成设置',
+    empty_detail:'请选择企业和设备',
+    empty_step:'此步骤没有已设置的项目',
+    empty_eq:'没有注册的设备',
+    empty_search:'无搜索结果',
+    empty_sel:'勾选项目在这里编辑',
+    lbl_process:'工序', lbl_manager:'负责人', lbl_progress:'进度',
+    lbl_code:'代码', lbl_order:'序号', lbl_contact:'联系方式',
+    lbl_name:'名称', lbl_date_tgt:'目标日', lbl_date_act:'实际日',
+    lbl_date_clear:'清除日期',
+    lbl_req_notice:'可修改', lbl_dept_notice:'按企业定制',
+    lbl_auto_fill:'选择时自动填充',
+    lbl_seq_notice:'需顺序输入',
+    lbl_qty_fixed:'1台 (固定)',
+    lbl_eq_type:'类型', lbl_tgt_hdr:'目标', lbl_act_hdr:'实际',
+    lbl_vend_mgr:'供应商负责人', lbl_uti_mgr:'负责人',
+    pat_title:'GitHub PAT 设置',
+    pat_current:'当前PAT', pat_input:'新PAT',
+    pat_warning:'PAT仅加密存储在本地',
+    pat_del:'删除', pat_save:'保存并重连',
+    pat_none:'(未设置)',
+    stat_this_step:'本步骤', stat_total:'全部', stat_req:'必填',
+    btn_all:'全部', btn_dismiss:'取消选择', btn_dismiss_step:'取消本步骤',
+    step_setup_add:'请在流程设置中选择项目',
+    modal_proc_add:'添加工序', modal_proc_edit:'编辑工序',
+    modal_vend_add:'添加供应商', modal_vend_edit:'编辑供应商',
+    modal_eq_modal_add:'添加设备', modal_eq_modal_edit:'编辑设备',
+    lbl_no_edit:'不可编辑', lbl_edit_mgr_only:'仅可编辑负责人信息',
+    lbl_basic_info:'基本信息', lbl_manager_info:'负责人',
+    lbl_proc_dates:'投资流程目标日',
+    lbl_from_proc:'工序主数据', lbl_from_vend:'供应商主数据',
   },
   vi:{
     logout:'Dang xuat', save:'Luu', cancel:'Huy', delete:'Xoa',
@@ -1597,28 +1699,62 @@ var I18N = {
     col_category:'Phan loai', col_task:'Hang muc', col_point:'Diem KT',
     col_req:'Bat buoc', col_doc:'Tai lieu', col_dept1:'Phu trach',
     col_dept2:'Xem xet', col_dept3:'Phe duyet', col_schedule:'Lich trinh',
+    col_proc_code:'Ma QT', col_proc_name:'Ten QT',
+    col_vend_code:'Ma NCC', col_eq_name:'Ten TB', col_model:'Model',
+    col_po:'PO No', col_eqid:'EQ_ID',
     master_sub:'hang muc', req_all:'Tat ca loai',
+    req_req:'Bat buoc', req_cond:'Co dieu kien', req_opt:'Tuy chon', req_rec:'Khuyen nghi',
     item_edit:'Sua hang muc', item_add:'Them hang muc',
     setup_sub:'Chon hang muc tu Master DB',
     setup_select_co:'Chon cong ty',
     prog_sub:'Theo doi checklist theo cong ty',
-    prog_total:'📊 Tong tien do',
+    prog_total:'Tong tien do',
     prog_lbl_total:'Tong', prog_lbl_done:'Xong', prog_lbl_remain:'Chua xong',
     equip_sub:'Quan ly ngay muc tieu/thuc te',
     equip_filter_co:'Cong ty', equip_filter_proc:'Tat ca QT',
-    equip_filter_vend:'Tat ca NCC', equip_stat_avg:'📊 TB tien do',
+    equip_filter_vend:'Tat ca NCC', equip_stat_avg:'TB tien do',
     detail_select_co:'Cong ty', detail_select_eq:'Thiet bi',
-    co_sub:'Quan ly tong hop cong ty, QT, NCC',
-    co_add:'+ Them cong ty', co_proc_set:'⚙️ Cai dat QT',
-    co_status:'📈 Trang thai', co_eq_add:'🏭 Them TB',
-    co_gong_mng:'⚙️ QL Master QT', co_vend_mng:'🏭 QL Master NCC',
-    co_tab_co:'🏢 Cong ty', co_tab_proc:'⚙️ Master QT',
-    co_tab_vend:'🏭 Master NCC',
+    co_sub:'Quan ly tong hop cong ty QT NCC',
+    co_add:'+ Them cong ty', co_proc_set:'Cai dat QT',
+    co_status:'Trang thai', co_eq_add:'Them TB',
+    co_gong_mng:'QL Master QT', co_vend_mng:'QL Master NCC',
+    co_tab_co:'Cong ty', co_tab_proc:'Master QT',
+    co_tab_vend:'Master NCC',
     co_lbl_eq:'Thiet bi', co_lbl_total:'Tong HM', co_lbl_done:'Hoan thanh',
     proc_add:'+ Them QT', vend_add:'+ Them NCC',
     modal_co_add:'Them cong ty', modal_eq_add:'Them thiet bi',
     sel_co:'Chon cong ty', sel_eq:'Chon thiet bi',
     empty_co:'Chon cong ty', empty_setup:'Hoan thanh Setup truoc',
+    empty_detail:'Chon cong ty va thiet bi',
+    empty_step:'Khong co hang muc o buoc nay',
+    empty_eq:'Chua co thiet bi',
+    empty_search:'Khong co ket qua',
+    empty_sel:'Chon hang muc de chinh sua',
+    lbl_process:'Quy trinh', lbl_manager:'Phu trach', lbl_progress:'Tien do',
+    lbl_code:'Ma', lbl_order:'Thu tu', lbl_contact:'Lien he',
+    lbl_name:'Ten', lbl_date_tgt:'Muc tieu', lbl_date_act:'Thuc te',
+    lbl_date_clear:'Xoa ngay',
+    lbl_req_notice:'co the sua', lbl_dept_notice:'tuy chinh cong ty',
+    lbl_auto_fill:'Tu dong dien khi chon',
+    lbl_seq_notice:'Nhap theo thu tu',
+    lbl_qty_fixed:'1 cai co dinh',
+    lbl_eq_type:'Loai', lbl_tgt_hdr:'Muc tieu', lbl_act_hdr:'Thuc te',
+    lbl_vend_mgr:'Phu trach NCC', lbl_uti_mgr:'Phu trach',
+    pat_title:'Cai dat PAT',
+    pat_current:'PAT hien tai', pat_input:'PAT moi',
+    pat_warning:'PAT chi luu ma hoa tren may',
+    pat_del:'Xoa', pat_save:'Luu va Ket noi lai',
+    pat_none:'chua dat',
+    stat_this_step:'Buoc nay', stat_total:'Tong', stat_req:'Bat buoc',
+    btn_all:'Tat ca', btn_dismiss:'Bo chon', btn_dismiss_step:'Bo chon buoc nay',
+    step_setup_add:'Chon hang muc o Cai dat QT',
+    modal_proc_add:'Them QT', modal_proc_edit:'Sua QT',
+    modal_vend_add:'Them NCC', modal_vend_edit:'Sua NCC',
+    modal_eq_modal_add:'Them TB', modal_eq_modal_edit:'Sua TB',
+    lbl_no_edit:'Khong the sua', lbl_edit_mgr_only:'Chi sua phu trach',
+    lbl_basic_info:'Thong tin co ban', lbl_manager_info:'Phu trach',
+    lbl_proc_dates:'Ngay muc tieu quy trinh',
+    lbl_from_proc:'Master QT', lbl_from_vend:'Master NCC',
   }
 };
 
@@ -1759,6 +1895,10 @@ function pgDash() {
   STEPS.forEach(function(s){ html += '<th style="padding:9px 8px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:16px">'+xe(s)+'</th>'; });
   html += '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_rate') + '</th>'  + '</tr></thead><tbody>';
 
+  var hasData = filteredCos.some(function(co){ return (state.equipments[co.id]||[]).length > 0; });
+  if (!hasData) {
+    html += '<tr><td colspan="' + (STEPS.length + 3) + '" style="text-align:center;padding:24px;color:var(--t2);font-size:15px">'  + t('empty_eq') + ' — <a href="#" onclick="navTo(\'company\');return false;" style="color:var(--ac)">' + t('co_eq_add') + '</a></td></tr>';
+  }
   filteredCos.forEach(function(co){
     var eqs = state.equipments[co.id]||[];
     if(!eqs.length){ return; }
@@ -1790,7 +1930,7 @@ function pgDash() {
     var gongs = state.gongMaster[co.id]||[];
     var eqs   = state.equipments[co.id]||[];
     eqs.forEach(function(eq){
-      var key = eq.gongCode||t('setup_select_co') || '미지정';
+      var key = eq.gongCode || '미지정';
       var gObj = gongs.find(function(g){ return g.code===eq.gongCode; })||{};
       var nm   = gObj.name ? '['+key+'] '+gObj.name : key;
       if(!gongMap[key]) gongMap[key] = { name:nm, eqs:[], done:0, delayed:0 };
@@ -1815,7 +1955,7 @@ function pgDash() {
     var vends = state.vendorMaster[co.id]||[];
     var eqs   = state.equipments[co.id]||[];
     eqs.forEach(function(eq){
-      var key = eq.vendCode||t('setup_select_co') || '미지정';
+      var key = eq.vendCode || '미지정';
       var vObj= vends.find(function(v){ return v.code===eq.vendCode; })||{};
       var nm  = vObj.name||eq.vendNm||key;
       if(!vendMap[key]) vendMap[key] = { name:nm, eqs:[], done:0, delayed:0 };
@@ -1860,7 +2000,7 @@ function pgDash() {
   });
   html += '</tbody></table></div></div>'  + '</div>';
 
-  gid('pg_dashboard').innerHTML = '<div style="padding:0">'    + '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 18px 12px 18px;background:var(--bg);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10">'    + '<div><h1 style="font-size:22px;font-weight:700;margin:0">📊 대시보드</h1><p style="font-size:14px;color:var(--t2);margin:2px 0 0">기업·공정·설비업체·설비별 투자 프로세스 11단계 진척 현황</p></div>'    + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
+  gid('pg_dashboard').innerHTML = '<div style="padding:0">'    + '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 18px 12px 18px;background:var(--bg);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10">'    + '<div><h1 style="font-size:22px;font-weight:700;margin:0">' + t('nav_dashboard') + '</h1><p style="font-size:14px;color:var(--t2);margin:2px 0 0">' + t('dash_sub') + '</p></div>'    + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
     + '<select id="dashCoFilter" onchange="pgDash()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:15px;font-family:inherit;outline:none;cursor:pointer">'
     + '<option value="">' + t('dash_co_all') + '</option>'
     + state.companies.map(function(c){ return '<option value="' + xe(c.id) + '"' + (dashCoId===c.id?' selected':'') + '>' + xe(c.name) + '</option>'; }).join('')
@@ -1947,8 +2087,8 @@ function pgMaster() {
     + stepBar
     + '<div class="flt">'
     + '<input class="si" id="mSrch" placeholder="🔍 ' + t('search') + '..." oninput="renderMTbl()">'
-    + '<select class="fsel" id="mCatF" onchange="renderMTbl()"><option value="">전체 구분</option>' + catOpts + '</select>'
-    + '<select class="fsel" id="mReqF" onchange="renderMTbl()"><option value="">전체 필수여부</option>'
+    + '<select class="fsel" id="mCatF" onchange="renderMTbl()"><option value="">' + t('col_category') + ' ' + t('btn_all') + '</option>' + catOpts + '</select>'
+    + '<select class="fsel" id="mReqF" onchange="renderMTbl()"><option value="">' + t('req_all') + '</option>'
     + '<option>필수</option><option>조건부 필수</option><option>선택</option><option>권장</option></select>'
     + '<span id="mCnt" style="font-size:16px;color:var(--t2)"></span></div>'
     + '</div>'
@@ -1975,7 +2115,7 @@ function renderMTbl() {
         || (r['총괄담당부서']||'').toLowerCase().indexOf(q) >= 0;
   });
   if (gid('mCnt')) gid('mCnt').textContent = items.length + ' ' + t('master_sub');
-  if (!items.length) { gid('mTbl').innerHTML = '<div class="empty"><div class="ei">🔍</div><h3>검색 결과 없음</h3></div>'; return; }
+  if (!items.length) { gid('mTbl').innerHTML = '<div class="empty"><div class="ei">🔍</div><h3>' + t('empty_search') + '</h3></div>'; return; }
 
   var tbl = '<div class="tw"><table class="tbl"><thead><tr>'
     + '<th style="width:36px">#</th><th style="width:120px">' + t('col_category') + '</th><th style="width:17%">' + t('col_task') + '</th><th style="width:27%">' + t('col_point') + '</th>'
@@ -2066,8 +2206,8 @@ function pgSetup() {
   }).join('');
   gid('pg_setup').innerHTML =
     '<div class="pg-hdr">'
-    + '<div class="ph"><h1 class="pt">⚙️ 프로세스 Setup</h1>'
-    + '<p class="ps">Master DB에서 항목을 선택 → 기업별 커스터마이징</p></div>'
+    + '<div class="ph"><h1 class="pt">' + t('nav_setup') + '</h1>'
+    + '<p class="ps">' + t('setup_sub') + '</p></div>'
     + '<div class="topbar">'
     +   '<b style="font-size:23px">' + t('equip_filter_co') + '</b>'
     +   '<div class="flex-g">'
@@ -2176,8 +2316,8 @@ function renderSMast() {
 
   if (gid('sMSrch')) gid('sMSrch').disabled = false;
   if (gid('sMastBtns')) gid('sMastBtns').innerHTML =
-    '<button class="btn bxs bs" onclick="selAll(true)">전체</button>'
-    + '<button class="btn bxs bs" onclick="selAll(false)">해제</button>'
+    '<button class="btn bxs bs" onclick="selAll(true)">' + t('btn_all') + '</button>'
+    + '<button class="btn bxs bs" onclick="selAll(false)">' + t('btn_dismiss_step') + '</button>'
     + '<button class="btn bxs bw" onclick="selReq()">' + t('col_req') + '</button>';
 
   // 그룹별
@@ -2188,7 +2328,7 @@ function renderSMast() {
     groups[g].push(r);
   });
 
-  if (!items.length) { gid('sMastBody').innerHTML = '<div class="sempty"><div class="ei">🔍</div><p>검색 결과 없음</p></div>'; return; }
+  if (!items.length) { gid('sMastBody').innerHTML = '<div class="sempty"><div class="ei">🔍</div><p>' + t('empty_search') + '</p></div>'; return; }
 
   var html = '';
   gOrder.forEach(function(g){
@@ -2228,7 +2368,7 @@ function renderSSel() {
 
   if (gid('sSelCnt')) gid('sSelCnt').textContent = (s.sel||[]).length + ' (' + t('equip_filter_proc') + ':' + items.length + ')';
   if (!items.length) {
-    gid('sSelBody').innerHTML = '<div class="sempty"><div class="ei">📝</div><p>가운데에서 항목을 체크하세요</p></div>';
+    gid('sSelBody').innerHTML = '<div class="sempty"><div class="ei">📝</div><p>' + t('empty_sel') + '</p></div>';
     return;
   }
 
@@ -2249,19 +2389,19 @@ function renderSSel() {
       + '<div class="flex-g">' + bdg(rq) + '<span class="stog" id="stog' + r.id + '">▶</span></div>'
       + '</div>'
       + '<div class="sib" id="sib' + r.id + '" style="display:none">'
-      + '<div class="sf"><div class="sfl">체크 포인트 <span class="edit-hint">(수정가능)</span></div>'
+      + '<div class="sf"><div class="sfl">' + t('col_point') + ' <span class="edit-hint">(' + t('lbl_req_notice') + ')</span></div>'
       + '<textarea class="sfta" onchange="updC(\'' + coId + '\',' + r.id + ',\'체크포인트\',this.value)">' + xe(cp) + '</textarea></div>'
       + '<div class="sfrow">'
-      + '<div class="sf"><div class="sfl">필수여부</div>'
+      + '<div class="sf"><div class="sfl">' + t('col_req') + '</div>'
       + '<select class="sfin" onchange="updC(\'' + coId + '\',' + r.id + ',\'필수여부\',this.value)">'
-      + ['필수','조건부 필수','선택','권장'].map(function(v){ return '<option' + (rq===v?' selected':'') + '>' + v + '</option>'; }).join('')
+      + [t('req_req'),t('req_cond'),t('req_opt'),t('req_rec')].map(function(v){ return '<option' + (rq===v?' selected':'') + '>' + v + '</option>'; }).join('')
       + '</select></div>'
       + '<div class="sf"><div class="sfl">' + t('col_schedule') + '</div>'
       + '<input class="sfin" placeholder="2026-05-01" value="' + xe(tg) + '" onchange="updT(\'' + coId + '\',' + r.id + ',this.value)"></div>'
       + '</div>'
-      + '<div class="sf"><div class="sfl">필요문서 <span class="edit-hint">(수정가능)</span></div>'
+      + '<div class="sf"><div class="sfl">' + t('col_doc') + ' <span class="edit-hint">(' + t('lbl_req_notice') + ')</span></div>'
       + '<input class="sfin" value="' + xe(dc) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'필요문서\',this.value)"></div>'
-      + '<div class="sf"><div class="sfl">📌 담당 부서 <span class="edit-hint" style="color:var(--or)">(기업 맞춤 수정)</span></div>'
+      + '<div class="sf"><div class="sfl">📌 ' + t('col_dept1') + ' <span class="edit-hint" style="color:var(--or)">(' + t('lbl_dept_notice') + ')</span></div>'
       + '<div class="drow">'
       + '<div><div class="dl">총괄담당</div><input class="sfin" value="' + xe(d1) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'총괄담당부서\',this.value)"></div>'
       + '<div><div class="dl">합의부서</div><input class="sfin" value="' + xe(d2) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'합의부서\',this.value)"></div>'
@@ -2351,9 +2491,9 @@ function updStats(coId) {
   var si  = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key; });
   var siS = si.filter(function(r){ return (s.sel||[]).indexOf(r.id)>=0; }).length;
   if (gid('saveStats')) gid('saveStats').innerHTML =
-    '<span>이 단계: <b>' + siS + '/' + si.length + '</b></span>'
-    + '<span>전체: <b>' + tot + '개</b></span>'
-    + '<span>필수: <b>' + req + '개</b></span>';
+    '<span>' + t('stat_this_step') + ': <b>' + siS + '/' + si.length + '</b></span>'
+    + '<span>' + t('stat_total') + ': <b>' + tot + t('master_sub') + '</b></span>'
+    + '<span>' + t('stat_req') + ': <b>' + req + t('master_sub') + '</b></span>';
 }
 
 function saveStp() {
@@ -2370,8 +2510,8 @@ function pgProgress() {
   }).join('');
   gid('pg_progress').innerHTML =
     '<div class="pg-hdr">'
-    + '<div class="ph"><div><h1 class="pt">📈 프로세스 진행현황</h1>'
-    + '<p class="ps">기업별 프로세스 체크리스트 진행 추적</p></div>'
+    + '<div class="ph"><div><h1 class="pt">' + t('nav_progress') + '</h1>'
+    + '<p class="ps">' + t('prog_sub') + '</p></div>'
     + '<select class="fsel" id="prCoSel" onchange="loadProg()">'
     + '<option value="">' + t('setup_select_co') + '</option>' + opts
     + '</select></div>'
@@ -2478,7 +2618,7 @@ function renderProgItems(coId) {
   if (!items.length) {
     gid('prBody').innerHTML = '<div class="empty" style="margin-top:30px">'
       + '<div class="ei">📭</div><h3>이 단계에 Setup된 항목이 없습니다</h3>'
-      + '<p>프로세스 Setup에서 항목을 선택하세요</p></div>';
+      + '<p>' + t('step_setup_add') + '</p></div>';
     return;
   }
 
@@ -2582,7 +2722,7 @@ function pgEquip() {
     '<div class="pg-hdr">'
     + '<div class="ph" style="margin-bottom:10px">'
     + '<div><h1 class="pt">' + t('nav_equip') + '</h1>'
-    + '<p class="ps">공정별 · 설비(호기)별 투자 프로세스 목표일/실적일 관리</p></div>'
+    + '<p class="ps">' + t('equip_sub') + '</p></div>'
     + '<div class="flex-g" style="align-items:center;gap:8px">'
     + eqBuildFilterBar()
     + (canEdit() ? '<button class="btn bp bsm" id="eqAddBtn" onclick="_openEqFromPage()" style="display:none">＋ 설비 추가</button>' : '')
@@ -2720,12 +2860,12 @@ function renderEquipTbl() {
   // 헤더 1행 (colspan 그룹)
   html += '<thead><tr>'
     + '<th class="th-fix" style="width:90px" rowspan="2">PO No<br>/ EQ_ID</th>'
-    + '<th class="th-fix2" style="width:130px" rowspan="2">공정코드 · 공정명</th>'
-    + '<th class="th-fix3" style="width:140px" rowspan="2">설비명<br><span style="font-weight:400;color:var(--t3)">모델 / 설비업체</span></th>'
+    + '<th class="th-fix2" style="width:130px" rowspan="2">' + t('col_proc_code') + ' · ' + t('col_proc_name') + '</th>'
+    + '<th class="th-fix3" style="width:140px" rowspan="2">' + t('col_eq_name') + '<br><span style="font-weight:400;color:var(--t3)">' + t('col_model') + ' / ' + t('equip_filter_vend') + '</span></th>'
     + '<th style="width:50px" rowspan="2">' + t('col_category') + '</th>'
     + '<th colspan="' + INVEST_STEPS.length + '" style="background:rgba(88,166,255,.08);color:var(--ac)">설비 투자 프로세스</th>'
-    + '<th style="width:80px" rowspan="2">설비업체<br>담당자</th>'
-    + '<th style="width:80px" rowspan="2">UTI<br>담당자</th>'
+    + '<th style="width:80px" rowspan="2">' + t('lbl_vend_mgr') + '</th>'
+    + '<th style="width:80px" rowspan="2">' + t('lbl_uti_mgr') + '</th>'
     + '<th style="width:50px" rowspan="2">' + t('col_rate') + '</th>';
   if (canE) html += '<th style="width:60px" rowspan="2">' + t('edit') + '</th>';
   html += '</tr><tr>';
@@ -2777,10 +2917,10 @@ function renderEquipTbl() {
       // 구분: 목표/실적 행
       html += '<td style="padding:0">'
         + '<div class="eq-date-row" style="padding:3px 6px;border-bottom:1px solid var(--bd2)">'
-        + '<span class="eq-date-lbl" style="background:rgba(88,166,255,.15);color:var(--ac)">목표</span>'
+        + '<span class="eq-date-lbl" style="background:rgba(88,166,255,.15);color:var(--ac)">' + t('lbl_tgt_hdr') + '</span>'
         + '</div>'
         + '<div class="eq-date-row" style="padding:3px 6px">'
-        + '<span class="eq-date-lbl" style="background:rgba(63,185,80,.15);color:var(--gr)">실적</span>'
+        + '<span class="eq-date-lbl" style="background:rgba(63,185,80,.15);color:var(--gr)">' + t('lbl_act_hdr') + '</span>'
         + '</div>'
         + '</td>';
 
@@ -3017,7 +3157,7 @@ function _renderCal(anchorInp) {
   cal.innerHTML =
     '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">'
     + '<button onclick="_calMove(-1)" style="background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);cursor:pointer;width:26px;height:26px;font-size:15px;display:flex;align-items:center;justify-content:center">‹</button>'
-    + '<span style="font-size:14px;font-weight:700">' + y + '년 ' + MONTHS[m] + '</span>'
+    + '<span style="font-size:14px;font-weight:700">' + y + t('lbl_order') + ' ' + MONTHS[m] + '</span>'
     + '<button onclick="_calMove(1)"  style="background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);cursor:pointer;width:26px;height:26px;font-size:15px;display:flex;align-items:center;justify-content:center">›</button>'
     + '</div>'
     + '<div onclick="_calClear()" style="text-align:center;font-size:11px;color:var(--re);cursor:pointer;margin-bottom:4px;padding:2px">✕ 날짜 지우기</div>'
@@ -3122,7 +3262,7 @@ function _openEqModal(coId, idx, eq) {
     var sel = eq && eq.gongCode === g.code ? ' selected' : '';
     return '<option value="' + xe(g.code) + '"' + sel + '>[' + xe(g.code) + '] ' + xe(g.name) + '</option>';
   }).join('');
-  var vOpts = '<option value="">— 업체 선택 —</option>' +
+  var vOpts = '<option value="">' + t('sel_co') + '</option>' +
     coVends.map(function(v){
       var sel = eq && eq.vendCode === v.code ? ' selected' : '';
       return '<option value="' + xe(v.code) + '"' + sel + '>' + xe(v.name) + '</option>';
@@ -3149,7 +3289,7 @@ function _openEqModal(coId, idx, eq) {
       + '<button type="button" id="' + inputId + '_btn"'
       + ' data-inpid="' + inputId + '" data-si="' + si + '" onclick="_showCal(this.dataset.inpid, parseInt(this.dataset.si))"'
       + ' style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:' + (tval?'var(--ac)':'var(--t3)') + ';font-size:13px;font-family:inherit;cursor:pointer;transition:border-color .15s">'
-      + '<span id="' + inputId + '_lbl">' + xe(tval||'날짜 선택') + '</span>'
+      + '<span id="' + inputId + '_lbl">' + xe(tval||t('lbl_date_tgt')) + '</span>'
       + '<span style="font-size:15px;color:var(--t2);flex-shrink:0">📅</span>'
       + '</button>'
       + '</div>';
@@ -3161,7 +3301,7 @@ function _openEqModal(coId, idx, eq) {
     // ① 기업명 헤더
     + '<div style="padding:14px 20px 10px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1">'
     + '<div>'
-    + '<div style="font-size:11px;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px">' + (isEdit?'✏️ 설비 수정':'➕ 설비 추가') + '</div>'
+    + '<div style="font-size:11px;color:var(--t3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px">' + (isEdit?t('modal_eq_edit'):t('modal_eq_add')) + '</div>'
     + '<div style="font-size:22px;font-weight:800;color:var(--ac)">' + xe(coNm) + '</div>'
     + '</div>'
     + '<button onclick="_closeEqModal()" style="width:30px;height:30px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center">✕</button>'
@@ -3169,7 +3309,7 @@ function _openEqModal(coId, idx, eq) {
     + '<div style="padding:18px 20px">'
 
     // 기본 정보
-    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--bd)">📋 기본 정보</div>'
+    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--bd)">' + t('lbl_basic_info') + '</div>'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
     + '<div><div class="eq-flbl">공정 *</div><select class="eq-fsel" id="eqM_gong" onchange="_eqAutoFillGong()"><option value="">— 선택 —</option>' + gOpts + '</select></div>'
     + '<div><div class="eq-flbl">설비업체 *</div><select class="eq-fsel" id="eqM_vend" onchange="_eqAutoFillVend()">' + vOpts + '</select></div>'
@@ -3187,7 +3327,7 @@ function _openEqModal(coId, idx, eq) {
     + '<input type="hidden" id="eqM_qty" value="1"></div>'
 
     // 담당자
-    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--bd);margin-top:4px">👤 담당자 <span style="font-size:11px;font-weight:400;color:var(--ac);text-transform:none;letter-spacing:0">공정/업체 선택 시 자동 입력</span></div>'
+    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--bd);margin-top:4px">' + t('lbl_manager_info') + ' <span style="font-size:11px;font-weight:400;color:var(--ac);text-transform:none;letter-spacing:0">' + t('lbl_auto_fill') + '</span></div>'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
     + '<div><div class="eq-flbl">설비업체 담당자명 <span style="color:var(--ac);font-size:10px">← 업체 Master</span></div>'
     + '<input class="eq-finp" id="eqM_vmgr" placeholder="업체 선택 시 자동입력" value="' + xe(initVmgr) + '"></div>'
@@ -3202,7 +3342,7 @@ function _openEqModal(coId, idx, eq) {
     + '</div>'
 
     // ② 투자 프로세스 목표일
-    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--bd)">📅 투자 프로세스 목표일 <span style="font-size:11px;font-weight:400;color:var(--t3);text-transform:none;letter-spacing:0">순차 입력 필수</span></div>'
+    + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--bd)">' + t('lbl_proc_dates') + ' <span style="font-size:11px;font-weight:400;color:var(--t3);text-transform:none;letter-spacing:0">' + t('lbl_seq_notice') + '</span></div>'
     + stepRows
 
     // 비고
@@ -3380,7 +3520,7 @@ function pgDetail() {
     // 설비명
     + '<span id="dtEqNameLbl" style="display:none"></span>'
     // ① 공정명
-    + '<span style="font-size:14px;color:var(--t2)">공정</span>'
+    + '<span style="font-size:14px;color:var(--t2)">' + t('lbl_process') + '</span>'
     + '<span id="dtGongLbl" style="font-size:16px;font-weight:600;color:var(--ac)"></span>'
     // ② PO No
     + '<span style="color:var(--bd);font-size:18px">|</span>'
@@ -3392,12 +3532,12 @@ function pgDetail() {
     + '<span id="dtEqIdLbl" style="font-size:16px;font-weight:600"></span>'
     // ④ 담당자
     + '<span style="color:var(--bd);font-size:18px">|</span>'
-    + '<span style="font-size:14px;color:var(--t2)">담당자</span>'
+    + '<span style="font-size:14px;color:var(--t2)">' + t('lbl_manager') + '</span>'
     + '<span id="dtMgrLbl" style="font-size:16px;font-weight:600;color:var(--gr)"></span>'
     // 진행률
     + '<span style="color:var(--bd);font-size:18px">|</span>'
     + '<span id="dtPctLbl" style="font-size:24px;font-weight:800;color:var(--ac)"></span>'
-    + '<span style="font-size:17px;color:var(--t2)">진행률</span>'
+    + '<span style="font-size:17px;color:var(--t2)">' + t('lbl_progress') + '</span>'
     + '</div>'
     + '</div>'
     // 스텝바
@@ -3422,7 +3562,7 @@ function _dtLoadCo(keepEq) {
   _dtCoId  = coId || null;
   var eqSel = document.getElementById('dtEqSel');
   if (!eqSel) return;
-  eqSel.innerHTML = '<option value="">— 설비 선택 —</option>';
+  eqSel.innerHTML = '<option value="">' + t('sel_eq') + '</option>';
   if (!coId) { _dtClear(); return; }
   var eqs = state.equipments[coId] || [];
   eqs.forEach(function(eq, i) {
@@ -3492,7 +3632,7 @@ function _dtClear() {
 
   // 설비 드롭다운 초기화
   var eqSel = document.getElementById('dtEqSel');
-  if (eqSel) eqSel.innerHTML = '<option value="">— 설비 선택 —</option>';
+  if (eqSel) eqSel.innerHTML = '<option value="">' + t('sel_eq') + '</option>';
 }
 
 function _dtRenderStepBar() {
@@ -4103,17 +4243,17 @@ function pgCompany() {
     {key:'vendor',  label:t('co_tab_vend')}
   ];
   var tabHtml = '<div style="display:flex;gap:4px;border-bottom:1px solid var(--bd);background:var(--bg2);border:1px solid var(--bd);border-top:none;padding:0 14px;border-radius:0 0 0 0">';
-  tabs.forEach(function(t) {
-    var active = _coTab === t.key;
-    var disabled = (t.key !== 'company') && !_coSelId;
-    tabHtml += '<button onclick="' + (disabled ? '' : "_coSwitchTab('" + t.key + "')") + '"'
+  tabs.forEach(function(tab) {
+    var active = _coTab === tab.key;
+    var disabled = (tab.key !== 'company') && !_coSelId;
+    tabHtml += '<button onclick="' + (disabled ? '' : "_coSwitchTab('" + tab.key + "')") + '"'
       + ' style="' + tabStyle
       + 'font-weight:' + (active?'700':'500') + ';'
       + 'color:' + (active?'var(--ac)':disabled?'var(--bd)':'var(--t2)') + ';'
       + 'border-bottom:' + (active?'2px solid var(--ac)':'2px solid transparent') + ';'
       + 'cursor:' + (disabled?'not-allowed':'pointer') + '"'
       + (disabled?' title="' + t('setup_select_co') + '"':'') + '>'
-      + t.label + '</button>';
+      + tab.label + '</button>';
   });
   tabHtml += '</div>';
 
@@ -4124,7 +4264,7 @@ function pgCompany() {
 
   gid('pg_company').innerHTML =
     '<div class="ph" style="margin-bottom:14px">'
-    + '<div><h1 class="pt">🏢 기업 관리</h1><p class="ps">기업 · 공정 · 설비업체 통합 관리</p></div>'
+    + '<div><h1 class="pt">' + t('nav_company') + '</h1><p class="ps">' + t('co_sub') + '</p></div>'
     + '</div>'
     + coPickHtml + tabHtml
     + '<div style="margin-top:14px">' + bodyHtml + '</div>';
@@ -4191,8 +4331,8 @@ function _renderCoGong(canE) {
     + (canE ? '<button class="btn bp bsm" onclick="_openGongModal(null)">＋ 공정 추가</button>' : '')
     + '</div>'
     + '<div class="tw" style="max-height:calc(100vh - 300px);overflow-y:auto"><table class="tbl"><thead><tr>'
-    + '<th style="width:60px">순서</th><th style="width:130px">공정코드</th><th>' + t('col_process') + '</th>'
-    + '<th style="width:130px">담당자명</th><th style="width:150px">연락처</th>'
+    + '<th style="width:60px">' + t('lbl_order') + '</th><th style="width:130px">' + t('col_proc_code') + '</th><th>' + t('col_proc_name') + '</th>'
+    + '<th style="width:130px">' + t('lbl_manager') + '</th><th style="width:150px">' + t('lbl_contact') + '</th>'
     + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
     + '</tr></thead><tbody>';
   gongs.forEach(function(g, i) {
@@ -4215,7 +4355,7 @@ function _openGongModal(idx) {
   var g = isEdit ? gongs[idx] : {};
   var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
   var html = '<div class="mov" id="gongMdlOv" style="display:flex" onclick="if(event.target===this)_closeGongModal()">'
-    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'✏️ 공정 수정':'➕ 공정 추가') + '</h3>'
+    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?t('modal_proc_edit'):t('modal_proc_add')) + '</h3>'
     + '<button class="mcls" onclick="_closeGongModal()">✕</button></div><div class="mbdy">'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
     + '<div><div class="eq-flbl">공정코드' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
@@ -4225,12 +4365,12 @@ function _openGongModal(idx) {
     + '</div>'
     + '<div style="margin-bottom:14px"><div class="eq-flbl">공정명' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
     + '<input class="eq-finp" id="gM_name" value="' + xe(g.name||'') + '" placeholder="예: MS Auto Racking1"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
-    + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ 담당자 정보만 수정할 수 있습니다.</div>' : '')
+    + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ ' + t('lbl_edit_mgr_only') + '</div>' : '')
     + '<div class="eq-modal-grid"><div><div class="eq-flbl">담당자명</div><input class="eq-finp" id="gM_mgr" value="' + xe(g.manager||'') + '" placeholder="담당자명"></div>'
     + '<div><div class="eq-flbl">연락처</div><input class="eq-finp" id="gM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(g.contact||'') + '" placeholder="연락처"></div></div>'
     + '</div><div class="mftr"><input type="hidden" id="gM_idx" value="' + (isEdit?idx:'null') + '">'
-    + '<button class="btn bs" onclick="_closeGongModal()">취소</button>'
-    + '<button class="btn bg" onclick="_saveGong()">💾 저장</button></div></div></div>';
+    + '<button class="btn bs" onclick="_closeGongModal()">' + t('cancel') + '</button>'
+    + '<button class="btn bg" onclick="_saveGong()">' + t('save_icon') + '</button></div></div></div>';
   var w = document.createElement('div'); w.id = 'gongMdlWrap'; w.innerHTML = html;
   document.body.appendChild(w);
   isEdit ? gid('gM_mgr').focus() : gid('gM_code').focus();
@@ -4266,7 +4406,7 @@ function _renderCoVendor(canE) {
     + (canE ? '<button class="btn bp bsm" onclick="_openVendModal(null)">＋ 업체 추가</button>' : '')
     + '</div>'
     + '<div class="tw"><table class="tbl"><thead><tr>'
-    + '<th style="width:140px">업체코드</th><th style="width:160px">' + t('col_vend') + '</th>'
+    + '<th style="width:140px">' + t('col_vend_code') + '</th><th style="width:160px">' + t('col_vend') + '</th>'
     + '<th style="width:140px">' + t('col_dept1') + '</th><th>' + t('col_dept2') + '</th>'
     + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
     + '</tr></thead><tbody>';
@@ -4289,7 +4429,7 @@ function _openVendModal(idx) {
   var v = isEdit ? vends[idx] : {};
   var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
   var html = '<div class="mov" id="vendMdlOv" style="display:flex" onclick="if(event.target===this)_closeVendModal()">'
-    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'✏️ 업체 수정':'➕ 업체 추가') + '</h3>'
+    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?t('modal_vend_edit'):t('modal_vend_add')) + '</h3>'
     + '<button class="mcls" onclick="_closeVendModal()">✕</button></div><div class="mbdy">'
     + '<div class="eq-modal-grid" style="margin-bottom:14px">'
     + '<div><div class="eq-flbl">업체코드' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
@@ -4297,12 +4437,12 @@ function _openVendModal(idx) {
     + '<div><div class="eq-flbl">업체명' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
     + '<input class="eq-finp" id="vM_name" value="' + xe(v.name||'') + '" placeholder="업체명"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
     + '</div>'
-    + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ 담당자 정보만 수정할 수 있습니다.</div>' : '')
+    + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ ' + t('lbl_edit_mgr_only') + '</div>' : '')
     + '<div class="eq-modal-grid"><div><div class="eq-flbl">담당자명</div><input class="eq-finp" id="vM_mgr" value="' + xe(v.manager||'') + '" placeholder="담당자명"></div>'
     + '<div><div class="eq-flbl">연락처</div><input class="eq-finp" id="vM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(v.contact||'') + '" placeholder="연락처"></div></div>'
     + '</div><div class="mftr"><input type="hidden" id="vM_idx" value="' + (isEdit?idx:'null') + '">'
-    + '<button class="btn bs" onclick="_closeVendModal()">취소</button>'
-    + '<button class="btn bg" onclick="_saveVend()">💾 저장</button></div></div></div>';
+    + '<button class="btn bs" onclick="_closeVendModal()">' + t('cancel') + '</button>'
+    + '<button class="btn bg" onclick="_saveVend()">' + t('save_icon') + '</button></div></div></div>';
   var w = document.createElement('div'); w.id = 'vendMdlWrap'; w.innerHTML = html;
   document.body.appendChild(w);
   isEdit ? gid('vM_mgr').focus() : gid('vM_code').focus();
@@ -4371,6 +4511,7 @@ function goEquip(coId) {
         setTimeout(function(){ _openEqModal(coId, null, null); }, 150);
       }
     }
+
   }, 80);
 }
 
