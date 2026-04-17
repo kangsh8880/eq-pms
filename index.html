@@ -1932,7 +1932,7 @@ function pgDash() {
   var html = '<div style="padding:14px 16px">'
   // ── 기업별 진척 현황 ──
   + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_co_table') + '</div>'  + '<div style="overflow-x:auto">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_co') + '</th>'  + '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_eq_cnt') + '</th>';
-  STEPS.forEach(function(s){ html += '<th style="padding:9px 8px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:16px">'+xe(s)+'</th>'; });
+  STEPS.forEach(function(s, _si){ html += '<th style="padding:9px 8px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:16px">'+xe(getStepName(_si))+'</th>'; });
   html += '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_rate') + '</th>'  + '</tr></thead><tbody>';
 
   var hasData = filteredCos.some(function(co){ return (state.equipments[co.id]||[]).length > 0; });
@@ -2015,7 +2015,7 @@ function pgDash() {
   // ── 설비별 11단계 진척 상세 ──
   + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_eq_table') + '</div>'  + '<div style="overflow-x:auto;overflow-y:auto;max-height:420px">'  + '<table style="width:100%;border-collapse:collapse;font-size:17px">'  + '<thead><tr style="background:var(--bg3);position:sticky;top:0;z-index:1">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_co') + '</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_equip') + '</th>';
   STEPS.forEach(function(s,si){
-    html += '<th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:15px;color:var(--t2)">'+(si+1)+'.'+xe(s)+'</th>';
+    html += '<th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:15px;color:var(--t2)">'+(si+1)+'.'+xe(getStepName(si))+'</th>';
   });
   html += '<th style="padding:8px 12px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_rate') + '</th>'  + '</tr></thead><tbody>';
 
