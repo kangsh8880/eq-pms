@@ -1103,7 +1103,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <div class="frow s1"><div><div class="flbl">세부 검토 항목 *</div><input class="finp" id="mTtl" placeholder="항목명"></div></div>
       <div class="frow s1"><div><div class="flbl">체크 포인트</div><textarea class="fta" id="mChk"></textarea></div></div>
       <div class="frow">
-        <div><div class="flbl">필수여부</div><select class="fslc" id="mReq"><option>필수</option><option>조건부 필수</option><option>선택</option><option>권장</option></select></div>
+        <div><div class="flbl">필수여부</div><select class="fslc" id="mReq"><option>'+t('req_req')+'</option><option>'+t('req_cond')+'</option><option>'+t('req_opt')+'</option><option>'+t('req_rec')+'</option></select></div>
         <div><div class="flbl">표준일정</div><input class="finp" id="mSch" placeholder="예: 2주"></div>
       </div>
       <div class="frow s1"><div><div class="flbl">필요문서</div><input class="finp" id="mDoc"></div></div>
@@ -1361,7 +1361,7 @@ function openPatSettings() {
   el.className = 'mov';
   el.onclick = function(e){ if(e.target===el) el.remove(); };
   el.innerHTML = '<div class="mdl" style="max-width:460px">'
-    + '<div class="mhdr"><h3>🔑 GitHub PAT 설정</h3>'
+    + '<div class="mhdr"><h3>🔑 '+t('pat_title')+'</h3>'
     + '<button class="mcls" id="patMClose">✕</button></div>'
     + '<div class="mbdy">'
     + '<div style="font-size:16px;color:var(--t2);margin-bottom:14px">'
@@ -1429,372 +1429,284 @@ var _theme = localStorage.getItem('eq_theme') || 'light';
 
 var I18N = {
   ko:{
-    logout:'로그아웃', save:'저장', cancel:'취소', delete:'삭제',
-    edit:'수정', add:'추가', search:'검색', close:'닫기', all:'전체',
-    save_icon:'💾 저장', co_add:'+ 기업 추가', eq_add:'＋ 설비 추가',
-    sync_idle:'대기중', sync_saving:'저장 중...', sync_ok:'저장됨',
-    sync_err:'저장 실패', sync_load:'로드 중...',
-    login_title:'로그인', login_sub:'계정 정보를 입력하세요', login_btn:'로그인',
-    nav_dashboard:'📊 대시보드', nav_master:'📋 Master DB',
-    nav_setup:'⚙️ 프로세스 Setup', nav_progress:'📈 진행현황',
-    nav_equip:'🏭 설비 투자 진척', nav_detail:'📊 설비별 실적',
-    nav_company:'🏢 기업 관리',
+    logout:'로그아웃',save:'저장',cancel:'취소',delete:'삭제',edit:'수정',add:'추가',search:'검색',close:'닫기',all:'전체',
+    save_icon:'💾 저장',co_add:'기업 추가',eq_add:'설비 추가',
+    sync_idle:'대기중',sync_saving:'저장 중...',sync_ok:'저장됨',sync_err:'저장 실패',sync_load:'로드 중...',
+    login_title:'로그인',login_sub:'계정 정보를 입력하세요',login_btn:'로그인',
+    nav_dashboard:'📊 대시보드',nav_master:'📋 Master DB',nav_setup:'⚙️ 프로세스 Setup',
+    nav_progress:'📈 진행현황',nav_equip:'🏭 설비 투자 진척',nav_detail:'📊 설비별 실적',nav_company:'🏢 기업 관리',
     dash_sub:'기업·공정·설비업체·설비별 11단계 진척 현황',
-    dash_co_all:'🏢 전체 기업', dash_refresh:'🔄 새로고침',
-    dash_kpi_co:'등록 기업', dash_kpi_eq:'등록 설비',
-    dash_kpi_done:'완료 설비', dash_kpi_delay:'지연 설비',
-    dash_co_table:'🏢 기업별 설비 투자 진척 현황',
-    dash_proc_table:'⚙️ 공정별 설비 진척 현황',
-    dash_vend_table:'🏭 설비업체별 진척 현황',
-    dash_eq_table:'🔧 설비별 11단계 투자 진척 현황',
-    col_co:'기업명', col_eq_cnt:'설비수', col_process:'공정명',
-    col_vend:'업체명', col_eq:'설비', col_done:'완료',
-    col_delay:'지연', col_rate:'진척률', col_equip:'호기/설비명',
-    col_category:'구분', col_task:'세부검토항목', col_point:'체크포인트',
-    col_req:'필수여부', col_doc:'필요문서', col_dept1:'총괄담당',
-    col_dept2:'합의', col_dept3:'승인', col_schedule:'표준일정',
-    col_proc_code:'공정코드', col_proc_name:'공정명',
-    col_vend_code:'업체코드', col_eq_name:'설비명', col_model:'모델',
-    col_po:'PO No', col_eqid:'EQ_ID (호기)',
-    master_sub:'항목', req_all:'전체 필수여부',
-    req_req:'필수', req_cond:'조건부 필수', req_opt:'선택', req_rec:'권장',
-    item_edit:'항목 수정', item_add:'항목 추가',
-    setup_sub:'Master DB에서 항목을 선택',
-    setup_select_co:'기업을 선택하세요',
-    prog_sub:'기업별 프로세스 체크리스트 진행 추적',
-    prog_total:'📊 전체 진행률',
-    prog_lbl_total:'전체 항목', prog_lbl_done:'완료', prog_lbl_remain:'미완료',
-    equip_sub:'목표일/실적일 관리',
-    equip_filter_co:'기업', equip_filter_proc:'전체 공정',
-    equip_filter_vend:'전체 업체', equip_stat_avg:'📊 평균 진행률',
-    detail_select_co:'기업', detail_select_eq:'설비',
-    co_sub:'기업·공정·설비업체 통합 관리',
-    co_add:'+ 기업 추가', co_proc_set:'⚙️ 프로세스 Setting',
-    co_status:'📈 현황', co_eq_add:'🏭 설비등록',
-    co_gong_mng:'⚙️ 공정Master관리', co_vend_mng:'🏭 업체Master관리',
-    co_tab_co:'🏢 기업 관리', co_tab_proc:'⚙️ 공정 Master',
-    co_tab_vend:'🏭 설비업체 Master',
-    co_lbl_eq:'설비수', co_lbl_total:'총 항목수', co_lbl_done:'완료 항목수',
-    proc_add:'+ 공정 추가', vend_add:'+ 업체 추가',
-    modal_co_add:'기업 추가', modal_eq_add:'설비 추가',
-    sel_co:'기업을 선택하세요', sel_eq:'설비를 선택하세요',
-    empty_co:'기업을 선택하세요', empty_setup:'Setup을 먼저 완료하세요',
-    empty_detail:'기업과 설비를 선택하세요',
-    empty_step:'이 단계에 Setup된 항목이 없습니다',
-    empty_eq:'등록된 설비가 없습니다',
-    empty_search:'검색 결과 없음',
-    empty_sel:'항목을 체크하면 여기서 편집',
-    lbl_process:'공정', lbl_manager:'담당자', lbl_progress:'진행률',
-    lbl_code:'코드', lbl_order:'순서', lbl_contact:'연락처',
-    lbl_name:'이름', lbl_date_tgt:'목표일', lbl_date_act:'실적일',
-    lbl_date_clear:'날짜 지우기',
-    lbl_req_notice:'수정가능', lbl_dept_notice:'기업 맞춤 수정',
-    lbl_auto_fill:'공정/업체 선택 시 자동 입력',
-    lbl_seq_notice:'순차 입력 필수',
-    lbl_qty_fixed:'1대 (고정)',
-    lbl_eq_type:'구분', lbl_tgt_hdr:'목표', lbl_act_hdr:'실적',
-    lbl_vend_mgr:'설비업체 담당자', lbl_uti_mgr:'담당자',
-    pat_title:'GitHub PAT 설정',
-    pat_current:'저장된 PAT', pat_input:'새 PAT 입력',
-    pat_warning:'PAT는 로컬에만 암호화 저장됩니다',
-    pat_del:'삭제', pat_save:'저장 및 재연결',
-    pat_none:'(미설정)',
-    stat_this_step:'이 단계', stat_total:'전체', stat_req:'필수',
-    btn_all:'전체', btn_dismiss:'선택 해제', btn_dismiss_step:'이 단계 해제',
+    dash_co_all:'🏢 전체 기업',dash_refresh:'🔄 새로고침',
+    dash_kpi_co:'등록 기업',dash_kpi_eq:'등록 설비',dash_kpi_done:'완료 설비',dash_kpi_delay:'지연 설비',
+    dash_co_table:'🏢 기업별 설비 투자 진척 현황',dash_proc_table:'⚙️ 공정별 설비 진척 현황',
+    dash_vend_table:'🏭 설비업체별 진척 현황',dash_eq_table:'🔧 설비별 11단계 투자 진척 현황',
+    col_co:'기업명',col_eq_cnt:'설비수',col_process:'공정명',col_vend:'업체명',col_eq:'설비',
+    col_done:'완료',col_delay:'지연',col_rate:'진척률',col_equip:'호기/설비명',
+    col_category:'구분',col_task:'세부검토항목',col_point:'체크포인트',
+    col_req:'필수여부',col_doc:'필요문서',col_dept1:'총괄담당',col_dept2:'합의',col_dept3:'승인',col_schedule:'표준일정',
+    col_proc_code:'공정코드',col_proc_name:'공정명',col_vend_code:'업체코드',col_eq_name:'설비명',col_model:'모델명',
+    col_po:'PO No',col_eqid:'EQ_ID (호기)',
+    master_sub:'항목',req_all:'전체 필수여부',
+    req_req:'필수',req_cond:'조건부 필수',req_opt:'선택',req_rec:'권장',
+    item_edit:'항목 수정',item_add:'항목 추가',
+    setup_sub:'Master DB에서 항목을 선택',setup_select_co:'기업을 선택하세요',
+    setup_proc_step:'프로세스 단계',setup_sel_title:'선택 항목 (편집)',
+    setup_sel_hint:'항목을 체크하면 여기서 편집',setup_step_hint:'단계를 선택하세요',
+    prog_sub:'기업별 프로세스 체크리스트 진행 추적',prog_total:'📊 전체 진행률',
+    prog_lbl_total:'전체 항목',prog_lbl_done:'완료',prog_lbl_remain:'미완료',prog_badge_done:'✅ 완료',
+    equip_sub:'목표일/실적일 관리',equip_filter_co:'기업',equip_filter_proc:'전체 공정',
+    equip_filter_vend:'전체 업체',equip_stat_avg:'📊 평균 진행률',
+    detail_select_co:'기업',detail_select_eq:'설비',
+    co_sub:'기업·공정·설비업체 통합 관리',co_add:'기업 추가',co_proc_set:'⚙️ 프로세스 Setting',
+    co_status:'📈 현황',co_eq_add:'🏭 설비등록',
+    co_gong_mng:'⚙️ 공정Master관리',co_vend_mng:'🏭 업체Master관리',
+    co_tab_co:'🏢 기업 관리',co_tab_proc:'⚙️ 공정 Master',co_tab_vend:'🏭 설비업체 Master',
+    co_lbl_eq:'설비수',co_lbl_total:'총 항목수',co_lbl_done:'완료 항목수',
+    co_selected:'✅ 선택됨',co_select_hint:'공정/업체 관리 시 기업 선택 필요',
+    proc_add:'공정 추가',vend_add:'업체 추가',
+    modal_co_add:'기업 추가',modal_eq_add:'설비 추가',
+    sel_co:'기업을 선택하세요',sel_eq:'설비를 선택하세요',sel_vend:'업체를 선택하세요',
+    empty_co:'기업을 선택하세요',empty_setup:'Setup을 먼저 완료하세요',
+    empty_detail:'기업과 설비를 선택하세요',empty_step:'이 단계에 Setup된 항목이 없습니다',
+    empty_eq:'등록된 설비가 없습니다',empty_search:'검색 결과 없음',empty_sel:'항목을 체크하면 여기서 편집',
+    lbl_process:'공정',lbl_manager:'담당자',lbl_progress:'진행률',
+    lbl_code:'코드',lbl_order:'순서',lbl_contact:'연락처',lbl_name:'이름',
+    lbl_date_tgt:'목표일',lbl_date_act:'실적일',lbl_date_clear:'날짜 지우기',
+    lbl_req_notice:'수정가능',lbl_dept_notice:'기업 맞춤 수정',lbl_auto_fill:'공정/업체 선택 시 자동 입력',
+    lbl_seq_notice:'순차 입력 필수',lbl_qty_fixed:'1대 (고정)',
+    lbl_eq_type:'구분',lbl_tgt_hdr:'목표',lbl_act_hdr:'실적',
+    lbl_vend_mgr:'설비업체 담당자',lbl_uti_mgr:'UTI 담당자',lbl_setup_hint:'(Setup 필요)',
+    pat_title:'GitHub PAT 설정',pat_current:'저장된 PAT',pat_input:'새 PAT 입력',
+    pat_warning:'PAT는 로컬에만 암호화 저장됩니다',pat_del:'🗑️ 삭제',pat_save:'💾 저장 및 재연결',pat_none:'(미설정)',
+    stat_this_step:'이 단계',stat_total:'전체',stat_req:'필수',
+    btn_all:'전체',btn_dismiss:'선택 해제',btn_dismiss_step:'이 단계 해제',btn_edit:'수정',btn_del:'삭제',
     step_setup_add:'프로세스 Setup에서 항목을 선택하세요',
-    modal_proc_add:'공정 추가', modal_proc_edit:'공정 수정',
-    modal_vend_add:'업체 추가', modal_vend_edit:'업체 수정',
-    modal_eq_modal_add:'설비 추가', modal_eq_modal_edit:'설비 수정',
-    lbl_no_edit:'수정 불가', lbl_edit_mgr_only:'담당자 정보만 수정 가능',
-    lbl_basic_info:'기본 정보', lbl_manager_info:'담당자',
-    lbl_proc_dates:'투자 프로세스 목표일',
-    lbl_from_proc:'공정 Master', lbl_from_vend:'업체 Master',
+    modal_proc_add:'➕ 공정 추가',modal_proc_edit:'✏️ 공정 수정',
+    modal_vend_add:'➕ 업체 추가',modal_vend_edit:'✏️ 업체 수정',
+    modal_eq_modal_add:'➕ 설비 추가',modal_eq_modal_edit:'✏️ 설비 수정',
+    lbl_no_edit:'수정 불가',lbl_edit_mgr_only:'담당자 정보만 수정 가능',
+    lbl_basic_info:'📋 기본 정보',lbl_manager_info:'👤 담당자',lbl_proc_dates:'📅 투자 프로세스 목표일',
+    lbl_from_proc:'공정 Master',lbl_from_vend:'업체 Master',
     invest_proc_title:'투자 프로세스',
-    step_planning:'투자기획', step_spec:'사양정의', step_review:'투자심의',
-    step_order:'발주(계약)', step_mfg:'제작', step_fat:'FAT',
-    step_ship:'출하/통관', step_install:'설치', step_trial:'시운전/SAT',
-    step_qual:'Qual(검증)', step_mass:'양산',
-    steps_0:'투자기획', steps_1:'사양정의', steps_2:'투자심의',
-    steps_3:'발주', steps_4:'제작', steps_5:'FAT',
-    steps_6:'출하', steps_7:'설치', steps_8:'SAT', steps_9:'Qual',
-    lbl_tgt_date:'목표일', lbl_act_date:'실적일',
-    msg_saved:'저장됐습니다',
+    step_planning:'투자기획',step_spec:'사양정의',step_review:'투자심의',
+    step_order:'발주(계약)',step_mfg:'제작',step_fat:'FAT',
+    step_ship:'출하/통관',step_install:'설치',step_trial:'시운전/SAT',
+    step_qual:'Qual(검증)',step_mass:'양산',
+    steps_0:'투자기획',steps_1:'사양정의',steps_2:'투자심의',steps_3:'발주',
+    steps_4:'제작',steps_5:'FAT',steps_6:'출하',steps_7:'설치',steps_8:'SAT',steps_9:'Qual',
+    lbl_tgt_date:'목표일',lbl_act_date:'실적일',msg_saved:'저장됐습니다',
+    lbl_delay:'지연',lbl_checklist:'상세 체크리스트',lbl_done_badge:'✅ 완료',
+    dt_hdr_item:'항목',dt_hdr_tgt:'목표일',dt_hdr_act:'실적일',dt_hdr_edit:'편집',
   },
   en:{
-    logout:'Logout', save:'Save', cancel:'Cancel', delete:'Delete',
-    edit:'Edit', add:'Add', search:'Search', close:'Close', all:'All',
-    save_icon:'Save', co_add:'+ Add Company', eq_add:'+ Add Equip',
-    sync_idle:'Idle', sync_saving:'Saving...', sync_ok:'Saved',
-    sync_err:'Failed', sync_load:'Loading...',
-    login_title:'Sign In', login_sub:'Enter your credentials', login_btn:'Sign In',
-    nav_dashboard:'📊 Dashboard', nav_master:'📋 Master DB',
-    nav_setup:'⚙️ Process Setup', nav_progress:'📈 Progress',
-    nav_equip:'🏭 Equip Progress', nav_detail:'📊 Equip Detail',
-    nav_company:'🏢 Company',
+    logout:'Logout',save:'Save',cancel:'Cancel',delete:'Delete',edit:'Edit',add:'Add',search:'Search',close:'Close',all:'All',
+    save_icon:'💾 Save',co_add:'Add Company',eq_add:'Add Equip',
+    sync_idle:'Idle',sync_saving:'Saving...',sync_ok:'Saved',sync_err:'Failed',sync_load:'Loading...',
+    login_title:'Sign In',login_sub:'Enter your credentials',login_btn:'Sign In',
+    nav_dashboard:'📊 Dashboard',nav_master:'📋 Master DB',nav_setup:'⚙️ Process Setup',
+    nav_progress:'📈 Progress',nav_equip:'🏭 Equip Progress',nav_detail:'📊 Equip Detail',nav_company:'🏢 Company',
     dash_sub:'11-step progress by company / process / vendor / equipment',
-    dash_co_all:'🏢 All Companies', dash_refresh:'🔄 Refresh',
-    dash_kpi_co:'Companies', dash_kpi_eq:'Equipment',
-    dash_kpi_done:'Completed', dash_kpi_delay:'Delayed',
-    dash_co_table:'🏢 Equipment Progress by Company',
-    dash_proc_table:'⚙️ Progress by Process',
-    dash_vend_table:'🏭 Progress by Vendor',
-    dash_eq_table:'🔧 11-Step Progress by Equipment',
-    col_co:'Company', col_eq_cnt:'Equip', col_process:'Process',
-    col_vend:'Vendor', col_eq:'Equip', col_done:'Done',
-    col_delay:'Delay', col_rate:'Progress', col_equip:'Equipment',
-    col_category:'Category', col_task:'Task', col_point:'Checkpoint',
-    col_req:'Required', col_doc:'Document', col_dept1:'Owner',
-    col_dept2:'Review', col_dept3:'Approve', col_schedule:'Schedule',
-    col_proc_code:'Process Code', col_proc_name:'Process Name',
-    col_vend_code:'Vendor Code', col_eq_name:'Equipment', col_model:'Model',
-    col_po:'PO No', col_eqid:'EQ_ID',
-    master_sub:'items', req_all:'All Types',
-    req_req:'Required', req_cond:'Conditional', req_opt:'Optional', req_rec:'Recommended',
-    item_edit:'Edit Item', item_add:'Add Item',
-    setup_sub:'Select items from Master DB per company',
-    setup_select_co:'Select Company',
-    prog_sub:'Track checklist progress by company',
-    prog_total:'Total Progress',
-    prog_lbl_total:'Total', prog_lbl_done:'Done', prog_lbl_remain:'Remaining',
-    equip_sub:'Manage target / actual dates',
-    equip_filter_co:'Company', equip_filter_proc:'All Process',
-    equip_filter_vend:'All Vendor', equip_stat_avg:'Avg Progress',
-    detail_select_co:'Company', detail_select_eq:'Equipment',
-    co_sub:'Manage company, process and vendor',
-    co_add:'+ Add Company', co_proc_set:'Process Setup',
-    co_status:'Status', co_eq_add:'Add Equip',
-    co_gong_mng:'Process Master', co_vend_mng:'Vendor Master',
-    co_tab_co:'Company', co_tab_proc:'Process Master',
-    co_tab_vend:'Vendor Master',
-    co_lbl_eq:'Equip', co_lbl_total:'Total Items', co_lbl_done:'Completed',
-    proc_add:'+ Add Process', vend_add:'+ Add Vendor',
-    modal_co_add:'Add Company', modal_eq_add:'Add Equipment',
-    sel_co:'Select Company', sel_eq:'Select Equipment',
-    empty_co:'Select a company', empty_setup:'Complete Setup first',
-    empty_detail:'Select company and equipment',
-    empty_step:'No items set up for this step',
-    empty_eq:'No equipment registered',
-    empty_search:'No results found',
-    empty_sel:'Check items to edit here',
-    lbl_process:'Process', lbl_manager:'Manager', lbl_progress:'Progress',
-    lbl_code:'Code', lbl_order:'Order', lbl_contact:'Contact',
-    lbl_name:'Name', lbl_date_tgt:'Target', lbl_date_act:'Actual',
-    lbl_date_clear:'Clear date',
-    lbl_req_notice:'editable', lbl_dept_notice:'custom by company',
-    lbl_auto_fill:'Auto-filled on selection',
-    lbl_seq_notice:'Sequential input required',
-    lbl_qty_fixed:'1 unit (fixed)',
-    lbl_eq_type:'Type', lbl_tgt_hdr:'Target', lbl_act_hdr:'Actual',
-    lbl_vend_mgr:'Vendor Manager', lbl_uti_mgr:'UTI Manager',
-    pat_title:'GitHub PAT Settings',
-    pat_current:'Current PAT', pat_input:'New PAT',
-    pat_warning:'PAT is stored locally encrypted',
-    pat_del:'Delete', pat_save:'Save & Reconnect',
-    pat_none:'(not set)',
-    stat_this_step:'This step', stat_total:'Total', stat_req:'Required',
-    btn_all:'All', btn_dismiss:'Deselect', btn_dismiss_step:'Deselect step',
+    dash_co_all:'🏢 All Companies',dash_refresh:'🔄 Refresh',
+    dash_kpi_co:'Companies',dash_kpi_eq:'Equipment',dash_kpi_done:'Completed',dash_kpi_delay:'Delayed',
+    dash_co_table:'🏢 Equipment Progress by Company',dash_proc_table:'⚙️ Progress by Process',
+    dash_vend_table:'🏭 Progress by Vendor',dash_eq_table:'🔧 11-Step Progress by Equipment',
+    col_co:'Company',col_eq_cnt:'Equip',col_process:'Process',col_vend:'Vendor',col_eq:'Equip',
+    col_done:'Done',col_delay:'Delay',col_rate:'Progress',col_equip:'Equipment',
+    col_category:'Category',col_task:'Task',col_point:'Checkpoint',
+    col_req:'Required',col_doc:'Document',col_dept1:'Owner',col_dept2:'Review',col_dept3:'Approve',col_schedule:'Schedule',
+    col_proc_code:'Process Code',col_proc_name:'Process Name',col_vend_code:'Vendor Code',col_eq_name:'Equipment',col_model:'Model',
+    col_po:'PO No',col_eqid:'EQ_ID',
+    master_sub:'items',req_all:'All Types',
+    req_req:'Required',req_cond:'Conditional',req_opt:'Optional',req_rec:'Recommended',
+    item_edit:'Edit Item',item_add:'Add Item',
+    setup_sub:'Select items from Master DB per company',setup_select_co:'Select Company',
+    setup_proc_step:'Process Steps',setup_sel_title:'Selected Items (Edit)',
+    setup_sel_hint:'Check items to edit here',setup_step_hint:'Select a step',
+    prog_sub:'Track checklist progress by company',prog_total:'Total Progress',
+    prog_lbl_total:'Total',prog_lbl_done:'Done',prog_lbl_remain:'Remaining',prog_badge_done:'✅ Done',
+    equip_sub:'Manage target / actual dates',equip_filter_co:'Company',equip_filter_proc:'All Process',
+    equip_filter_vend:'All Vendor',equip_stat_avg:'Avg Progress',
+    detail_select_co:'Company',detail_select_eq:'Equipment',
+    co_sub:'Manage company, process and vendor',co_add:'Add Company',co_proc_set:'Process Setup',
+    co_status:'Status',co_eq_add:'Add Equip',
+    co_gong_mng:'Process Master',co_vend_mng:'Vendor Master',
+    co_tab_co:'Company',co_tab_proc:'Process Master',co_tab_vend:'Vendor Master',
+    co_lbl_eq:'Equip',co_lbl_total:'Total Items',co_lbl_done:'Completed',
+    co_selected:'✅ Selected',co_select_hint:'Select company to manage process/vendor',
+    proc_add:'Add Process',vend_add:'Add Vendor',
+    modal_co_add:'Add Company',modal_eq_add:'Add Equipment',
+    sel_co:'Select Company',sel_eq:'Select Equipment',sel_vend:'Select Vendor',
+    empty_co:'Select a company',empty_setup:'Complete Setup first',
+    empty_detail:'Select company and equipment',empty_step:'No items set up for this step',
+    empty_eq:'No equipment registered',empty_search:'No results found',empty_sel:'Check items to edit here',
+    lbl_process:'Process',lbl_manager:'Manager',lbl_progress:'Progress',
+    lbl_code:'Code',lbl_order:'Order',lbl_contact:'Contact',lbl_name:'Name',
+    lbl_date_tgt:'Target',lbl_date_act:'Actual',lbl_date_clear:'Clear date',
+    lbl_req_notice:'editable',lbl_dept_notice:'custom per company',lbl_auto_fill:'Auto-filled on selection',
+    lbl_seq_notice:'Sequential input required',lbl_qty_fixed:'1 unit (fixed)',
+    lbl_eq_type:'Type',lbl_tgt_hdr:'Target',lbl_act_hdr:'Actual',
+    lbl_vend_mgr:'Vendor Manager',lbl_uti_mgr:'UTI Manager',lbl_setup_hint:'(Setup required)',
+    pat_title:'GitHub PAT Settings',pat_current:'Current PAT',pat_input:'New PAT',
+    pat_warning:'PAT is stored locally encrypted',pat_del:'🗑️ Delete',pat_save:'💾 Save & Reconnect',pat_none:'(not set)',
+    stat_this_step:'This step',stat_total:'Total',stat_req:'Required',
+    btn_all:'All',btn_dismiss:'Deselect',btn_dismiss_step:'Deselect step',btn_edit:'Edit',btn_del:'Delete',
     step_setup_add:'Select items in Process Setup',
-    modal_proc_add:'Add Process', modal_proc_edit:'Edit Process',
-    modal_vend_add:'Add Vendor', modal_vend_edit:'Edit Vendor',
-    modal_eq_modal_add:'Add Equipment', modal_eq_modal_edit:'Edit Equipment',
-    lbl_no_edit:'Cannot edit', lbl_edit_mgr_only:'Manager info only',
-    lbl_basic_info:'Basic Info', lbl_manager_info:'Manager',
-    lbl_proc_dates:'Investment Process Target Dates',
-    lbl_from_proc:'Process Master', lbl_from_vend:'Vendor Master',
+    modal_proc_add:'➕ Add Process',modal_proc_edit:'✏️ Edit Process',
+    modal_vend_add:'➕ Add Vendor',modal_vend_edit:'✏️ Edit Vendor',
+    modal_eq_modal_add:'➕ Add Equipment',modal_eq_modal_edit:'✏️ Edit Equipment',
+    lbl_no_edit:'Cannot edit',lbl_edit_mgr_only:'Manager info only',
+    lbl_basic_info:'📋 Basic Info',lbl_manager_info:'👤 Manager',lbl_proc_dates:'📅 Investment Process Target Dates',
+    lbl_from_proc:'Process Master',lbl_from_vend:'Vendor Master',
     invest_proc_title:'Investment Process',
-    step_planning:'Planning', step_spec:'Specification', step_review:'Inv. Review',
-    step_order:'Order/PO', step_mfg:'Manufacturing', step_fat:'FAT',
-    step_ship:'Shipping', step_install:'Installation', step_trial:'Trial/SAT',
-    step_qual:'Qual', step_mass:'Mass Prod',
-    steps_0:'Planning', steps_1:'Spec', steps_2:'Review',
-    steps_3:'Order', steps_4:'Mfg', steps_5:'FAT',
-    steps_6:'Shipping', steps_7:'Install', steps_8:'SAT', steps_9:'Qual',
-    lbl_tgt_date:'Target date', lbl_act_date:'Actual date',
-    msg_saved:'Saved',
+    step_planning:'Planning',step_spec:'Specification',step_review:'Inv. Review',
+    step_order:'Order/PO',step_mfg:'Manufacturing',step_fat:'FAT',
+    step_ship:'Shipping',step_install:'Installation',step_trial:'Trial/SAT',
+    step_qual:'Qual',step_mass:'Mass Prod',
+    steps_0:'Planning',steps_1:'Spec',steps_2:'Review',steps_3:'Order',
+    steps_4:'Mfg',steps_5:'FAT',steps_6:'Shipping',steps_7:'Install',steps_8:'SAT',steps_9:'Qual',
+    lbl_tgt_date:'Target date',lbl_act_date:'Actual date',msg_saved:'Saved',
+    lbl_delay:'Delay',lbl_checklist:'Detail Checklist',lbl_done_badge:'✅ Done',
+    dt_hdr_item:'Item',dt_hdr_tgt:'Target',dt_hdr_act:'Actual',dt_hdr_edit:'Edit',
   },
   zh:{
-    logout:'退出', save:'保存', cancel:'取消', delete:'删除',
-    edit:'编辑', add:'添加', search:'搜索', close:'关闭', all:'全部',
-    save_icon:'保存', co_add:'+ 添加企业', eq_add:'+ 添加设备',
-    sync_idle:'待机', sync_saving:'保存中...', sync_ok:'已保存',
-    sync_err:'失败', sync_load:'加载中...',
-    login_title:'登录', login_sub:'请输入账号信息', login_btn:'登录',
-    nav_dashboard:'📊 仪表盘', nav_master:'📋 主数据库',
-    nav_setup:'⚙️ 流程设置', nav_progress:'📈 进度状态',
-    nav_equip:'🏭 设备进度', nav_detail:'📊 设备明细',
-    nav_company:'🏢 企业管理',
+    logout:'退出',save:'保存',cancel:'取消',delete:'删除',edit:'编辑',add:'添加',search:'搜索',close:'关闭',all:'全部',
+    save_icon:'💾 保存',co_add:'添加企业',eq_add:'添加设备',
+    sync_idle:'待机',sync_saving:'保存中...',sync_ok:'已保存',sync_err:'失败',sync_load:'加载中...',
+    login_title:'登录',login_sub:'请输入账号信息',login_btn:'登录',
+    nav_dashboard:'📊 仪表盘',nav_master:'📋 主数据库',nav_setup:'⚙️ 流程设置',
+    nav_progress:'📈 进度状态',nav_equip:'🏭 设备进度',nav_detail:'📊 设备明细',nav_company:'🏢 企业管理',
     dash_sub:'按企业/工序/供应商/设备的11步进度',
-    dash_co_all:'🏢 全部企业', dash_refresh:'🔄 刷新',
-    dash_kpi_co:'企业数', dash_kpi_eq:'设备数',
-    dash_kpi_done:'完成', dash_kpi_delay:'延误',
-    dash_co_table:'🏢 按企业的设备投资进度',
-    dash_proc_table:'⚙️ 按工序进度',
-    dash_vend_table:'🏭 按供应商进度',
-    dash_eq_table:'🔧 设备11步投资进度',
-    col_co:'企业', col_eq_cnt:'设备数', col_process:'工序',
-    col_vend:'供应商', col_eq:'设备', col_done:'完成',
-    col_delay:'延误', col_rate:'进度', col_equip:'设备名',
-    col_category:'分类', col_task:'检查项目', col_point:'检查点',
-    col_req:'必填', col_doc:'所需文件', col_dept1:'主管',
-    col_dept2:'协议', col_dept3:'审批', col_schedule:'标准周期',
-    col_proc_code:'工序代码', col_proc_name:'工序名称',
-    col_vend_code:'供应商代码', col_eq_name:'设备名', col_model:'型号',
-    col_po:'PO号', col_eqid:'EQ_ID',
-    master_sub:'项目', req_all:'全部类型',
-    req_req:'必填', req_cond:'条件必填', req_opt:'选填', req_rec:'推荐',
-    item_edit:'编辑项目', item_add:'添加项目',
-    setup_sub:'从主数据库选择项目进行企业定制',
-    setup_select_co:'选择企业',
-    prog_sub:'按企业追踪检查清单进度',
-    prog_total:'整体进度',
-    prog_lbl_total:'总计', prog_lbl_done:'完成', prog_lbl_remain:'未完成',
-    equip_sub:'按设备管理目标日/实际日',
-    equip_filter_co:'企业', equip_filter_proc:'全部工序',
-    equip_filter_vend:'全部供应商', equip_stat_avg:'平均进度',
-    detail_select_co:'企业', detail_select_eq:'设备',
-    co_sub:'企业·工序·供应商综合管理',
-    co_add:'+ 添加企业', co_proc_set:'流程设置',
-    co_status:'状态', co_eq_add:'添加设备',
-    co_gong_mng:'工序主数据管理', co_vend_mng:'供应商主数据管理',
-    co_tab_co:'企业管理', co_tab_proc:'工序主数据',
-    co_tab_vend:'供应商主数据',
-    co_lbl_eq:'设备数', co_lbl_total:'总项目数', co_lbl_done:'完成数',
-    proc_add:'+ 添加工序', vend_add:'+ 添加供应商',
-    modal_co_add:'添加企业', modal_eq_add:'添加设备',
-    sel_co:'选择企业', sel_eq:'选择设备',
-    empty_co:'请选择企业', empty_setup:'请先完成设置',
-    empty_detail:'请选择企业和设备',
-    empty_step:'此步骤没有已设置的项目',
-    empty_eq:'没有注册的设备',
-    empty_search:'无搜索结果',
-    empty_sel:'勾选项目在这里编辑',
-    lbl_process:'工序', lbl_manager:'负责人', lbl_progress:'进度',
-    lbl_code:'代码', lbl_order:'序号', lbl_contact:'联系方式',
-    lbl_name:'名称', lbl_date_tgt:'目标日', lbl_date_act:'实际日',
-    lbl_date_clear:'清除日期',
-    lbl_req_notice:'可修改', lbl_dept_notice:'按企业定制',
-    lbl_auto_fill:'选择时自动填充',
-    lbl_seq_notice:'需顺序输入',
-    lbl_qty_fixed:'1台 (固定)',
-    lbl_eq_type:'类型', lbl_tgt_hdr:'目标', lbl_act_hdr:'实际',
-    lbl_vend_mgr:'供应商负责人', lbl_uti_mgr:'负责人',
-    pat_title:'GitHub PAT 设置',
-    pat_current:'当前PAT', pat_input:'新PAT',
-    pat_warning:'PAT仅加密存储在本地',
-    pat_del:'删除', pat_save:'保存并重连',
-    pat_none:'(未设置)',
-    stat_this_step:'本步骤', stat_total:'全部', stat_req:'必填',
-    btn_all:'全部', btn_dismiss:'取消选择', btn_dismiss_step:'取消本步骤',
+    dash_co_all:'🏢 全部企业',dash_refresh:'🔄 刷新',
+    dash_kpi_co:'企业数',dash_kpi_eq:'设备数',dash_kpi_done:'完成',dash_kpi_delay:'延误',
+    dash_co_table:'🏢 按企业的设备投资进度',dash_proc_table:'⚙️ 按工序进度',
+    dash_vend_table:'🏭 按供应商进度',dash_eq_table:'🔧 设备11步投资进度',
+    col_co:'企业',col_eq_cnt:'设备数',col_process:'工序',col_vend:'供应商',col_eq:'设备',
+    col_done:'完成',col_delay:'延误',col_rate:'进度',col_equip:'设备名',
+    col_category:'分类',col_task:'检查项目',col_point:'检查点',
+    col_req:'必填',col_doc:'所需文件',col_dept1:'主管',col_dept2:'协议',col_dept3:'审批',col_schedule:'标准周期',
+    col_proc_code:'工序代码',col_proc_name:'工序名称',col_vend_code:'供应商代码',col_eq_name:'设备名',col_model:'型号',
+    col_po:'PO号',col_eqid:'EQ_ID',
+    master_sub:'项目',req_all:'全部类型',
+    req_req:'必填',req_cond:'条件必填',req_opt:'选填',req_rec:'推荐',
+    item_edit:'编辑项目',item_add:'添加项目',
+    setup_sub:'从主数据库选择项目进行企业定制',setup_select_co:'选择企业',
+    setup_proc_step:'流程步骤',setup_sel_title:'选中项目 (编辑)',
+    setup_sel_hint:'勾选项目在这里编辑',setup_step_hint:'选择步骤',
+    prog_sub:'按企业追踪检查清单进度',prog_total:'整体进度',
+    prog_lbl_total:'总计',prog_lbl_done:'完成',prog_lbl_remain:'未完成',prog_badge_done:'✅ 完成',
+    equip_sub:'按设备管理目标日/实际日',equip_filter_co:'企业',equip_filter_proc:'全部工序',
+    equip_filter_vend:'全部供应商',equip_stat_avg:'平均进度',
+    detail_select_co:'企业',detail_select_eq:'设备',
+    co_sub:'企业·工序·供应商综合管理',co_add:'添加企业',co_proc_set:'流程设置',
+    co_status:'状态',co_eq_add:'添加设备',
+    co_gong_mng:'工序主数据管理',co_vend_mng:'供应商主数据管理',
+    co_tab_co:'企业管理',co_tab_proc:'工序主数据',co_tab_vend:'供应商主数据',
+    co_lbl_eq:'设备数',co_lbl_total:'总项目数',co_lbl_done:'完成数',
+    co_selected:'✅ 已选',co_select_hint:'请先选择企业再管理工序/供应商',
+    proc_add:'添加工序',vend_add:'添加供应商',
+    modal_co_add:'添加企业',modal_eq_add:'添加设备',
+    sel_co:'选择企业',sel_eq:'选择设备',sel_vend:'选择供应商',
+    empty_co:'请选择企业',empty_setup:'请先完成设置',
+    empty_detail:'请选择企业和设备',empty_step:'此步骤没有已设置的项目',
+    empty_eq:'没有注册的设备',empty_search:'无搜索结果',empty_sel:'勾选项目在这里编辑',
+    lbl_process:'工序',lbl_manager:'负责人',lbl_progress:'进度',
+    lbl_code:'代码',lbl_order:'序号',lbl_contact:'联系方式',lbl_name:'名称',
+    lbl_date_tgt:'目标日',lbl_date_act:'实际日',lbl_date_clear:'清除日期',
+    lbl_req_notice:'可修改',lbl_dept_notice:'按企业定制',lbl_auto_fill:'选择时自动填充',
+    lbl_seq_notice:'需顺序输入',lbl_qty_fixed:'1台 (固定)',
+    lbl_eq_type:'类型',lbl_tgt_hdr:'目标',lbl_act_hdr:'实际',
+    lbl_vend_mgr:'供应商负责人',lbl_uti_mgr:'UTI负责人',lbl_setup_hint:'(需设置)',
+    pat_title:'GitHub PAT 设置',pat_current:'当前PAT',pat_input:'新PAT',
+    pat_warning:'PAT仅加密存储在本地',pat_del:'🗑️ 删除',pat_save:'💾 保存并重连',pat_none:'(未设置)',
+    stat_this_step:'本步骤',stat_total:'全部',stat_req:'必填',
+    btn_all:'全部',btn_dismiss:'取消选择',btn_dismiss_step:'取消本步骤',btn_edit:'编辑',btn_del:'删除',
     step_setup_add:'请在流程设置中选择项目',
-    modal_proc_add:'添加工序', modal_proc_edit:'编辑工序',
-    modal_vend_add:'添加供应商', modal_vend_edit:'编辑供应商',
-    modal_eq_modal_add:'添加设备', modal_eq_modal_edit:'编辑设备',
-    lbl_no_edit:'不可编辑', lbl_edit_mgr_only:'仅可编辑负责人信息',
-    lbl_basic_info:'基本信息', lbl_manager_info:'负责人',
-    lbl_proc_dates:'投资流程目标日',
-    lbl_from_proc:'工序主数据', lbl_from_vend:'供应商主数据',
+    modal_proc_add:'➕ 添加工序',modal_proc_edit:'✏️ 编辑工序',
+    modal_vend_add:'➕ 添加供应商',modal_vend_edit:'✏️ 编辑供应商',
+    modal_eq_modal_add:'➕ 添加设备',modal_eq_modal_edit:'✏️ 编辑设备',
+    lbl_no_edit:'不可编辑',lbl_edit_mgr_only:'仅可编辑负责人信息',
+    lbl_basic_info:'📋 基本信息',lbl_manager_info:'👤 负责人',lbl_proc_dates:'📅 投资流程目标日',
+    lbl_from_proc:'工序主数据',lbl_from_vend:'供应商主数据',
     invest_proc_title:'投资流程',
-    step_planning:'投资规划', step_spec:'规格定义', step_review:'投资审查',
-    step_order:'发注(合同)', step_mfg:'制造', step_fat:'FAT',
-    step_ship:'出货/通关', step_install:'安装', step_trial:'试运行/SAT',
-    step_qual:'Qual(验证)', step_mass:'量产',
-    steps_0:'规划', steps_1:'规格', steps_2:'审查',
-    steps_3:'发注', steps_4:'制造', steps_5:'FAT',
-    steps_6:'出货', steps_7:'安装', steps_8:'试运行', steps_9:'Qual',
-    lbl_tgt_date:'目标日', lbl_act_date:'实际日',
-    msg_saved:'已保存',
+    step_planning:'投资规划',step_spec:'规格定义',step_review:'投资审查',
+    step_order:'发注(合同)',step_mfg:'制造',step_fat:'FAT',
+    step_ship:'出货/通关',step_install:'安装',step_trial:'试运行/SAT',
+    step_qual:'Qual(验证)',step_mass:'量产',
+    steps_0:'规划',steps_1:'规格',steps_2:'审查',steps_3:'发注',
+    steps_4:'制造',steps_5:'FAT',steps_6:'出货',steps_7:'安装',steps_8:'试运行',steps_9:'Qual',
+    lbl_tgt_date:'目标日',lbl_act_date:'实际日',msg_saved:'已保存',
+    lbl_delay:'延误',lbl_checklist:'详细检查清单',lbl_done_badge:'✅ 完成',
+    dt_hdr_item:'项目',dt_hdr_tgt:'目标日',dt_hdr_act:'实际日',dt_hdr_edit:'编辑',
   },
   vi:{
-    logout:'Đăng xuất', save:'Lưu', cancel:'Hủy', delete:'Xóa',
-    edit:'Sửa', add:'Thêm', search:'Tìm', close:'Đóng', all:'Tất cả',
-    save_icon:'Lưu', co_add:'+ Thêm công ty', eq_add:'+ Thêm thiết bị',
-    sync_idle:'Chờ', sync_saving:'Đang lưu...', sync_ok:'Đã lưu',
-    sync_err:'Lỗi', sync_load:'Đang tải...',
-    login_title:'Đăng nhập', login_sub:'Nhập thông tin tài khoản', login_btn:'Đăng nhập',
-    nav_dashboard:'📊 Bảng điều khiển', nav_master:'📋 Master DB',
-    nav_setup:'⚙️ Cài đặt QT', nav_progress:'📈 Tiến độ',
-    nav_equip:'🏭 Tiến độ TB', nav_detail:'📊 Chi tiết TB',
-    nav_company:'🏢 Quản lý',
+    logout:'Đăng xuất',save:'Lưu',cancel:'Hủy',delete:'Xóa',edit:'Sửa',add:'Thêm',search:'Tìm',close:'Đóng',all:'Tất cả',
+    save_icon:'💾 Lưu',co_add:'Thêm công ty',eq_add:'Thêm thiết bị',
+    sync_idle:'Chờ',sync_saving:'Đang lưu...',sync_ok:'Đã lưu',sync_err:'Lỗi',sync_load:'Đang tải...',
+    login_title:'Đăng nhập',login_sub:'Nhập thông tin tài khoản',login_btn:'Đăng nhập',
+    nav_dashboard:'📊 Bảng điều khiển',nav_master:'📋 Master DB',nav_setup:'⚙️ Cài đặt QT',
+    nav_progress:'📈 Tiến độ',nav_equip:'🏭 Tiến độ TB',nav_detail:'📊 Chi tiết TB',nav_company:'🏢 Quản lý',
     dash_sub:'Tiến độ 11 bước theo công ty/quy trình/nhà cung cấp',
-    dash_co_all:'🏢 Tất cả công ty', dash_refresh:'🔄 Làm mới',
-    dash_kpi_co:'Công ty', dash_kpi_eq:'Thiết bị',
-    dash_kpi_done:'Hoàn thành', dash_kpi_delay:'Trễ hạn',
-    dash_co_table:'🏢 Tiến độ thiết bị theo công ty',
-    dash_proc_table:'⚙️ Tiến độ theo quy trình',
-    dash_vend_table:'🏭 Tiến độ theo nhà cung cấp',
-    dash_eq_table:'🔧 Tiến độ 11 bước theo thiết bị',
-    col_co:'Công ty', col_eq_cnt:'Thiết bị', col_process:'Quy trình',
-    col_vend:'Nhà CC', col_eq:'TB', col_done:'Xong',
-    col_delay:'Trễ', col_rate:'Tiến độ', col_equip:'Tên thiết bị',
-    col_category:'Phân loại', col_task:'Hạng mục', col_point:'Điểm KT',
-    col_req:'Bắt buộc', col_doc:'Tài liệu', col_dept1:'Phụ trách',
-    col_dept2:'Xem xét', col_dept3:'Phê duyệt', col_schedule:'Lịch trình',
-    col_proc_code:'Mã QT', col_proc_name:'Tên QT',
-    col_vend_code:'Mã NCC', col_eq_name:'Tên TB', col_model:'Model',
-    col_po:'PO No', col_eqid:'EQ_ID',
-    master_sub:'hạng mục', req_all:'Tất cả loại',
-    req_req:'Bắt buộc', req_cond:'Có điều kiện', req_opt:'Tùy chọn', req_rec:'Khuyến nghị',
-    item_edit:'Sửa hạng mục', item_add:'Thêm hạng mục',
-    setup_sub:'Chọn hạng mục từ Master DB theo công ty',
-    setup_select_co:'Chọn công ty',
-    prog_sub:'Theo dõi checklist theo công ty',
-    prog_total:'Tổng tiến độ',
-    prog_lbl_total:'Tổng', prog_lbl_done:'Xong', prog_lbl_remain:'Chưa xong',
-    equip_sub:'Quản lý ngày mục tiêu/thực tế',
-    equip_filter_co:'Công ty', equip_filter_proc:'Tất cả QT',
-    equip_filter_vend:'Tất cả NCC', equip_stat_avg:'TB tiến độ',
-    detail_select_co:'Công ty', detail_select_eq:'Thiết bị',
-    co_sub:'Quản lý tổng hợp: công ty, QT, NCC',
-    co_add:'+ Thêm công ty', co_proc_set:'Cài đặt QT',
-    co_status:'Trạng thái', co_eq_add:'Thêm TB',
-    co_gong_mng:'QL Master QT', co_vend_mng:'QL Master NCC',
-    co_tab_co:'Công ty', co_tab_proc:'Master QT',
-    co_tab_vend:'Master NCC',
-    co_lbl_eq:'Thiết bị', co_lbl_total:'Tổng HM', co_lbl_done:'Hoàn thành',
-    proc_add:'+ Thêm QT', vend_add:'+ Thêm NCC',
-    modal_co_add:'Thêm công ty', modal_eq_add:'Thêm thiết bị',
-    sel_co:'Chọn công ty', sel_eq:'Chọn thiết bị',
-    empty_co:'Chọn công ty', empty_setup:'Hoàn thành Setup trước',
-    empty_detail:'Chọn công ty và thiết bị',
-    empty_step:'Không có hạng mục ở bước này',
-    empty_eq:'Chưa có thiết bị',
-    empty_search:'Không có kết quả',
-    empty_sel:'Chọn hạng mục để chỉnh sửa',
-    lbl_process:'Quy trình', lbl_manager:'Phụ trách', lbl_progress:'Tiến độ',
-    lbl_code:'Mã', lbl_order:'Thứ tự', lbl_contact:'Liên hệ',
-    lbl_name:'Tên', lbl_date_tgt:'Mục tiêu', lbl_date_act:'Thực tế',
-    lbl_date_clear:'Xóa ngày',
-    lbl_req_notice:'có thể sửa', lbl_dept_notice:'tùy chỉnh công ty',
-    lbl_auto_fill:'Tự động điền khi chọn',
-    lbl_seq_notice:'Nhập theo thứ tự',
-    lbl_qty_fixed:'1 cái (cố định)',
-    lbl_eq_type:'Loại', lbl_tgt_hdr:'Mục tiêu', lbl_act_hdr:'Thực tế',
-    lbl_vend_mgr:'Phụ trách NCC', lbl_uti_mgr:'Phụ trách',
-    pat_title:'Cài đặt PAT',
-    pat_current:'PAT hiện tại', pat_input:'PAT mới',
-    pat_warning:'PAT chỉ lưu mã hóa trên máy',
-    pat_del:'Xóa', pat_save:'Lưu & Kết nối lại',
-    pat_none:'(chưa đặt)',
-    stat_this_step:'Bước này', stat_total:'Tổng', stat_req:'Bắt buộc',
-    btn_all:'Tất cả', btn_dismiss:'Bỏ chọn', btn_dismiss_step:'Bỏ chọn bước này',
+    dash_co_all:'🏢 Tất cả công ty',dash_refresh:'🔄 Làm mới',
+    dash_kpi_co:'Công ty',dash_kpi_eq:'Thiết bị',dash_kpi_done:'Hoàn thành',dash_kpi_delay:'Trễ hạn',
+    dash_co_table:'🏢 Tiến độ thiết bị theo công ty',dash_proc_table:'⚙️ Tiến độ theo quy trình',
+    dash_vend_table:'🏭 Tiến độ theo nhà cung cấp',dash_eq_table:'🔧 Tiến độ 11 bước theo thiết bị',
+    col_co:'Công ty',col_eq_cnt:'Thiết bị',col_process:'Quy trình',col_vend:'Nhà CC',col_eq:'TB',
+    col_done:'Xong',col_delay:'Trễ',col_rate:'Tiến độ',col_equip:'Tên thiết bị',
+    col_category:'Phân loại',col_task:'Hạng mục',col_point:'Điểm KT',
+    col_req:'Bắt buộc',col_doc:'Tài liệu',col_dept1:'Phụ trách',col_dept2:'Xem xét',col_dept3:'Phê duyệt',col_schedule:'Lịch trình',
+    col_proc_code:'Mã QT',col_proc_name:'Tên QT',col_vend_code:'Mã NCC',col_eq_name:'Tên TB',col_model:'Model',
+    col_po:'PO No',col_eqid:'EQ_ID',
+    master_sub:'hạng mục',req_all:'Tất cả loại',
+    req_req:'Bắt buộc',req_cond:'Có điều kiện',req_opt:'Tùy chọn',req_rec:'Khuyến nghị',
+    item_edit:'Sửa hạng mục',item_add:'Thêm hạng mục',
+    setup_sub:'Chọn hạng mục từ Master DB theo công ty',setup_select_co:'Chọn công ty',
+    setup_proc_step:'Bước quy trình',setup_sel_title:'Mục đã chọn (Chỉnh sửa)',
+    setup_sel_hint:'Chọn hạng mục để chỉnh sửa',setup_step_hint:'Chọn bước',
+    prog_sub:'Theo dõi checklist theo công ty',prog_total:'Tổng tiến độ',
+    prog_lbl_total:'Tổng',prog_lbl_done:'Xong',prog_lbl_remain:'Chưa xong',prog_badge_done:'✅ Xong',
+    equip_sub:'Quản lý ngày mục tiêu/thực tế',equip_filter_co:'Công ty',equip_filter_proc:'Tất cả QT',
+    equip_filter_vend:'Tất cả NCC',equip_stat_avg:'TB tiến độ',
+    detail_select_co:'Công ty',detail_select_eq:'Thiết bị',
+    co_sub:'Quản lý tổng hợp: công ty, QT, NCC',co_add:'Thêm công ty',co_proc_set:'Cài đặt QT',
+    co_status:'Trạng thái',co_eq_add:'Thêm TB',
+    co_gong_mng:'QL Master QT',co_vend_mng:'QL Master NCC',
+    co_tab_co:'Công ty',co_tab_proc:'Master QT',co_tab_vend:'Master NCC',
+    co_lbl_eq:'Thiết bị',co_lbl_total:'Tổng HM',co_lbl_done:'Hoàn thành',
+    co_selected:'✅ Đã chọn',co_select_hint:'Chọn công ty để quản lý QT/NCC',
+    proc_add:'Thêm QT',vend_add:'Thêm NCC',
+    modal_co_add:'Thêm công ty',modal_eq_add:'Thêm thiết bị',
+    sel_co:'Chọn công ty',sel_eq:'Chọn thiết bị',sel_vend:'Chọn nhà cung cấp',
+    empty_co:'Chọn công ty',empty_setup:'Hoàn thành Setup trước',
+    empty_detail:'Chọn công ty và thiết bị',empty_step:'Không có hạng mục ở bước này',
+    empty_eq:'Chưa có thiết bị',empty_search:'Không có kết quả',empty_sel:'Chọn hạng mục để chỉnh sửa',
+    lbl_process:'Quy trình',lbl_manager:'Phụ trách',lbl_progress:'Tiến độ',
+    lbl_code:'Mã',lbl_order:'Thứ tự',lbl_contact:'Liên hệ',lbl_name:'Tên',
+    lbl_date_tgt:'Mục tiêu',lbl_date_act:'Thực tế',lbl_date_clear:'Xóa ngày',
+    lbl_req_notice:'có thể sửa',lbl_dept_notice:'tùy chỉnh công ty',lbl_auto_fill:'Tự động điền khi chọn',
+    lbl_seq_notice:'Nhập theo thứ tự',lbl_qty_fixed:'1 cái (cố định)',
+    lbl_eq_type:'Loại',lbl_tgt_hdr:'Mục tiêu',lbl_act_hdr:'Thực tế',
+    lbl_vend_mgr:'Phụ trách NCC',lbl_uti_mgr:'Phụ trách UTI',lbl_setup_hint:'(Cần Setup)',
+    pat_title:'Cài đặt PAT',pat_current:'PAT hiện tại',pat_input:'PAT mới',
+    pat_warning:'PAT chỉ lưu mã hóa trên máy',pat_del:'🗑️ Xóa',pat_save:'💾 Lưu & Kết nối lại',pat_none:'(chưa đặt)',
+    stat_this_step:'Bước này',stat_total:'Tổng',stat_req:'Bắt buộc',
+    btn_all:'Tất cả',btn_dismiss:'Bỏ chọn',btn_dismiss_step:'Bỏ chọn bước này',btn_edit:'Sửa',btn_del:'Xóa',
     step_setup_add:'Chọn hạng mục ở Cài đặt QT',
-    modal_proc_add:'Thêm QT', modal_proc_edit:'Sửa QT',
-    modal_vend_add:'Thêm NCC', modal_vend_edit:'Sửa NCC',
-    modal_eq_modal_add:'Thêm TB', modal_eq_modal_edit:'Sửa TB',
-    lbl_no_edit:'Không thể sửa', lbl_edit_mgr_only:'Chỉ sửa phụ trách',
-    lbl_basic_info:'Thông tin cơ bản', lbl_manager_info:'Phụ trách',
-    lbl_proc_dates:'Ngày mục tiêu quy trình',
-    lbl_from_proc:'Master QT', lbl_from_vend:'Master NCC',
+    modal_proc_add:'➕ Thêm QT',modal_proc_edit:'✏️ Sửa QT',
+    modal_vend_add:'➕ Thêm NCC',modal_vend_edit:'✏️ Sửa NCC',
+    modal_eq_modal_add:'➕ Thêm TB',modal_eq_modal_edit:'✏️ Sửa TB',
+    lbl_no_edit:'Không thể sửa',lbl_edit_mgr_only:'Chỉ sửa phụ trách',
+    lbl_basic_info:'📋 Thông tin cơ bản',lbl_manager_info:'👤 Phụ trách',lbl_proc_dates:'📅 Ngày mục tiêu quy trình',
+    lbl_from_proc:'Master QT',lbl_from_vend:'Master NCC',
     invest_proc_title:'Quy trình đầu tư',
-    step_planning:'Lập kế hoạch', step_spec:'Định nghĩa KT', step_review:'Xem xét ĐT',
-    step_order:'Đặt hàng', step_mfg:'Chế tạo', step_fat:'FAT',
-    step_ship:'Xuất hàng', step_install:'Lắp đặt', step_trial:'Chạy thử/SAT',
-    step_qual:'Qual(Kiểm định)', step_mass:'Sản xuất ĐL',
-    steps_0:'Lập KH', steps_1:'Định nghĩa', steps_2:'Xem xét',
-    steps_3:'Đặt hàng', steps_4:'Chế tạo', steps_5:'FAT',
-    steps_6:'Xuất hàng', steps_7:'Lắp đặt', steps_8:'SAT', steps_9:'Qual',
-    lbl_tgt_date:'Ngày mục tiêu', lbl_act_date:'Ngày thực tế',
-    msg_saved:'Đã lưu',
+    step_planning:'Lập kế hoạch',step_spec:'Định nghĩa KT',step_review:'Xem xét ĐT',
+    step_order:'Đặt hàng',step_mfg:'Chế tạo',step_fat:'FAT',
+    step_ship:'Xuất hàng',step_install:'Lắp đặt',step_trial:'Chạy thử/SAT',
+    step_qual:'Qual(Kiểm định)',step_mass:'Sản xuất ĐL',
+    steps_0:'Lập KH',steps_1:'Định nghĩa',steps_2:'Xem xét',steps_3:'Đặt hàng',
+    steps_4:'Chế tạo',steps_5:'FAT',steps_6:'Xuất hàng',steps_7:'Lắp đặt',steps_8:'SAT',steps_9:'Qual',
+    lbl_tgt_date:'Ngày mục tiêu',lbl_act_date:'Ngày thực tế',msg_saved:'Đã lưu',
+    lbl_delay:'Trễ',lbl_checklist:'Checklist chi tiết',lbl_done_badge:'✅ Xong',
+    dt_hdr_item:'Hạng mục',dt_hdr_tgt:'Mục tiêu',dt_hdr_act:'Thực tế',dt_hdr_edit:'Sửa',
   }
 };
 
@@ -2129,7 +2041,7 @@ function pgMaster() {
     + '<input class="si" id="mSrch" placeholder="🔍 ' + t('search') + '..." oninput="renderMTbl()">'
     + '<select class="fsel" id="mCatF" onchange="renderMTbl()"><option value="">' + t('col_category') + ' ' + t('btn_all') + '</option>' + catOpts + '</select>'
     + '<select class="fsel" id="mReqF" onchange="renderMTbl()"><option value="">' + t('req_all') + '</option>'
-    + '<option>필수</option><option>조건부 필수</option><option>선택</option><option>권장</option></select>'
+    + '<option>'+t('req_req')+'</option><option>'+t('req_cond')+'</option><option>'+t('req_opt')+'</option><option>'+t('req_rec')+'</option></select>'
     + '<span id="mCnt" style="font-size:16px;color:var(--t2)"></span></div>'
     + '</div>'
     + '<div class="pg-body"><div id="mTbl" class="mTblWrap"></div></div>';
@@ -2266,7 +2178,7 @@ function pgSetup() {
     + '<div class="pg-body">'
     + '<div class="s3col" id="s3col">'
     +   '<div class="spanel" id="sProcPanel">'
-    +     '<div class="shdr"><span>프로세스 단계</span><span id="siTot" class="t2 sm">0개</span></div>'
+    +     '<div class="shdr"><span>'+t('setup_proc_step')+'</span><span id="siTot" class="t2 sm">0'+t('master_sub')+'</span></div>'
     +     '<div id="sProcList"><div class="sempty"><p>' + t('empty_co') + '</p></div></div>'
     +   '</div>'
     +   '<div class="spanel" id="sMastPanel">'
@@ -2276,7 +2188,7 @@ function pgSetup() {
     +     '<div id="sMastBody"><div class="sempty"><div class="ei">📋</div><p>단계를 선택하세요</p></div></div>'
     +   '</div>'
     +   '<div class="spanel" id="sSelPanel">'
-    +     '<div class="shdr"><span>✏️ 선택 항목 (편집)</span><span id="sSelCnt" class="t2 sm">0개</span></div>'
+    +     '<div class="shdr"><span>✏️ '+t('setup_sel_title')+'</span><span id="sSelCnt" class="t2 sm">0'+t('master_sub')+'</span></div>'
     +     '<div id="sSelBody"><div class="sempty"><div class="ei">⚙️</div><p>항목을 체크하면 여기서 편집</p></div></div>'
     +   '</div>'
     + '</div>'
@@ -2443,9 +2355,9 @@ function renderSSel() {
       + '<input class="sfin" value="' + xe(dc) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'필요문서\',this.value)"></div>'
       + '<div class="sf"><div class="sfl">📌 ' + t('col_dept1') + ' <span class="edit-hint" style="color:var(--or)">(' + t('lbl_dept_notice') + ')</span></div>'
       + '<div class="drow">'
-      + '<div><div class="dl">총괄담당</div><input class="sfin" value="' + xe(d1) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'총괄담당부서\',this.value)"></div>'
-      + '<div><div class="dl">합의부서</div><input class="sfin" value="' + xe(d2) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'합의부서\',this.value)"></div>'
-      + '<div><div class="dl">승인부서</div><input class="sfin" value="' + xe(d3) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'승인부서\',this.value)"></div>'
+      + '<div><div class="dl">'+t('col_dept1')+'</div><input class="sfin" value="' + xe(d1) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'총괄담당부서\',this.value)"></div>'
+      + '<div><div class="dl">'+t('col_dept2')+'</div><input class="sfin" value="' + xe(d2) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'합의부서\',this.value)"></div>'
+      + '<div><div class="dl">'+t('col_dept3')+'</div><input class="sfin" value="' + xe(d3) + '" onchange="updC(\'' + coId + '\',' + r.id + ',\'승인부서\',this.value)"></div>'
       + '</div></div>'
       + '<div style="margin-top:8px;text-align:right">'
       + '<button class="rmv" onclick="rmvItem(\'' + coId + '\',' + r.id + ')">✕ 선택 해제</button>'
@@ -2657,7 +2569,7 @@ function renderProgItems(coId) {
 
   if (!items.length) {
     gid('prBody').innerHTML = '<div class="empty" style="margin-top:30px">'
-      + '<div class="ei">📭</div><h3>이 단계에 Setup된 항목이 없습니다</h3>'
+      + '<div class="ei">📭</div><h3>'+t('empty_step')+'</h3>'
       + '<p>' + t('step_setup_add') + '</p></div>';
     return;
   }
@@ -2669,7 +2581,7 @@ function renderProgItems(coId) {
     + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
     + '<b style="font-size:18px">' + step.e + ' ' + t(step.s) + '</b>'
     + '<span class="t2 sm">' + sc + '/' + items.length + ' ' + t('col_done') + '</span>'
-    + (pct===100 ? '<span class="b br" style="margin-left:4px">✅ 완료</span>' : '')
+    + (pct===100 ? '<span class="b br" style="margin-left:4px">'+t('prog_badge_done')+'</span>' : '')
     + '</div>'
     + '<div class="pb" style="height:7px;margin-bottom:0">'
     + '<div class="pf" style="width:' + pct + '%"></div></div>'
@@ -2775,7 +2687,7 @@ function pgEquip() {
     + '<p class="ps">' + t('equip_sub') + '</p></div>'
     + '<div class="flex-g" style="align-items:center;gap:8px">'
     + eqBuildFilterBar()
-    + (canEdit() ? '<button class="btn bp bsm" id="eqAddBtn" onclick="_openEqFromPage()" style="display:none">＋ 설비 추가</button>' : '')
+    + (canEdit() ? '<button class="btn bp bsm" id="eqAddBtn" onclick="_openEqFromPage()" style="display:none">'+t('eq_add')+'</button>' : '')
     + '</div></div>'
     + '<div id="eqStatRow" class="eq-stat-row"></div>'
     + '</div>'
@@ -2898,7 +2810,7 @@ function renderEquipTbl() {
   });
 
   if (!filtered.length) {
-    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">📭</div><h3>등록된 설비가 없습니다</h3>'
+    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">📭</div><h3>'+t('empty_eq')+'</h3>'
       + (canE ? '<p>' + t('eq_add') + '</p>' : '') + '</div>';
     return;
   }
@@ -2913,7 +2825,7 @@ function renderEquipTbl() {
     + '<th class="th-fix2" style="width:130px" rowspan="2">' + t('col_proc_code') + ' · ' + t('col_proc_name') + '</th>'
     + '<th class="th-fix3" style="width:140px" rowspan="2">' + t('col_eq_name') + '<br><span style="font-weight:400;color:var(--t3)">' + t('col_model') + ' / ' + t('equip_filter_vend') + '</span></th>'
     + '<th style="width:50px" rowspan="2">' + t('col_category') + '</th>'
-    + '<th colspan="' + INVEST_STEPS.length + '" style="background:rgba(88,166,255,.08);color:var(--ac)">설비 투자 프로세스</th>'
+    + '<th colspan="' + INVEST_STEPS.length + '" style="background:rgba(88,166,255,.08);color:var(--ac)">'+t('invest_proc_title')+'</th>'
     + '<th style="width:80px" rowspan="2">' + t('lbl_vend_mgr') + '</th>'
     + '<th style="width:80px" rowspan="2">' + t('lbl_uti_mgr') + '</th>'
     + '<th style="width:50px" rowspan="2">' + t('col_rate') + '</th>';
@@ -2985,12 +2897,12 @@ function renderEquipTbl() {
           html += '<div style="border-bottom:1px solid var(--bd2)">'
             + '<input type="date" class="eq-date-input eq-date-target" value="' + xe(tgt) + '"'
             + ' data-coid="' + xe(coId) + '" data-idx="' + idx + '" data-si="' + si + '" data-type="target"'
-            + ' onchange="eqSaveDate(this)" title="목표일">'
+            + ' onchange="eqSaveDate(this)" title="'+t('lbl_tgt_date')+'">'
             + '</div>'
             + '<div>'
             + '<input type="date" class="eq-date-input eq-date-actual" value="' + xe(act) + '"'
             + ' data-coid="' + xe(coId) + '" data-idx="' + idx + '" data-si="' + si + '" data-type="actual"'
-            + ' onchange="eqSaveDate(this)" title="실적일">'
+            + ' onchange="eqSaveDate(this)" title="'+t('lbl_act_date')+'">'
             + '</div>';
         } else {
           html += '<div style="border-bottom:1px solid var(--bd2);padding:3px 5px;font-size:11px;color:var(--ac);font-family:monospace">' + (tgt||'-') + '</div>'
@@ -3361,18 +3273,18 @@ function _openEqModal(coId, idx, eq) {
     // 기본 정보
     + '<div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--bd)">' + t('lbl_basic_info') + '</div>'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
-    + '<div><div class="eq-flbl">공정 *</div><select class="eq-fsel" id="eqM_gong" onchange="_eqAutoFillGong()"><option value="">— 선택 —</option>' + gOpts + '</select></div>'
-    + '<div><div class="eq-flbl">설비업체 *</div><select class="eq-fsel" id="eqM_vend" onchange="_eqAutoFillVend()">' + vOpts + '</select></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_process')+' *</div><select class="eq-fsel" id="eqM_gong" onchange="_eqAutoFillGong()"><option value="">— 선택 —</option>' + gOpts + '</select></div>'
+    + '<div><div class="eq-flbl">'+t('equip_filter_vend')+' *</div><select class="eq-fsel" id="eqM_vend" onchange="_eqAutoFillVend()">' + vOpts + '</select></div>'
     + '</div>'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
-    + '<div><div class="eq-flbl">PO No</div><input class="eq-finp" id="eqM_po" placeholder="예: AMM0100002" value="' + xe(eq?eq.poNo||'':'') + '"></div>'
-    + '<div><div class="eq-flbl">EQ_ID (호기)</div><input class="eq-finp" id="eqM_eqid" placeholder="예: 1A1R001" value="' + xe(eq?eq.eqId||'':'') + '"></div>'
+    + '<div><div class="eq-flbl">'+t('col_po')+'</div><input class="eq-finp" id="eqM_po" placeholder="예: AMM0100002" value="' + xe(eq?eq.poNo||'':'') + '"></div>'
+    + '<div><div class="eq-flbl">'+t('col_eqid')+'</div><input class="eq-finp" id="eqM_eqid" placeholder="예: 1A1R001" value="' + xe(eq?eq.eqId||'':'') + '"></div>'
     + '</div>'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
-    + '<div><div class="eq-flbl">설비명 *</div><input class="eq-finp" id="eqM_nm" placeholder="예: MS Auto Racking #1" value="' + xe(eq?eq.name||'':'') + '"></div>'
-    + '<div><div class="eq-flbl">모델명</div><input class="eq-finp" id="eqM_md" placeholder="예: ATK-AR-2024" value="' + xe(eq?eq.model||'':'') + '"></div>'
+    + '<div><div class="eq-flbl">'+t('col_eq_name')+' *</div><input class="eq-finp" id="eqM_nm" placeholder="예: MS Auto Racking #1" value="' + xe(eq?eq.name||'':'') + '"></div>'
+    + '<div><div class="eq-flbl">'+t('col_model')+'</div><input class="eq-finp" id="eqM_md" placeholder="예: ATK-AR-2024" value="' + xe(eq?eq.model||'':'') + '"></div>'
     + '</div>'
-    + '<div style="margin-bottom:12px"><div class="eq-flbl">수량</div>'
+    + '<div style="margin-bottom:12px"><div class="eq-flbl">'+t('col_eq_cnt')+'</div>'
     + '<div style="padding:7px 12px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;font-size:14px;color:var(--t2)">1대 (고정)</div>'
     + '<input type="hidden" id="eqM_qty" value="1"></div>'
 
@@ -3396,7 +3308,7 @@ function _openEqModal(coId, idx, eq) {
     + stepRows
 
     // 비고
-    + '<div style="margin-top:10px"><div class="eq-flbl">비고</div>'
+    + '<div style="margin-top:10px"><div class="eq-flbl">'+t('edit')+'</div>'
     + '<textarea class="eq-finp" id="eqM_note" style="resize:vertical;min-height:48px">' + xe(eq?eq.note||'':'') + '</textarea>'
     + '</div>'
     + '</div>'
@@ -3528,7 +3440,7 @@ function _saveEqModal(coId, idx) {
     _coTab = 'company';
     navTo('company');
   }
-  toast('저장 완료', nm + ' 설비가 저장됐습니다.', 'success');
+  toast('저장 완료', nm + ' 설비가 '+t('msg_saved'), 'success');
 }
 
 function eqDel(coId, idx) {
@@ -3595,7 +3507,7 @@ function pgDetail() {
     + '</div>'
     // 본문
     + '<div id="dtBody" style="padding:12px 14px">'
-    + '<div class="empty"><div class="ei">📊</div><h3>기업과 설비를 선택하세요</h3></div>'
+    + '<div class="empty"><div class="ei">📊</div><h3>'+t('empty_detail')+'</h3></div>'
     + '</div>';
 
   if (_dtCoId) {
@@ -3660,7 +3572,7 @@ function _dtClear() {
 
   // 본문 초기화
   var bd = document.getElementById('dtBody');
-  if (bd) bd.innerHTML = '<div class="empty"><div class="ei">📊</div><h3>기업과 설비를 선택하세요</h3></div>';
+  if (bd) bd.innerHTML = '<div class="empty"><div class="ei">📊</div><h3>'+t('empty_detail')+'</h3></div>';
 
   // 설비정보바 숨기기
   var infoBar = document.getElementById('dtEqInfoBar');
@@ -3784,7 +3696,7 @@ function _dtUpdateDateCard() {
     '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px">'
     + '<span id="dtStepTitle" style="font-size:17px;font-weight:700;color:var(--ac)">' + (si+1) + '. ' + xe(stepNm) + '</span>'
     + '<span style="font-size:13px;padding:2px 9px;border-radius:7px;background:rgba(0,0,0,.2);color:' + statusColor + ';border:1px solid ' + statusColor + '">' + statusLabel + '</span>'
-    + (isDelay ? '<span style="font-size:13px;color:var(--re)">지연 ' + _dtDayDiff(tgt,act) + '일</span>' : '')
+    + (isDelay ? '<span style="font-size:13px;color:var(--re)">'+t('lbl_delay')+' ' + _dtDayDiff(tgt,act) + '일</span>' : '')
     + '</div>'
     + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
     + '<div style="background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:10px 14px">'
@@ -3830,7 +3742,7 @@ function _dtSelStep(si) {
   if (stepTitle) {
     stepTitle.innerHTML = '<span id="dtStepTitle" style="font-size:18px;font-weight:700;color:var(--ac)">' + (si+1) + '. ' + xe(stepNm) + '</span>'
       + ' <span style="font-size:13px;padding:3px 10px;border-radius:8px;background:rgba(0,0,0,.2);color:' + statusColor + ';border:1px solid ' + statusColor + '">' + statusLabel + '</span>'
-      + (isDelay ? ' <span style="font-size:13px;color:var(--re)">지연 ' + _dtDayDiff(tgt,act) + '일</span>' : '');
+      + (isDelay ? ' <span style="font-size:13px;color:var(--re)">'+t('lbl_delay')+' ' + _dtDayDiff(tgt,act) + '일</span>' : '');
   }
   // 오른쪽 상세 패널 교체
   var panel = document.getElementById('dtDetailPanel');
@@ -3859,9 +3771,9 @@ function _dtRenderBody() {
   + '<thead><tr style="background:var(--bg3)">'
   + '<th style="padding:7px 8px;text-align:left;color:var(--t2);font-size:15px;border-bottom:1px solid var(--bd)">#</th>'
   + '<th style="padding:7px 8px;text-align:left;color:var(--t2);font-size:15px;border-bottom:1px solid var(--bd)">프로세스</th>'
-  + '<th style="padding:7px 8px;text-align:center;color:var(--ac);font-size:15px;border-bottom:1px solid var(--bd)">목표일</th>'
+  + '<th style="padding:7px 8px;text-align:center;color:var(--ac);font-size:15px;border-bottom:1px solid var(--bd)">'+t('dt_hdr_tgt')+'</th>'
   + '<th style="padding:7px 8px;text-align:center;color:var(--t2);font-size:15px;border-bottom:1px solid var(--bd)">상태</th>'
-  + (canE ? '<th style="padding:7px 8px;text-align:center;color:var(--gr);font-size:15px;border-bottom:1px solid var(--bd)">실적일</th>' : '')
+  + (canE ? '<th style="padding:7px 8px;text-align:center;color:var(--gr);font-size:15px;border-bottom:1px solid var(--bd)">'+t('dt_hdr_act')+'</th>' : '')
   + '</tr></thead><tbody>';
 
   INVEST_STEPS.forEach(function(_stepName, i) {
@@ -4284,7 +4196,7 @@ function pgCompany() {
     + '<span style="font-size:13px;color:var(--t2);white-space:nowrap;font-weight:600">📌 ' + t('equip_filter_co') + '</span>'
     + '<select style="padding:6px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:14px;font-family:inherit;outline:none;max-width:280px" onchange="_coSelChange(this.value)">'
     + '<option value="">' + t('setup_select_co') + '</option>' + coOpts + '</select>'
-    + (_coSelId ? '<span style="font-size:13px;color:var(--gr);margin-left:4px">✅ 선택됨</span>' : '<span style="font-size:13px;color:var(--t3)">공정/업체 관리 시 기업 선택 필요</span>')
+    + (_coSelId ? '<span style="font-size:13px;color:var(--gr);margin-left:4px">'+t('co_selected')+'</span>' : '<span style="font-size:13px;color:var(--t3)">'+t('co_select_hint')+'</span>')
     + '</div>';
 
   // 탭 버튼 (항상 3개 표시, 기업 미선택 시 비활성)
@@ -4339,7 +4251,7 @@ function goCoMaster(coId, tab) {
 /* ── 탭1: 기업 관리 ── */
 function _renderCoCompany(canE) {
   var html = '<div style="display:flex;justify-content:flex-end;margin-bottom:12px">'
-    + (canE ? '<button class="btn bp" onclick="openAddCo()">＋ 기업 추가</button>' : '')
+    + (canE ? '<button class="btn bp" onclick="openAddCo()">'+t('co_add')+'</button>' : '')
     + '</div><div class="cgrid">';
   state.companies.forEach(function(c) {
     var s = state.setups[c.id] || {};
@@ -4380,7 +4292,7 @@ function _renderCoGong(canE) {
   var gongs = _getGong(_coSelId);
   var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
     + '<span style="font-size:14px;color:var(--t2)">' + t('all') + ' ' + gongs.length + ' ' + t('equip_filter_proc') + '</span>'
-    + (canE ? '<button class="btn bp bsm" onclick="_openGongModal(null)">＋ 공정 추가</button>' : '')
+    + (canE ? '<button class="btn bp bsm" onclick="_openGongModal(null)">'+t('proc_add')+'</button>' : '')
     + '</div>'
     + '<div class="tw" style="max-height:calc(100vh - 300px);overflow-y:auto"><table class="tbl"><thead><tr>'
     + '<th style="width:60px">' + t('lbl_order') + '</th><th style="width:130px">' + t('col_proc_code') + '</th><th>' + t('col_proc_name') + '</th>'
@@ -4410,16 +4322,16 @@ function _openGongModal(idx) {
     + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?t('modal_proc_edit'):t('modal_proc_add')) + '</h3>'
     + '<button class="mcls" onclick="_closeGongModal()">✕</button></div><div class="mbdy">'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
-    + '<div><div class="eq-flbl">공정코드' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<div><div class="eq-flbl">'+t('col_proc_code')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">'+t('lbl_no_edit')+'</span>':'*') + '</div>'
     + '<input class="eq-finp" id="gM_code" value="' + xe(g.code||'') + '" placeholder="예: F10-0020"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
-    + '<div><div class="eq-flbl">순서' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'') + '</div>'
+    + '<div><div class="eq-flbl">'+t('lbl_order')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">'+t('lbl_no_edit')+'</span>':'') + '</div>'
     + '<input class="eq-finp" id="gM_seq" type="number" value="' + xe(g.seq||'') + '" placeholder="숫자"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
     + '</div>'
-    + '<div style="margin-bottom:14px"><div class="eq-flbl">공정명' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<div style="margin-bottom:14px"><div class="eq-flbl">'+t('col_proc_name')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">'+t('lbl_no_edit')+'</span>':'*') + '</div>'
     + '<input class="eq-finp" id="gM_name" value="' + xe(g.name||'') + '" placeholder="예: MS Auto Racking1"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
     + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ ' + t('lbl_edit_mgr_only') + '</div>' : '')
-    + '<div class="eq-modal-grid"><div><div class="eq-flbl">담당자명</div><input class="eq-finp" id="gM_mgr" value="' + xe(g.manager||'') + '" placeholder="담당자명"></div>'
-    + '<div><div class="eq-flbl">연락처</div><input class="eq-finp" id="gM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(g.contact||'') + '" placeholder="연락처"></div></div>'
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="gM_mgr" value="' + xe(g.manager||'') + '" placeholder="담당자명"></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="gM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(g.contact||'') + '" placeholder="연락처"></div></div>'
     + '</div><div class="mftr"><input type="hidden" id="gM_idx" value="' + (isEdit?idx:'null') + '">'
     + '<button class="btn bs" onclick="_closeGongModal()">' + t('cancel') + '</button>'
     + '<button class="btn bg" onclick="_saveGong()">' + t('save_icon') + '</button></div></div></div>';
@@ -4437,7 +4349,7 @@ function _saveGong() {
   if (isEdit) { gongs[parseInt(idx)] = obj; } else { gongs.push(obj); gongs.sort(function(a,b){return a.seq-b.seq;}); }
   state.gongMaster[_coSelId] = gongs;
   saveAll(); _closeGongModal(); pgCompany();
-  toast('저장', name + ' 공정이 저장됐습니다.', 'success');
+  toast('저장', name + ' 공정이 '+t('msg_saved'), 'success');
 }
 function _delGong(idx) {
   var gongs = _getGong(_coSelId);
@@ -4455,7 +4367,7 @@ function _renderCoVendor(canE) {
   var vends = _getVend(_coSelId);
   var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
     + '<span style="font-size:14px;color:var(--t2)">' + t('all') + ' ' + vends.length + ' ' + t('equip_filter_vend') + '</span>'
-    + (canE ? '<button class="btn bp bsm" onclick="_openVendModal(null)">＋ 업체 추가</button>' : '')
+    + (canE ? '<button class="btn bp bsm" onclick="_openVendModal(null)">'+t('vend_add')+'</button>' : '')
     + '</div>'
     + '<div class="tw"><table class="tbl"><thead><tr>'
     + '<th style="width:140px">' + t('col_vend_code') + '</th><th style="width:160px">' + t('col_vend') + '</th>'
@@ -4484,14 +4396,14 @@ function _openVendModal(idx) {
     + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?t('modal_vend_edit'):t('modal_vend_add')) + '</h3>'
     + '<button class="mcls" onclick="_closeVendModal()">✕</button></div><div class="mbdy">'
     + '<div class="eq-modal-grid" style="margin-bottom:14px">'
-    + '<div><div class="eq-flbl">업체코드' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<div><div class="eq-flbl">'+t('col_vend_code')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">'+t('lbl_no_edit')+'</span>':'*') + '</div>'
     + '<input class="eq-finp" id="vM_code" value="' + xe(v.code||'') + '" placeholder="예: KR2165423"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
-    + '<div><div class="eq-flbl">업체명' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">수정 불가</span>':'*') + '</div>'
+    + '<div><div class="eq-flbl">'+t('col_vend')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px;text-transform:none">'+t('lbl_no_edit')+'</span>':'*') + '</div>'
     + '<input class="eq-finp" id="vM_name" value="' + xe(v.name||'') + '" placeholder="업체명"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
     + '</div>'
     + (isEdit ? '<div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;padding:8px 12px;font-size:13px;color:var(--t2);margin-bottom:12px">✏️ ' + t('lbl_edit_mgr_only') + '</div>' : '')
-    + '<div class="eq-modal-grid"><div><div class="eq-flbl">담당자명</div><input class="eq-finp" id="vM_mgr" value="' + xe(v.manager||'') + '" placeholder="담당자명"></div>'
-    + '<div><div class="eq-flbl">연락처</div><input class="eq-finp" id="vM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(v.contact||'') + '" placeholder="연락처"></div></div>'
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="vM_mgr" value="' + xe(v.manager||'') + '" placeholder="담당자명"></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="vM_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(v.contact||'') + '" placeholder="연락처"></div></div>'
     + '</div><div class="mftr"><input type="hidden" id="vM_idx" value="' + (isEdit?idx:'null') + '">'
     + '<button class="btn bs" onclick="_closeVendModal()">' + t('cancel') + '</button>'
     + '<button class="btn bg" onclick="_saveVend()">' + t('save_icon') + '</button></div></div></div>';
@@ -4509,7 +4421,7 @@ function _saveVend() {
   if (isEdit) { vends[parseInt(idx)] = obj; } else { vends.push(obj); }
   state.vendorMaster[_coSelId] = vends;
   saveAll(); _closeVendModal(); pgCompany();
-  toast('저장', name + ' 업체가 저장됐습니다.', 'success');
+  toast('저장', name + ' 업체가 '+t('msg_saved'), 'success');
 }
 function _delVend(idx) {
   var vends = _getVend(_coSelId);
