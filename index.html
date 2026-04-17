@@ -15,39 +15,6 @@
   --gr:#3fb950;--g2:#238636;
   --or:#f0883e;--re:#f85149;--pu:#bc8cff;
 }
-/* ── 화이트 테마 ── */
-[data-theme="light"]{
-  --bg:#f6f8fa;--bg2:#ffffff;--bg3:#f0f2f5;--bg4:#e8eaed;
-  --bd:#d0d7de;--bd2:#e8eaed;
-  --tx:#1f2328;--t2:#656d76;--t3:#8c959f;
-  --ac:#0969da;--a2:#0550ae;
-  --gr:#1a7f37;--g2:#116329;
-  --or:#bc4c00;--re:#d1242f;--pu:#8250df;
-}
-[data-theme="light"] body{background:var(--bg)}
-[data-theme="light"] #loginScreen{background:linear-gradient(135deg,#e8edf2 0%,#f6f8fa 50%,#e8edf2 100%)}
-[data-theme="light"] .hdr{background:#ffffff;border-bottom:1px solid var(--bd)}
-[data-theme="light"] .mob-drawer{background:#ffffff}
-[data-theme="light"] .eq-tbl tbody td.td-fix,
-[data-theme="light"] .eq-tbl tbody td.td-fix2,
-[data-theme="light"] .eq-tbl tbody td.td-fix3{background:#ffffff}
-[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix,
-[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix2,
-[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix3{background:var(--bg3)}
-
-/* ── 언어/테마 버튼 ── */
-.hdr-ctrl{display:flex;align-items:center;gap:4px}
-.lang-btn{padding:3px 7px;border:1px solid var(--bd);border-radius:4px;
-  background:transparent;color:var(--t2);font-size:13px;font-weight:600;
-  cursor:pointer;font-family:inherit;transition:all .15s;line-height:1}
-.lang-btn:hover,.lang-btn.active{background:var(--ac);border-color:var(--ac);color:#fff}
-.theme-btn{width:32px;height:20px;border-radius:10px;border:1px solid var(--bd);
-  background:var(--bg3);cursor:pointer;position:relative;transition:all .3s;flex-shrink:0}
-.theme-btn::after{content:'';position:absolute;top:2px;left:2px;
-  width:14px;height:14px;border-radius:50%;background:var(--t2);
-  transition:all .3s}
-[data-theme="light"] .theme-btn{background:#1f6feb}
-[data-theme="light"] .theme-btn::after{left:14px;background:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);height:100vh;overflow:hidden;font-size:19px;line-height:1.65}
 ::-webkit-scrollbar{width:5px;height:5px}
@@ -1015,20 +982,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 }
 
 
-/* ── GitHub 동기화 상태 배지 ─────────────────────── */
-.sync-badge {
-  display: flex; align-items: center; gap: 5px;
-  padding: 3px 10px; border-radius: 20px;
-  font-size: 13px; font-weight: 500;
-  transition: all 0.3s ease; cursor: default;
-  border: 1px solid transparent;
+[data-theme="light"]{
+  --bg:#f6f8fa;--bg2:#ffffff;--bg3:#f0f2f5;--bg4:#e8eaed;
+  --bd:#d0d7de;--bd2:#e8eaed;
+  --tx:#1f2328;--t2:#656d76;--t3:#8c959f;
+  --ac:#0969da;--a2:#0550ae;
+  --gr:#1a7f37;--g2:#116329;
+  --or:#bc4c00;--re:#d1242f;--pu:#8250df;
 }
-.sync-idle   { background: var(--bg3); color: var(--t2); border-color: var(--bd); }
-.sync-saving { background: #1a3a5c; color: #64b5f6; border-color: #1976d2; animation: syncPulse 1s infinite; }
-.sync-ok     { background: #1a3a1a; color: #81c784; border-color: #388e3c; }
-.sync-err    { background: #3a1a1a; color: #e57373; border-color: #c62828; }
-.sync-load   { background: #2a2a1a; color: #ffb74d; border-color: #f57c00; }
-@keyframes syncPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+[data-theme="light"] body{background:var(--bg)}
+[data-theme="light"] #loginScreen{background:linear-gradient(135deg,#e8edf2 0%,#f6f8fa 50%,#e8edf2 100%)}
+.lang-btn.active,.lang-btn:hover{background:var(--ac)!important;border-color:var(--ac)!important;color:#fff!important}
 
 </style>
 </head>
@@ -1041,8 +1005,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <div class="llogo-ico">⚙️</div>
       <div><h1>EQ-PMS</h1><p>설비투자 프로세스 관리 시스템</p></div>
     </div>
-    <h2 class="ltit" data-i18n="login_title">로그인</h2>
-    <p class="lsub" data-i18n="login_sub">계정 정보를 입력하세요</p>
+    <h2 class="ltit">로그인</h2>
+    <p class="lsub">계정 정보를 입력하세요</p>
     <div class="fg">
       <label>아이디</label>
       <input type="text" id="loginId" placeholder="아이디 입력" autocomplete="username">
@@ -1051,32 +1015,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <label>비밀번호</label>
       <input type="password" id="loginPw" placeholder="비밀번호 입력" autocomplete="current-password">
     </div>
-
-    <button class="lbtn" id="btnLogin" data-i18n="login_btn">로그인</button>
+    <button class="lbtn" id="btnLogin">로그인</button>
     <div class="lerr" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
-    <div id="patSetupArea" style="margin-top:14px;display:none">
-      <div style="border-top:1px solid var(--bd);padding-top:14px">
-        <div style="font-size:14px;color:var(--or);margin-bottom:8px">
-          ⚠️ GitHub 연결이 필요합니다. PAT를 한번만 입력하면 이후 자동 연결됩니다.
-        </div>
-        <div class="fg">
-          <label style="display:flex;align-items:center;gap:6px;font-size:15px">
-            🔑 GitHub PAT
-            <span style="font-size:11px;color:var(--t2);font-weight:400">(repo 권한 필요)</span>
-            <a href="https://github.com/settings/tokens/new" target="_blank"
-               style="font-size:11px;color:var(--ac);margin-left:4px">발급하기 →</a>
-          </label>
-          <input type="password" id="patInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-            autocomplete="off" style="font-family:monospace;font-size:13px;letter-spacing:1px">
-        </div>
-        <button class="lbtn" id="btnSavePat"
-          style="background:linear-gradient(135deg,var(--g2),#2ea043);margin-top:4px">
-          💾 PAT 저장 후 연결
-        </button>
-        <div class="lerr" id="patErr" style="display:none">PAT를 입력해주세요.</div>
-      </div>
-    </div>
-
     <div class="lhint" style="display:none">
       <strong>테스트 계정</strong><br>
       관리자: <strong>admin</strong> / <strong>admin1234</strong><br>
@@ -1091,29 +1031,23 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
     <div class="hdr-logo"><div class="ico">⚙️</div><span>EQ-PMS</span></div>
     <nav class="hnav">
       <button class="nb" data-p="dashboard" onclick="navTo('dashboard')"><span data-i18n="nav_dashboard">📊 대시보드</span></button>
-      <button class="nb" data-p="master"    onclick="navTo('master')"><span data-i18n="nav_master">📋 Master DB</span></button>
-      <button class="nb" data-p="setup"     onclick="navTo('setup')"><span data-i18n="nav_setup">⚙️ 프로세스 Setup</span></button>
-      <button class="nb" data-p="progress"  onclick="navTo('progress')"><span data-i18n="nav_progress">📈 프로세스 진행현황</span></button>
-      <button class="nb" data-p="equip"     onclick="navTo('equip')"><span data-i18n="nav_equip">🏭 설비 투자 진척</span></button>
-      <button class="nb" data-p="detail"    onclick="navTo('detail')"><span data-i18n="nav_detail">📊 설비별 실적 현황</span></button>
-      <button class="nb" data-p="company"   onclick="navTo('company')"><span data-i18n="nav_company">🏢 기업 관리</span></button>
+      <button class="nb" data-p="master"    onclick="navTo('master')">📋 Master DB</button>
+      <button class="nb" data-p="setup"     onclick="navTo('setup')">⚙️ 프로세스 Setup</button>
+      <button class="nb" data-p="progress"  onclick="navTo('progress')">📈 프로세스 진행현황</button>
+      <button class="nb" data-p="equip"     onclick="navTo('equip')">🏭 설비 투자 진척</button>
+      <button class="nb" data-p="detail"    onclick="navTo('detail')">📊 설비별 실적 현황</button>
+      <button class="nb" data-p="company"   onclick="navTo('company')">🏢 기업 관리</button>
     </nav>
     <div class="hr">
-      <div id="syncStatus" class="sync-badge sync-idle" title="GitHub 동기화 상태">
-        <span id="syncIcon">☁️</span>
-        <span id="syncText" data-i18n="sync_idle">대기중</span>
+      <div style="display:flex;align-items:center;gap:3px;margin-right:6px">
+        <button id="lang_ko" onclick="setLang('ko')" style="padding:2px 7px;border:1px solid var(--ac);border-radius:4px;background:var(--ac);color:#fff;font-size:12px;font-weight:700;cursor:pointer">한</button>
+        <button id="lang_en" onclick="setLang('en')" style="padding:2px 7px;border:1px solid var(--bd);border-radius:4px;background:transparent;color:var(--t2);font-size:12px;font-weight:700;cursor:pointer">EN</button>
+        <button id="lang_zh" onclick="setLang('zh')" style="padding:2px 7px;border:1px solid var(--bd);border-radius:4px;background:transparent;color:var(--t2);font-size:12px;font-weight:700;cursor:pointer">中</button>
+        <button id="lang_vi" onclick="setLang('vi')" style="padding:2px 7px;border:1px solid var(--bd);border-radius:4px;background:transparent;color:var(--t2);font-size:12px;font-weight:700;cursor:pointer">VI</button>
       </div>
-      <div class="hdr-ctrl">
-        <button class="lang-btn active" id="lang_ko" onclick="setLang('ko')">한</button>
-        <button class="lang-btn" id="lang_en" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" id="lang_zh" onclick="setLang('zh')">中</button>
-        <button class="lang-btn" id="lang_vi" onclick="setLang('vi')">VI</button>
-      </div>
-      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="테마 전환"></button>
+      <button id="themeBtn" onclick="toggleTheme()" title="테마 전환" style="width:30px;height:18px;border-radius:9px;border:1px solid var(--bd);background:var(--bg3);cursor:pointer;position:relative;flex-shrink:0;margin-right:6px"></button>
       <div class="ubadge"><div class="udot"></div><span id="uNm">-</span><span class="urole" id="uRl">-</span></div>
-      <button class="lout" onclick="openPatSettings()" title="GitHub 연결 설정"
-        style="margin-right:2px;font-size:15px;padding:4px 8px">🔑</button>
-      <button class="lout" id="btnLogout" onclick="doLogout()" data-i18n="logout">로그아웃</button>
+      <button class="lout" onclick="doLogout()" data-i18n="logout">로그아웃</button>
     </div>
     <button class="hbg-btn" id="hbgBtn" onclick="toggleDrawer()" aria-label="메뉴">
       <span></span><span></span><span></span>
@@ -1126,7 +1060,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <span>EQ-PMS</span>
     </div>
     <nav class="mob-nav">
-      <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo('dashboard')">📊 대시보드</button>
+      <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo('dashboard')"><span data-i18n="nav_dashboard">📊 대시보드</span></button>
       <button class="mob-nb" data-mp="master"    onclick="mobNavTo('master')">📋 Master DB</button>
       <button class="mob-nb" data-mp="setup"     onclick="mobNavTo('setup')">⚙️ 프로세스 Setup</button>
       <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')">📈 프로세스 진행현황</button>
@@ -1247,175 +1181,13 @@ var state = {
 /* ── UTILS ─────────────────────────────────────────── */
 function gid(id) { return document.getElementById(id); }
 
-/* ── GITHUB API 연동 ────────────────────────────────── */
-var GH = {
-  owner: 'kangsh8880',
-  repo:  'eq-pms',
-  path:  'data/eqpms_state.json',
-  pat:   null,   // localStorage에서 로드
-  sha:   null,
-  saveTimer: null
-};
-
-// PAT 로드/저장 (localStorage, 간단 XOR 난독화)
-function ghPatEncode(s){ var k='eqpms2026'; return btoa(s.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^k.charCodeAt(i%k.length));}).join('')); }
-function ghPatDecode(s){ var k='eqpms2026'; return atob(s).split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^k.charCodeAt(i%k.length));}).join(''); }
-function ghPatSave(pat){ try{ localStorage.setItem('_ghp', ghPatEncode(pat)); }catch(e){} }
-function ghPatLoad(){ try{ var v=localStorage.getItem('_ghp'); return v?ghPatDecode(v):null; }catch(e){return null;} }
-function ghPatClear(){ try{ localStorage.removeItem('_ghp'); }catch(e){} }
-
-function ghHeaders() {
-  return {
-    'Authorization': 'token ' + GH.pat,
-    'Accept': 'application/vnd.github.v3+json',
-    'Content-Type': 'application/json'
-  };
+function lsGet(k) {
+  try { var v = localStorage.getItem('epms_' + k); return v ? JSON.parse(v) : null; } catch(e) { return null; }
 }
-
-function setSyncStatus(status, text) {
-  var badge = gid('syncStatus');
-  var icon  = gid('syncIcon');
-  var txt   = gid('syncText');
-  if (!badge) return;
-  badge.className = 'sync-badge sync-' + status;
-  var icons = { idle:'☁️', saving:'🔄', ok:'✅', err:'❌', load:'⏳' };
-  var ikeys = { idle:'sync_idle', saving:'sync_saving', ok:'sync_ok', err:'sync_err', load:'sync_load' };
-  icon.textContent = icons[status] || '☁️';
-  // i18n 키가 있으면 번역, 없으면 전달받은 text 사용
-  txt.textContent = (ikeys[status] && typeof t === 'function') ? t(ikeys[status]) : text;
-  txt.setAttribute('data-i18n', ikeys[status] || '');
+function lsSet(k, v) {
+  try { localStorage.setItem('epms_' + k, JSON.stringify(v)); } catch(e) {}
 }
-
-// GitHub에서 데이터 불러오기
-async function ghLoad() {
-  setSyncStatus('load', '불러오는 중...');
-  try {
-    var url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo
-            + '/contents/' + GH.path + '?t=' + Date.now();
-    var res = await fetch(url, { headers: ghHeaders() });
-    if (res.status === 404) {
-      // 파일 없음 → 초기 상태
-      GH.sha = null;
-      setSyncStatus('ok', '신규 저장소');
-      return null;
-    }
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    var data = await res.json();
-    GH.sha = data.sha;
-    var b64 = data.content.replace(/\n/g, '');
-    var decoded = JSON.parse(decodeURIComponent(escape(atob(b64))));
-    setSyncStatus('ok', '로드 완료');
-    return decoded;
-  } catch(e) {
-    setSyncStatus('err', '로드 실패');
-    console.error('ghLoad error:', e);
-    return null;
-  }
-}
-
-// GitHub에 데이터 저장 (자동 commit+push)
-async function ghSave(stateObj) {
-  setSyncStatus('saving', '저장 중...');
-  try {
-    var content = btoa(unescape(encodeURIComponent(JSON.stringify(stateObj, null, 2))));
-    var now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Ho_Chi_Minh' });
-    var body = {
-      message: '[EQ-PMS] Auto-save ' + now,
-      content: content
-    };
-    if (GH.sha) body.sha = GH.sha;
-    var url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo
-            + '/contents/' + GH.path;
-    var res = await fetch(url, {
-      method: 'PUT',
-      headers: ghHeaders(),
-      body: JSON.stringify(body)
-    });
-    if (!res.ok) {
-      var errData = await res.json().catch(function(){ return {}; });
-      // SHA 충돌 → 최신 SHA 갱신 후 재시도
-      if (res.status === 409 || (errData.message && errData.message.indexOf('SHA') > -1)) {
-        var latest = await ghLoad();
-        if (latest) { mergeAndApply(latest); }
-        return await ghSave(stateToSave());
-      }
-      throw new Error('HTTP ' + res.status + ' ' + (errData.message || ''));
-    }
-    var result = await res.json();
-    GH.sha = result.content.sha;
-    var t = new Date().toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit' });
-    setSyncStatus('ok', '저장됨 ' + t);
-  } catch(e) {
-    setSyncStatus('err', '저장 실패');
-    console.error('ghSave error:', e);
-    toast('저장 실패', 'GitHub 연결을 확인하세요: ' + e.message, 'error');
-  }
-}
-
-// 저장할 state 객체 생성
-function stateToSave() {
-  return {
-    companies:    state.companies,
-    setups:       state.setups,
-    master:       state.master,
-    equipments:   state.equipments,
-    gongMaster:   state.gongMaster,
-    vendorMaster: state.vendorMaster,
-    _savedAt:     new Date().toISOString()
-  };
-}
-
-// 3초 디바운스 자동 저장
-function saveAll() {
-  if (GH.saveTimer) clearTimeout(GH.saveTimer);
-  setSyncStatus('saving', '변경 감지...');
-  GH.saveTimer = setTimeout(function() {
-    ghSave(stateToSave());
-  }, 3000);
-}
-
-// GitHub 데이터와 로컬 데이터 머지
-function mergeAndApply(remote) {
-  if (!remote) return;
-  // 기업: 합집합 (ID 기준)
-  if (remote.companies && remote.companies.length) {
-    var ids = state.companies.map(function(c){ return c.id; });
-    remote.companies.forEach(function(c) {
-      if (ids.indexOf(c.id) === -1) state.companies.push(c);
-    });
-  }
-  // setups: remote 우선, 로컬에만 있는 항목 보존
-  if (remote.setups) {
-    Object.keys(remote.setups).forEach(function(k) {
-      if (!state.setups[k]) { state.setups[k] = remote.setups[k]; return; }
-      // doneAt 머지: 더 최근 날짜 우선
-      var rDoneAt = remote.setups[k].doneAt || {};
-      var lDoneAt = state.setups[k].doneAt || {};
-      Object.keys(rDoneAt).forEach(function(id) {
-        if (!lDoneAt[id] || rDoneAt[id] > lDoneAt[id]) lDoneAt[id] = rDoneAt[id];
-      });
-      state.setups[k].doneAt = lDoneAt;
-    });
-  }
-  // equipments: 합집합
-  if (remote.equipments) {
-    Object.keys(remote.equipments).forEach(function(coId) {
-      if (!state.equipments[coId]) { state.equipments[coId] = remote.equipments[coId]; return; }
-      var existing = state.equipments[coId].map(function(e){ return e.name + '_' + e.gongCode; });
-      remote.equipments[coId].forEach(function(eq) {
-        var key = eq.name + '_' + eq.gongCode;
-        if (existing.indexOf(key) === -1) state.equipments[coId].push(eq);
-      });
-    });
-  }
-  // gongMaster / vendorMaster: remote 우선
-  if (remote.gongMaster)   state.gongMaster   = remote.gongMaster;
-  if (remote.vendorMaster) state.vendorMaster  = remote.vendorMaster;
-}
-
-/* 하위 호환성용 (내부에서 직접 호출되는 곳 있을 경우 대비) */
-function lsGet(k) { return null; }
-function lsSet(k, v) {}
+/* saveAll → GH 모듈로 이동 */
 
 function xe(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -1445,254 +1217,143 @@ function toast(title, msg, type) {
 
 function canEdit() { return state.curUser && state.curUser.role !== 'VIEWER'; }
 
-/* ── AUTH ───────────────────────────────────────────── */
-function doLogin() {
-  var id = gid('loginId').value.trim();
-  var pw = gid('loginPw').value;
-  gid('loginErr').style.display = 'none';
-  if (!USERS[id] || USERS[id].pw !== pw) {
-    gid('loginErr').style.display = 'block';
-    return;
-  }
-  // localStorage에서 PAT 로드
-  var savedPat = ghPatLoad();
-  if (!savedPat) {
-    // PAT 미등록 → 설정 UI 표시
-    gid('patSetupArea').style.display = 'block';
-    // 임시 로그인 정보 저장
-    window._pendingLogin = { id: id, name: USERS[id].name, role: USERS[id].role };
-    return;
-  }
-  GH.pat = savedPat;
-  _doLoginProceed(id, USERS[id].name, USERS[id].role);
-}
-
-function _doLoginProceed(id, name, role) {
-  state.curUser = { id: id, name: name, role: role };
-  gid('uNm').textContent = name;
-  gid('uRl').textContent = role;
-  var mn = gid('mobUNm'); if (mn) mn.textContent = name;
-  var mr = gid('mobURl'); if (mr) mr.textContent = role;
-  setSyncStatus('load', '데이터 로드 중...');
-  ghLoad().then(function(remote) {
-    appInit(remote);
-    gid('loginScreen').style.display = 'none';
-    gid('app').style.display = 'flex';
-    toast('로그인 성공', name + '님 환영합니다!', 'success');
-  });
-}
-
-function doLogout() {
-  if (GH.saveTimer) { clearTimeout(GH.saveTimer); GH.saveTimer = null; }
-  GH.sha = null;
-  state.curUser = null;
-  gid('app').style.display = 'none';
-  gid('loginScreen').style.display = 'flex';
-  gid('loginId').value = '';
-  gid('loginPw').value = '';
-  setSyncStatus('idle', '대기중');
-}
-
 /* ══════════════════════════════════════════════════════
-   다국어 (i18n) — 한/영/중/베
+   GitHub 저장 모듈 (GH)
 ══════════════════════════════════════════════════════ */
-var _lang = localStorage.getItem('eq_lang') || 'ko';
-
-var I18N = {
-  ko: {
-    /* 공통 */
-    logout:'로그아웃', save:'저장', cancel:'취소', delete:'삭제',
-    edit:'수정', add:'추가', search:'검색', close:'닫기', confirm:'확인',
-    total:'전체', required_only:'필수만', all:'전체', yes:'예', no:'아니오',
-    /* 동기화 */
-    sync_idle:'대기중', sync_saving:'저장 중...', sync_ok:'저장됨',
-    sync_err:'저장 실패', sync_load:'로드 중...',
-    /* 로그인 */
-    login_title:'로그인', login_sub:'계정 정보를 입력하세요', login_btn:'로그인',
-    login_id:'아이디', login_pw:'비밀번호', login_err:'아이디 또는 비밀번호가 올바르지 않습니다.',
-    /* 네비 */
-    nav_dashboard:'📊 대시보드', nav_master:'📋 Master DB',
-    nav_setup:'⚙️ 프로세스 Setup', nav_progress:'📈 프로세스 진행현황',
-    nav_equip:'🏭 설비 투자 진척', nav_detail:'📊 설비별 실적 현황',
-    nav_company:'🏢 기업 관리',
-    /* 대시보드 */
-    dash_title:'대시보드', dash_sub:'기업·공정·설비업체·설비별 11단계 진척 현황',
-    dash_co_all:'🏢 전체 기업', dash_refresh:'새로고침',
-    dash_kpi_co:'등록 기업', dash_kpi_eq:'등록 설비',
-    dash_kpi_done:'완료 설비', dash_kpi_delay:'지연 설비',
-    /* 기업관리 */
-    co_add:'+ 기업 추가', co_proc_set:'프로세스 Setting', co_status:'현황',
-    co_eq_add:'설비등록', co_gong_mng:'공정Master관리', co_vend_mng:'업체Master관리',
-    /* 공통 테이블 */
-    col_company:'기업명', col_process:'프로세스', col_step:'단계', col_dept:'부서',
-    col_manager:'담당자', col_contact:'연락처', col_date:'날짜',
-    col_done:'완료', col_delay:'지연', col_rate:'진척률',
-  },
-  en: {
-    logout:'Logout', save:'Save', cancel:'Cancel', delete:'Delete',
-    edit:'Edit', add:'Add', search:'Search', close:'Close', confirm:'OK',
-    total:'All', required_only:'Required', all:'All', yes:'Yes', no:'No',
-    sync_idle:'Idle', sync_saving:'Saving...', sync_ok:'Saved',
-    sync_err:'Save Failed', sync_load:'Loading...',
-    login_title:'Sign In', login_sub:'Enter your credentials', login_btn:'Sign In',
-    login_id:'Username', login_pw:'Password', login_err:'Invalid username or password.',
-    nav_dashboard:'📊 Dashboard', nav_master:'📋 Master DB',
-    nav_setup:'⚙️ Process Setup', nav_progress:'📈 Progress',
-    nav_equip:'🏭 Equipment Progress', nav_detail:'📊 Equipment Detail',
-    nav_company:'🏢 Company',
-    dash_title:'Dashboard', dash_sub:'11-step progress by company/process/vendor/equipment',
-    dash_co_all:'🏢 All Companies', dash_refresh:'Refresh',
-    dash_kpi_co:'Companies', dash_kpi_eq:'Equipment',
-    dash_kpi_done:'Completed', dash_kpi_delay:'Delayed',
-    co_add:'+ Add Company', co_proc_set:'Process Setup', co_status:'Status',
-    co_eq_add:'Add Equipment', co_gong_mng:'Process Master', co_vend_mng:'Vendor Master',
-    col_company:'Company', col_process:'Process', col_step:'Step', col_dept:'Dept',
-    col_manager:'Manager', col_contact:'Contact', col_date:'Date',
-    col_done:'Done', col_delay:'Delay', col_rate:'Progress',
-  },
-  zh: {
-    logout:'退出', save:'保存', cancel:'取消', delete:'删除',
-    edit:'编辑', add:'添加', search:'搜索', close:'关闭', confirm:'确认',
-    total:'全部', required_only:'必填', all:'全部', yes:'是', no:'否',
-    sync_idle:'待机', sync_saving:'保存中...', sync_ok:'已保存',
-    sync_err:'保存失败', sync_load:'加载中...',
-    login_title:'登录', login_sub:'请输入账号信息', login_btn:'登录',
-    login_id:'账号', login_pw:'密码', login_err:'账号或密码错误。',
-    nav_dashboard:'📊 仪表盘', nav_master:'📋 主数据库',
-    nav_setup:'⚙️ 流程设置', nav_progress:'📈 进度状态',
-    nav_equip:'🏭 设备进度', nav_detail:'📊 设备明细',
-    nav_company:'🏢 企业管理',
-    dash_title:'仪表盘', dash_sub:'按企业/工序/供应商/设备的11步进度',
-    dash_co_all:'🏢 全部企业', dash_refresh:'刷新',
-    dash_kpi_co:'企业数', dash_kpi_eq:'设备数',
-    dash_kpi_done:'完成', dash_kpi_delay:'延误',
-    co_add:'+ 添加企业', co_proc_set:'流程设置', co_status:'状态',
-    co_eq_add:'添加设备', co_gong_mng:'工序主数据', co_vend_mng:'供应商主数据',
-    col_company:'企业', col_process:'工序', col_step:'步骤', col_dept:'部门',
-    col_manager:'负责人', col_contact:'联系方式', col_date:'日期',
-    col_done:'完成', col_delay:'延误', col_rate:'进度',
-  },
-  vi: {
-    logout:'Đăng xuất', save:'Lưu', cancel:'Hủy', delete:'Xóa',
-    edit:'Sửa', add:'Thêm', search:'Tìm', close:'Đóng', confirm:'OK',
-    total:'Tất cả', required_only:'Bắt buộc', all:'Tất cả', yes:'Có', no:'Không',
-    sync_idle:'Chờ', sync_saving:'Đang lưu...', sync_ok:'Đã lưu',
-    sync_err:'Lỗi lưu', sync_load:'Đang tải...',
-    login_title:'Đăng nhập', login_sub:'Nhập thông tin tài khoản', login_btn:'Đăng nhập',
-    login_id:'Tài khoản', login_pw:'Mật khẩu', login_err:'Tài khoản hoặc mật khẩu không đúng.',
-    nav_dashboard:'📊 Bảng điều khiển', nav_master:'📋 Master DB',
-    nav_setup:'⚙️ Cài đặt quy trình', nav_progress:'📈 Tiến độ',
-    nav_equip:'🏭 Tiến độ thiết bị', nav_detail:'📊 Chi tiết thiết bị',
-    nav_company:'🏢 Quản lý doanh nghiệp',
-    dash_title:'Bảng điều khiển', dash_sub:'Tiến độ 11 bước theo công ty/quy trình/nhà cung cấp',
-    dash_co_all:'🏢 Tất cả công ty', dash_refresh:'Làm mới',
-    dash_kpi_co:'Công ty', dash_kpi_eq:'Thiết bị',
-    dash_kpi_done:'Hoàn thành', dash_kpi_delay:'Trễ hạn',
-    co_add:'+ Thêm công ty', co_proc_set:'Cài đặt QT', co_status:'Trạng thái',
-    co_eq_add:'Thêm thiết bị', co_gong_mng:'Master quy trình', co_vend_mng:'Master nhà cung cấp',
-    col_company:'Công ty', col_process:'Quy trình', col_step:'Bước', col_dept:'Bộ phận',
-    col_manager:'Phụ trách', col_contact:'Liên hệ', col_date:'Ngày',
-    col_done:'Hoàn thành', col_delay:'Trễ', col_rate:'Tiến độ',
-  }
+var GH = {
+  owner: 'kangsh8880',
+  repo:  'eq-pms',
+  path:  'data/eqpms_state.json',
+  pat:   null,
+  sha:   null,
+  saveTimer: null
 };
 
-function t(key) {
-  var d = I18N[_lang] || I18N['ko'];
-  return d[key] || I18N['ko'][key] || key;
+// PAT 저장/로드 (localStorage XOR 난독화)
+function ghPatEncode(s){ var k='eqpms2026'; return btoa(s.split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^k.charCodeAt(i%k.length));}).join('')); }
+function ghPatDecode(s){ var k='eqpms2026'; return atob(s).split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^k.charCodeAt(i%k.length));}).join(''); }
+function ghPatSave(pat){ try{ localStorage.setItem('_ghp', ghPatEncode(pat)); }catch(e){} }
+function ghPatLoad(){ try{ var v=localStorage.getItem('_ghp'); return v?ghPatDecode(v):null; }catch(e){return null;} }
+function ghPatClear(){ try{ localStorage.removeItem('_ghp'); }catch(e){} }
+
+function ghHeaders() {
+  return {
+    'Authorization': 'Bearer ' + GH.pat,
+    'Accept': 'application/vnd.github+json',
+    'Content-Type': 'application/json'
+  };
 }
 
-function setLang(lang) {
-  _lang = lang;
-  localStorage.setItem('eq_lang', lang);
-  // 언어 버튼 active 상태
-  ['ko','en','zh','vi'].forEach(function(l) {
-    var btn = document.getElementById('lang_' + l);
-    if (btn) btn.className = 'lang-btn' + (l === lang ? ' active' : '');
-  });
-  // data-i18n 요소 일괄 업데이트
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    var key = el.getAttribute('data-i18n');
-    el.textContent = t(key);
-  });
-  // html lang 속성
-  document.documentElement.lang = lang === 'ko' ? 'ko' : lang === 'zh' ? 'zh' : lang === 'vi' ? 'vi' : 'en';
-  // 현재 페이지 재렌더링 (동적 생성 콘텐츠 반영)
-  var cur = document.querySelector('.nb.active');
-  if (cur) {
-    var pg = cur.getAttribute('data-p');
-    if (pg) { setTimeout(function(){ navTo(pg); }, 0); }
-  }
-}
-
-/* ══════════════════════════════════════════════════════
-   테마 (화이트/다크)
-══════════════════════════════════════════════════════ */
-var _theme = localStorage.getItem('eq_theme') || 'dark';
-
-function applyTheme(theme) {
-  _theme = theme;
-  if (theme === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-  }
-  localStorage.setItem('eq_theme', theme);
-}
-
-function toggleTheme() {
-  applyTheme(_theme === 'dark' ? 'light' : 'dark');
-}
-
-// 페이지 로드 시 테마 적용
-(function(){ applyTheme(_theme); })();
-
-
-/* ── INIT ───────────────────────────────────────────── */
-function appInit(remote) {
-  // Master DB 초기화 (항상 내장 데이터 기준)
-  state.master = MASTER_DB.map(function(r, i) {
-    return Object.assign({}, r, { id: r.id || (i + 1) });
-  });
-
-  // 기본 초기 데이터 (GitHub에 없을 때 fallback)
-  state.companies = [
-    { id:'co1', name:'UTI (유티아이)',  industry:'디스플레이', note:'파일럿 기업', cd:'2026-04-01' },
-    { id:'co2', name:'테스트기업 A',    industry:'반도체',     note:'',           cd:'2026-04-03' }
-  ];
-  state.setups = {};
-  var ids = state.master.slice(0, 107).map(function(r){ return r.id; });
-  state.setups['co1'] = { sel:ids, custom:{}, done:[], doneAt:{}, tgt:{} };
-  state.equipments   = {};
-  state.gongMaster   = {};
-  state.vendorMaster = {};
-
-  // GitHub 데이터 적용 (머지)
-  if (remote) {
-    mergeAndApply(remote);
-    // companies 전체 교체 (GitHub 최신 우선)
-    if (remote.companies && remote.companies.length) {
-      state.companies = remote.companies;
+// GitHub에서 데이터 불러오기
+async function ghLoad() {
+  if (!GH.pat) { setSyncStatus('idle', ''); return null; }
+  setSyncStatus('load', '불러오는 중...');
+  try {
+    var url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo
+            + '/contents/' + GH.path + '?t=' + Date.now();
+    var res = await fetch(url, { headers: ghHeaders() });
+    if (res.status === 401) {
+      setSyncStatus('err', 'PAT 오류');
+      return null;
     }
-    if (remote.setups)       state.setups       = remote.setups;
-    if (remote.equipments)   state.equipments   = remote.equipments;
-    if (remote.gongMaster)   state.gongMaster   = remote.gongMaster;
-    if (remote.vendorMaster) state.vendorMaster = remote.vendorMaster;
+    if (res.status === 404) {
+      GH.sha = null;
+      setSyncStatus('ok', '신규 저장소');
+      return null;
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+    GH.sha = data.sha;
+    var b64 = data.content.replace(/\n/g, '');
+    var decoded = JSON.parse(decodeURIComponent(escape(atob(b64))));
+    setSyncStatus('ok', '로드 완료');
+    return decoded;
+  } catch(e) {
+    setSyncStatus('err', '로드 실패');
+    console.error('ghLoad error:', e);
+    return null;
   }
-
-  _coTab = 'company';
-  _coSelId = null;
-  // 테마 적용
-  applyTheme(_theme);
-  // 언어 버튼 초기 상태
-  ['ko','en','zh','vi'].forEach(function(l) {
-    var btn = document.getElementById('lang_' + l);
-    if (btn) btn.className = 'lang-btn' + (l === _lang ? ' active' : '');
-  });
-  navTo('dashboard');
 }
 
-/* ── NAV ────────────────────────────────────────────── */
-/* ── PAT 설정 팝업 ──────────────────────────── */
+// GitHub에 데이터 저장
+async function ghSave(stateObj) {
+  if (!GH.pat) { setSyncStatus('idle', ''); return; }
+  setSyncStatus('saving', '저장 중...');
+  try {
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(stateObj, null, 2))));
+    var now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Ho_Chi_Minh' });
+    var body = { message: '[EQ-PMS] Auto-save ' + now, content: content };
+    if (GH.sha) body.sha = GH.sha;
+    var url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo
+            + '/contents/' + GH.path;
+    var res = await fetch(url, {
+      method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
+    });
+    if (res.status === 409) {
+      // SHA 충돌 → 최신 SHA 재조회 후 재시도
+      var chk = await fetch(url + '?t=' + Date.now(), { headers: ghHeaders() });
+      if (chk.ok) { var cd = await chk.json(); GH.sha = cd.sha; body.sha = cd.sha; }
+      res = await fetch(url, { method:'PUT', headers:ghHeaders(), body:JSON.stringify(body) });
+    }
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var rd = await res.json();
+    GH.sha = rd.content ? rd.content.sha : GH.sha;
+    var t = new Date().toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit' });
+    setSyncStatus('ok', '저장됨 ' + t);
+  } catch(e) {
+    setSyncStatus('err', '저장 실패');
+    console.error('ghSave error:', e);
+  }
+}
+
+function setSyncStatus(status, text) {
+  var badge = gid('syncStatus');
+  var icon  = gid('syncIcon');
+  var txt   = gid('syncText');
+  if (!badge) return;
+  badge.className = 'sync-badge sync-' + status;
+  var icons = { idle:'☁️', saving:'🔄', ok:'✅', err:'❌', load:'⏳' };
+  var ikeys = { idle:'sync_idle', saving:'sync_saving', ok:'sync_ok', err:'sync_err', load:'sync_load' };
+  icon.textContent = icons[status] || '☁️';
+  txt.textContent = (ikeys[status] && typeof t === 'function') ? t(ikeys[status]) : text;
+}
+
+function mergeAndApply(remote) {
+  if (!remote) return;
+  if (remote.companies && remote.companies.length) state.companies = remote.companies;
+  if (remote.setups)       state.setups       = remote.setups;
+  if (remote.equipments)   state.equipments   = remote.equipments;
+  if (remote.gongMaster)   state.gongMaster   = remote.gongMaster;
+  if (remote.vendorMaster) state.vendorMaster = remote.vendorMaster;
+  if (remote.master && remote.master.length) state.master = remote.master;
+  lsSet('companies',    state.companies);
+  lsSet('setups',       state.setups);
+  lsSet('equipments',   state.equipments);
+  lsSet('gongMaster',   state.gongMaster);
+  lsSet('vendorMaster', state.vendorMaster);
+}
+
+// 3초 디바운스 자동저장
+function saveAll() {
+  lsSet('companies',    state.companies);
+  lsSet('setups',       state.setups);
+  lsSet('master',       state.master);
+  lsSet('equipments',   state.equipments);
+  lsSet('gongMaster',   state.gongMaster);
+  lsSet('vendorMaster', state.vendorMaster);
+  if (!GH.pat) return;
+  if (GH.saveTimer) clearTimeout(GH.saveTimer);
+  GH.saveTimer = setTimeout(function() {
+    GH.saveTimer = null;
+    ghSave({
+      companies: state.companies, setups: state.setups,
+      master: state.master, equipments: state.equipments,
+      gongMaster: state.gongMaster, vendorMaster: state.vendorMaster
+    });
+  }, 3000);
+}
+
+// PAT 설정 팝업
 function openPatSettings() {
   var cur = ghPatLoad() || '';
   var masked = cur ? cur.slice(0,8) + '****************' : '(미설정)';
@@ -1718,27 +1379,310 @@ function openPatSettings() {
   document.body.appendChild(el);
   document.getElementById('patMClose').onclick = function(){ el.remove(); };
   document.getElementById('patMDel').onclick = function(){
-    ghPatClear(); el.remove();
+    ghPatClear(); GH.pat = null; el.remove();
     toast('삭제됨','PAT가 삭제되었습니다','info');
   };
-  document.getElementById('patMSave').onclick = function(){ _savePatModal(el); };
+  document.getElementById('patMSave').onclick = function(){
+    var pat = document.getElementById('modalPatInput').value.trim();
+    if (!pat) { toast('오류','PAT를 입력해주세요','error'); return; }
+    ghPatSave(pat); GH.pat = pat; GH.sha = null; el.remove();
+    setSyncStatus('load','재연결 중...');
+    ghLoad().then(function(remote){ if(remote) mergeAndApply(remote); toast('연결 성공','GitHub 연결 완료','success'); });
+  };
 }
 
-function _savePatModal(el) {
-  var pat = document.getElementById('modalPatInput').value.trim();
-  if (!pat) { toast('오류', 'PAT를 입력해주세요', 'error'); return; }
-  ghPatSave(pat);
-  GH.pat = pat;
-  GH.sha = null;
-  if (el) el.remove();
-  setSyncStatus('load', '재연결 중...');
-  ghLoad().then(function(remote) {
-    if (remote) mergeAndApply(remote);
-    toast('연결 성공', 'GitHub 데이터 연결 완료', 'success');
+
+/* ── AUTH ───────────────────────────────────────────── */
+function doLogin() {
+  var id = gid('loginId').value.trim();
+  var pw = gid('loginPw').value;
+  if (USERS[id] && USERS[id].pw === pw) {
+    var sp=(function(){try{var v=localStorage.getItem('_ghp');if(!v)return null;var k='eqpms2026';return atob(v).split('').map(function(c,i){return String.fromCharCode(c.charCodeAt(0)^k.charCodeAt(i%k.length));}).join('');}catch(e){return null;}})();
+    GH.pat=sp||null;
+    state.curUser = { id: id, name: USERS[id].name, role: USERS[id].role };
+    gid('loginScreen').style.display = 'none';
+    gid('app').style.display = 'flex';
+    gid('uNm').textContent = state.curUser.name;
+    gid('uRl').textContent = state.curUser.role;
+    var mn = gid('mobUNm'); if (mn) mn.textContent = state.curUser.name;
+    var mr = gid('mobURl'); if (mr) mr.textContent = state.curUser.role;
+    gid('loginErr').style.display = 'none';
+    appInit();
+    toast('로그인 성공', state.curUser.name + '님 환영합니다!', 'success');
+  } else {
+    gid('loginErr').style.display = 'block';
+  }
+}
+
+function doLogout() {
+  state.curUser = null;
+  gid('app').style.display = 'none';
+  gid('loginScreen').style.display = 'flex';
+  gid('loginId').value = '';
+  gid('loginPw').value = '';
+}
+
+
+/* ── 다국어 + 테마 ─────────────────────────── */
+var _lang = localStorage.getItem('eq_lang') || 'ko';
+var _theme = localStorage.getItem('eq_theme') || 'light';
+
+var I18N = {
+  ko:{
+    logout:'로그아웃', save:'저장', cancel:'취소', delete:'삭제',
+    edit:'수정', add:'추가', search:'검색', close:'닫기', all:'전체',
+    save_icon:'💾 저장', co_add:'+ 기업 추가', eq_add:'＋ 설비 추가',
+    sync_idle:'대기중', sync_saving:'저장 중...', sync_ok:'저장됨',
+    sync_err:'저장 실패', sync_load:'로드 중...',
+    login_title:'로그인', login_sub:'계정 정보를 입력하세요', login_btn:'로그인',
+    nav_dashboard:'📊 대시보드', nav_master:'📋 Master DB',
+    nav_setup:'⚙️ 프로세스 Setup', nav_progress:'📈 진행현황',
+    nav_equip:'🏭 설비 투자 진척', nav_detail:'📊 설비별 실적',
+    nav_company:'🏢 기업 관리',
+    dash_sub:'기업·공정·설비업체·설비별 11단계 진척 현황',
+    dash_co_all:'🏢 전체 기업', dash_refresh:'🔄 새로고침',
+    dash_kpi_co:'등록 기업', dash_kpi_eq:'등록 설비',
+    dash_kpi_done:'완료 설비', dash_kpi_delay:'지연 설비',
+    dash_co_table:'🏢 기업별 설비 투자 진척 현황',
+    dash_proc_table:'⚙️ 공정별 설비 진척 현황',
+    dash_vend_table:'🏭 설비업체별 진척 현황',
+    dash_eq_table:'🔧 설비별 11단계 투자 진척 현황',
+    col_co:'기업명', col_eq_cnt:'설비수', col_process:'공정명',
+    col_vend:'업체명', col_eq:'설비', col_done:'완료',
+    col_delay:'지연', col_rate:'진척률', col_equip:'호기/설비명',
+    col_category:'구분', col_task:'세부검토항목', col_point:'체크포인트',
+    col_req:'필수여부', col_doc:'필요문서', col_dept1:'총괄담당',
+    col_dept2:'합의', col_dept3:'승인', col_schedule:'표준일정',
+    master_sub:'항목', req_all:'전체 필수여부',
+    item_edit:'항목 수정', item_add:'항목 추가',
+    setup_sub:'Master DB에서 항목을 선택',
+    setup_select_co:'기업을 선택하세요',
+    prog_sub:'기업별 프로세스 체크리스트 진행 추적',
+    prog_total:'📊 전체 진행률',
+    prog_lbl_total:'전체 항목', prog_lbl_done:'완료', prog_lbl_remain:'미완료',
+    equip_sub:'목표일/실적일 관리',
+    equip_filter_co:'기업', equip_filter_proc:'전체 공정',
+    equip_filter_vend:'전체 업체', equip_stat_avg:'📊 평균 진행률',
+    detail_select_co:'기업', detail_select_eq:'설비',
+    co_sub:'기업·공정·설비업체 통합 관리',
+    co_add:'+ 기업 추가', co_proc_set:'⚙️ 프로세스 Setting',
+    co_status:'📈 현황', co_eq_add:'🏭 설비등록',
+    co_gong_mng:'⚙️ 공정Master관리', co_vend_mng:'🏭 업체Master관리',
+    co_tab_co:'🏢 기업 관리', co_tab_proc:'⚙️ 공정 Master',
+    co_tab_vend:'🏭 설비업체 Master',
+    co_lbl_eq:'설비수', co_lbl_total:'총 항목수', co_lbl_done:'완료 항목수',
+    proc_add:'+ 공정 추가', vend_add:'+ 업체 추가',
+    modal_co_add:'기업 추가', modal_eq_add:'설비 추가',
+    sel_co:'기업을 선택하세요', sel_eq:'설비를 선택하세요',
+    empty_co:'기업을 선택하세요', empty_setup:'Setup을 먼저 완료하세요',
+  },
+  en:{
+    logout:'Logout', save:'Save', cancel:'Cancel', delete:'Delete',
+    edit:'Edit', add:'Add', search:'Search', close:'Close', all:'All',
+    save_icon:'💾 Save', co_add:'+ Add Company', eq_add:'＋ Add Equip',
+    sync_idle:'Idle', sync_saving:'Saving...', sync_ok:'Saved',
+    sync_err:'Failed', sync_load:'Loading...',
+    login_title:'Sign In', login_sub:'Enter your credentials', login_btn:'Sign In',
+    nav_dashboard:'📊 Dashboard', nav_master:'📋 Master DB',
+    nav_setup:'⚙️ Process Setup', nav_progress:'📈 Progress',
+    nav_equip:'🏭 Equip Progress', nav_detail:'📊 Equip Detail',
+    nav_company:'🏢 Company',
+    dash_sub:'11-step progress by company / process / vendor / equipment',
+    dash_co_all:'🏢 All Companies', dash_refresh:'🔄 Refresh',
+    dash_kpi_co:'Companies', dash_kpi_eq:'Equipment',
+    dash_kpi_done:'Completed', dash_kpi_delay:'Delayed',
+    dash_co_table:'🏢 Equipment Progress by Company',
+    dash_proc_table:'⚙️ Progress by Process',
+    dash_vend_table:'🏭 Progress by Vendor',
+    dash_eq_table:'🔧 11-Step Progress by Equipment',
+    col_co:'Company', col_eq_cnt:'Equip', col_process:'Process',
+    col_vend:'Vendor', col_eq:'Equip', col_done:'Done',
+    col_delay:'Delay', col_rate:'Progress', col_equip:'Equipment',
+    col_category:'Category', col_task:'Task', col_point:'Checkpoint',
+    col_req:'Required', col_doc:'Document', col_dept1:'Owner',
+    col_dept2:'Review', col_dept3:'Approve', col_schedule:'Schedule',
+    master_sub:'items', req_all:'All Types',
+    item_edit:'Edit Item', item_add:'Add Item',
+    setup_sub:'Select items from Master DB per company',
+    setup_select_co:'Select Company',
+    prog_sub:'Track checklist progress by company',
+    prog_total:'📊 Total Progress',
+    prog_lbl_total:'Total', prog_lbl_done:'Done', prog_lbl_remain:'Remaining',
+    equip_sub:'Manage target / actual dates',
+    equip_filter_co:'Company', equip_filter_proc:'All Process',
+    equip_filter_vend:'All Vendor', equip_stat_avg:'📊 Avg Progress',
+    detail_select_co:'Company', detail_select_eq:'Equipment',
+    co_sub:'Manage company, process and vendor',
+    co_add:'+ Add Company', co_proc_set:'⚙️ Process Setup',
+    co_status:'📈 Status', co_eq_add:'🏭 Add Equip',
+    co_gong_mng:'⚙️ Process Master', co_vend_mng:'🏭 Vendor Master',
+    co_tab_co:'🏢 Company', co_tab_proc:'⚙️ Process Master',
+    co_tab_vend:'🏭 Vendor Master',
+    co_lbl_eq:'Equip', co_lbl_total:'Total Items', co_lbl_done:'Completed',
+    proc_add:'+ Add Process', vend_add:'+ Add Vendor',
+    modal_co_add:'Add Company', modal_eq_add:'Add Equipment',
+    sel_co:'Select Company', sel_eq:'Select Equipment',
+    empty_co:'Select a company', empty_setup:'Complete Setup first',
+  },
+  zh:{
+    logout:'退出', save:'保存', cancel:'取消', delete:'删除',
+    edit:'编辑', add:'添加', search:'搜索', close:'关闭', all:'全部',
+    save_icon:'💾 保存', co_add:'+ 添加企业', eq_add:'＋ 添加设备',
+    sync_idle:'待机', sync_saving:'保存中...', sync_ok:'已保存',
+    sync_err:'失败', sync_load:'加载中...',
+    login_title:'登录', login_sub:'请输入账号信息', login_btn:'登录',
+    nav_dashboard:'📊 仪表盘', nav_master:'📋 主数据库',
+    nav_setup:'⚙️ 流程设置', nav_progress:'📈 进度状态',
+    nav_equip:'🏭 设备进度', nav_detail:'📊 设备明细',
+    nav_company:'🏢 企业管理',
+    dash_sub:'按企业/工序/供应商/设备的11步进度',
+    dash_co_all:'🏢 全部企业', dash_refresh:'🔄 刷新',
+    dash_kpi_co:'企业数', dash_kpi_eq:'设备数',
+    dash_kpi_done:'完成', dash_kpi_delay:'延误',
+    dash_co_table:'🏢 按企业的设备投资进度',
+    dash_proc_table:'⚙️ 按工序进度',
+    dash_vend_table:'🏭 按供应商进度',
+    dash_eq_table:'🔧 设备11步投资进度',
+    col_co:'企业', col_eq_cnt:'设备数', col_process:'工序',
+    col_vend:'供应商', col_eq:'设备', col_done:'完成',
+    col_delay:'延误', col_rate:'进度', col_equip:'设备名',
+    col_category:'分类', col_task:'检查项目', col_point:'检查点',
+    col_req:'必填', col_doc:'所需文件', col_dept1:'主管',
+    col_dept2:'协议', col_dept3:'审批', col_schedule:'标准周期',
+    master_sub:'项目', req_all:'全部类型',
+    item_edit:'编辑项目', item_add:'添加项目',
+    setup_sub:'从主数据库选择项目进行企业定制',
+    setup_select_co:'选择企业',
+    prog_sub:'按企业追踪检查清单进度',
+    prog_total:'📊 整体进度',
+    prog_lbl_total:'总计', prog_lbl_done:'完成', prog_lbl_remain:'未完成',
+    equip_sub:'按设备管理目标日/实际日',
+    equip_filter_co:'企业', equip_filter_proc:'全部工序',
+    equip_filter_vend:'全部供应商', equip_stat_avg:'📊 平均进度',
+    detail_select_co:'企业', detail_select_eq:'设备',
+    co_sub:'企业·工序·供应商综合管理',
+    co_add:'+ 添加企业', co_proc_set:'⚙️ 流程设置',
+    co_status:'📈 状态', co_eq_add:'🏭 添加设备',
+    co_gong_mng:'⚙️ 工序主数据管理', co_vend_mng:'🏭 供应商主数据管理',
+    co_tab_co:'🏢 企业管理', co_tab_proc:'⚙️ 工序主数据',
+    co_tab_vend:'🏭 供应商主数据',
+    co_lbl_eq:'设备数', co_lbl_total:'总项目数', co_lbl_done:'完成数',
+    proc_add:'+ 添加工序', vend_add:'+ 添加供应商',
+    modal_co_add:'添加企业', modal_eq_add:'添加设备',
+    sel_co:'选择企业', sel_eq:'选择设备',
+    empty_co:'请选择企业', empty_setup:'请先完成设置',
+  },
+  vi:{
+    logout:'Dang xuat', save:'Luu', cancel:'Huy', delete:'Xoa',
+    edit:'Sua', add:'Them', search:'Tim', close:'Dong', all:'Tat ca',
+    save_icon:'Luu', co_add:'+ Them cong ty', eq_add:'+ Them thiet bi',
+    sync_idle:'Cho', sync_saving:'Dang luu...', sync_ok:'Da luu',
+    sync_err:'Loi', sync_load:'Dang tai...',
+    login_title:'Dang nhap', login_sub:'Nhap thong tin', login_btn:'Dang nhap',
+    nav_dashboard:'📊 Bang dieu khien', nav_master:'📋 Master DB',
+    nav_setup:'⚙️ Cai dat QT', nav_progress:'📈 Tien do',
+    nav_equip:'🏭 Tien do TB', nav_detail:'📊 Chi tiet TB',
+    nav_company:'🏢 Quan ly',
+    dash_sub:'Tien do 11 buoc theo cong ty/quy trinh/nha cung cap',
+    dash_co_all:'🏢 Tat ca cong ty', dash_refresh:'🔄 Lam moi',
+    dash_kpi_co:'Cong ty', dash_kpi_eq:'Thiet bi',
+    dash_kpi_done:'Hoan thanh', dash_kpi_delay:'Tre han',
+    dash_co_table:'🏢 Tien do thiet bi theo cong ty',
+    dash_proc_table:'⚙️ Tien do theo quy trinh',
+    dash_vend_table:'🏭 Tien do theo nha cung cap',
+    dash_eq_table:'🔧 Tien do 11 buoc theo thiet bi',
+    col_co:'Cong ty', col_eq_cnt:'Thiet bi', col_process:'Quy trinh',
+    col_vend:'Nha CC', col_eq:'TB', col_done:'Xong',
+    col_delay:'Tre', col_rate:'Tien do', col_equip:'Ten thiet bi',
+    col_category:'Phan loai', col_task:'Hang muc', col_point:'Diem KT',
+    col_req:'Bat buoc', col_doc:'Tai lieu', col_dept1:'Phu trach',
+    col_dept2:'Xem xet', col_dept3:'Phe duyet', col_schedule:'Lich trinh',
+    master_sub:'hang muc', req_all:'Tat ca loai',
+    item_edit:'Sua hang muc', item_add:'Them hang muc',
+    setup_sub:'Chon hang muc tu Master DB',
+    setup_select_co:'Chon cong ty',
+    prog_sub:'Theo doi checklist theo cong ty',
+    prog_total:'📊 Tong tien do',
+    prog_lbl_total:'Tong', prog_lbl_done:'Xong', prog_lbl_remain:'Chua xong',
+    equip_sub:'Quan ly ngay muc tieu/thuc te',
+    equip_filter_co:'Cong ty', equip_filter_proc:'Tat ca QT',
+    equip_filter_vend:'Tat ca NCC', equip_stat_avg:'📊 TB tien do',
+    detail_select_co:'Cong ty', detail_select_eq:'Thiet bi',
+    co_sub:'Quan ly tong hop cong ty, QT, NCC',
+    co_add:'+ Them cong ty', co_proc_set:'⚙️ Cai dat QT',
+    co_status:'📈 Trang thai', co_eq_add:'🏭 Them TB',
+    co_gong_mng:'⚙️ QL Master QT', co_vend_mng:'🏭 QL Master NCC',
+    co_tab_co:'🏢 Cong ty', co_tab_proc:'⚙️ Master QT',
+    co_tab_vend:'🏭 Master NCC',
+    co_lbl_eq:'Thiet bi', co_lbl_total:'Tong HM', co_lbl_done:'Hoan thanh',
+    proc_add:'+ Them QT', vend_add:'+ Them NCC',
+    modal_co_add:'Them cong ty', modal_eq_add:'Them thiet bi',
+    sel_co:'Chon cong ty', sel_eq:'Chon thiet bi',
+    empty_co:'Chon cong ty', empty_setup:'Hoan thanh Setup truoc',
+  }
+};
+
+function t(k){ var d=I18N[_lang]||I18N.ko; return d[k]!==undefined?d[k]:(I18N.ko[k]||k); }
+
+function setLang(lang){
+  _lang=lang;
+  localStorage.setItem('eq_lang',lang);
+  ['ko','en','zh','vi'].forEach(function(l){
+    var b=document.getElementById('lang_'+l);
+    if(b) b.className='lang-btn'+(l===lang?' active':'');
+    if(b) { b.style.background=l===lang?'var(--ac)':'transparent';
+             b.style.borderColor=l===lang?'var(--ac)':'var(--bd)';
+             b.style.color=l===lang?'#fff':'var(--t2)'; }
   });
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    el.textContent=t(el.getAttribute('data-i18n'));
+  });
+  var cur=document.querySelector('.nb.active');
+  if(cur){ var pg=cur.getAttribute('data-p'); if(pg) setTimeout(function(){navTo(pg);},0); }
 }
 
+function applyTheme(theme){
+  _theme=theme;
+  if(theme==='light') document.documentElement.setAttribute('data-theme','light');
+  else document.documentElement.removeAttribute('data-theme');
+  localStorage.setItem('eq_theme',theme);
+  var btn=document.getElementById('themeBtn');
+  if(btn){ btn.style.background=theme==='light'?'#0969da':'var(--bg3)'; }
+}
 
+function toggleTheme(){ applyTheme(_theme==='dark'?'light':'dark'); }
+(function(){ applyTheme(_theme); })();
+
+/* ── INIT ───────────────────────────────────────────── */
+function appInit() {
+  var saved = lsGet('master');
+  if (saved && saved.length) {
+    state.master = saved;
+  } else {
+    state.master = MASTER_DB.map(function(r, i) {
+      return Object.assign({}, r, { id: r.id || (i + 1) });
+    });
+  }
+  state.companies = lsGet('companies') || [
+    { id:'co1', name:'UTI (유티아이)',  industry:'디스플레이', note:'파일럿 기업', cd:'2026-04-01' },
+    { id:'co2', name:'테스트기업 A',    industry:'반도체',     note:'',           cd:'2026-04-03' }
+  ];
+  state.setups = lsGet('setups') || {};
+  if (!state.setups['co1']) {
+    var ids = state.master.slice(0, 107).map(function(r){ return r.id; });
+    state.setups['co1'] = { sel:ids, custom:{}, done:[], doneAt:{}, tgt:{} };
+  }
+  state.equipments = lsGet('equipments') || {};
+  // 공정/설비업체 Master (localStorage → 없으면 초기 데이터)
+  state.gongMaster   = lsGet('gongMaster')   || {};
+  state.vendorMaster = lsGet('vendorMaster') || {};
+  // 현재 선택 기업 탭 초기화
+  _coTab = 'company';
+  _coSelId = null;
+  navTo('dashboard');
+}
+
+/* ── NAV ────────────────────────────────────────────── */
 function adjustPageLayout(pgId) {
   // pg-hdr 실제 높이 측정 후 pg-body height 동적 조정
   requestAnimationFrame(function() {
@@ -1811,9 +1755,9 @@ function pgDash() {
 
   var html = '<div style="padding:14px 16px">'
   // ── 기업별 진척 현황 ──
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">🏢 기업별 설비 투자 진척 현황</div>'  + '<div style="overflow-x:auto">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">기업명</th>'  + '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">설비수</th>';
+  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_co_table') + '</div>'  + '<div style="overflow-x:auto">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_co') + '</th>'  + '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_eq_cnt') + '</th>';
   STEPS.forEach(function(s){ html += '<th style="padding:9px 8px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:16px">'+xe(s)+'</th>'; });
-  html += '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">완료율</th>'  + '</tr></thead><tbody>';
+  html += '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_rate') + '</th>'  + '</tr></thead><tbody>';
 
   filteredCos.forEach(function(co){
     var eqs = state.equipments[co.id]||[];
@@ -1838,7 +1782,7 @@ function pgDash() {
   // ── 공정별 진척 현황 ──
   + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">'
   // 공정별
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">⚙️ 공정별 설비 진척 현황</div>'  + '<div style="overflow-y:auto;max-height:320px">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3);position:sticky;top:0">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">공정명</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">설비</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">완료</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">지연</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">진척률</th>'  + '</tr></thead><tbody>';
+  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_proc_table') + '</div>'  + '<div style="overflow-y:auto;max-height:320px">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3);position:sticky;top:0">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">' + t('col_process') + '</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_eq') + '</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_done') + '</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_delay') + '</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">' + t('col_rate') + '</th>'  + '</tr></thead><tbody>';
 
   // 공정별 집계
   var gongMap = {};
@@ -1846,7 +1790,7 @@ function pgDash() {
     var gongs = state.gongMaster[co.id]||[];
     var eqs   = state.equipments[co.id]||[];
     eqs.forEach(function(eq){
-      var key = eq.gongCode||'미지정';
+      var key = eq.gongCode||t('setup_select_co') || '미지정';
       var gObj = gongs.find(function(g){ return g.code===eq.gongCode; })||{};
       var nm   = gObj.name ? '['+key+'] '+gObj.name : key;
       if(!gongMap[key]) gongMap[key] = { name:nm, eqs:[], done:0, delayed:0 };
@@ -1864,14 +1808,14 @@ function pgDash() {
   });
   html += '</tbody></table></div></div>'
   // 설비업체별
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">🏭 설비업체별 진척 현황</div>'  + '<div style="overflow-y:auto;max-height:320px">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3);position:sticky;top:0">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">업체명</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">설비</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">완료</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">지연</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">진척률</th>'  + '</tr></thead><tbody>';
+  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_vend_table') + '</div>'  + '<div style="overflow-y:auto;max-height:320px">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3);position:sticky;top:0">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">' + t('col_vend') + '</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_eq') + '</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_done') + '</th>'  + '<th style="padding:8px 10px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_delay') + '</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd)">' + t('col_rate') + '</th>'  + '</tr></thead><tbody>';
 
   var vendMap = {};
   filteredCos.forEach(function(co){
     var vends = state.vendorMaster[co.id]||[];
     var eqs   = state.equipments[co.id]||[];
     eqs.forEach(function(eq){
-      var key = eq.vendCode||'미지정';
+      var key = eq.vendCode||t('setup_select_co') || '미지정';
       var vObj= vends.find(function(v){ return v.code===eq.vendCode; })||{};
       var nm  = vObj.name||eq.vendNm||key;
       if(!vendMap[key]) vendMap[key] = { name:nm, eqs:[], done:0, delayed:0 };
@@ -1889,11 +1833,11 @@ function pgDash() {
   });
   html += '</tbody></table></div></div>'  + '</div>'
   // ── 설비별 11단계 진척 상세 ──
-  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">🔧 설비별 11단계 투자 진척 현황</div>'  + '<div style="overflow-x:auto;overflow-y:auto;max-height:420px">'  + '<table style="width:100%;border-collapse:collapse;font-size:17px">'  + '<thead><tr style="background:var(--bg3);position:sticky;top:0;z-index:1">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">기업</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">호기/설비명</th>';
+  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_eq_table') + '</div>'  + '<div style="overflow-x:auto;overflow-y:auto;max-height:420px">'  + '<table style="width:100%;border-collapse:collapse;font-size:17px">'  + '<thead><tr style="background:var(--bg3);position:sticky;top:0;z-index:1">'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_co') + '</th>'  + '<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_equip') + '</th>';
   STEPS.forEach(function(s,si){
     html += '<th style="padding:8px 6px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:15px;color:var(--t2)">'+(si+1)+'.'+xe(s)+'</th>';
   });
-  html += '<th style="padding:8px 12px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap">진척률</th>'  + '</tr></thead><tbody>';
+  html += '<th style="padding:8px 12px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_rate') + '</th>'  + '</tr></thead><tbody>';
 
   filteredCos.forEach(function(co){
     var eqs = state.equipments[co.id]||[];
@@ -1901,7 +1845,7 @@ function pgDash() {
       var t=eq.target||{}, a=eq.actual||{};
       var info = calcEqInfo(co.id, eq);
       var rowBg = info.delayed>0 ? 'rgba(248,81,73,.04)' : 'transparent';
-      html += '<tr style="border-bottom:1px solid var(--bd2);background:'+rowBg+'">'        + '<td style="padding:7px 12px;font-size:17px;white-space:nowrap">'+xe(co.name)+'</td>'        + '<td style="padding:7px 12px;font-weight:600;white-space:nowrap">'+(ei+1)+'호기. '+xe(eq.name)+'</td>';
+      html += '<tr style="border-bottom:1px solid var(--bd2);background:'+rowBg+'">'        + '<td style="padding:7px 12px;font-size:17px;white-space:nowrap">'+xe(co.name)+'</td>'        + '<td style="padding:7px 12px;font-weight:600;white-space:nowrap">'+(ei+1)+(idx+1) + '. '+xe(eq.name)+'</td>';
       STEPS.forEach(function(_,si){
         var tgt=t[si]||'', act=a[si]||'';
         var isDelay = (act&&tgt&&act>tgt)||(tgt&&!act&&today>tgt);
@@ -1918,9 +1862,9 @@ function pgDash() {
 
   gid('pg_dashboard').innerHTML = '<div style="padding:0">'    + '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 18px 12px 18px;background:var(--bg);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:10">'    + '<div><h1 style="font-size:22px;font-weight:700;margin:0">📊 대시보드</h1><p style="font-size:14px;color:var(--t2);margin:2px 0 0">기업·공정·설비업체·설비별 투자 프로세스 11단계 진척 현황</p></div>'    + '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
     + '<select id="dashCoFilter" onchange="pgDash()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:15px;font-family:inherit;outline:none;cursor:pointer">'
-    + '<option value="">🏢 전체 기업</option>'
+    + '<option value="">' + t('dash_co_all') + '</option>'
     + state.companies.map(function(c){ return '<option value="' + xe(c.id) + '"' + (dashCoId===c.id?' selected':'') + '>' + xe(c.name) + '</option>'; }).join('')
-    + '</select>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">🏢</span><span style="font-size:13px;color:var(--t2)">등록 기업</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--ac);margin-left:5px">' + totalCo + '개</span></div>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">🏭</span><span style="font-size:13px;color:var(--t2)">등록 설비</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--pu);margin-left:5px">' + totalEq + '대</span></div>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">✅</span><span style="font-size:13px;color:var(--t2)">완료 설비</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--gr);margin-left:5px">' + doneEq + '대</span></div>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">⚠️</span><span style="font-size:13px;color:var(--t2)">지연 설비</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--re);margin-left:5px">' + delayEq + '대</span></div>'    + '<button class="btn bs bsm" onclick="pgDash()" style="font-size:14px">🔄 새로고침</button>'    + '</div>'    + '</div>'    + html    + '</div>';
+    + '</select>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">🏢</span><span style="font-size:13px;color:var(--t2)">' + t('dash_kpi_co') + '</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--ac);margin-left:5px">' + totalCo + ' ' + t('master_sub') + '</span></div>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">🏭</span><span style="font-size:13px;color:var(--t2)">' + t('dash_kpi_eq') + '</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--pu);margin-left:5px">' + totalEq + ' ' + t('col_eq') + '</span></div>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">✅</span><span style="font-size:13px;color:var(--t2)">' + t('dash_kpi_done') + '</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--gr);margin-left:5px">' + doneEq + ' ' + t('col_eq') + '</span></div>'    + '<div style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;white-space:nowrap">'    + '<span style="font-size:15px">⚠️</span><span style="font-size:13px;color:var(--t2)">' + t('dash_kpi_delay') + '</span>'    + '<span style="font-size:20px;font-weight:800;color:var(--re);margin-left:5px">' + delayEq + ' ' + t('col_eq') + '</span></div>'    + '<button class="btn bs bsm" onclick="pgDash()" style="font-size:14px">' + t('dash_refresh') + '</button>'    + '</div>'    + '</div>'    + html    + '</div>';
 }
 
 function mkDashStat(label, val, sub, color) {
@@ -1996,13 +1940,13 @@ function pgMaster() {
   var catOpts = cats.map(function(c){ return '<option value="' + xe(c) + '">' + xe(c) + '</option>'; }).join('');
   var html = '<div class="pg-hdr">'
     + '<div class="ph"><div><h1 class="pt">📋 Master DB</h1>'
-    + '<p class="ps">전체 ' + state.master.length + '개 항목</p></div>'
+    + '<p class="ps">전체 ' + state.master.length + t('master_sub') + '</p></div>'
     + '<div class="flex-g">'
-    + (canE ? '<button class="btn bp" onclick="openAddItem()">+ 항목 추가</button>' : '')
+    + (canE ? '<button class="btn bp" onclick="openAddItem()">' + t('item_add') + '</button>' : '')
     + '<button class="btn bs" onclick="exportMaster()">📥 CSV</button></div></div>'
     + stepBar
     + '<div class="flt">'
-    + '<input class="si" id="mSrch" placeholder="🔍 검색..." oninput="renderMTbl()">'
+    + '<input class="si" id="mSrch" placeholder="🔍 ' + t('search') + '..." oninput="renderMTbl()">'
     + '<select class="fsel" id="mCatF" onchange="renderMTbl()"><option value="">전체 구분</option>' + catOpts + '</select>'
     + '<select class="fsel" id="mReqF" onchange="renderMTbl()"><option value="">전체 필수여부</option>'
     + '<option>필수</option><option>조건부 필수</option><option>선택</option><option>권장</option></select>'
@@ -2030,13 +1974,13 @@ function renderMTbl() {
         || (r['체크포인트']||'').toLowerCase().indexOf(q) >= 0
         || (r['총괄담당부서']||'').toLowerCase().indexOf(q) >= 0;
   });
-  if (gid('mCnt')) gid('mCnt').textContent = items.length + '개 표시';
+  if (gid('mCnt')) gid('mCnt').textContent = items.length + ' ' + t('master_sub');
   if (!items.length) { gid('mTbl').innerHTML = '<div class="empty"><div class="ei">🔍</div><h3>검색 결과 없음</h3></div>'; return; }
 
   var tbl = '<div class="tw"><table class="tbl"><thead><tr>'
-    + '<th style="width:36px">#</th><th style="width:120px">구분</th><th style="width:17%">세부 검토 항목</th><th style="width:27%">체크 포인트</th>'
-    + '<th style="width:82px">필수여부</th><th style="width:15%">필요문서</th><th style="width:9%">총괄담당</th><th style="width:8%">합의</th><th style="width:8%">승인</th><th style="width:64px">일정</th>'
-    + (canE ? '<th style="width:60px;text-align:center">편집</th>' : '') + '</tr></thead><tbody>';
+    + '<th style="width:36px">#</th><th style="width:120px">' + t('col_category') + '</th><th style="width:17%">' + t('col_task') + '</th><th style="width:27%">' + t('col_point') + '</th>'
+    + '<th style="width:82px">' + t('col_req') + '</th><th style="width:15%">' + t('col_doc') + '</th><th style="width:9%">' + t('col_dept1') + '</th><th style="width:8%">' + t('col_dept2') + '</th><th style="width:8%">' + t('col_dept3') + '</th><th style="width:64px">' + t('col_schedule') + '</th>'
+    + (canE ? '<th style="width:60px;text-align:center">' + t('edit') + '</th>' : '') + '</tr></thead><tbody>';
   items.forEach(function(r){
     tbl += '<tr>'
       + '<td class="mono t3" style="white-space:nowrap;vertical-align:middle;text-align:center">' + r.id + '</td>'
@@ -2061,7 +2005,7 @@ function openEditItem(id) {
   if (!canEdit()) { toast('권한 없음','수정 권한이 없습니다.','error'); return; }
   var item = state.master.filter(function(r){ return r.id === id; })[0];
   if (!item) return;
-  gid('mT').textContent = '항목 수정';
+  gid('mT').textContent = t('item_edit');
   gid('mId').value = id;
   gid('btnDel').style.display = 'inline-flex';
   fillItemModal(item);
@@ -2069,7 +2013,7 @@ function openEditItem(id) {
 }
 function openAddItem() {
   if (!canEdit()) return;
-  gid('mT').textContent = '항목 추가';
+  gid('mT').textContent = t('item_add');
   gid('mId').value = '';
   gid('btnDel').style.display = 'none';
   fillItemModal({ '프로세스': STEPS[state.masterStep].key,'구분':'','세부검토항목':'','체크포인트':'','필수여부':'필수','필요문서':'','총괄담당부서':'','합의부서':'','승인부서':'','표준일정':'' });
@@ -2125,17 +2069,17 @@ function pgSetup() {
     + '<div class="ph"><h1 class="pt">⚙️ 프로세스 Setup</h1>'
     + '<p class="ps">Master DB에서 항목을 선택 → 기업별 커스터마이징</p></div>'
     + '<div class="topbar">'
-    +   '<b style="font-size:23px">🏢 기업 선택</b>'
+    +   '<b style="font-size:23px">' + t('equip_filter_co') + '</b>'
     +   '<div class="flex-g">'
     +     '<select id="coSel" onchange="loadCo()">'
-    +       '<option value="">— 기업을 선택하세요 —</option>' + coOpts
+    +       '<option value="">' + t('setup_select_co') + '</option>' + coOpts
     +     '</select>'
-    +     '<button class="btn bp bsm" onclick="navTo(\'company\')">+ 기업 추가</button>'
+    +     '<button class="btn bp bsm" onclick="navTo(\'company\')">' + t('co_add') + '</button>'
     +   '</div>'
     +   '<span id="siBadge"></span>'
     +   '<div class="flex-g ml-auto">'
     +     '<button class="btn bs bsm" onclick="expSetup()">📥 CSV</button>'
-    +     '<button class="btn bg bsm" onclick="saveStp()">💾 저장</button>'
+    +     '<button class="btn bg bsm" onclick="saveStp()">' + t('save_icon') + '</button>'
     +   '</div>'
     + '</div>'
     + '</div>'
@@ -2143,12 +2087,12 @@ function pgSetup() {
     + '<div class="s3col" id="s3col">'
     +   '<div class="spanel" id="sProcPanel">'
     +     '<div class="shdr"><span>프로세스 단계</span><span id="siTot" class="t2 sm">0개</span></div>'
-    +     '<div id="sProcList"><div class="sempty"><p>기업을 선택하세요</p></div></div>'
+    +     '<div id="sProcList"><div class="sempty"><p>' + t('empty_co') + '</p></div></div>'
     +   '</div>'
     +   '<div class="spanel" id="sMastPanel">'
     +     '<div class="shdr"><span id="sMastTitle">Master DB</span>'
     +       '<div class="flex-g" id="sMastBtns"></div></div>'
-    +     '<div class="ssearch"><input id="sMSrch" placeholder="🔍 검색..." oninput="renderSMast()" disabled></div>'
+    +     '<div class="ssearch"><input id="sMSrch" placeholder="🔍 ' + t('search') + '..." oninput="renderSMast()" disabled></div>'
     +     '<div id="sMastBody"><div class="sempty"><div class="ei">📋</div><p>단계를 선택하세요</p></div></div>'
     +   '</div>'
     +   '<div class="spanel" id="sSelPanel">'
@@ -2159,9 +2103,9 @@ function pgSetup() {
     + '<div class="savebar" id="savebar" style="display:none">'
     +   '<div class="flex-g" id="saveStats"></div>'
     +   '<div class="flex-g">'
-    +     '<button class="btn bs bsm" onclick="selAll(false)">이 단계 해제</button>'
-    +     '<button class="btn bw bsm" onclick="selReq()">필수만</button>'
-    +     '<button class="btn bg bsm" onclick="saveStp()">💾 저장</button>'
+    +     '<button class="btn bs bsm" onclick="selAll(false)">' + t('cancel') + '</button>'
+    +     '<button class="btn bw bsm" onclick="selReq()">' + t('col_req') + '</button>'
+    +     '<button class="btn bg bsm" onclick="saveStp()">' + t('save_icon') + '</button>'
     +   '</div>'
     + '</div>'
     + '</div>';
@@ -2171,7 +2115,7 @@ function pgSetup() {
 function loadCo() {
   var coId = gid('coSel') ? gid('coSel').value : '';
   if (!coId) {
-    gid('sProcList').innerHTML = '<div class="sempty"><p>기업을 선택하세요</p></div>';
+    gid('sProcList').innerHTML = '<div class="sempty"><p>' + t('empty_co') + '</p></div>';
     gid('siBadge').innerHTML = '';
     if (gid('savebar')) gid('savebar').style.display = 'none';
     return;
@@ -2234,7 +2178,7 @@ function renderSMast() {
   if (gid('sMastBtns')) gid('sMastBtns').innerHTML =
     '<button class="btn bxs bs" onclick="selAll(true)">전체</button>'
     + '<button class="btn bxs bs" onclick="selAll(false)">해제</button>'
-    + '<button class="btn bxs bw" onclick="selReq()">필수만</button>';
+    + '<button class="btn bxs bw" onclick="selReq()">' + t('col_req') + '</button>';
 
   // 그룹별
   var groups = {}, gOrder = [];
@@ -2282,7 +2226,7 @@ function renderSSel() {
   var key  = STEPS[state.setupStep].key;
   var items = state.master.filter(function(r){ return r['프로세스']===key && sel.has(r.id); });
 
-  if (gid('sSelCnt')) gid('sSelCnt').textContent = (s.sel||[]).length + '개 (이 단계:' + items.length + ')';
+  if (gid('sSelCnt')) gid('sSelCnt').textContent = (s.sel||[]).length + ' (' + t('equip_filter_proc') + ':' + items.length + ')';
   if (!items.length) {
     gid('sSelBody').innerHTML = '<div class="sempty"><div class="ei">📝</div><p>가운데에서 항목을 체크하세요</p></div>';
     return;
@@ -2312,7 +2256,7 @@ function renderSSel() {
       + '<select class="sfin" onchange="updC(\'' + coId + '\',' + r.id + ',\'필수여부\',this.value)">'
       + ['필수','조건부 필수','선택','권장'].map(function(v){ return '<option' + (rq===v?' selected':'') + '>' + v + '</option>'; }).join('')
       + '</select></div>'
-      + '<div class="sf"><div class="sfl">목표일정</div>'
+      + '<div class="sf"><div class="sfl">' + t('col_schedule') + '</div>'
       + '<input class="sfin" placeholder="2026-05-01" value="' + xe(tg) + '" onchange="updT(\'' + coId + '\',' + r.id + ',this.value)"></div>'
       + '</div>'
       + '<div class="sf"><div class="sfl">필요문서 <span class="edit-hint">(수정가능)</span></div>'
@@ -2429,13 +2373,13 @@ function pgProgress() {
     + '<div class="ph"><div><h1 class="pt">📈 프로세스 진행현황</h1>'
     + '<p class="ps">기업별 프로세스 체크리스트 진행 추적</p></div>'
     + '<select class="fsel" id="prCoSel" onchange="loadProg()">'
-    + '<option value="">— 기업을 선택하세요 —</option>' + opts
+    + '<option value="">' + t('setup_select_co') + '</option>' + opts
     + '</select></div>'
     + '<div id="prStat"></div>'
     + '<div id="prStepBar"></div>'
     + '</div>'
     + '<div class="pg-body"><div id="prBody">'
-    + '<div class="empty"><div class="ei">📈</div><h3>기업을 선택하세요</h3></div>'
+    + '<div class="empty"><div class="ei">📈</div><h3>' + t('empty_co') + '</h3></div>'
     + '</div></div>';
   adjustPageLayout('pg_progress');
 }
@@ -2446,14 +2390,14 @@ function loadProg() {
   if (!coId) {
     gid('prStat').innerHTML = '';
     gid('prStepBar').innerHTML = '';
-    gid('prBody').innerHTML = '<div class="empty"><div class="ei">📈</div><h3>기업을 선택하세요</h3></div>';
+    gid('prBody').innerHTML = '<div class="empty"><div class="ei">📈</div><h3>' + t('empty_co') + '</h3></div>';
     return;
   }
   var s = state.setups[coId];
   if (!s || !s.sel || !s.sel.length) {
     gid('prStat').innerHTML = '';
     gid('prStepBar').innerHTML = '';
-    gid('prBody').innerHTML = '<div class="empty"><div class="ei">⚙️</div><h3>Setup을 먼저 완료하세요</h3></div>';
+    gid('prBody').innerHTML = '<div class="empty"><div class="ei">⚙️</div><h3>' + t('empty_setup') + '</h3></div>';
     return;
   }
   if (!state.progressStep) state.progressStep = 0;
@@ -2471,10 +2415,10 @@ function renderProgStat(coId) {
   var pct = tot ? Math.round(comp/tot*100) : 0;
   gid('prStat').innerHTML =
     '<div class="pr-stat-row">'
-    + mkProgStat('📋 전체 항목', tot, 'var(--ac)')
-    + mkProgStat('✅ 완료', comp, 'var(--gr)')
-    + mkProgStat('⏳ 미완료', tot-comp, 'var(--or)')
-    + mkProgStat('📊 전체 진행률', pct+'%', 'var(--pu)')
+    + mkProgStat(t('col_task'), tot, 'var(--ac)')
+    + mkProgStat(t('col_done'), comp, 'var(--gr)')
+    + mkProgStat(t('prog_sub').slice(0,4), tot-comp, 'var(--or)')
+    + mkProgStat(t('prog_total') || t('prog_total'), pct+'%', 'var(--pu)')
     + '</div>';
 }
 
@@ -2544,7 +2488,7 @@ function renderProgItems(coId) {
   var html = '<div class="pr-items-hdr">'
     + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
     + '<b style="font-size:18px">' + step.e + ' ' + step.s + '</b>'
-    + '<span class="t2 sm">' + sc + '/' + items.length + '개 완료</span>'
+    + '<span class="t2 sm">' + sc + '/' + items.length + ' ' + t('col_done') + '</span>'
     + (pct===100 ? '<span class="b br" style="margin-left:4px">✅ 완료</span>' : '')
     + '</div>'
     + '<div class="pb" style="height:7px;margin-bottom:0">'
@@ -2552,14 +2496,14 @@ function renderProgItems(coId) {
     + '</div>'
     + '<div class="pr-tbl-wrap">'
     + '<table class="pr-tbl"><thead><tr>'
-    + '<th style="width:50px">완료</th>'
-    + '<th style="width:22%">세부 검토 항목</th>'
-    + '<th style="width:30%">체크 포인트</th>'
-    + '<th style="width:80px">필수여부</th>'
-    + '<th style="width:13%">담당부서</th>'
-    + '<th style="width:11%">필요문서</th>'
-    + '<th style="width:10%">목표일정</th>'
-    + '<th style="width:12%">완료일시</th>'
+    + '<th style="width:50px">' + t('col_done') + '</th>'
+    + '<th style="width:22%">' + t('col_task') + '</th>'
+    + '<th style="width:30%">' + t('col_point') + '</th>'
+    + '<th style="width:80px">' + t('col_req') + '</th>'
+    + '<th style="width:13%">' + t('col_dept1') + '</th>'
+    + '<th style="width:11%">' + t('col_doc') + '</th>'
+    + '<th style="width:10%">' + t('col_schedule') + '</th>'
+    + '<th style="width:12%">' + t('col_done') + '</th>'
     + '</tr></thead><tbody>';
 
   items.forEach(function(r){
@@ -2637,7 +2581,7 @@ function pgEquip() {
   gid('pg_equip').innerHTML =
     '<div class="pg-hdr">'
     + '<div class="ph" style="margin-bottom:10px">'
-    + '<div><h1 class="pt">🏭 설비 투자 진척 현황</h1>'
+    + '<div><h1 class="pt">' + t('nav_equip') + '</h1>'
     + '<p class="ps">공정별 · 설비(호기)별 투자 프로세스 목표일/실적일 관리</p></div>'
     + '<div class="flex-g" style="align-items:center;gap:8px">'
     + eqBuildFilterBar()
@@ -2646,7 +2590,7 @@ function pgEquip() {
     + '<div id="eqStatRow" class="eq-stat-row"></div>'
     + '</div>'
     + '<div class="pg-body"><div id="eqBody" class="eq-tbl-wrap">'
-    + '<div class="empty"><div class="ei">🏭</div><h3>기업을 선택하세요</h3></div>'
+    + '<div class="empty"><div class="ei">🏭</div><h3>' + t('empty_co') + '</h3></div>'
     + '</div></div>';
   adjustPageLayout('pg_equip');
   // 기업 선택 이벤트
@@ -2660,13 +2604,13 @@ function eqBuildFilterBar() {
   }).join('');
   var canE = canEdit();
   return '<div class="eq-filterbar">'
-    + '<span class="eq-filter-label">기업</span>'
+    + '<span class="eq-filter-label">' + t('equip_filter_co') + '</span>'
     + '<select id="eqCoSel2">'
-    + '<option value="">— 기업 선택 —</option>' + coOpts
+    + '<option value="">' + t('equip_filter_co') + '</option>' + coOpts
     + '</select>'
-    + '<span class="eq-filter-label">설비업체</span>'
+    + '<span class="eq-filter-label">' + t('equip_filter_vend') + '</span>'
     + '<select id="eqVendSel" onchange="renderEquipTbl()"><option value="">전체 업체</option></select>'
-    + '<span class="eq-filter-label">공정</span>'
+    + '<span class="eq-filter-label">' + t('equip_filter_proc') + '</span>'
     + '<select id="eqGongSel" onchange="renderEquipTbl()"><option value="">전체 공정</option></select>'
     + '</div>';
 }
@@ -2678,7 +2622,7 @@ function loadEquipTbl() {
   var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
   if (!coId) {
     gid('eqStatRow').innerHTML = '';
-    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">🏭</div><h3>기업을 선택하세요</h3></div>';
+    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">🏭</div><h3>' + t('empty_co') + '</h3></div>';
     return;
   }
   if (!state.equipments[coId]) state.equipments[coId] = [];
@@ -2686,13 +2630,13 @@ function loadEquipTbl() {
   var vendSel = gid('eqVendSel');
   if (vendSel) {
     var vends = _getVend(coId);
-    vendSel.innerHTML = '<option value="">전체 업체</option>'
+    vendSel.innerHTML = '<option value="">' + t('equip_filter_vend') + '</option>'
       + vends.map(function(v){ return '<option value="' + xe(v.code) + '">' + xe(v.name) + '</option>'; }).join('');
   }
   var gongSel = gid('eqGongSel');
   if (gongSel) {
     var gongs = _getGong(coId);
-    gongSel.innerHTML = '<option value="">전체 공정</option>'
+    gongSel.innerHTML = '<option value="">' + t('equip_filter_proc') + '</option>'
       + gongs.map(function(g){ return '<option value="' + xe(g.code) + '">[' + xe(g.code) + '] ' + xe(g.name) + '</option>'; }).join('');
   }
   // 설비 추가 버튼 표시
@@ -2710,8 +2654,8 @@ function renderEquipStat2(coId) {
   var avgPct = tot ? Math.round(eqs.reduce(function(a,eq){ return a + calcEqPct2(eq); }, 0) / tot) : 0;
   var totalAmt = eqs.reduce(function(a,eq){ return a + (parseFloat((eq.amt||'').replace(/,/g,''))||0); }, 0);
   gid('eqStatRow').innerHTML =
-    '<div class="eq-stat-card"><span class="eq-stat-lbl">🏭 총 설비</span><span class="eq-stat-val" style="color:var(--ac)">' + tot + '대</span></div>'
-    + '<div class="eq-stat-card"><span class="eq-stat-lbl">✅ 양산 완료</span><span class="eq-stat-val" style="color:var(--gr)">' + done100 + '대</span></div>'
+    '<div class="eq-stat-card"><span class="eq-stat-lbl">🏭 총 설비</span><span class="eq-stat-val" style="color:var(--ac)">' + tot + ' ' + t('col_eq') + '</span></div>'
+    + '<div class="eq-stat-card"><span class="eq-stat-lbl">✅ 양산 완료</span><span class="eq-stat-val" style="color:var(--gr)">' + done100 + ' ' + t('col_eq') + '</span></div>'
     + '<div class="eq-stat-card"><span class="eq-stat-lbl">📊 평균 진행률</span><span class="eq-stat-val" style="color:var(--pu)">' + avgPct + '%</span></div>'
     + '<div class="eq-stat-card"><span class="eq-stat-lbl">💰 투자금액</span><span class="eq-stat-val" style="color:var(--or);font-size:15px">' + (totalAmt ? fmtAmt(totalAmt) : '-') + '</span></div>';
 }
@@ -2765,7 +2709,7 @@ function renderEquipTbl() {
 
   if (!filtered.length) {
     gid('eqBody').innerHTML = '<div class="empty"><div class="ei">📭</div><h3>등록된 설비가 없습니다</h3>'
-      + (canE ? '<p>상단 "+ 설비 추가" 버튼을 눌러 설비를 등록하세요</p>' : '') + '</div>';
+      + (canE ? '<p>' + t('eq_add') + '</p>' : '') + '</div>';
     return;
   }
 
@@ -2778,12 +2722,12 @@ function renderEquipTbl() {
     + '<th class="th-fix" style="width:90px" rowspan="2">PO No<br>/ EQ_ID</th>'
     + '<th class="th-fix2" style="width:130px" rowspan="2">공정코드 · 공정명</th>'
     + '<th class="th-fix3" style="width:140px" rowspan="2">설비명<br><span style="font-weight:400;color:var(--t3)">모델 / 설비업체</span></th>'
-    + '<th style="width:50px" rowspan="2">구분</th>'
+    + '<th style="width:50px" rowspan="2">' + t('col_category') + '</th>'
     + '<th colspan="' + INVEST_STEPS.length + '" style="background:rgba(88,166,255,.08);color:var(--ac)">설비 투자 프로세스</th>'
     + '<th style="width:80px" rowspan="2">설비업체<br>담당자</th>'
     + '<th style="width:80px" rowspan="2">UTI<br>담당자</th>'
-    + '<th style="width:50px" rowspan="2">진행률</th>';
-  if (canE) html += '<th style="width:60px" rowspan="2">관리</th>';
+    + '<th style="width:50px" rowspan="2">' + t('col_rate') + '</th>';
+  if (canE) html += '<th style="width:60px" rowspan="2">' + t('edit') + '</th>';
   html += '</tr><tr>';
   INVEST_STEPS.forEach(function(s) {
     html += '<th style="width:' + stepCW + 'px;background:rgba(88,166,255,.05)">' + xe(s) + '</th>';
@@ -2799,7 +2743,7 @@ function renderEquipTbl() {
   });
 
   Object.keys(gongMap).forEach(function(gCode) {
-    var gong = GONG_MASTER.find(function(g){ return g.code === gCode; }) || {code: gCode, name: '미지정'};
+    var gong = GONG_MASTER.find(function(g){ return g.code === gCode; }) || {code: gCode, name: t('setup_select_co') || '미지정'};
     var rows = gongMap[gCode];
 
     rows.forEach(function(eq, ri) {
@@ -3425,12 +3369,12 @@ function pgDetail() {
   gid('pg_detail').innerHTML =
     // 상단 sticky 블록 전체 (필터바 + 설비정보 + 스텝바 함께 고정)
     '<div id="dtStickyHeader" style="position:sticky;top:0;z-index:10;background:var(--bg2);border-bottom:2px solid var(--bd)">'    + '<div style="background:var(--bg);border-bottom:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
-    + '<h1 style="font-size:25px;font-weight:700;margin:0;white-space:nowrap">📊 설비별 실적 현황</h1>'
-    + '<span style="font-size:21px;color:var(--t2)">기업</span>'
+    + '<h1 style="font-size:25px;font-weight:700;margin:0;white-space:nowrap">' + t('nav_detail') + '</h1>'
+    + '<span style="font-size:21px;color:var(--t2)">' + t('detail_select_co') + '</span>'
     + '<select id="dtCoSel" onchange="_dtLoadCo()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:21px;font-family:inherit;outline:none">'
-    + '<option value="">— 선택 —</option>' + coOpts
+    + '<option value="">' + t('setup_select_co') + '</option>' + coOpts
     + '</select>'
-    + '<span style="font-size:21px;color:var(--t2)">설비</span>'
+    + '<span style="font-size:21px;color:var(--t2)">' + t('detail_select_eq') + '</span>'
     + '<select id="dtEqSel" onchange="_dtLoadEq()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:21px;font-family:inherit;outline:none"><option value="">— 선택 —</option></select>'
     + '<div id="dtEqInfoBar" style="display:none;margin-left:auto;align-items:center;gap:16px;flex-wrap:wrap">'
     // 설비명
@@ -3484,7 +3428,7 @@ function _dtLoadCo(keepEq) {
   eqs.forEach(function(eq, i) {
     var opt = document.createElement('option');
     opt.value = i;
-    opt.textContent = (i+1) + '호기. ' + eq.name;
+    opt.textContent = (i+1) + (idx+1) + '. ' + eq.name;
     eqSel.appendChild(opt);
   });
   if (keepEq && _dtEqIdx !== null) {
@@ -3605,7 +3549,7 @@ function _dtRenderStepBar() {
   var mgrLbl  = document.getElementById('dtMgrLbl');
 
   if (infoBar) infoBar.style.display = 'flex';
-  if (nameLbl) nameLbl.textContent = (_dtEqIdx+1) + '호기. ' + eq.name;
+  if (nameLbl) nameLbl.textContent = (_dtEqIdx+1) + (idx+1) + '. ' + eq.name;
 
   // ① 공정명: gongCode로 gongMaster에서 조회
   var gongList = state.gongMaster[coId] || [];
@@ -3831,7 +3775,7 @@ function _dtDetailHtml(eq, si, canE) {
     + (selIds.length ? '' : '<span style="font-size:13px;color:var(--or);margin-left:8px">(Setup 미설정 — 전체 표시)</span>')
     + '</div>'
     + '<div style="display:flex;align-items:center;gap:12px">'
-    + '<span style="font-size:14px;color:var(--t2)" class="dt-cnt-lbl">' + doneCnt + '/' + totalCnt + '개 완료</span>'
+    + '<span style="font-size:14px;color:var(--t2)" class="dt-cnt-lbl">' + doneCnt + '/' + totalCnt + ' ' + t('col_done') + '</span>'
     + '<div style="width:120px;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden">'
     + '<div class="pg-bar-fill" style="width:' + pct + '%;height:100%;background:var(--gr);border-radius:4px;transition:width .3s"></div>'
     + '</div>'
@@ -3856,12 +3800,12 @@ function _dtDetailHtml(eq, si, canE) {
     + '<col style="width:140px">'  // 완료일시
     + '</colgroup>'
     + '<thead><tr style="background:var(--bg3);position:sticky;top:0;z-index:1">'
-    + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">완료</th>'
-    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">세부 검토 항목</th>'
-    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">체크 포인트</th>'
-    + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">필수여부</th>'
+    + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">' + t('col_done') + '</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">' + t('col_task') + '</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">' + t('col_point') + '</th>'
+    + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">' + t('col_req') + '</th>'
     + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">담당부서</th>'
-    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">필요문서</th>'
+    + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">' + t('col_doc') + '</th>'
     + '<th style="padding:6px 8px;text-align:center;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">목표일정</th>'
     + '<th style="padding:6px 8px;text-align:left;color:var(--t2);font-size:16px;border-bottom:1px solid var(--bd)">완료일시</th>'
     + '</tr></thead><tbody>';
@@ -4145,18 +4089,18 @@ function pgCompany() {
     return '<option value="' + xe(c.id) + '"' + (c.id===_coSelId?' selected':'') + '>' + xe(c.name) + '</option>';
   }).join('');
   var coPickHtml = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:0;padding:10px 14px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px 8px 0 0;border-bottom:none">'
-    + '<span style="font-size:13px;color:var(--t2);white-space:nowrap;font-weight:600">📌 기업 선택</span>'
+    + '<span style="font-size:13px;color:var(--t2);white-space:nowrap;font-weight:600">📌 ' + t('equip_filter_co') + '</span>'
     + '<select style="padding:6px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:14px;font-family:inherit;outline:none;max-width:280px" onchange="_coSelChange(this.value)">'
-    + '<option value="">— 기업을 선택하세요 —</option>' + coOpts + '</select>'
+    + '<option value="">' + t('setup_select_co') + '</option>' + coOpts + '</select>'
     + (_coSelId ? '<span style="font-size:13px;color:var(--gr);margin-left:4px">✅ 선택됨</span>' : '<span style="font-size:13px;color:var(--t3)">공정/업체 관리 시 기업 선택 필요</span>')
     + '</div>';
 
   // 탭 버튼 (항상 3개 표시, 기업 미선택 시 비활성)
   var tabStyle = 'padding:8px 16px;border:none;background:transparent;cursor:pointer;font-family:inherit;font-size:19px;transition:all .15s;margin-bottom:-1px;';
   var tabs = [
-    {key:'company', label:'🏢 기업 관리'},
-    {key:'gong',    label:'⚙️ 공정 Master'},
-    {key:'vendor',  label:'🏭 설비업체 Master'}
+    {key:'company', label:t('nav_company')},
+    {key:'gong',    label:t('co_tab_proc')},
+    {key:'vendor',  label:t('co_tab_vend')}
   ];
   var tabHtml = '<div style="display:flex;gap:4px;border-bottom:1px solid var(--bd);background:var(--bg2);border:1px solid var(--bd);border-top:none;padding:0 14px;border-radius:0 0 0 0">';
   tabs.forEach(function(t) {
@@ -4168,7 +4112,7 @@ function pgCompany() {
       + 'color:' + (active?'var(--ac)':disabled?'var(--bd)':'var(--t2)') + ';'
       + 'border-bottom:' + (active?'2px solid var(--ac)':'2px solid transparent') + ';'
       + 'cursor:' + (disabled?'not-allowed':'pointer') + '"'
-      + (disabled?' title="기업을 먼저 선택하세요"':'') + '>'
+      + (disabled?' title="' + t('setup_select_co') + '"':'') + '>'
       + t.label + '</button>';
   });
   tabHtml += '</div>';
@@ -4216,18 +4160,18 @@ function _renderCoCompany(canE) {
       + (canE ? '<button class="btn bxs bd" onclick="delCo(\'' + c.id + '\')">🗑️</button>' : '')
       + '</div>'
       + '<div class="cst">'
-      + '<div style="text-align:center"><div class="csv" style="color:var(--pu)">' + eqs + '</div><div class="csl">설비수</div></div>'
-      + '<div style="text-align:center"><div class="csv" style="color:var(--ac)">' + sel + '</div><div class="csl">총 항목수</div></div>'
-      + '<div style="text-align:center"><div class="csv" style="color:var(--gr)">' + done + '</div><div class="csl">완료 항목수</div></div>'
-      + '<div style="text-align:center"><div class="csv" style="color:var(--or)">' + pct + '%</div><div class="csl">진행률</div></div>'
+      + '<div style="text-align:center"><div class="csv" style="color:var(--pu)">' + eqs + '</div><div class="csl">' + t('co_lbl_eq') + '</div></div>'
+      + '<div style="text-align:center"><div class="csv" style="color:var(--ac)">' + sel + '</div><div class="csl">' + t('co_lbl_total') + '</div></div>'
+      + '<div style="text-align:center"><div class="csv" style="color:var(--gr)">' + done + '</div><div class="csl">' + t('co_lbl_done') + '</div></div>'
+      + '<div style="text-align:center"><div class="csv" style="color:var(--or)">' + pct + '%</div><div class="csl">' + t('col_rate') + '</div></div>'
       + '</div>'
       + '<div class="pb mt8"><div class="pf" style="width:' + pct + '%"></div></div>'
       + '<div style="margin-top:12px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px">'
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goSetup(\'' + c.id + '\')">⚙️ 프로세스 Setting</button>'
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goProg(\'' + c.id + '\')">📈 현황</button>'
-      + (canE ? '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goEquip(\'' + c.id + '\')">🏭 설비등록</button>' : '<span></span>')
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'gong\')">⚙️ 공정Master관리</button>'
-      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'vendor\')">🏭 업체Master관리</button>'
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goSetup(\'' + c.id + '\')">'+t('co_proc_set')+'</button>'
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goProg(\'' + c.id + '\')">'+t('co_status')+'</button>'
+      + (canE ? '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goEquip(\'' + c.id + '\')">'+t('co_eq_add')+'</button>' : '<span></span>')
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'gong\')">'+t('co_gong_mng')+'</button>'
+      + '<button class="btn bs bsm" style="justify-content:center;font-size:16px;width:100%" onclick="goCoMaster(\'' + c.id + '\',\'vendor\')">'+t('co_vend_mng')+'</button>'
       + '</div>'
       + (c.note ? '<div class="cnote">' + xe(c.note) + '</div>' : '')
       + '</div>';
@@ -4240,16 +4184,16 @@ function _renderCoCompany(canE) {
 
 /* ── 탭2: 공정 Master CRUD (기업별) ── */
 function _renderCoGong(canE) {
-  if (!_coSelId) return '<div class="empty"><div class="ei">⚙️</div><h3>기업을 선택하세요</h3><p>위에서 기업을 선택하면 해당 기업의 공정 Master를 관리할 수 있습니다.</p></div>';
+  if (!_coSelId) return '<div class="empty"><div class="ei">⚙️</div><h3>' + t('empty_co') + '</h3><p>위에서 기업을 선택하면 해당 기업의 공정 Master를 관리할 수 있습니다.</p></div>';
   var gongs = _getGong(_coSelId);
   var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
-    + '<span style="font-size:14px;color:var(--t2)">총 ' + gongs.length + '개 공정</span>'
+    + '<span style="font-size:14px;color:var(--t2)">' + t('all') + ' ' + gongs.length + ' ' + t('equip_filter_proc') + '</span>'
     + (canE ? '<button class="btn bp bsm" onclick="_openGongModal(null)">＋ 공정 추가</button>' : '')
     + '</div>'
     + '<div class="tw" style="max-height:calc(100vh - 300px);overflow-y:auto"><table class="tbl"><thead><tr>'
-    + '<th style="width:60px">순서</th><th style="width:130px">공정코드</th><th>공정명</th>'
+    + '<th style="width:60px">순서</th><th style="width:130px">공정코드</th><th>' + t('col_process') + '</th>'
     + '<th style="width:130px">담당자명</th><th style="width:150px">연락처</th>'
-    + (canE ? '<th style="width:80px">관리</th>' : '')
+    + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
     + '</tr></thead><tbody>';
   gongs.forEach(function(g, i) {
     html += '<tr>'
@@ -4315,16 +4259,16 @@ function _delGong(idx) {
 
 /* ── 탭3: 설비업체 Master CRUD (기업별) ── */
 function _renderCoVendor(canE) {
-  if (!_coSelId) return '<div class="empty"><div class="ei">🏭</div><h3>기업을 선택하세요</h3><p>위에서 기업을 선택하면 해당 기업의 설비업체 Master를 관리할 수 있습니다.</p></div>';
+  if (!_coSelId) return '<div class="empty"><div class="ei">🏭</div><h3>' + t('empty_co') + '</h3><p>위에서 기업을 선택하면 해당 기업의 설비업체 Master를 관리할 수 있습니다.</p></div>';
   var vends = _getVend(_coSelId);
   var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
-    + '<span style="font-size:14px;color:var(--t2)">총 ' + vends.length + '개 업체</span>'
+    + '<span style="font-size:14px;color:var(--t2)">' + t('all') + ' ' + vends.length + ' ' + t('equip_filter_vend') + '</span>'
     + (canE ? '<button class="btn bp bsm" onclick="_openVendModal(null)">＋ 업체 추가</button>' : '')
     + '</div>'
     + '<div class="tw"><table class="tbl"><thead><tr>'
-    + '<th style="width:140px">업체코드</th><th style="width:160px">업체명</th>'
-    + '<th style="width:140px">담당자명</th><th>연락처</th>'
-    + (canE ? '<th style="width:80px">관리</th>' : '')
+    + '<th style="width:140px">업체코드</th><th style="width:160px">' + t('col_vend') + '</th>'
+    + '<th style="width:140px">' + t('col_dept1') + '</th><th>' + t('col_dept2') + '</th>'
+    + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
     + '</tr></thead><tbody>';
   vends.forEach(function(v, i) {
     html += '<tr>'
@@ -4523,17 +4467,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
   gid('btnLogin').addEventListener('click', doLogin);
-  gid('btnSavePat').addEventListener('click', function() {
-    var pat = gid('patInput').value.trim();
-    gid('patErr').style.display = 'none';
-    if (!pat) { gid('patErr').style.display = 'block'; return; }
-    ghPatSave(pat);
-    GH.pat = pat;
-    var p = window._pendingLogin || {};
-    if (p.id) {
-      _doLoginProceed(p.id, p.name, p.role);
-    }
-  });
   gid('loginPw').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
   gid('loginId').addEventListener('keydown', function(e){ if(e.key==='Enter') gid('loginPw').focus(); });
   gid('itemModal').addEventListener('click', function(e){ if(e.target===this) CM('itemModal'); });
@@ -4541,1021 +4474,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
-</body>
-</html    html += '<tr style="cursor:pointer;border-bottom:1px solid var(--bd2);background:' + (isCur ? 'rgba(88,166,255,.07)' : 'transparent') + ';transition:background .1s" onclick="_dtSelStep(' + i + ')">'  !DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>EQ-PMS | 설비투자 프로세스 관리 시스템</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;
-  --bd:#30363d;--bd2:#21262d;
-  --tx:#e6edf3;--t2:#8b949e;--t3:#6e7681;
-  --ac:#58a6ff;--a2:#1f6feb;
-  --gr:#3fb950;--g2:#238636;
-  --or:#f0883e;--re:#f85149;--pu:#bc8cff;
-}
-/* ── 화이트 테마 ── */
-[data-theme="light"]{
-  --bg:#f6f8fa;--bg2:#ffffff;--bg3:#f0f2f5;--bg4:#e8eaed;
-  --bd:#d0d7de;--bd2:#e8eaed;
-  --tx:#1f2328;--t2:#656d76;--t3:#8c959f;
-  --ac:#0969da;--a2:#0550ae;
-  --gr:#1a7f37;--g2:#116329;
-  --or:#bc4c00;--re:#d1242f;--pu:#8250df;
-}
-[data-theme="light"] body{background:var(--bg)}
-[data-theme="light"] #loginScreen{background:linear-gradient(135deg,#e8edf2 0%,#f6f8fa 50%,#e8edf2 100%)}
-[data-theme="light"] .hdr{background:#ffffff;border-bottom:1px solid var(--bd)}
-[data-theme="light"] .mob-drawer{background:#ffffff}
-[data-theme="light"] .eq-tbl tbody td.td-fix,
-[data-theme="light"] .eq-tbl tbody td.td-fix2,
-[data-theme="light"] .eq-tbl tbody td.td-fix3{background:#ffffff}
-[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix,
-[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix2,
-[data-theme="light"] .eq-tbl tbody tr:hover td.td-fix3{background:var(--bg3)}
-
-/* ── 언어/테마 버튼 ── */
-.hdr-ctrl{display:flex;align-items:center;gap:4px}
-.lang-btn{padding:3px 7px;border:1px solid var(--bd);border-radius:4px;
-  background:transparent;color:var(--t2);font-size:13px;font-weight:600;
-  cursor:pointer;font-family:inherit;transition:all .15s;line-height:1}
-.lang-btn:hover,.lang-btn.active{background:var(--ac);border-color:var(--ac);color:#fff}
-.theme-btn{width:32px;height:20px;border-radius:10px;border:1px solid var(--bd);
-  background:var(--bg3);cursor:pointer;position:relative;transition:all .3s;flex-shrink:0}
-.theme-btn::after{content:'';position:absolute;top:2px;left:2px;
-  width:14px;height:14px;border-radius:50%;background:var(--t2);
-  transition:all .3s}
-[data-theme="light"] .theme-btn{background:#1f6feb}
-[data-theme="light"] .theme-btn::after{left:14px;background:#fff}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);height:100vh;overflow:hidden;font-size:19px;line-height:1.65}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px}
-
-/* LOGIN */
-#loginScreen{display:flex;align-items:center;justify-content:center;position:fixed;inset:0;background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%);z-index:9999}
-.lbox{background:var(--bg2);border:1px solid var(--bd);border-radius:16px;padding:44px 38px;width:400px}
-.llogo{display:flex;align-items:center;gap:11px;margin-bottom:26px}
-.llogo-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:26px}
-.llogo h1{font-size:22px;font-weight:700}
-.llogo p{font-size:17px;color:var(--t2)}
-.ltit{font-size:26px;font-weight:700;margin-bottom:5px}
-.lsub{color:var(--t2);font-size:18px;margin-bottom:24px}
-.fg{margin-bottom:13px}
-.fg label{display:block;font-size:17px;font-weight:600;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
-.fg input{width:100%;padding:9px 13px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:19px;font-family:inherit;outline:none;transition:border-color .2s}
-.fg input:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(88,166,255,.1)}
-.lbtn{width:100%;padding:11px;background:linear-gradient(135deg,var(--a2),#388bfd);border:none;border-radius:7px;color:#fff;font-size:20px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:4px}
-.lbtn:hover{opacity:.9;transform:translateY(-1px)}
-.lerr{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);border-radius:7px;padding:9px 13px;color:var(--re);font-size:18px;margin-top:9px;display:none}
-.lhint{margin-top:16px;padding:11px 13px;background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.15);border-radius:7px;font-size:17px;color:var(--t2)}
-.lhint strong{color:var(--ac)}
-
-/* APP */
-#app{display:none;flex-direction:column;height:100vh;overflow:hidden;position:relative}
-.hdr{background:var(--bg2);border-bottom:1px solid var(--bd);padding:0 28px;display:flex;align-items:center;gap:12px;height:62px;position:sticky;top:0;z-index:200}
-.hdr-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;flex-shrink:0}
-.hdr-logo .ico{width:28px;height:28px;background:linear-gradient(135deg,var(--a2),var(--g2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px}
-.hnav{display:flex;gap:2px;flex:1;margin-left:4px}
-.nb{padding:5px 11px;border-radius:6px;border:none;background:transparent;color:var(--t2);font-size:18px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
-.nb:hover{background:var(--bg3);color:var(--tx)}
-.nb.active{background:var(--bg3);color:var(--ac)}
-.hr{display:flex;align-items:center;gap:9px;margin-left:auto}
-.ubadge{display:flex;align-items:center;gap:6px;padding:4px 11px;background:var(--bg3);border:1px solid var(--bd);border-radius:18px;font-size:17px}
-.udot{width:6px;height:6px;border-radius:50%;background:var(--gr)}
-.urole{color:var(--t2);font-size:15px;background:var(--bg);padding:1px 5px;border-radius:3px}
-.lout{padding:4px 10px;border:1px solid var(--bd);border-radius:5px;background:transparent;color:var(--t2);font-size:17px;cursor:pointer;font-family:inherit;transition:all .15s}
-.lout:hover{border-color:var(--re);color:var(--re)}
-
-/* MAIN */
-.main{padding:24px 28px;max-width:100%;margin:0;flex:1 1 0;min-height:0;overflow:hidden}
-.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.pt{font-size:25px;font-weight:700}
-.ps{font-size:17px;color:var(--t2);margin-top:2px}
-
-/* STATS */
-.sg4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
-.sc{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:22px 24px}
-.sl{font-size:16px;color:var(--t2);margin-bottom:5px;font-weight:500}
-.sv{font-size:32px;font-weight:700;font-family:monospace}
-.ss{font-size:16px;color:var(--t2);margin-top:2px}
-
-/* STEP BAR */
-.psbar{display:flex;margin-bottom:20px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
-.ps{flex:1;padding:16px 8px;text-align:center;font-size:15px;font-weight:500;color:var(--t2);cursor:pointer;border-right:1px solid var(--bd);transition:all .15s;position:relative}
-.ps:last-child{border-right:none}
-.ps:hover{background:var(--bg3);color:var(--tx)}
-.ps.active{background:rgba(88,166,255,.15);color:var(--ac);border-bottom:2px solid var(--ac)}
-.pse{font-size:24px;display:block;margin-bottom:3px}
-.pss{font-size:17px;line-height:1.4;word-break:keep-all;font-weight:600}
-.psn{position:absolute;top:4px;right:5px;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;font-size:14px;padding:2px 6px;color:var(--t2)}
-.ps.active .psn{background:rgba(88,166,255,.2);border-color:rgba(88,166,255,.4);color:var(--ac);font-weight:700}
-
-/* FILTER */
-.flt{display:flex;gap:8px;margin-bottom:13px;align-items:center;flex-wrap:wrap}
-.si{flex:1;min-width:180px;padding:9px 14px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;transition:border-color .2s}
-.si:focus{border-color:var(--ac)}
-.si::placeholder{color:var(--t3)}
-.fsel{padding:9px 12px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;cursor:pointer}
-
-/* TABLE */
-.tw{overflow-x:auto;border-radius:8px;border:1px solid var(--bd)}
-.m-scroll-body .tw{border:none;border-radius:0}
-.tbl{width:100%;border-collapse:collapse;table-layout:fixed;word-break:break-all;font-size:19px}
-.tbl thead tr{background:var(--bg3);border-bottom:1px solid var(--bd)}
-.tbl th{padding:12px 14px;text-align:left;font-weight:600;color:var(--t2);font-size:17px;white-space:nowrap;border-right:1px solid var(--bd2)}
-.tbl th:last-child{border-right:none}
-.tbl tbody tr{border-bottom:1px solid var(--bd2);transition:background .1s}
-.tbl tbody tr:last-child{border-bottom:none}
-.tbl tbody tr:hover{background:var(--bg3)}
-.tbl td{padding:8px 12px;border-right:1px solid var(--bd2);vertical-align:middle;line-height:1.4}
-.tbl td:last-child{border-right:none}
-.fw{font-weight:500;min-width:110px;word-break:keep-all}
-.sm{font-size:17px}
-.t2{color:var(--t2)}
-.t3{color:var(--t3)}
-.mono{font-family:monospace}
-
-/* BADGES */
-.b{display:inline-flex;align-items:center;padding:1px 6px;border-radius:9px;font-size:16px;font-weight:500;white-space:nowrap}
-.br{background:rgba(63,185,80,.12);color:var(--gr);border:1px solid rgba(63,185,80,.25)}
-.bo{background:rgba(88,166,255,.12);color:var(--ac);border:1px solid rgba(88,166,255,.25)}
-.bc{background:rgba(240,136,62,.12);color:var(--or);border:1px solid rgba(240,136,62,.25)}
-.bw{background:rgba(188,140,255,.12);color:var(--pu);border:1px solid rgba(188,140,255,.25)}
-
-/* BUTTONS */
-.btn{padding:8px 16px;border-radius:8px;border:none;font-size:18px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
-.bp{background:var(--a2);color:#fff}.bp:hover{background:#388bfd}
-.bg{background:var(--g2);color:#fff}.bg:hover{background:#2ea043}
-.bs{background:var(--bg3);border:1px solid var(--bd);color:var(--tx)}.bs:hover{background:var(--bg4)}
-.bd{background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.28);color:var(--re)}.bd:hover{background:rgba(248,81,73,.22)}
-.bw{background:rgba(240,136,62,.12);border:1px solid rgba(240,136,62,.28);color:var(--or)}.bw:hover{background:rgba(240,136,62,.22)}
-.bsm{padding:4px 9px;font-size:17px}
-.bxs{padding:2px 7px;font-size:16px}
-
-/* CARD */
-.card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:22px}
-.ch{font-size:18px;font-weight:600;display:block;margin-bottom:12px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.mt14{margin-top:14px}
-.mb7{margin-bottom:7px}
-.mb9{margin-bottom:9px}
-.mb12{margin-bottom:12px}
-.mt8{margin-top:8px}
-.mt10{margin-top:10px}
-.flex-sb{display:flex;justify-content:space-between;align-items:center}
-.flex-g{display:flex;gap:7px;align-items:center}
-.flex4{display:flex;gap:12px;flex-wrap:wrap}
-.ml-auto{margin-left:auto}
-
-/* PROGRESS BAR */
-.pb{background:var(--bg3);border-radius:3px;height:5px;overflow:hidden}
-.pf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g2),var(--gr));transition:width .5s ease}
-
-/* CHART BARS */
-.brow{display:flex;align-items:center;gap:7px;margin-bottom:7px}
-.blbl{width:65px;font-size:16px;color:var(--t2);text-align:right;flex-shrink:0}
-.btrack{flex:1;background:var(--bg3);border-radius:3px;height:16px;position:relative}
-.bfill{height:100%;background:linear-gradient(90deg,var(--a2),var(--ac));border-radius:3px}
-.bval{position:absolute;right:5px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--t2);font-family:monospace}
-
-/* CHIP */
-.chip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:6px;font-size:14px;background:var(--bg3);border:1px solid var(--bd);color:var(--t2);white-space:normal;word-break:keep-all;text-align:center;line-height:1.4}
-
-/* EMPTY */
-.empty{text-align:center;padding:44px 20px;color:var(--t2)}
-.ei{font-size:42px;margin-bottom:10px}
-.empty h3{font-size:20px;margin-bottom:5px;color:var(--tx)}
-
-/* TOAST */
-.tw2{position:fixed;top:60px;right:14px;z-index:9000;display:flex;flex-direction:column;gap:6px}
-#tw{display:flex;flex-direction:column;gap:6px}
-.toast{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 13px;min-width:250px;animation:tin .22s ease;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
-.toast.success{border-color:rgba(63,185,80,.4)}
-.toast.error{border-color:rgba(248,81,73,.4)}
-@keyframes tin{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
-
-/* MODAL */
-.mov{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(4px)}
-.mdl{background:var(--bg2);border:1px solid var(--bd);border-radius:13px;width:700px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.5)}
-.mhdr{padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1}
-.mhdr h3{font-size:20px;font-weight:600}
-.mcls{width:28px;height:28px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.mcls:hover{border-color:var(--re);color:var(--re)}
-.mbdy{padding:20px}
-.mftr{padding:13px 20px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:7px}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.frow.s1{grid-template-columns:1fr}
-.flbl{font-size:16px;font-weight:600;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
-.finp,.fslc,.fta{width:100%;padding:7px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;transition:border-color .2s}
-.finp:focus,.fslc:focus,.fta:focus{border-color:var(--ac);box-shadow:0 0 0 2px rgba(88,166,255,.1)}
-.fta{resize:vertical;min-height:65px}
-.fdiv{display:flex;align-items:center;gap:8px;margin:14px 0 10px}
-.fdln{flex:1;height:1px;background:var(--bd)}
-.fdlb{font-size:15px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1px}
-
-/* HIGHLIGHT */
-.hl,mark.hl{background:rgba(240,200,62,.3);border-radius:2px;padding:0 2px;font-style:normal}
-
-/* ─── SETUP PAGE ─────────────────────────────────── */
-.topbar{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:16px 24px;margin-bottom:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.topbar select{max-width:260px;padding:7px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:7px;color:var(--tx);font-size:18px;font-family:inherit;outline:none;cursor:pointer}
-.topbar select:focus{border-color:var(--ac)}
-.info-badge{display:flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.2);border-radius:14px;font-size:17px;color:var(--gr);font-weight:500}
-
-.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }
-.spanel { background:var(--bg2); border:1px solid var(--bd); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; min-height:0; }
-.shdr{padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg3);display:flex;align-items:center;justify-content:space-between;font-size:18px;font-weight:600;gap:8px;flex-wrap:wrap}
-.ssearch{padding:7px 11px;border-bottom:1px solid var(--bd);background:var(--bg2)}
-.ssearch input{width:100%;padding:5px 9px;background:var(--bg);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;transition:border-color .15s}
-.ssearch input:focus{border-color:var(--ac)}
-
-/* Proc list */
-#sProcList,#sMastBody,#sSelBody{flex:1;overflow-y:auto}
-.pi{padding:10px 14px;border-bottom:1px solid var(--bd2);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .12s}
-.pi:last-child{border-bottom:none}
-.pi:hover{background:var(--bg3)}
-.pi.active{background:rgba(88,166,255,.08);border-left:2px solid var(--ac)}
-.pnm{font-size:18px;font-weight:500}
-.psb{font-size:16px;color:var(--t2);margin-top:1px}
-.pst{text-align:right;font-size:17px}
-.psc{font-weight:600;color:var(--gr)}
-.pstot{color:var(--t2)}
-
-/* Master items */
-.mgrp{display:flex;align-items:center;justify-content:space-between;padding:5px 11px;background:var(--bg3);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
-.mgn{font-size:16px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px}
-.mgc{display:flex;align-items:center;gap:5px;font-size:16px;color:var(--t2);cursor:pointer}
-.mcard{padding:10px 11px;border-bottom:1px solid var(--bd2);display:flex;align-items:flex-start;gap:9px;transition:background .1s;cursor:pointer}
-.mcard:last-child{border-bottom:none}
-.mcard:hover{background:rgba(255,255,255,.02)}
-.mcard.msel{background:rgba(63,185,80,.05)}
-.mchk{width:15px;height:15px;accent-color:var(--gr);flex-shrink:0;margin-top:2px;cursor:pointer}
-.mb{flex:1;min-width:0}
-.mt{font-size:18px;font-weight:500;margin-bottom:2px;word-break:keep-all}
-.mc2{font-size:16px;color:var(--t2);line-height:1.4;margin-bottom:3px;word-break:keep-all}
-.mm{display:flex;gap:4px;flex-wrap:wrap}
-
-/* Selected items */
-.sitem{border-bottom:1px solid var(--bd2)}
-.sitem:last-child{border-bottom:none}
-.sih{padding:9px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .1s}
-.sih:hover{background:rgba(255,255,255,.02)}
-.sin{width:18px;height:18px;border-radius:50%;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--ac);flex-shrink:0;font-family:monospace}
-.sit{font-size:18px;font-weight:500;flex:1;word-break:keep-all}
-.stog{font-size:17px;color:var(--t2);transition:transform .2s;display:inline-block}
-.sib{padding:0 12px 12px;border-top:1px solid var(--bd2);background:rgba(88,166,255,.03)}
-.sf{margin-top:8px}
-.sfl{font-size:15px;font-weight:600;color:var(--t3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
-.sfin{width:100%;padding:5px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;transition:border-color .15s}
-.sfin:focus{border-color:var(--ac)}
-.sfta{width:100%;padding:5px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:17px;font-family:inherit;outline:none;resize:vertical;min-height:50px;transition:border-color .15s}
-.sfta:focus{border-color:var(--ac)}
-.sfrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.drow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px}
-.dl{font-size:15px;color:var(--t3);margin-bottom:2px}
-.rmv{padding:2px 7px;border-radius:4px;border:1px solid rgba(248,81,73,.3);background:rgba(248,81,73,.08);color:var(--re);font-size:16px;cursor:pointer;font-family:inherit;transition:all .15s}
-.rmv:hover{background:rgba(248,81,73,.2)}
-.sempty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:30px;text-align:center;color:var(--t2)}
-.sempty p{font-size:17px}
-.edit-hint{color:var(--ac);font-size:15px}
-
-/* ── Master DB: 검색바 상단 고정, 테이블 스크롤 ─── */
-.m-sticky-hdr{
-  position:sticky;
-  top:62px;
-  z-index:100;
-  background:var(--bg);
-  padding-bottom:12px;
-}
-.m-scroll-body{
-  overflow-y:auto;
-  max-height:calc(100vh - 340px);
-  min-height:300px;
-}
-.m-scroll-body .tw{border:none;border-radius:0}
-.m-scroll-body .tbl thead tr{
-  position:sticky;
-  top:0;
-  z-index:10;
-  background:var(--bg3);
-  box-shadow:0 1px 0 var(--bd);
-}
-
-/* Save bar */
-.savebar{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:11px 16px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-#saveStats{display:flex;gap:14px;font-size:18px;color:var(--t2)}
-#saveStats b{color:var(--tx)}
-
-/* COMPANY */
-.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.ccard{background:var(--bg2);border:1px solid var(--bd);border-radius:9px;padding:16px;transition:all .2s}
-.ccard:hover{border-color:var(--ac);transform:translateY(-1px)}
-.cnm{font-size:22px;font-weight:600;margin-bottom:4px;text-align:center}
-.cmt{font-size:19px;color:var(--t2);text-align:center}
-.cst{margin-top:11px;display:flex;gap:11px;justify-content:center}
-.csv{font-size:26px;font-weight:700;font-family:monospace}
-.csl{font-size:18px;color:var(--t2)}
-.cnote{text-align:center;margin-top:7px;font-size:19px;color:var(--t3)}
-
-@media(max-width:1100px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }}
-@media(max-width:800px){.s3col { display:grid; grid-template-columns:220px 1fr 1fr; gap:18px; flex:1 1 0; min-height:0; }.sg4{grid-template-columns:repeat(2,1fr)}.cgrid{grid-template-columns:1fr}}
-
-/* ══════════════════════════════════════════════════
-   📱 모바일 반응형 (768px 이하)
-══════════════════════════════════════════════════ */
-
-/* 햄버거 버튼 */
-.hbg-btn {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
-  flex-shrink: 0;
-}
-.hbg-btn span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--t2);
-  border-radius: 2px;
-  transition: all .25s;
-}
-.hbg-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hbg-btn.open span:nth-child(2) { opacity: 0; }
-.hbg-btn.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-/* 모바일 드로어 오버레이 */
-.mob-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  z-index: 190;
-}
-.mob-overlay.show { display: block; }
-
-/* 모바일 사이드 드로어 */
-.mob-drawer {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 260px;
-  height: 100%;
-  background: var(--bg2);
-  border-right: 1px solid var(--bd);
-  z-index: 195;
-  transition: left .25s ease;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-}
-.mob-drawer.open { left: 0; }
-.mob-drawer-hdr {
-  padding: 18px 16px 14px;
-  border-bottom: 1px solid var(--bd);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.mob-drawer-hdr .ico2 {
-  width: 28px; height: 28px;
-  background: linear-gradient(135deg,var(--a2),var(--g2));
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-}
-.mob-drawer-hdr span { font-weight: 700; font-size: 17px; }
-.mob-nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px 8px;
-}
-.mob-nb {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 12px 14px;
-  border: none;
-  background: transparent;
-  color: var(--t2);
-  font-size: 16px;
-  font-weight: 500;
-  font-family: inherit;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: left;
-  transition: all .15s;
-  margin-bottom: 2px;
-}
-.mob-nb:hover { background: var(--bg3); color: var(--tx); }
-.mob-nb.active { background: rgba(88,166,255,.12); color: var(--ac); }
-.mob-drawer-ftr {
-  padding: 12px 8px;
-  border-top: 1px solid var(--bd);
-}
-.mob-user {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: var(--bg3);
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-.mob-user .udot2 {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--gr);
-  flex-shrink: 0;
-}
-.mob-user-info { flex: 1; min-width: 0; }
-.mob-user-nm { font-size: 15px; font-weight: 600; }
-.mob-user-rl { font-size: 13px; color: var(--t2); }
-.mob-logout {
-  width: 100%;
-  padding: 10px;
-  background: rgba(248,81,73,.1);
-  border: 1px solid rgba(248,81,73,.25);
-  border-radius: 8px;
-  color: var(--re);
-  font-size: 15px;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all .15s;
-}
-.mob-logout:hover { background: rgba(248,81,73,.18); }
-
-@media(max-width:768px) {
-  /* 바디 기본 폰트 크기 */
-  body { font-size: 15px; }
-
-  /* 로그인 박스 */
-  .lbox { width: calc(100vw - 32px); max-width: 400px; padding: 28px 20px; }
-  .ltit { font-size: 22px; }
-  .lsub { font-size: 15px; }
-  .fg input { font-size: 16px; }
-  .lbtn { font-size: 17px; }
-
-  /* 헤더 */
-  .hdr { padding: 0 14px; height: 54px; }
-  .hdr-logo { font-size: 17px; }
-  .hdr-logo .ico { width: 24px; height: 24px; font-size: 16px; }
-  .hnav { display: none; } /* PC 네비 숨김 */
-  .hr { display: none; }  /* PC 유저뱃지 숨김 */
-  .hbg-btn { display: flex; margin-left: auto; }
-
-  /* 메인 패딩 */
-  .main { padding: 14px 12px; }
-
-  /* 페이지 고정 레이아웃 높이 조정 */
-  #pg_master, #pg_setup, #pg_progress, #pg_equip, #pg_detail {
-    height: calc(100vh - 90px);
-  }
-
-  /* 통계카드: 2열→1열 */
-  .sg4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .sc { padding: 14px 16px; }
-  .sl { font-size: 13px; }
-  .sv { font-size: 24px; }
-  .ss { font-size: 13px; }
-
-  /* 대시보드 그리드 */
-  .grid2 { grid-template-columns: 1fr; gap: 12px; }
-  .card { padding: 14px; }
-  .ch { font-size: 15px; }
-
-  /* 기업 그리드 */
-  .cgrid { grid-template-columns: 1fr; gap: 10px; }
-
-  /* 필터바 */
-  .flt { flex-direction: column; }
-  .si { min-width: unset; font-size: 15px; }
-  .fse { font-size: 15px; }
-
-  /* 테이블 폰트 */
-  .tbl { font-size: 13px; }
-  .tbl th { padding: 8px 8px; font-size: 12px; }
-  .tbl td { padding: 7px 8px; }
-
-  /* 진행현황 스텝바 */
-  .pr-stepbar { flex-wrap: wrap; border-radius: 8px; }
-  .pr-step {
-    flex: 0 0 calc(20% - 1px);
-    min-width: 0;
-    padding: 10px 4px 8px;
-    border-bottom: 1px solid var(--bd);
-  }
-  .pr-se { font-size: 20px; }
-  .pr-ss { font-size: 13px; line-height: 1.2; }
-  .pr-sc { font-size: 13px; }
-  .pr-pbar { width: 70%; height: 4px; }
-  .pr-pct { font-size: 16px; }
-
-  /* 진행현황 통계카드 */
-  .pr-stat-row { flex-wrap: wrap; gap: 8px; }
-  .pr-stat-card { flex: 0 0 calc(50% - 4px); padding: 8px 12px; gap: 8px; }
-  .pr-stat-lbl { font-size: 12px; }
-  .pr-stat-val { font-size: 18px; }
-
-  /* Setup 3컬럼 → 1컬럼 */
-  .s3col { display: flex; flex-direction: column; gap: 0; }
-  .spanel { min-height: 200px; max-height: 45vh; }
-
-  /* 모달 */
-  .mdl { width: 96vw !important; max-height: 90vh; }
-  .mhdr h3 { font-size: 16px; }
-  .mbdy { padding: 14px; }
-  .mftr { padding: 10px 14px; }
-  .frow { grid-template-columns: 1fr; gap: 8px; }
-  .frow.s1 { grid-template-columns: 1fr; }
-  .flbl { font-size: 12px; }
-  .finp, .fslc, .fta { font-size: 14px; padding: 7px 9px; }
-
-  /* 버튼 */
-  .btn { font-size: 14px; padding: 7px 12px; }
-  .bsm { font-size: 13px; padding: 5px 10px; }
-
-  /* 페이지 헤더 */
-  .ph { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 14px; }
-  .pt { font-size: 19px; }
-  .ps { font-size: 13px; }
-
-  /* 편집 버튼 */
-  .editBtn { width: 30px; height: 26px; font-size: 13px; }
-
-  /* Master DB 스크롤 높이 */
-  .m-scroll-body { max-height: calc(100vh - 300px); }
-
-  /* 토스트 위치 */
-  #tw { right: 8px; top: 58px; }
-  .toast { min-width: 180px; font-size: 14px; padding: 8px 11px; }
-}
-
-@media(max-width:400px) {
-  .sg4 { grid-template-columns: 1fr 1fr; }
-  .pr-step { flex: 0 0 calc(33.33% - 1px); }
-  .pr-stat-card { flex: 0 0 100%; }
-  .hdr-logo span { display: none; } /* 로고 텍스트 숨김 */
-}
-
-
-/* ══ 공통: 페이지 고정 헤더 + 스크롤 바디 ══════════ */
-#pg_master, #pg_setup, #pg_progress, #pg_equip {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 110px);
-  overflow: hidden;
-}
-#pg_detail, #pg_company, #pg_dashboard {
-  overflow-y: auto;
-  height: calc(100vh - 110px);
-}
-/* 고정 헤더: 타이틀/스텝바/검색바 */
-.pg-hdr {
-  flex-shrink: 0;               /* 절대 줄어들지 않음 */
-  background: var(--bg);
-  padding-bottom: 8px;
-}
-/* 스크롤 바디: 남은 공간 전부 차지 + 세로 스크롤 */
-.pg-body {
-  flex: 1 1 0;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-/* Master DB 테이블 래퍼 */
-.mTblWrap {
-  border: 1px solid var(--bd);
-  border-radius: 8px;
-  flex: 1 1 0;
-  min-height: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.mTblWrap .tw { border: none; border-radius: 0; flex: 1 1 0; overflow-y: auto; min-height: 0; }
-.pg-body .tw { overflow-y: auto; }
-
-/* 테이블 thead 고정 */
-.mTblWrap .tw .tbl thead tr {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--bg3);
-  box-shadow: 0 1px 0 var(--bd);
-}
-/* 진행현황 */
-#prStat { flex-shrink: 0; padding: 4px 0 12px; }
-#prBody { flex: 1 1 0; overflow-y: auto; min-height: 0; padding: 2px 0 24px; }
-/* Setup s3col */
-.s3col {
-  flex: 1 1 0;
-  min-height: 0;
-}
-/* 편집 버튼 스타일 */
-.editBtn {
-  width: 36px;
-  height: 32px;
-  border: 1px solid var(--bd);
-  border-radius: 6px;
-  background: var(--bg3);
-  color: var(--tx);
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  transition: all .15s;
-}
-.editBtn:hover {
-  border-color: var(--ac);
-  background: rgba(88,166,255,.1);
-}
-/* pg_master가 flex일 때 main 패딩 조정 */
-#pg_master.visible .main {
-  overflow: hidden;
-}
-
-
-/* prBody thead: step-hdr 방식으로 대체됨 */
-#prCont .tw {
-  overflow-x: auto;
-  overflow-y: visible;
-}
-/* prStat: 통계카드 고정 영역 */
-#prStat {
-  padding: 0 0 10px 0;
-}
-
-/* ── 진행현황 단계별 레이아웃 ──────────────────────── */
-.step-block {
-  margin-bottom: 16px;
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  overflow: visible;
-  background: var(--bg2);
-}
-/* 단계 헤더: 단계명 + 진행바 + 컬럼헤더 → 고정 */
-.step-hdr {
-  padding: 14px 16px 0;
-  background: var(--bg2);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  border-bottom: 1px solid var(--bd);
-  border-radius: 10px 10px 0 0;
-}
-/* thead 용 테이블: 레이아웃 공유를 위해 tbody 테이블과 같은 컬럼 */
-.step-thead-tbl {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  margin-top: 8px;
-}
-.step-thead-tbl th {
-  padding: 8px 12px;
-  text-align: left;
-  font-weight: 600;
-  color: var(--t2);
-  font-size: 15px;
-  white-space: nowrap;
-  border-right: 1px solid var(--bd2);
-  background: var(--bg3);
-}
-.step-thead-tbl th:last-child { border-right: none; }
-/* 바디: tbody 만 스크롤 */
-.step-body {
-  overflow-y: auto;
-  max-height: 400px;
-  border-radius: 0 0 10px 10px;
-}
-.step-body-tbl {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-.step-body-tbl td {
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--bd2);
-  border-right: 1px solid var(--bd2);
-  vertical-align: middle;
-  font-size: 15px;
-}
-.step-body-tbl td:last-child { border-right: none; }
-.step-body-tbl tr:last-child td { border-bottom: none; }
-.step-body-tbl tr { transition: background .1s; }
-.step-body-tbl tr:hover { background: var(--bg3); }
-
-
-/* ══ 진행현황 새 스텝바 ══════════════════════════════ */
-.pr-stepbar {
-  display: flex;
-  gap: 0;
-  background: var(--bg2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 6px;
-}
-.pr-step {
-  flex: 1;
-  padding: 18px 8px 16px;
-  text-align: center;
-  cursor: pointer;
-  border-right: 1px solid var(--bd);
-  transition: all .15s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  position: relative;
-}
-.pr-step:last-child { border-right: none; }
-.pr-step:hover { background: var(--bg3); }
-.pr-step.pr-active {
-  background: rgba(88,166,255,.1);
-  border-bottom: 3px solid var(--ac);
-}
-.pr-step-empty { opacity: .4; cursor: default; }
-.pr-step-empty:hover { background: transparent; }
-.pr-se { font-size: 28px; line-height: 1; }
-.pr-ss { font-size: 20px; font-weight: 600; color: var(--t2); word-break: keep-all; line-height: 1.3; }
-.pr-step.pr-active .pr-ss { color: var(--ac); }
-.pr-sc { font-size: 19px; color: var(--t2); font-family: 'JetBrains Mono', monospace; }
-.pr-pbar {
-  width: 80%;
-  height: 6px;
-  background: var(--bg3);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.pr-pfill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--g2), var(--gr));
-  border-radius: 2px;
-  transition: width .4s ease;
-}
-.pr-pct {
-  font-size: 23px;
-  font-weight: 700;
-  color: var(--t2);
-  font-family: 'JetBrains Mono', monospace;
-}
-.pr-pct.pr-done { color: var(--gr); }
-.pr-step.pr-active .pr-pct { color: var(--ac); }
-
-/* ══ 진행현황 항목 영역 ══════════════════════════════ */
-.pr-items-hdr {
-  background: var(--bg2);
-  border: 1px solid var(--bd);
-  border-radius: 10px 10px 0 0;
-  padding: 16px 18px 14px;
-  border-bottom: none;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-}
-.pr-tbl-wrap {
-  border: 1px solid var(--bd);
-  border-radius: 0 0 10px 10px;
-  overflow: hidden;
-}
-.pr-tbl {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-.pr-tbl thead tr {
-  background: var(--bg3);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.pr-tbl th {
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
-  color: var(--t2);
-  font-size: 14px;
-  border-right: 1px solid var(--bd2);
-  white-space: nowrap;
-}
-.pr-tbl th:last-child { border-right: none; }
-.pr-tbl tbody tr { border-bottom: 1px solid var(--bd2); transition: background .1s; }
-.pr-tbl tbody tr:last-child { border-bottom: none; }
-.pr-tbl tbody tr:hover { background: var(--bg3); }
-.pr-tbl td {
-  padding: 10px 12px;
-  border-right: 1px solid var(--bd2);
-  vertical-align: middle;
-  font-size: 15px;
-}
-.pr-tbl td:last-child { border-right: none; }
-.pr-done-row { opacity: .6; }
-.pr-done-row td:nth-child(2) { text-decoration: line-through; color: var(--t2); }
-.pr-chk {
-  width: 18px; height: 18px;
-  accent-color: var(--gr);
-  cursor: pointer;
-}
-
-
-/* ── 진행현황 통계 (compact 가로형) ────────────────── */
-.pr-stat-row {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-.pr-stat-card {
-  flex: 1;
-  background: var(--bg2);
-  border: 1px solid var(--bd);
-  border-radius: 9px;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.pr-stat-lbl {
-  font-size: 14px;
-  color: var(--t2);
-  font-weight: 500;
-  white-space: nowrap;
-}
-.pr-stat-val {
-  font-size: 24px;
-  font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
-  margin-left: auto;
-}
-
-/* ══ 🏭 설비 투자 진척 페이지 CSS ══════════════════ */
-
-/* 상단 필터바 */
-.eq-filterbar {
-  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-  background: var(--bg2); border: 1px solid var(--bd); border-radius: 10px;
-  padding: 12px 16px; margin-bottom: 14px;
-}
-.eq-filterbar select, .eq-filterbar input {
-  padding: 7px 10px; background: var(--bg3); border: 1px solid var(--bd);
-  border-radius: 7px; color: var(--tx); font-size: 14px; font-family: inherit; outline: none;
-}
-.eq-filterbar select:focus, .eq-filterbar input:focus { border-color: var(--ac); }
-.eq-filter-label { font-size: 13px; color: var(--t2); white-space: nowrap; }
-
-/* 진척 현황 메인 테이블 */
-.eq-tbl-wrap {
-  flex: 1 1 0; min-height: 0;
-  border: 1px solid var(--bd); border-radius: 8px;
-  overflow: auto;
-}
-.eq-tbl {
-  width: 100%; border-collapse: collapse;
-  font-size: 13px; table-layout: fixed;
-  min-width: 1400px;
-}
-.eq-tbl thead tr { position: sticky; top: 0; z-index: 15; }
-.eq-tbl thead th {
-  background: var(--bg3); padding: 9px 8px;
-  text-align: center; font-size: 12px; font-weight: 600;
-  color: var(--t2); border-right: 1px solid var(--bd2);
-  border-bottom: 1px solid var(--bd); white-space: nowrap;
-}
-.eq-tbl thead th.th-fix { position: sticky; left: 0; z-index: 20; background: var(--bg3); }
-.eq-tbl thead th.th-fix2 { position: sticky; left: 90px; z-index: 20; background: var(--bg3); }
-.eq-tbl thead th.th-fix3 { position: sticky; left: 220px; z-index: 20; background: var(--bg3); }
-.eq-tbl thead th:last-child { border-right: none; }
-.eq-tbl tbody tr { border-bottom: 1px solid var(--bd2); transition: background .1s; }
-.eq-tbl tbody tr:hover { background: var(--bg3); }
-.eq-tbl tbody tr.eq-row-target { background: rgba(88,166,255,.04); }
-.eq-tbl tbody td {
-  padding: 0; border-right: 1px solid var(--bd2);
-  vertical-align: middle; text-align: center;
-}
-.eq-tbl tbody td.td-fix {
-  position: sticky; left: 0; z-index: 5;
-  background: var(--bg2); padding: 7px 8px;
-}
-.eq-tbl tbody td.td-fix2 {
-  position: sticky; left: 90px; z-index: 5;
-  background: var(--bg2); padding: 7px 8px; text-align: left;
-}
-.eq-tbl tbody td.td-fix3 {
-  position: sticky; left: 220px; z-index: 5;
-  background: var(--bg2); padding: 7px 8px; text-align: left;
-}
-.eq-tbl tbody tr:hover td.td-fix,
-.eq-tbl tbody tr:hover td.td-fix2,
-.eq-tbl tbody tr:hover td.td-fix3 { background: var(--bg3); }
-
-/* 날짜 셀 */
-.eq-date-cell {
-  display: flex; flex-direction: column; gap: 1px;
-  padding: 4px 6px; min-height: 48px; justify-content: center;
-}
-.eq-date-row {
-  display: flex; align-items: center; gap: 4px;
-  font-size: 11px;
-}
-.eq-date-lbl {
-  font-size: 10px; color: var(--t3);
-  background: var(--bg3); border-radius: 3px;
-  padding: 0 3px; white-space: nowrap; flex-shrink: 0;
-}
-.eq-date-input {
-  width: 100%; background: transparent; border: none;
-  color: var(--tx); font-size: 11px; font-family: 'JetBrains Mono', monospace;
-  outline: none; cursor: pointer; padding: 2px 3px;
-  border-radius: 3px; transition: background .15s;
-}
-.eq-date-input:focus { background: var(--bg3); }
-.eq-date-input.eq-date-target { color: var(--ac); }
-.eq-date-input.eq-date-actual { color: var(--gr); }
-.eq-date-input.eq-date-delay { color: var(--re) !important; border-color: rgba(248,81,73,.4) !important; }
-
-/* 진행상태 셀 */
-.eq-step-cell { padding: 3px 5px; }
-.eq-step-done { background: rgba(63,185,80,.15); }
-.eq-step-delay { background: rgba(248,81,73,.1); }
-.eq-step-wip { background: rgba(88,166,255,.1); }
-
-/* 공정/설비 행 구분 */
-.eq-row-proc td.td-fix { background: var(--bg3) !important; font-weight: 700; font-size: 13px; }
-.eq-row-proc td.td-fix2 { background: var(--bg3) !important; font-weight: 600; }
-.eq-row-proc td.td-fix3 { background: var(--bg3) !important; }
-.eq-row-eq td { font-size: 12px; }
-.eq-row-type-lbl {
-  font-size: 10px; padding: 1px 5px; border-radius: 3px; white-space: nowrap;
-}
-.eq-row-type-t { background: rgba(88,166,255,.15); color: var(--ac); }
-.eq-row-type-a { background: rgba(63,185,80,.15); color: var(--gr); }
-
-/* 설비 추가 버튼 */
-.eq-add-row td { padding: 6px 10px; text-align: center; }
-
-/* 진행률 바 인라인 */
-.eq-pct-cell { padding: 4px 8px; text-align: center; }
-.eq-pct-val { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-.eq-mini-bar { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; margin-top: 3px; }
-.eq-mini-fill { height: 100%; border-radius: 2px; transition: width .3s; }
-
-/* 설비 편집 버튼 */
-.eq-btn-edit {
-  width: 26px; height: 24px; border: 1px solid var(--bd); border-radius: 4px;
-  background: var(--bg3); color: var(--t2); cursor: pointer; font-size: 12px;
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: all .15s; margin: 0 1px;
-}
-.eq-btn-edit:hover { border-color: var(--ac); color: var(--ac); background: rgba(88,166,255,.1); }
-.eq-btn-del:hover { border-color: var(--re); color: var(--re); background: rgba(248,81,73,.1); }
-
-/* 모달 */
-.eq-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.eq-modal-grid.s1 { grid-template-columns: 1fr; }
-.eq-flbl { font-size: 12px; font-weight: 600; color: var(--t2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .3px; }
-.eq-finp, .eq-fsel {
-  width: 100%; padding: 7px 10px;
-  background: var(--bg3); border: 1px solid var(--bd);
-  border-radius: 7px; color: var(--tx); font-size: 14px;
-  font-family: inherit; outline: none; transition: border-color .2s;
-}
-.eq-finp:focus, .eq-fsel:focus { border-color: var(--ac); }
-
-/* 통계 헤더 */
-.eq-stat-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-.eq-stat-card {
-  flex: 1; min-width: 110px;
-  background: var(--bg2); border: 1px solid var(--bd);
-  border-radius: 9px; padding: 9px 14px;
-  display: flex; align-items: center; gap: 10px;
-}
-.eq-stat-lbl { font-size: 12px; color: var(--t2); }
-.eq-stat-val { font-size: 20px; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-left: auto; }
-
-/* 담당자/업체 chip */
-.eq-chip { font-size: 12px; background: var(--bg3); border: 1px solid var(--bd); border-radius: 4px; padding: 1px 6px; color: var(--t2); white-space: nowrap; }
-
-/* 반응형 */
-@media(max-width:768px) {
-  .eq-filterbar { gap: 6px; }
-  .eq-tbl { font-size: 11px; }
-  .eq-stat-card { min-width: 80px; padding: 7px 10px; }
-  .eq-stat-val { font-size: 16px; }
-}
 </body>
 </html>
