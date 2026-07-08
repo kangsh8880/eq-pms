@@ -1492,9 +1492,9 @@ var I18N = {
     step_planning:'투자기획',step_spec:'사양정의',step_review:'투자심의',
     step_order:'발주(계약)',step_mfg:'제작',step_fat:'FAT',
     step_ship:'출하/통관',step_install:'설치',step_trial:'시운전/SAT',
-    step_qual:'Qual(검증)',step_mass:'양산',
+    step_qual:'Qual(검증)',step_mass:'양산이관/정산',
     steps_0:'투자기획',steps_1:'사양정의',steps_2:'투자심의',steps_3:'발주',
-    steps_4:'제작',steps_5:'FAT',steps_6:'출하',steps_7:'설치',steps_8:'SAT',steps_9:'Qual',
+    steps_4:'제작',steps_5:'FAT',steps_6:'출하',steps_7:'설치',steps_8:'SAT',steps_9:'Qual',steps_10:'양산이관/정산',
     lbl_tgt_date:'목표일',lbl_act_date:'실적일',msg_saved:'저장됐습니다',
     lbl_delay:'지연',lbl_checklist:'상세 체크리스트',lbl_done_badge:'✅ 완료',
     dt_hdr_item:'항목',dt_hdr_tgt:'목표일',dt_hdr_act:'실적일',dt_hdr_edit:'편집',
@@ -1564,7 +1564,7 @@ var I18N = {
     step_ship:'Shipping',step_install:'Installation',step_trial:'Trial/SAT',
     step_qual:'Qual',step_mass:'Mass Prod',
     steps_0:'Planning',steps_1:'Spec',steps_2:'Review',steps_3:'Order',
-    steps_4:'Mfg',steps_5:'FAT',steps_6:'Shipping',steps_7:'Install',steps_8:'SAT',steps_9:'Qual',
+    steps_4:'Mfg',steps_5:'FAT',steps_6:'Shipping',steps_7:'Install',steps_8:'SAT',steps_9:'Qual',steps_10:'Mass Transfer',
     lbl_tgt_date:'Target date',lbl_act_date:'Actual date',msg_saved:'Saved',
     lbl_delay:'Delay',lbl_checklist:'Detail Checklist',lbl_done_badge:'✅ Done',
     dt_hdr_item:'Item',dt_hdr_tgt:'Target',dt_hdr_act:'Actual',dt_hdr_edit:'Edit',
@@ -1634,7 +1634,7 @@ var I18N = {
     step_ship:'出货/通关',step_install:'安装',step_trial:'试运行/SAT',
     step_qual:'Qual(验证)',step_mass:'量产',
     steps_0:'规划',steps_1:'规格',steps_2:'审查',steps_3:'发注',
-    steps_4:'制造',steps_5:'FAT',steps_6:'出货',steps_7:'安装',steps_8:'试运行',steps_9:'Qual',
+    steps_4:'制造',steps_5:'FAT',steps_6:'出货',steps_7:'安装',steps_8:'试运行',steps_9:'Qual',steps_10:'量产移管/结算',
     lbl_tgt_date:'目标日',lbl_act_date:'实际日',msg_saved:'已保存',
     lbl_delay:'延误',lbl_checklist:'详细检查清单',lbl_done_badge:'✅ 完成',
     dt_hdr_item:'项目',dt_hdr_tgt:'目标日',dt_hdr_act:'实际日',dt_hdr_edit:'编辑',
@@ -1704,7 +1704,7 @@ var I18N = {
     step_ship:'Xuất hàng',step_install:'Lắp đặt',step_trial:'Chạy thử/SAT',
     step_qual:'Qual(Kiểm định)',step_mass:'Sản xuất ĐL',
     steps_0:'Lập KH',steps_1:'Định nghĩa',steps_2:'Xem xét',steps_3:'Đặt hàng',
-    steps_4:'Chế tạo',steps_5:'FAT',steps_6:'Xuất hàng',steps_7:'Lắp đặt',steps_8:'SAT',steps_9:'Qual',
+    steps_4:'Chế tạo',steps_5:'FAT',steps_6:'Xuất hàng',steps_7:'Lắp đặt',steps_8:'SAT',steps_9:'Qual',steps_10:'Chuyển giao SX',
     lbl_tgt_date:'Ngày mục tiêu',lbl_act_date:'Ngày thực tế',msg_saved:'Đã lưu',
     lbl_delay:'Trễ',lbl_checklist:'Checklist chi tiết',lbl_done_badge:'✅ Xong',
     dt_hdr_item:'Hạng mục',dt_hdr_tgt:'Mục tiêu',dt_hdr_act:'Thực tế',dt_hdr_edit:'Sửa',
@@ -2664,7 +2664,7 @@ var GONG_MASTER = [{"seq": 1, "code": "S05-0100", "name": "Sheet Stock", "manage
 var VENDOR_MASTER = [{"code": "KR2165423", "name": "ATK", "manager": "", "contact": ""}, {"code": "KR2165424", "name": "KJG", "manager": "", "contact": ""}, {"code": "KR2165425", "name": "OIHKHJH", "manager": "", "contact": ""}, {"code": "KR2165426", "name": "KO-KJGKJHU", "manager": "", "contact": ""}, {"code": "VN56498", "name": "KJ TEC", "manager": "", "contact": ""}, {"code": "KR2165428", "name": "PO HGJ", "manager": "", "contact": ""}, {"code": "KR2165429", "name": "KKJHKJ", "manager": "", "contact": ""}, {"code": "CN98651", "name": "RETTYT", "manager": "", "contact": ""}, {"code": "KR2165431", "name": "OIJN MNBM", "manager": "", "contact": ""}, {"code": "KR2165432", "name": "JGUKK", "manager": "", "contact": ""}];
 
 /* 투자 프로세스 11단계 */
-var INVEST_STEPS = ["투자기획","사양정의","투자심의","발주(계약)","제작","FAT","출하(물류/통관)","설치","시운전/SAT","Qual(검증)","양산"];
+var INVEST_STEPS = ["투자기획","사양정의","투자심의","발주(계약)","제작","FAT","출하(물류/통관)","설치","시운전/SAT","Qual(검증)","양산이관/정산"];
 /* 투자 프로세스 단계명 다국어 변환 */
 var INVEST_STEP_KEYS = [
   'step_planning','step_spec','step_review','step_order','step_mfg',
@@ -3857,7 +3857,7 @@ function _dtDetailHtml(eq, si, canE) {
   // INVEST_STEPS → MASTER_DB 프로세스명 매핑
   var stepKeywords = [
     '설비투자기획','설비 사양정의','투자심의','발주','제작',
-    'FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산'
+    'FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산이관/정산'
   ];
   var kw = stepKeywords[si] || '';
 
@@ -4005,7 +4005,7 @@ function _dtChkToggle(inp) {
   // 단계 진행률 갱신 (패널 헤더)
   var setup  = state.setups[coId] || {};
   var selIds = setup.sel || [];
-  var stepKeywords = ['설비투자기획','설비 사양정의','투자심의','발주','제작','FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산'];
+  var stepKeywords = ['설비투자기획','설비 사양정의','투자심의','발주','제작','FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산이관/정산'];
   var kw = stepKeywords[si] || '';
   var allItems = MASTER_DB.filter(function(r){ return r['프로세스'] && r['프로세스'].indexOf(kw)===0; });
   var items = selIds.length>0 ? allItems.filter(function(r){ return selIds.indexOf(r['id'])>=0; }) : allItems;
@@ -4097,7 +4097,7 @@ function _dtCalcStepInfo(si) {
   var eq     = (state.equipments[coId]||[])[_dtEqIdx];
   var stepKeywords = [
     '설비투자기획','설비 사양정의','투자심의','발주','제작',
-    'FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산'
+    'FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산이관/정산'
   ];
   var kw = stepKeywords[si] || '';
   var allItems = MASTER_DB.filter(function(r){ return r['프로세스'] && r['프로세스'].indexOf(kw) === 0; });
