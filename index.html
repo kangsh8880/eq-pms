@@ -872,9 +872,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
     </div>
     <div class="fg">
       <label>비밀번호</label>
-      <input type="password" id="loginPw" placeholder="비밀번호 입력" autocomplete="current-password">
+      <input type="password" id="loginPw" placeholder="비밀번호 입력" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
-    <button class="lbtn" id="btnLogin" data-i18n="login_btn">로그인</button>
+    <button class="lbtn" id="btnLogin" onclick="doLogin()" data-i18n="login_btn">로그인</button>
     <div class="lerr" id="loginErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
     <div class="lhint" style="display:none">
       <strong>테스트 계정</strong><br>
@@ -4218,121 +4218,6 @@ document.addEventListener('DOMContentLoaded', function() {
       ['itemModal','coModal','eqModal','gongModal','vendModal','gmGongModal','gmVendModal'].forEach(function(id) {
         var m = gid(id); if (m && m.style.display !== 'none') CM(id);
       });
-    }
-  });
-  navTo('dashboard');
-});
-</script>
-</body>
-</html>
-; pgCompany();
-  toast('등록 완료', nm + ' 기업이 등록되었습니다.', 'success');
-}
-function delCo(id) {
-  var c = state.companies.filter(function(x){ return x.id===id; })[0];
-  if (!confirm('"' + c.name + '" 기업을 삭제하시겠습니까?')) return;
-  state.companies = state.companies.filter(function(x){ return x.id!==id; });
-  delete state.setups[id];
-  delete state.equipments[id];
-  saveAll(); pgCompany();
-  toast('삭제','기업이 삭제되었습니다.','info');
-}
-function goSetup(coId) {
-  navTo('setup');
-  setTimeout(function(){ if(gid('coSel')){ gid('coSel').value = coId; loadCo(); } }, 60);
-}
-function goProg(coId) {
-  navTo('detail');
-  setTimeout(function(){
-    var coSel = document.getElementById('dtCoSel');
-    if (coSel) { coSel.value = coId; _dtLoadCo(); }
-  }, 60);
-}
-function goEquip(coId) {
-  navTo('detail');
-  setTimeout(function(){
-    var coSel = document.getElementById('dtCoSel');
-    if (coSel) { coSel.value = coId; _dtLoadCo(); }
-    if (canEdit()) {
-      setTimeout(function(){ _openEqModal(coId, null, null); }, 150);
-    }
-  }, 80);
-}
-
-/* ── EXPORT ─────────────────────────────────────────── */
-function exportMaster() {
-  var cols = ['id','프로세스','구분','세부검토항목','체크포인트','필수여부','필요문서','총괄담당부서','합의부서','승인부서','표준일정'];
-  var rows = [cols.join(',')];
-  state.master.forEach(function(r){
-    rows.push(cols.map(function(k){ return '"' + String(r[k]||'').replace(/"/g,'""') + '"'; }).join(','));
-  });
-  dlCSV(rows.join('\n'), 'master_' + new Date().toISOString().slice(0,10) + '.csv');
-}
-function expSetup() {
-  var coId = gid('coSel') ? gid('coSel').value : '';
-  if (!coId) { toast('오류','기업을 먼저 선택하세요.','error'); return; }
-  var co = state.companies.filter(function(c){ return c.id===coId; })[0];
-  var s  = _eqSetup(coId, state.setupEqIdx) || {};
-  if (!(s.sel||[]).length) { toast('오류','선택된 항목이 없습니다.','error'); return; }
-  var cols = ['프로세스','구분','세부검토항목','체크포인트','필수여부','필요문서','총괄담당부서','합의부서','승인부서','표준일정','목표일정'];
-  var rows = [cols.join(',')];
-  state.master.filter(function(r){ return (s.sel||[]).indexOf(r.id)>=0; }).forEach(function(r){
-    var c = (s.custom||{})[r.id] || {};
-    function cv(f){ return c[f]!==undefined ? c[f] : r[f]||''; }
-    var vals = [r['프로세스'],r['구분'],r['세부검토항목'],cv('체크포인트'),cv('필수여부'),cv('필요문서'),cv('총괄담당부서'),cv('합의부서'),cv('승인부서'),r['표준일정']||'',(s.tgt||{})[r.id]||''];
-    rows.push(vals.map(function(v){ return '"' + String(v||'').replace(/"/g,'""') + '"'; }).join(','));
-  });
-  dlCSV(rows.join('\n'), 'setup_' + co.name + '_' + new Date().toISOString().slice(0,10) + '.csv');
-}
-function dlCSV(data, fname) {
-  var blob = new Blob(['﻿' + data], { type:'text/csv;charset=utf-8;' });
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = fname;
-  a.click();
-  toast('내보내기','CSV 파일 다운로드 중','success');
-}
-
-/* ── MODAL ──────────────────────────────────────────── */
-function CM(id) { gid(id).style.display = 'none'; }
-
-/* ── 모바일 드로어 ───────────────────────────────────── */
-function toggleDrawer() {
-  var drawer = gid('mobDrawer');
-  var overlay = gid('mobOverlay');
-  var btn = gid('hbgBtn');
-  if (!drawer) return;
-  var isOpen = drawer.classList.contains('open');
-  if (isOpen) {
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-    btn.classList.remove('open');
-  } else {
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-    btn.classList.add('open');
-  }
-}
-function mobNavTo(p) { closeDrawer(); navTo(p); }
-function closeDrawer() {
-  var drawer = gid('mobDrawer');
-  var overlay = gid('mobOverlay');
-  var btn = gid('hbgBtn');
-  if (!drawer) return;
-  drawer.classList.remove('open');
-  overlay.classList.remove('open');
-  if (btn) btn.classList.remove('open');
-}
-
-/* ── INIT ───────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', function() {
-  window.addEventListener('resize', function() {
-    ['pg_master','pg_setup','pg_detail'].forEach(function(id) {
-      if (gid(id) && gid(id).style.display !== 'none') adjustPageLayout(id);
-    });
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
       document.querySelectorAll('.mov').forEach(function(m) { m.style.display = 'none'; });
       closeDrawer();
     }
