@@ -2450,6 +2450,7 @@ function selSStep(coId, i) {
   renderSProc(coId);
   renderSMast();
   renderSSel();
+  var mb = gid('sMastBody'); if (mb) mb.scrollTop = 0;
 }
 
 function renderSMast() {
