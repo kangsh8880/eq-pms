@@ -1327,11 +1327,15 @@ function mergeAndApply(remote) {
   if (remote.gongMaster)   state.gongMaster   = remote.gongMaster;
   if (remote.vendorMaster) state.vendorMaster = remote.vendorMaster;
   if (remote.master && remote.master.length) state.master = remote.master;
+  if (remote.gongGlobal && remote.gongGlobal.length) { GONG_MASTER.length = 0; remote.gongGlobal.forEach(function(g){ GONG_MASTER.push(g); }); }
+  if (remote.vendGlobal && remote.vendGlobal.length) { VENDOR_MASTER.length = 0; remote.vendGlobal.forEach(function(v){ VENDOR_MASTER.push(v); }); }
   lsSet('companies',    state.companies);
   lsSet('setups',       state.setups);
   lsSet('equipments',   state.equipments);
   lsSet('gongMaster',   state.gongMaster);
   lsSet('vendorMaster', state.vendorMaster);
+  lsSet('gongGlobal',   GONG_MASTER);
+  lsSet('vendGlobal',   VENDOR_MASTER);
 }
 
 // 3초 디바운스 자동저장
@@ -1342,6 +1346,8 @@ function saveAll() {
   lsSet('equipments',   state.equipments);
   lsSet('gongMaster',   state.gongMaster);
   lsSet('vendorMaster', state.vendorMaster);
+  lsSet('gongGlobal',   GONG_MASTER);
+  lsSet('vendGlobal',   VENDOR_MASTER);
   if (!GH.pat) return;
   if (GH.saveTimer) clearTimeout(GH.saveTimer);
   GH.saveTimer = setTimeout(function() {
@@ -1349,7 +1355,8 @@ function saveAll() {
     ghSave({
       companies: state.companies, setups: state.setups,
       master: state.master, equipments: state.equipments,
-      gongMaster: state.gongMaster, vendorMaster: state.vendorMaster
+      gongMaster: state.gongMaster, vendorMaster: state.vendorMaster,
+      gongGlobal: GONG_MASTER, vendGlobal: VENDOR_MASTER
     });
   }, 3000);
 }
@@ -1765,6 +1772,11 @@ function appInit() {
   // 공정/설비업체 Master (localStorage → 없으면 초기 데이터)
   state.gongMaster   = lsGet('gongMaster')   || {};
   state.vendorMaster = lsGet('vendorMaster') || {};
+  // 글로벌 공정/업체 Master 복원
+  var _savedGong = lsGet('gongGlobal');
+  if (_savedGong && _savedGong.length) { GONG_MASTER.length = 0; _savedGong.forEach(function(g){ GONG_MASTER.push(g); }); }
+  var _savedVend = lsGet('vendGlobal');
+  if (_savedVend && _savedVend.length) { VENDOR_MASTER.length = 0; _savedVend.forEach(function(v){ VENDOR_MASTER.push(v); }); }
   // 현재 선택 기업 탭 초기화
   _coTab = 'company';
   _coSelId = null;
@@ -2014,8 +2026,21 @@ function mkReqBars(tot) {
 }
 
 /* ── MASTER PAGE ────────────────────────────────────── */
+var _mTab = 'invest'; // 'invest' | 'gong' | 'vendor'
 function pgMaster() {
   var canE = canEdit();
+
+  /* ── 상단 3-탭 바 ── */
+  var topTabs = '<div style="display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--bd)">'
+    + '<button class="btn' + (_mTab==='invest'?' bp':' bs') + '" style="border-radius:8px 8px 0 0;border-bottom:none;min-width:160px;font-size:14px;font-weight:600" onclick="_switchMTab(\'invest\')">📋 설비투자프로세스</button>'
+    + '<button class="btn' + (_mTab==='gong'?' bp':' bs') + '" style="border-radius:8px 8px 0 0;border-bottom:none;min-width:140px;font-size:14px;font-weight:600" onclick="_switchMTab(\'gong\')">⚙️ 공정Master</button>'
+    + '<button class="btn' + (_mTab==='vendor'?' bp':' bs') + '" style="border-radius:8px 8px 0 0;border-bottom:none;min-width:140px;font-size:14px;font-weight:600" onclick="_switchMTab(\'vendor\')">🏭 업체Master</button>'
+    + '</div>';
+
+  if (_mTab === 'gong') { _pgMasterGong(canE, topTabs); return; }
+  if (_mTab === 'vendor') { _pgMasterVend(canE, topTabs); return; }
+
+  /* ── 설비투자프로세스 (기존 로직) ── */
   var cats = [];
   state.master.forEach(function(r){ if(r['구분'] && cats.indexOf(r['구분'])<0) cats.push(r['구분']); });
   cats.sort();
@@ -2037,6 +2062,7 @@ function pgMaster() {
     + '<div class="flex-g">'
     + (canE ? '<button class="btn bp" onclick="openAddItem()">' + t('item_add') + '</button>' : '')
     + '<button class="btn bs" onclick="exportMaster()">📥 CSV</button></div></div>'
+    + topTabs
     + stepBar
     + '<div class="flt">'
     + '<input class="si" id="mSrch" placeholder="🔍 ' + t('search') + '..." oninput="renderMTbl()">'
@@ -2051,7 +2077,157 @@ function pgMaster() {
   adjustPageLayout('pg_master');
 }
 
+function _switchMTab(tab) { _mTab = tab; pgMaster(); }
 function selMS(i) { state.masterStep = i; pgMaster(); }
+
+/* ── 공정 Master 글로벌 관리 ── */
+function _pgMasterGong(canE, topTabs) {
+  var html = '<div class="pg-hdr">'
+    + '<div class="ph"><div><h1 class="pt">⚙️ 공정Master (Global)</h1>'
+    + '<p class="ps">전체 ' + GONG_MASTER.length + ' 공정</p></div>'
+    + '<div class="flex-g">'
+    + (canE ? '<button class="btn bp" onclick="_openGMGong(null)">➕ 공정 추가</button>' : '')
+    + '</div></div>' + topTabs + '</div>'
+    + '<div class="pg-body"><div id="gmGongTbl"></div></div>';
+  gid('pg_master').innerHTML = html;
+  _renderGMGong(canE);
+  adjustPageLayout('pg_master');
+}
+function _renderGMGong(canE) {
+  if (typeof canE === 'undefined') canE = canEdit();
+  var tbl = '<div class="tw" style="max-height:calc(100vh - 260px);overflow-y:auto"><table class="tbl"><thead><tr>'
+    + '<th style="width:60px">' + t('lbl_order') + '</th><th style="width:130px">' + t('col_proc_code') + '</th><th>' + t('col_proc_name') + '</th>'
+    + '<th style="width:130px">' + t('lbl_manager') + '</th><th style="width:150px">' + t('lbl_contact') + '</th>'
+    + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
+    + '</tr></thead><tbody>';
+  GONG_MASTER.forEach(function(g, i) {
+    tbl += '<tr>'
+      + '<td style="text-align:center;color:var(--t2);font-size:13px">' + g.seq + '</td>'
+      + '<td style="font-family:monospace;font-size:13px;color:var(--ac)">' + xe(g.code) + '</td>'
+      + '<td style="font-weight:500">' + xe(g.name) + '</td>'
+      + '<td style="font-size:14px">' + xe(g.manager||'-') + '</td>'
+      + '<td style="font-size:14px;color:var(--t2)">' + xe(g.contact||'-') + '</td>'
+      + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGMGong(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGMGong(' + i + ')">🗑️</button></td>' : '')
+      + '</tr>';
+  });
+  tbl += '</tbody></table></div>';
+  gid('gmGongTbl').innerHTML = tbl;
+}
+
+function _openGMGong(idx) {
+  var isEdit = idx !== null;
+  var g = isEdit ? GONG_MASTER[idx] : {};
+  var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
+  var html = '<div class="mov" id="gmGongOv" style="display:flex" onclick="if(event.target===this)_closeGMGong()">'
+    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'공정 수정':'공정 추가') + '</h3>'
+    + '<button class="mcls" onclick="_closeGMGong()">✕</button></div><div class="mbdy">'
+    + '<div class="eq-modal-grid" style="margin-bottom:10px">'
+    + '<div><div class="eq-flbl">'+t('col_proc_code')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="gmG_code" value="' + xe(g.code||'') + '" placeholder="예: F10-0020"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_order')+'*</div>'
+    + '<input class="eq-finp" id="gmG_seq" type="number" value="' + (g.seq||'') + '" placeholder="숫자"></div>'
+    + '</div>'
+    + '<div style="margin-bottom:14px"><div class="eq-flbl">'+t('col_proc_name')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="gmG_name" value="' + xe(g.name||'') + '" placeholder="예: MS Auto Racking1"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="gmG_mgr" value="' + xe(g.manager||'') + '" placeholder="담당자명"></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="gmG_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(g.contact||'') + '" placeholder="연락처"></div></div>'
+    + '</div><div class="mftr"><input type="hidden" id="gmG_idx" value="' + (isEdit?idx:'null') + '">'
+    + '<button class="btn bs" onclick="_closeGMGong()">' + t('cancel') + '</button>'
+    + '<button class="btn bg" onclick="_saveGMGong()">' + t('save_icon') + '</button></div></div></div>';
+  var w = document.createElement('div'); w.id = 'gmGongWrap'; w.innerHTML = html;
+  document.body.appendChild(w);
+  isEdit ? gid('gmG_mgr').focus() : gid('gmG_code').focus();
+}
+function _closeGMGong() { var w=gid('gmGongWrap'); if(w) w.remove(); }
+function _saveGMGong() {
+  var code = (gid('gmG_code').value||'').trim(), name = (gid('gmG_name').value||'').trim();
+  var seq = parseInt(gid('gmG_seq').value) || GONG_MASTER.length+1;
+  if (!code || !name) { alert('공정코드와 공정명을 입력하세요.'); return; }
+  var idx = gid('gmG_idx').value, isEdit = idx !== 'null';
+  var obj = { seq:seq, code:code, name:name, manager:(gid('gmG_mgr').value||'').trim(), contact:(gid('gmG_tel').value||'').trim() };
+  if (isEdit) { GONG_MASTER[parseInt(idx)] = obj; } else { GONG_MASTER.push(obj); GONG_MASTER.sort(function(a,b){return a.seq-b.seq;}); }
+  saveAll(); _closeGMGong(); pgMaster();
+  toast('저장', name + ' 공정이 저장되었습니다.', 'success');
+}
+function _delGMGong(idx) {
+  var g = GONG_MASTER[idx];
+  if (!confirm('[' + g.code + '] ' + g.name + ' 공정을 삭제하시겠습니까?')) return;
+  GONG_MASTER.splice(idx, 1);
+  saveAll(); pgMaster();
+  toast('삭제', '공정이 삭제되었습니다.', 'success');
+}
+
+/* ── 업체 Master 글로벌 관리 ── */
+function _pgMasterVend(canE, topTabs) {
+  var html = '<div class="pg-hdr">'
+    + '<div class="ph"><div><h1 class="pt">🏭 업체Master (Global)</h1>'
+    + '<p class="ps">전체 ' + VENDOR_MASTER.length + ' 업체</p></div>'
+    + '<div class="flex-g">'
+    + (canE ? '<button class="btn bp" onclick="_openGMVend(null)">➕ 업체 추가</button>' : '')'
+    + '</div></div>' + topTabs + '</div>'
+    + '<div class="pg-body"><div id="gmVendTbl"></div></div>';
+  gid('pg_master').innerHTML = html;
+  _renderGMVend(canE);
+  adjustPageLayout('pg_master');
+}
+function _renderGMVend(canE) {
+  if (typeof canE === 'undefined') canE = canEdit();
+  var tbl = '<div class="tw"><table class="tbl"><thead><tr>'
+    + '<th style="width:140px">' + t('col_vend_code') + '</th><th style="width:180px">' + t('col_vend') + '</th>'
+    + '<th style="width:140px">' + t('lbl_manager') + '</th><th>' + t('lbl_contact') + '</th>'
+    + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')'
+    + '</tr></thead><tbody>';
+  VENDOR_MASTER.forEach(function(v, i) {
+    tbl += '<tr>'
+      + '<td style="font-family:monospace;font-size:13px;color:var(--ac)">' + xe(v.code) + '</td>'
+      + '<td style="font-weight:600">' + xe(v.name) + '</td>'
+      + '<td style="font-size:14px">' + xe(v.manager||'-') + '</td>'
+      + '<td style="font-size:14px;color:var(--t2)">' + xe(v.contact||'-') + '</td>'
+      + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGMVend(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGMVend(' + i + ')">🗑️</button></td>' : '')'
+      + '</tr>';
+  });
+  tbl += '</tbody></table></div>';
+  gid('gmVendTbl').innerHTML = tbl;
+}
+function _openGMVend(idx) {
+  var isEdit = idx !== null;
+  var v = isEdit ? VENDOR_MASTER[idx] : {};
+  var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
+  var html = '<div class="mov" id="gmVendOv" style="display:flex" onclick="if(event.target===this)_closeGMVend()">'
+    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'업체 수정':'업체 추가') + '</h3>'
+    + '<button class="mcls" onclick="_closeGMVend()">✕</button></div><div class="mbdy">'
+    + '<div class="eq-modal-grid" style="margin-bottom:14px">'
+    + '<div><div class="eq-flbl">'+t('col_vend_code')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="gmV_code" value="' + xe(v.code||'') + '" placeholder="예: KR2165423"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '<div><div class="eq-flbl">'+t('col_vend')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
+    + '<input class="eq-finp" id="gmV_name" value="' + xe(v.name||'') + '" placeholder="업체명"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '</div>'
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="gmV_mgr" value="' + xe(v.manager||'') + '" placeholder="담당자명"></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="gmV_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(v.contact||'') + '" placeholder="연락처"></div></div>'
+    + '</div><div class="mftr"><input type="hidden" id="gmV_idx" value="' + (isEdit?idx:'null') + '">'
+    + '<button class="btn bs" onclick="_closeGMVend()">' + t('cancel') + '</button>'
+    + '<button class="btn bg" onclick="_saveGMVend()">' + t('save_icon') + '</button></div></div></div>';
+  var w = document.createElement('div'); w.id = 'gmVendWrap'; w.innerHTML = html;
+  document.body.appendChild(w);
+  isEdit ? gid('gmV_mgr').focus() : gid('gmV_code').focus();
+}
+function _closeGMVend() { var w=gid('gmVendWrap'); if(w) w.remove(); }
+function _saveGMVend() {
+  var code = (gid('gmV_code').value||'').trim(), name = (gid('gmV_name').value||'').trim();
+  if (!code || !name) { alert('업체코드와 업체명을 입력하세요.'); return; }
+  var idx = gid('gmV_idx').value, isEdit = idx !== 'null';
+  var obj = { code:code, name:name, manager:(gid('gmV_mgr').value||'').trim(), contact:(gid('gmV_tel').value||'').trim() };
+  if (isEdit) { VENDOR_MASTER[parseInt(idx)] = obj; } else { VENDOR_MASTER.push(obj); }
+  saveAll(); _closeGMVend(); pgMaster();
+  toast('저장', name + ' 업체가 저장되었습니다.', 'success');
+}
+function _delGMVend(idx) {
+  var v = VENDOR_MASTER[idx];
+  if (!confirm('[' + v.code + '] ' + v.name + ' 업체를 삭제하시겠습니까?')) return;
+  VENDOR_MASTER.splice(idx, 1);
+  saveAll(); pgMaster();
+  toast('삭제', '업체가 삭제되었습니다.', 'success');
+}
 
 function renderMTbl() {
   var q   = (gid('mSrch') ? gid('mSrch').value : '').toLowerCase();
