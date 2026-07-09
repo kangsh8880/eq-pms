@@ -2052,7 +2052,8 @@ function pgMaster() {
 
   /* ── 설비투자프로세스 (기존 로직) ── */
   var cats = [];
-  state.master.forEach(function(r){ if(r['구분'] && cats.indexOf(r['구분'])<0) cats.push(r['구분']); });
+  var curStepKey = STEPS[state.masterStep].key;
+  state.master.forEach(function(r){ if(r['프로세스']===curStepKey && r['구분'] && cats.indexOf(r['구분'])<0) cats.push(r['구분']); });
   cats.sort();
 
   var stepBar = '<div class="psbar">';
