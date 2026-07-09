@@ -2697,7 +2697,22 @@ function loadProg() {
   renderProgStat(coId);
   renderProgStepBar(coId);
   renderProgItems(coId);
+  _initProgChk();
   adjustPageLayout('pg_progress');
+}
+
+function _progChkHandler(e) {
+  var inp = e.target;
+  if (!inp || !inp.classList.contains('pr-chk')) return;
+  var cid = inp.dataset.coid;
+  var rid = parseInt(inp.dataset.id);
+  togDone(cid, rid, inp.checked);
+}
+function _initProgChk() {
+  var el = gid('prBody');
+  if (!el || el._chkBound) return;
+  el.addEventListener('change', _progChkHandler);
+  el._chkBound = true;
 }
 
 function renderProgStat(coId) {
@@ -2826,15 +2841,7 @@ function renderProgItems(coId) {
   });
   html += '</tbody></table></div></div>';
   gid('prBody').innerHTML = html;
-
-  // 체크박스 이벤트 위임
-  gid('prBody').addEventListener('change', function(e){
-    var inp = e.target;
-    if (!inp || !inp.classList.contains('pr-chk')) return;
-    var cid = inp.dataset.coid;
-    var rid = parseInt(inp.dataset.id);
-    togDone(cid, rid, inp.checked);
-  });
+  // 이벤트 위임은 _initProgChk()에서 1회만 등록
 }
 
 
