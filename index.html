@@ -1959,7 +1959,7 @@ function pgDash() {
       var t=eq.target||{}, a=eq.actual||{};
       var info = calcEqInfo(co.id, eq);
       var rowBg = info.delayed>0 ? 'rgba(248,81,73,.04)' : 'transparent';
-      html += '<tr style="border-bottom:1px solid var(--bd2);background:'+rowBg+'">'        + '<td style="padding:7px 12px;font-size:17px;white-space:nowrap">'+xe(co.name)+'</td>'        + '<td style="padding:7px 12px;font-weight:600;white-space:nowrap">'+(ei+1)+(idx+1) + '. '+xe(eq.name)+'</td>';
+      html += '<tr style="border-bottom:1px solid var(--bd2);background:'+rowBg+'">'        + '<td style="padding:7px 12px;font-size:17px;white-space:nowrap">'+xe(co.name)+'</td>'        + '<td style="padding:7px 12px;font-weight:600;white-space:nowrap">'+(ei+1) + '. '+xe(eq.name)+'</td>';
       STEPS.forEach(function(_,si){
         var tgt=t[si]||'', act=a[si]||'';
         var isDelay = (act&&tgt&&act>tgt)||(tgt&&!act&&today>tgt);
@@ -3835,7 +3835,7 @@ function _dtLoadCo(keepEq) {
   eqs.forEach(function(eq, i) {
     var opt = document.createElement('option');
     opt.value = i;
-    opt.textContent = (i+1) + (idx+1) + '. ' + eq.name;
+    opt.textContent = (i+1) + '. ' + eq.name;
     eqSel.appendChild(opt);
   });
   if (keepEq && _dtEqIdx !== null) {
@@ -3957,7 +3957,7 @@ function _dtRenderStepBar() {
   var mgrLbl  = document.getElementById('dtMgrLbl');
 
   if (infoBar) infoBar.style.display = 'flex';
-  if (nameLbl) nameLbl.textContent = (_dtEqIdx+1) + (idx+1) + '. ' + eq.name;
+  if (nameLbl) nameLbl.textContent = (_dtEqIdx+1) + '. ' + eq.name;
 
   // ① 공정명: gongCode로 gongMaster에서 조회
   var gongList = state.gongMaster[coId] || [];
