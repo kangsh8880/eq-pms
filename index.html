@@ -1103,7 +1103,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <div class="frow s1"><div><div class="flbl">세부 검토 항목 *</div><input class="finp" id="mTtl" placeholder="항목명"></div></div>
       <div class="frow s1"><div><div class="flbl">체크 포인트</div><textarea class="fta" id="mChk"></textarea></div></div>
       <div class="frow">
-        <div><div class="flbl">필수여부</div><select class="fslc" id="mReq"><option>'+t('req_req')+'</option><option>'+t('req_cond')+'</option><option>'+t('req_opt')+'</option><option>'+t('req_rec')+'</option></select></div>
+        <div><div class="flbl">필수여부</div><select class="fslc" id="mReq"></select></div>
         <div><div class="flbl">표준일정</div><input class="finp" id="mSch" placeholder="예: 2주"></div>
       </div>
       <div class="frow s1"><div><div class="flbl">필요문서</div><input class="finp" id="mDoc"></div></div>
@@ -2293,7 +2293,9 @@ function fillItemModal(r) {
     return '<option value="' + xe(s.key) + '"' + (r['프로세스']===s.key?' selected':'') + '>' + s.s + ' (' + xe(s.key.slice(0,18)) + '...)</option>';
   }).join('');
   gid('mCat').value  = r['구분']||'';        gid('mTtl').value  = r['세부검토항목']||'';
-  gid('mChk').value  = r['체크포인트']||'';   gid('mReq').value  = r['필수여부']||'필수';
+  gid('mChk').value  = r['체크포인트']||'';
+  var rq = r['필수여부']||'필수';
+  gid('mReq').innerHTML = [t('req_req'),t('req_cond'),t('req_opt'),t('req_rec')].map(function(v){ return '<option' + (rq===v?' selected':'') + '>' + v + '</option>'; }).join('');
   gid('mSch').value  = r['표준일정']||'';     gid('mDoc').value  = r['필요문서']||'';
   gid('mD1').value   = r['총괄담당부서']||''; gid('mD2').value   = r['합의부서']||'';
   gid('mD3').value   = r['승인부서']||'';
