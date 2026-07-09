@@ -1719,7 +1719,73 @@ function pgDash() {
     });
   });
 
+  // ── 종합 KPI 계산 ──
+  var onTimeEq=0, lateEq=0, totalStepsDone=0, totalStepsOnTime=0, totalStepsAll=0;
+  var totalChkDone=0, totalChkAll=0;
+  filteredCos.forEach(function(c){
+    var eqs = state.equipments[c.id]||[];
+    eqs.forEach(function(eq){
+      var tgt=eq.target||{}, act=eq.actual||{};
+      // 납기준수율: 양산이관(10단계) 목표일 대비 실적
+      var tgtLast=tgt[10]||'', actLast=act[10]||'';
+      if(actLast && tgtLast){ if(actLast<=tgtLast) onTimeEq++; else lateEq++; }
+      else if(tgtLast && !actLast && today>tgtLast){ lateEq++; }
+      // 단계별 일정 준수율
+      STEPS.forEach(function(_,si){
+        var t1=tgt[si]||'', a1=act[si]||'';
+        if(t1) totalStepsAll++;
+        if(a1 && t1){ totalStepsDone++; if(a1<=t1) totalStepsOnTime++; }
+      });
+      // 체크리스트 완료율
+      var su=eq.setup||{};
+      var chkSel=(su.sel||[]).length, chkCust=Object.keys(su.custom||{}).length;
+      var chkDone=(su.done||[]).length;
+      var chkTotal=chkSel+chkCust;
+      totalChkDone+=chkDone; totalChkAll+=chkTotal;
+    });
+  });
+  var deliveryRate = totalEq>0 ? Math.round(onTimeEq/totalEq*100) : 0;
+  var overallPct   = totalEq>0 ? Math.round(doneEq/totalEq*100) : 0;
+  var scheduleRate = totalStepsAll>0 ? Math.round(totalStepsOnTime/totalStepsAll*100) : 0;
+  var chkRate      = totalChkAll>0 ? Math.round(totalChkDone/totalChkAll*100) : 0;
+
   var html = '<div style="padding:14px 16px">'
+  // ── 종합 프로세스 KPI ──
+  + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'
+  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">'
+  + '📊 종합 프로세스 KPI</div>'
+  + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;padding:14px 16px">'
+  // Card 1: 납기준수율
+  + '<div style="background:linear-gradient(135deg,#e8f0fe,#d0e2ff);border-radius:10px;padding:16px;text-align:center">'
+  + '<div style="font-size:14px;color:#1a3a5c;font-weight:600;margin-bottom:6px">납기준수율</div>'
+  + '<div style="font-size:32px;font-weight:800;color:'+(deliveryRate>=95?'#0a7c42':deliveryRate>=80?'#b45309':'#cc0000')+'">'+deliveryRate+'%</div>'
+  + '<div style="font-size:12px;color:#555;margin-top:4px">준수 '+onTimeEq+' / 전체 '+totalEq+'</div></div>'
+  // Card 2: 전체 진척률
+  + '<div style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:10px;padding:16px;text-align:center">'
+  + '<div style="font-size:14px;color:#1b5e20;font-weight:600;margin-bottom:6px">양산이관 완료율</div>'
+  + '<div style="font-size:32px;font-weight:800;color:'+(overallPct>=90?'#0a7c42':overallPct>=50?'#b45309':'#cc0000')+'">'+overallPct+'%</div>'
+  + '<div style="font-size:12px;color:#555;margin-top:4px">완료 '+doneEq+' / 전체 '+totalEq+'</div></div>'
+  // Card 3: 일정 준수율
+  + '<div style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:10px;padding:16px;text-align:center">'
+  + '<div style="font-size:14px;color:#e65100;font-weight:600;margin-bottom:6px">일정 준수율</div>'
+  + '<div style="font-size:32px;font-weight:800;color:'+(scheduleRate>=90?'#0a7c42':scheduleRate>=70?'#b45309':'#cc0000')+'">'+scheduleRate+'%</div>'
+  + '<div style="font-size:12px;color:#555;margin-top:4px">준수 '+totalStepsOnTime+' / 전체 '+totalStepsAll+' 단계</div></div>'
+  // Card 4: 지연 설비
+  + '<div style="background:linear-gradient(135deg,#fce4ec,#f8bbd0);border-radius:10px;padding:16px;text-align:center">'
+  + '<div style="font-size:14px;color:#880e4f;font-weight:600;margin-bottom:6px">지연 설비</div>'
+  + '<div style="font-size:32px;font-weight:800;color:'+(delayEq===0?'#0a7c42':'#cc0000')+'">'+delayEq+'</div>'
+  + '<div style="font-size:12px;color:#555;margin-top:4px">전체 '+totalEq+'대 중</div></div>'
+  // Card 5: 체크리스트 완료율
+  + '<div style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);border-radius:10px;padding:16px;text-align:center">'
+  + '<div style="font-size:14px;color:#4a148c;font-weight:600;margin-bottom:6px">체크리스트 완료율</div>'
+  + '<div style="font-size:32px;font-weight:800;color:'+(chkRate>=90?'#0a7c42':chkRate>=50?'#b45309':'#cc0000')+'">'+chkRate+'%</div>'
+  + '<div style="font-size:12px;color:#555;margin-top:4px">'+totalChkDone+' / '+totalChkAll+' 항목</div></div>'
+  // Card 6: 기업 수
+  + '<div style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border-radius:10px;padding:16px;text-align:center">'
+  + '<div style="font-size:14px;color:#006064;font-weight:600;margin-bottom:6px">관리 기업</div>'
+  + '<div style="font-size:32px;font-weight:800;color:#00838f">'+totalCo+'</div>'
+  + '<div style="font-size:12px;color:#555;margin-top:4px">총 '+totalEq+'대 설비</div></div>'
+  + '</div></div>'
   // ── 기업별 진척 현황 ──
   + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_co_table') + '</div>'  + '<div style="overflow-x:auto">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_co') + '</th>'  + '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_eq_cnt') + '</th>';
   STEPS.forEach(function(s, _si){ html += '<th style="padding:9px 8px;text-align:center;border-bottom:1px solid var(--bd);white-space:nowrap;font-size:16px">'+xe(getStepName(_si))+'</th>'; });
