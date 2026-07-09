@@ -2363,8 +2363,8 @@ function delItem() {
 /* ── EQ SETUP HELPER ── 호기별 체크리스트 데이터 접근 ── */
 function _eqSetup(coId, eqIdx) {
   var eqs = state.equipments[coId] || [];
-  if (eqIdx === undefined || eqIdx === null) eqIdx = 0;
-  if (!eqs.length || eqIdx < 0 || eqIdx >= eqs.length) return null;
+  if (!eqs.length) return null;
+  if (eqIdx === undefined || eqIdx === null || eqIdx < 0 || eqIdx >= eqs.length) eqIdx = 0;
   if (!eqs[eqIdx].setup) eqs[eqIdx].setup = { sel:[], custom:{}, done:[], doneAt:{}, tgt:{} };
   return eqs[eqIdx].setup;
 }
@@ -2647,7 +2647,7 @@ function updT(coId, id, val) {
 
 function rmvItem(coId, id) {
   var s = _eqSetup(coId, state.setupEqIdx);
-  if (!s) return;
+  if (!s) { toast('알림','설비(호기)를 먼저 선택하세요.','error'); return; }
   s.sel = s.sel.filter(function(x){ return x !== id; });
   if (s.custom) delete s.custom[id];
   updBadge(coId); renderSProc(coId); renderSMast(); renderSSel(); updStats(coId);
@@ -2655,7 +2655,7 @@ function rmvItem(coId, id) {
 
 function togItem(coId, id, checked) {
   var s = _eqSetup(coId, state.setupEqIdx);
-  if (!s) return;
+  if (!s) { toast('알림','설비(호기)를 먼저 선택하세요.','error'); return; }
   if (checked) { if (s.sel.indexOf(id) < 0) s.sel.push(id); }
   else { s.sel = s.sel.filter(function(x){ return x !== id; }); if(s.custom) delete s.custom[id]; }
   var card = gid('mc' + id);
@@ -2666,7 +2666,7 @@ function togItem(coId, id, checked) {
 function grpChk(input, coId, g) {
   var items = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key && (r['구분']||'기타')===g; });
   var s = _eqSetup(coId, state.setupEqIdx);
-  if (!s) return;
+  if (!s) { toast('알림','설비(호기)를 먼저 선택하세요.','error'); return; }
   items.forEach(function(r){
     if (input.checked) { if (s.sel.indexOf(r.id)<0) s.sel.push(r.id); }
     else { s.sel = s.sel.filter(function(x){return x!==r.id;}); if(s.custom) delete s.custom[r.id]; }
@@ -2679,7 +2679,7 @@ function selAll(checked) {
   if (!coId) return;
   var items = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key; });
   var s = _eqSetup(coId, state.setupEqIdx);
-  if (!s) return;
+  if (!s) { toast('알림','설비(호기)를 먼저 선택하세요.','error'); return; }
   if (checked) { items.forEach(function(r){ if(s.sel.indexOf(r.id)<0) s.sel.push(r.id); }); }
   else {
     var ids = {}; items.forEach(function(r){ ids[r.id]=true; });
@@ -2694,7 +2694,7 @@ function selReq() {
   if (!coId) return;
   var items = state.master.filter(function(r){ return r['프로세스']===STEPS[state.setupStep].key; });
   var s = _eqSetup(coId, state.setupEqIdx);
-  if (!s) return;
+  if (!s) { toast('알림','설비(호기)를 먼저 선택하세요.','error'); return; }
   var ids = {}; items.forEach(function(r){ ids[r.id]=true; });
   s.sel = s.sel.filter(function(x){ return !ids[x]; });
   items.filter(function(r){ return r['필수여부']==='필수'; }).forEach(function(r){ s.sel.push(r.id); });
