@@ -2163,7 +2163,7 @@ function _pgMasterVend(canE, topTabs) {
     + '<div class="ph"><div><h1 class="pt">🏭 업체Master (Global)</h1>'
     + '<p class="ps">전체 ' + VENDOR_MASTER.length + ' 업체</p></div>'
     + '<div class="flex-g">'
-    + (canE ? '<button class="btn bp" onclick="_openGMVend(null)">➕ 업체 추가</button>' : '')'
+    + (canE ? '<button class="btn bp" onclick="_openGMVend(null)">➕ 업체 추가</button>' : '')
     + '</div></div>' + topTabs + '</div>'
     + '<div class="pg-body"><div id="gmVendTbl"></div></div>';
   gid('pg_master').innerHTML = html;
@@ -2175,7 +2175,7 @@ function _renderGMVend(canE) {
   var tbl = '<div class="tw"><table class="tbl"><thead><tr>'
     + '<th style="width:140px">' + t('col_vend_code') + '</th><th style="width:180px">' + t('col_vend') + '</th>'
     + '<th style="width:140px">' + t('lbl_manager') + '</th><th>' + t('lbl_contact') + '</th>'
-    + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')'
+    + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
     + '</tr></thead><tbody>';
   VENDOR_MASTER.forEach(function(v, i) {
     tbl += '<tr>'
@@ -2183,7 +2183,7 @@ function _renderGMVend(canE) {
       + '<td style="font-weight:600">' + xe(v.name) + '</td>'
       + '<td style="font-size:14px">' + xe(v.manager||'-') + '</td>'
       + '<td style="font-size:14px;color:var(--t2)">' + xe(v.contact||'-') + '</td>'
-      + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGMVend(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGMVend(' + i + ')">🗑️</button></td>' : '')'
+      + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGMVend(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGMVend(' + i + ')">🗑️</button></td>' : '')
       + '</tr>';
   });
   tbl += '</tbody></table></div>';
