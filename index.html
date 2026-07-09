@@ -2096,8 +2096,8 @@ function _pgMasterGong(canE, topTabs) {
 function _renderGMGong(canE) {
   if (typeof canE === 'undefined') canE = canEdit();
   var tbl = '<div class="tw" style="max-height:calc(100vh - 260px);overflow-y:auto"><table class="tbl"><thead><tr>'
-    + '<th style="width:60px">' + t('lbl_order') + '</th><th style="width:130px">' + t('col_proc_code') + '</th><th>' + t('col_proc_name') + '</th>'
-    + '<th style="width:130px">' + t('lbl_manager') + '</th><th style="width:150px">' + t('lbl_contact') + '</th>'
+    + '<th style="width:60px;position:relative">' + t('lbl_order') + '</th><th style="width:130px;position:relative">' + t('col_proc_code') + '</th><th style="position:relative">' + t('col_proc_name') + '</th>'
+    + '<th style="width:160px;position:relative">' + t('lbl_manager') + '</th><th style="width:200px;position:relative;white-space:nowrap">' + t('lbl_contact') + '</th>'
     + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
     + '</tr></thead><tbody>';
   GONG_MASTER.forEach(function(g, i) {
@@ -2105,38 +2105,38 @@ function _renderGMGong(canE) {
       + '<td style="text-align:center;color:var(--t2);font-size:13px">' + g.seq + '</td>'
       + '<td style="color:var(--ac)">' + xe(g.code) + '</td>'
       + '<td style="font-weight:500">' + xe(g.name) + '</td>'
-      + '<td>' + xe(g.manager||'-') + '</td>'
-      + '<td style="color:var(--t2)">' + xe(g.contact||'-') + '</td>'
+      + '<td style="white-space:nowrap">' + xe(g.manager||'-') + '</td>'
+      + '<td style="color:var(--t2);white-space:nowrap">' + xe(g.contact||'-') + '</td>'
       + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGMGong(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGMGong(' + i + ')">🗑️</button></td>' : '')
       + '</tr>';
   });
   tbl += '</tbody></table></div>';
   gid('gmGongTbl').innerHTML = tbl;
+  _initColResize(gid('gmGongTbl').querySelector('table'));
 }
 
 function _openGMGong(idx) {
   var isEdit = idx !== null;
   var g = isEdit ? GONG_MASTER[idx] : {};
-  var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
   var html = '<div class="mov" id="gmGongOv" style="display:flex" onclick="if(event.target===this)_closeGMGong()">'
     + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'공정 수정':'공정 추가') + '</h3>'
-    + '<button class="mcls" onclick="_closeGMGong()">✕</button></div><div class="mbdy">'
+    + '<button class="mcls" onclick="_closeGMGong()">\u2715</button></div><div class="mbdy">'
     + '<div class="eq-modal-grid" style="margin-bottom:10px">'
-    + '<div><div class="eq-flbl">'+t('col_proc_code')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
-    + '<input class="eq-finp" id="gmG_code" value="' + xe(g.code||'') + '" placeholder="예: F10-0020"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '<div><div class="eq-flbl">'+t('col_proc_code')+'*</div>'
+    + '<input class="eq-finp" id="gmG_code" value="' + xe(g.code||'') + '" placeholder="\uC608: F10-0020"></div>'
     + '<div><div class="eq-flbl">'+t('lbl_order')+'*</div>'
-    + '<input class="eq-finp" id="gmG_seq" type="number" value="' + (g.seq||'') + '" placeholder="숫자"></div>'
+    + '<input class="eq-finp" id="gmG_seq" type="number" value="' + (g.seq||'') + '" placeholder="\uC22B\uC790"></div>'
     + '</div>'
-    + '<div style="margin-bottom:14px"><div class="eq-flbl">'+t('col_proc_name')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
-    + '<input class="eq-finp" id="gmG_name" value="' + xe(g.name||'') + '" placeholder="예: MS Auto Racking1"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
-    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="gmG_mgr" value="' + xe(g.manager||'') + '" placeholder="담당자명"></div>'
-    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="gmG_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(g.contact||'') + '" placeholder="연락처"></div></div>'
+    + '<div style="margin-bottom:14px"><div class="eq-flbl">'+t('col_proc_name')+'*</div>'
+    + '<input class="eq-finp" id="gmG_name" value="' + xe(g.name||'') + '" placeholder="\uC608: MS Auto Racking1"></div>'
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="gmG_mgr" value="' + xe(g.manager||'') + '" placeholder="\uB2F4\uB2F9\uC790\uBA85"></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="gmG_tel" inputmode="numeric" pattern="[0-9\\\-]*" value="' + xe(g.contact||'') + '" placeholder="\uC5F0\uB77D\uCC98"></div></div>'
     + '</div><div class="mftr"><input type="hidden" id="gmG_idx" value="' + (isEdit?idx:'null') + '">'
     + '<button class="btn bs" onclick="_closeGMGong()">' + t('cancel') + '</button>'
     + '<button class="btn bg" onclick="_saveGMGong()">' + t('save_icon') + '</button></div></div></div>';
   var w = document.createElement('div'); w.id = 'gmGongWrap'; w.innerHTML = html;
   document.body.appendChild(w);
-  isEdit ? gid('gmG_mgr').focus() : gid('gmG_code').focus();
+  gid('gmG_code').focus();
 }
 function _closeGMGong() { var w=gid('gmGongWrap'); if(w) w.remove(); }
 function _saveGMGong() {
@@ -2173,43 +2173,43 @@ function _pgMasterVend(canE, topTabs) {
 function _renderGMVend(canE) {
   if (typeof canE === 'undefined') canE = canEdit();
   var tbl = '<div class="tw"><table class="tbl"><thead><tr>'
-    + '<th style="width:140px">' + t('col_vend_code') + '</th><th style="width:180px">' + t('col_vend') + '</th>'
-    + '<th style="width:140px">' + t('lbl_manager') + '</th><th>' + t('lbl_contact') + '</th>'
+    + '<th style="width:160px;position:relative">' + t('col_vend_code') + '</th><th style="position:relative">' + t('col_vend') + '</th>'
+    + '<th style="width:160px;position:relative">' + t('lbl_manager') + '</th><th style="width:220px;position:relative;white-space:nowrap">' + t('lbl_contact') + '</th>'
     + (canE ? '<th style="width:80px">' + t('edit') + '</th>' : '')
     + '</tr></thead><tbody>';
   VENDOR_MASTER.forEach(function(v, i) {
     tbl += '<tr>'
       + '<td style="color:var(--ac)">' + xe(v.code) + '</td>'
       + '<td style="font-weight:600">' + xe(v.name) + '</td>'
-      + '<td>' + xe(v.manager||'-') + '</td>'
-      + '<td style="color:var(--t2)">' + xe(v.contact||'-') + '</td>'
+      + '<td style="white-space:nowrap">' + xe(v.manager||'-') + '</td>'
+      + '<td style="color:var(--t2);white-space:nowrap">' + xe(v.contact||'-') + '</td>'
       + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGMVend(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGMVend(' + i + ')">🗑️</button></td>' : '')
       + '</tr>';
   });
   tbl += '</tbody></table></div>';
   gid('gmVendTbl').innerHTML = tbl;
+  _initColResize(gid('gmVendTbl').querySelector('table'));
 }
 function _openGMVend(idx) {
   var isEdit = idx !== null;
   var v = isEdit ? VENDOR_MASTER[idx] : {};
-  var roStyle = 'background:var(--bg4);color:var(--t3);cursor:not-allowed;border-color:var(--bd2)';
   var html = '<div class="mov" id="gmVendOv" style="display:flex" onclick="if(event.target===this)_closeGMVend()">'
-    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'업체 수정':'업체 추가') + '</h3>'
-    + '<button class="mcls" onclick="_closeGMVend()">✕</button></div><div class="mbdy">'
+    + '<div class="mdl" style="width:480px"><div class="mhdr"><h3>' + (isEdit?'\uC5C5\uCCB4 \uC218\uC815':'\uC5C5\uCCB4 \uCD94\uAC00') + '</h3>'
+    + '<button class="mcls" onclick="_closeGMVend()">\u2715</button></div><div class="mbdy">'
     + '<div class="eq-modal-grid" style="margin-bottom:14px">'
-    + '<div><div class="eq-flbl">'+t('col_vend_code')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
-    + '<input class="eq-finp" id="gmV_code" value="' + xe(v.code||'') + '" placeholder="예: KR2165423"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
-    + '<div><div class="eq-flbl">'+t('col_vend')+'' + (isEdit?' <span style="color:var(--t3);font-size:10px">수정불가</span>':'*') + '</div>'
-    + '<input class="eq-finp" id="gmV_name" value="' + xe(v.name||'') + '" placeholder="업체명"' + (isEdit?' readonly style="' + roStyle + '"':'') + '></div>'
+    + '<div><div class="eq-flbl">'+t('col_vend_code')+'*</div>'
+    + '<input class="eq-finp" id="gmV_code" value="' + xe(v.code||'') + '" placeholder="\uC608: KR2165423"></div>'
+    + '<div><div class="eq-flbl">'+t('col_vend')+'*</div>'
+    + '<input class="eq-finp" id="gmV_name" value="' + xe(v.name||'') + '" placeholder="\uC5C5\uCCB4\uBA85"></div>'
     + '</div>'
-    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="gmV_mgr" value="' + xe(v.manager||'') + '" placeholder="담당자명"></div>'
-    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="gmV_tel" inputmode="numeric" pattern="[0-9\\-]*" value="' + xe(v.contact||'') + '" placeholder="연락처"></div></div>'
+    + '<div class="eq-modal-grid"><div><div class="eq-flbl">'+t('lbl_manager')+'</div><input class="eq-finp" id="gmV_mgr" value="' + xe(v.manager||'') + '" placeholder="\uB2F4\uB2F9\uC790\uBA85"></div>'
+    + '<div><div class="eq-flbl">'+t('lbl_contact')+'</div><input class="eq-finp" id="gmV_tel" inputmode="numeric" pattern="[0-9\\\-]*" value="' + xe(v.contact||'') + '" placeholder="\uC5F0\uB77D\uCC98"></div></div>'
     + '</div><div class="mftr"><input type="hidden" id="gmV_idx" value="' + (isEdit?idx:'null') + '">'
     + '<button class="btn bs" onclick="_closeGMVend()">' + t('cancel') + '</button>'
     + '<button class="btn bg" onclick="_saveGMVend()">' + t('save_icon') + '</button></div></div></div>';
   var w = document.createElement('div'); w.id = 'gmVendWrap'; w.innerHTML = html;
   document.body.appendChild(w);
-  isEdit ? gid('gmV_mgr').focus() : gid('gmV_code').focus();
+  gid('gmV_code').focus();
 }
 function _closeGMVend() { var w=gid('gmVendWrap'); if(w) w.remove(); }
 function _saveGMVend() {
@@ -2227,6 +2227,27 @@ function _delGMVend(idx) {
   VENDOR_MASTER.splice(idx, 1);
   saveAll(); pgMaster();
   toast('삭제', '업체가 삭제되었습니다.', 'success');
+}
+
+
+/* ── 컬럼 리사이즈 ── */
+function _initColResize(tbl) {
+  if (!tbl) return;
+  var ths = tbl.querySelectorAll('thead th');
+  ths.forEach(function(th, i) {
+    if (i === ths.length - 1) return;
+    var grip = document.createElement('div');
+    grip.style.cssText = 'position:absolute;top:0;right:-3px;bottom:0;width:6px;cursor:col-resize;z-index:1';
+    grip.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      var startX = e.pageX, startW = th.offsetWidth;
+      function onMove(ev) { th.style.width = Math.max(40, startW + ev.pageX - startX) + 'px'; }
+      function onUp() { document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseup', onUp); }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+    th.appendChild(grip);
+  });
 }
 
 function renderMTbl() {
