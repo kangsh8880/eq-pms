@@ -2105,8 +2105,8 @@ function _renderGMGong(canE) {
       + '<td style="text-align:center;color:var(--t2);font-size:13px">' + g.seq + '</td>'
       + '<td style="color:var(--ac)">' + xe(g.code) + '</td>'
       + '<td style="font-weight:500">' + xe(g.name) + '</td>'
-      + '<td style="font-size:14px">' + xe(g.manager||'-') + '</td>'
-      + '<td style="font-size:14px;color:var(--t2)">' + xe(g.contact||'-') + '</td>'
+      + '<td>' + xe(g.manager||'-') + '</td>'
+      + '<td style="color:var(--t2)">' + xe(g.contact||'-') + '</td>'
       + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGMGong(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGMGong(' + i + ')">🗑️</button></td>' : '')
       + '</tr>';
   });
