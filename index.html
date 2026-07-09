@@ -443,7 +443,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   .main { padding: 14px 12px; }
 
   /* 페이지 고정 레이아웃 높이 조정 */
-  #pg_master, #pg_setup, #pg_progress, #pg_equip, #pg_detail {
+  #pg_master, #pg_setup, #pg_detail {
     height: calc(100vh - 90px);
   }
 
@@ -535,7 +535,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 
 
 /* ══ 공통: 페이지 고정 헤더 + 스크롤 바디 ══════════ */
-#pg_master, #pg_setup, #pg_progress, #pg_equip {
+#pg_master, #pg_setup {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 110px);
@@ -826,126 +826,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
   margin-left: auto;
 }
 
-/* ══ 🏭 설비 투자 진척 페이지 CSS ══════════════════ */
-
-/* 상단 필터바 */
-.eq-filterbar {
-  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-  background: var(--bg2); border: 1px solid var(--bd); border-radius: 10px;
-  padding: 12px 16px; margin-bottom: 14px;
-}
-.eq-filterbar select, .eq-filterbar input {
-  padding: 7px 10px; background: var(--bg3); border: 1px solid var(--bd);
-  border-radius: 7px; color: var(--tx); font-size: 14px; font-family: inherit; outline: none;
-}
-.eq-filterbar select:focus, .eq-filterbar input:focus { border-color: var(--ac); }
-.eq-filter-label { font-size: 13px; color: var(--t2); white-space: nowrap; }
-
-/* 진척 현황 메인 테이블 */
-.eq-tbl-wrap {
-  flex: 1 1 0; min-height: 0;
-  border: 1px solid var(--bd); border-radius: 8px;
-  overflow: auto;
-}
-.eq-tbl {
-  width: 100%; border-collapse: collapse;
-  font-size: 13px; table-layout: fixed;
-  min-width: 1400px;
-}
-.eq-tbl thead tr { position: sticky; top: 0; z-index: 15; }
-.eq-tbl thead th {
-  background: var(--bg3); padding: 9px 8px;
-  text-align: center; font-size: 12px; font-weight: 600;
-  color: var(--t2); border-right: 1px solid var(--bd2);
-  border-bottom: 1px solid var(--bd); white-space: nowrap;
-}
-.eq-tbl thead th.th-fix { position: sticky; left: 0; z-index: 20; background: var(--bg3); }
-.eq-tbl thead th.th-fix2 { position: sticky; left: 90px; z-index: 20; background: var(--bg3); }
-.eq-tbl thead th.th-fix3 { position: sticky; left: 220px; z-index: 20; background: var(--bg3); }
-.eq-tbl thead th:last-child { border-right: none; }
-.eq-tbl tbody tr { border-bottom: 1px solid var(--bd2); transition: background .1s; }
-.eq-tbl tbody tr:hover { background: var(--bg3); }
-.eq-tbl tbody tr.eq-row-target { background: rgba(88,166,255,.04); }
-.eq-tbl tbody td {
-  padding: 0; border-right: 1px solid var(--bd2);
-  vertical-align: middle; text-align: center;
-}
-.eq-tbl tbody td.td-fix {
-  position: sticky; left: 0; z-index: 5;
-  background: var(--bg2); padding: 7px 8px;
-}
-.eq-tbl tbody td.td-fix2 {
-  position: sticky; left: 90px; z-index: 5;
-  background: var(--bg2); padding: 7px 8px; text-align: left;
-}
-.eq-tbl tbody td.td-fix3 {
-  position: sticky; left: 220px; z-index: 5;
-  background: var(--bg2); padding: 7px 8px; text-align: left;
-}
-.eq-tbl tbody tr:hover td.td-fix,
-.eq-tbl tbody tr:hover td.td-fix2,
-.eq-tbl tbody tr:hover td.td-fix3 { background: var(--bg3); }
-
-/* 날짜 셀 */
-.eq-date-cell {
-  display: flex; flex-direction: column; gap: 1px;
-  padding: 4px 6px; min-height: 48px; justify-content: center;
-}
-.eq-date-row {
-  display: flex; align-items: center; gap: 4px;
-  font-size: 11px;
-}
-.eq-date-lbl {
-  font-size: 10px; color: var(--t3);
-  background: var(--bg3); border-radius: 3px;
-  padding: 0 3px; white-space: nowrap; flex-shrink: 0;
-}
-.eq-date-input {
-  width: 100%; background: transparent; border: none;
-  color: var(--tx); font-size: 11px; font-family: 'JetBrains Mono', monospace;
-  outline: none; cursor: pointer; padding: 2px 3px;
-  border-radius: 3px; transition: background .15s;
-}
-.eq-date-input:focus { background: var(--bg3); }
-.eq-date-input.eq-date-target { color: var(--ac); }
-.eq-date-input.eq-date-actual { color: var(--gr); }
-.eq-date-input.eq-date-delay { color: var(--re) !important; border-color: rgba(248,81,73,.4) !important; }
-
-/* 진행상태 셀 */
-.eq-step-cell { padding: 3px 5px; }
-.eq-step-done { background: rgba(63,185,80,.15); }
-.eq-step-delay { background: rgba(248,81,73,.1); }
-.eq-step-wip { background: rgba(88,166,255,.1); }
-
-/* 공정/설비 행 구분 */
-.eq-row-proc td.td-fix { background: var(--bg3) !important; font-weight: 700; font-size: 13px; }
-.eq-row-proc td.td-fix2 { background: var(--bg3) !important; font-weight: 600; }
-.eq-row-proc td.td-fix3 { background: var(--bg3) !important; }
-.eq-row-eq td { font-size: 12px; }
-.eq-row-type-lbl {
-  font-size: 10px; padding: 1px 5px; border-radius: 3px; white-space: nowrap;
-}
-.eq-row-type-t { background: rgba(88,166,255,.15); color: var(--ac); }
-.eq-row-type-a { background: rgba(63,185,80,.15); color: var(--gr); }
-
-/* 설비 추가 버튼 */
-.eq-add-row td { padding: 6px 10px; text-align: center; }
-
-/* 진행률 바 인라인 */
-.eq-pct-cell { padding: 4px 8px; text-align: center; }
-.eq-pct-val { font-size: 13px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-.eq-mini-bar { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; margin-top: 3px; }
-.eq-mini-fill { height: 100%; border-radius: 2px; transition: width .3s; }
-
-/* 설비 편집 버튼 */
-.eq-btn-edit {
-  width: 26px; height: 24px; border: 1px solid var(--bd); border-radius: 4px;
-  background: var(--bg3); color: var(--t2); cursor: pointer; font-size: 12px;
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: all .15s; margin: 0 1px;
-}
-.eq-btn-edit:hover { border-color: var(--ac); color: var(--ac); background: rgba(88,166,255,.1); }
-.eq-btn-del:hover { border-color: var(--re); color: var(--re); background: rgba(248,81,73,.1); }
 
 /* 모달 */
 .eq-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -959,27 +839,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 }
 .eq-finp:focus, .eq-fsel:focus { border-color: var(--ac); }
 
-/* 통계 헤더 */
-.eq-stat-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-.eq-stat-card {
-  flex: 1; min-width: 110px;
-  background: var(--bg2); border: 1px solid var(--bd);
-  border-radius: 9px; padding: 9px 14px;
-  display: flex; align-items: center; gap: 10px;
-}
-.eq-stat-lbl { font-size: 12px; color: var(--t2); }
-.eq-stat-val { font-size: 20px; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-left: auto; }
-
-/* 담당자/업체 chip */
-.eq-chip { font-size: 12px; background: var(--bg3); border: 1px solid var(--bd); border-radius: 4px; padding: 1px 6px; color: var(--t2); white-space: nowrap; }
-
-/* 반응형 */
-@media(max-width:768px) {
-  .eq-filterbar { gap: 6px; }
-  .eq-tbl { font-size: 11px; }
-  .eq-stat-card { min-width: 80px; padding: 7px 10px; }
-  .eq-stat-val { font-size: 16px; }
-}
 
 
 [data-theme="light"]{
@@ -1033,8 +892,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <button class="nb" data-p="dashboard" onclick="navTo('dashboard')"><span data-i18n="nav_dashboard">📊 대시보드</span></button>
       <button class="nb" data-p="master"    onclick="navTo('master')"><span data-i18n="nav_master">📋 Master DB</span></button>
       <button class="nb" data-p="setup"     onclick="navTo('setup')"><span data-i18n="nav_setup">⚙️ 프로세스 Setup</span></button>
-      <button class="nb" data-p="progress"  onclick="navTo('progress')"><span data-i18n="nav_progress">📈 프로세스 진행현황</span></button>
-      <button class="nb" data-p="equip"     onclick="navTo('equip')"><span data-i18n="nav_equip">🏭 설비 투자 진척</span></button>
+
       <button class="nb" data-p="detail"    onclick="navTo('detail')"><span data-i18n="nav_detail">📊 설비별 실적 현황</span></button>
       <button class="nb" data-p="company"   onclick="navTo('company')"><span data-i18n="nav_company">🏢 기업 관리</span></button>
     </nav>
@@ -1063,8 +921,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
       <button class="mob-nb" data-mp="dashboard" onclick="mobNavTo('dashboard')"><span data-i18n="nav_dashboard">📊 대시보드</span></button>
       <button class="mob-nb" data-mp="master"    onclick="mobNavTo('master')"><span data-i18n="nav_master">📋 Master DB</span></button>
       <button class="mob-nb" data-mp="setup"     onclick="mobNavTo('setup')"><span data-i18n="nav_setup">⚙️ 프로세스 Setup</span></button>
-      <button class="mob-nb" data-mp="progress"  onclick="mobNavTo('progress')"><span data-i18n="nav_progress">📈 프로세스 진행현황</span></button>
-      <button class="mob-nb" data-mp="equip"     onclick="mobNavTo('equip')"><span data-i18n="nav_equip">🏭 설비 투자 진척</span></button>
+
       <button class="mob-nb" data-mp="detail"    onclick="mobNavTo('detail')"><span data-i18n="nav_detail">📊 설비별 실적 현황</span></button>
       <button class="mob-nb" data-mp="company"   onclick="mobNavTo('company')"><span data-i18n="nav_company">🏢 기업 관리</span></button>
     </nav>
@@ -1083,8 +940,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
     <div id="pg_dashboard"></div>
     <div id="pg_master"    style="display:none"></div>
     <div id="pg_setup"     style="display:none"></div>
-    <div id="pg_progress"  style="display:none"></div>
-    <div id="pg_equip"     style="display:none"></div>
+
     <div id="pg_detail"    style="display:none"></div>
     <div id="pg_company"   style="display:none"></div>
   </main>
@@ -1807,7 +1663,9 @@ function adjustPageLayout(pgId) {
 }
 
 function navTo(p) {
-  ['dashboard','master','setup','progress','equip','detail','company'].forEach(function(pg) {
+  // progress/equip 탭 제거 → detail로 리다이렉트
+  if (p === 'progress' || p === 'equip') { navTo('detail'); return; }
+  ['dashboard','master','setup','detail','company'].forEach(function(pg) {
     gid('pg_' + pg).style.display = (pg === p) ? 'block' : 'none';
   });
   document.querySelectorAll('.nb').forEach(function(b) { b.classList.remove('active'); });
@@ -1820,8 +1678,6 @@ function navTo(p) {
   if      (p === 'dashboard') pgDash();
   else if (p === 'master')    pgMaster();
   else if (p === 'setup')     pgSetup();
-  else if (p === 'progress')  pgProgress();
-  else if (p === 'equip')     pgEquip();
   else if (p === 'detail')    pgDetail();
   else if (p === 'company')   pgCompany();
 }
@@ -2720,238 +2576,21 @@ function saveStp() {
   if (coId) { renderSProc(coId); updBadge(coId); updStats(coId); }
 }
 
-/* ── PROGRESS PAGE ──────────────────────────────────── */
-function pgProgress() {
-  var opts = state.companies.map(function(c){
-    return '<option value="' + xe(c.id) + '">' + xe(c.name) + '</option>';
-  }).join('');
-  gid('pg_progress').innerHTML =
-    '<div class="pg-hdr">'
-    + '<div class="ph"><div><h1 class="pt">' + t('nav_progress') + '</h1>'
-    + '<p class="ps">' + t('prog_sub') + '</p></div>'
-    + '<select class="fsel" id="prCoSel" onchange="loadProg()">'
-    + '<option value="">' + t('setup_select_co') + '</option>' + opts
-    + '</select>'
-    + '<select class="fsel" id="prEqSel" onchange="loadProgEq()" style="display:none">'
-    + '<option value="">설비(호기)를 선택하세요</option>'
-    + '</select></div>'
-    + '<div id="prStat"></div>'
-    + '<div id="prStepBar"></div>'
-    + '</div>'
-    + '<div class="pg-body"><div id="prBody">'
-    + '<div class="empty"><div class="ei">📈</div><h3>' + t('empty_co') + '</h3></div>'
-    + '</div></div>';
-  adjustPageLayout('pg_progress');
-}
-
-
-function loadProg() {
-  var coId = gid('prCoSel') ? gid('prCoSel').value : '';
-  var eqSel = gid('prEqSel');
-  if (!coId) {
-    gid('prStat').innerHTML = '';
-    gid('prStepBar').innerHTML = '';
-    gid('prBody').innerHTML = '<div class="empty"><div class="ei">📈</div><h3>' + t('empty_co') + '</h3></div>';
-    if (eqSel) eqSel.style.display = 'none';
-    return;
-  }
-  var eqs = state.equipments[coId] || [];
-  // 호기 드롭다운 채우기
-  if (eqSel) {
-    eqSel.innerHTML = '<option value="">설비(호기)를 선택하세요</option>' + _eqOpts(coId);
-    eqSel.style.display = '';
-  }
-  if (!eqs.length) {
-    gid('prStat').innerHTML = '';
-    gid('prStepBar').innerHTML = '';
-    gid('prBody').innerHTML = '<div class="empty"><div class="ei">🏭</div><h3>등록된 설비가 없습니다.</h3>'
-      + '<p><a href="#" onclick="navTo(\'company\');return false;" style="color:var(--ac)">기업관리에서 설비를 먼저 등록</a>하세요.</p></div>';
-    return;
-  }
-  state.progEqIdx = 0;
-  if (eqSel) eqSel.value = '0';
-  _loadProgEq(coId);
-}
-function loadProgEq() {
-  var coId = gid('prCoSel') ? gid('prCoSel').value : '';
-  var eqSel = gid('prEqSel');
-  if (!coId || !eqSel || eqSel.value === '') return;
-  state.progEqIdx = parseInt(eqSel.value) || 0;
-  _loadProgEq(coId);
-}
-function _loadProgEq(coId) {
-  var s = _eqSetup(coId, state.progEqIdx);
-  if (!s || !s.sel || !s.sel.length) {
-    gid('prStat').innerHTML = '';
-    gid('prStepBar').innerHTML = '';
-    gid('prBody').innerHTML = '<div class="empty"><div class="ei">⚙️</div><h3>' + t('empty_setup') + '</h3></div>';
-    return;
-  }
-  if (!state.progressStep) state.progressStep = 0;
-  renderProgStat(coId);
-  renderProgStepBar(coId);
-  renderProgItems(coId);
-  _initProgChk();
-  adjustPageLayout('pg_progress');
-}
-
-function _progChkHandler(e) {
-  var inp = e.target;
-  if (!inp || !inp.classList.contains('pr-chk')) return;
-  var cid = inp.dataset.coid;
-  var rid = parseInt(inp.dataset.id);
-  togDone(cid, rid, inp.checked);
-}
-function _initProgChk() {
-  var el = gid('prBody');
-  if (!el || el._chkBound) return;
-  el.addEventListener('change', _progChkHandler);
-  el._chkBound = true;
-}
-
-function renderProgStat(coId) {
-  var s   = _eqSetup(coId, state.progEqIdx) || {};
-  var sel = new Set(s.sel||[]);
-  var done= new Set(s.done||[]);
-  var tot = sel.size, comp = done.size;
-  var pct = tot ? Math.round(comp/tot*100) : 0;
-  gid('prStat').innerHTML =
-    '<div class="pr-stat-row">'
-    + mkProgStat(t('col_task'), tot, 'var(--ac)')
-    + mkProgStat(t('col_done'), comp, 'var(--gr)')
-    + mkProgStat(t('prog_sub').slice(0,4), tot-comp, 'var(--or)')
-    + mkProgStat(t('prog_total') || t('prog_total'), pct+'%', 'var(--pu)')
-    + '</div>';
-}
-
-function renderProgStepBar(coId) {
-  var s    = _eqSetup(coId, state.progEqIdx) || {};
-  var sel  = new Set(s.sel||[]);
-  var done = new Set(s.done||[]);
-  var html = '<div class="pr-stepbar" id="prStepBarInner">';
-  STEPS.forEach(function(step, i){
-    var items = state.master.filter(function(r){ return r['프로세스']===step.key && sel.has(r.id); });
-    var isActive = (state.progressStep||0) === i;
-    if (!items.length) {
-      html += '<div class="pr-step pr-step-empty" data-coId="' + xe(coId) + '" data-i="' + i + '">'
-        + '<span class="pr-se">' + step.e + '</span>'
-        + '<span class="pr-ss">' + t(step.s) + '</span>'
-        + '<span class="pr-sc t3">-</span>'
-        + '</div>';
-      return;
-    }
-    var sc  = items.filter(function(r){ return done.has(r.id); }).length;
-    var pct = Math.round(sc/items.length*100);
-    html += '<div class="pr-step' + (isActive?' pr-active':'') + '" data-coId="' + xe(coId) + '" data-i="' + i + '">'
-      + '<span class="pr-se">' + step.e + '</span>'
-      + '<span class="pr-ss">' + t(step.s) + '</span>'
-      + '<span class="pr-sc">' + sc + '/' + items.length + '</span>'
-      + '<div class="pr-pbar"><div class="pr-pfill" style="width:' + pct + '%"></div></div>'
-      + '<span class="pr-pct' + (pct===100?' pr-done':'') + '">' + pct + '%</span>'
-      + '</div>';
-  });
-  html += '</div>';
-  gid('prStepBar').innerHTML = html;
-  // 이벤트 위임: 클릭 처리
-  gid('prStepBar').addEventListener('click', function(e){
-    var el = e.target.closest('.pr-step');
-    if (!el || el.classList.contains('pr-step-empty')) return;
-    var ci = el.dataset.coid || el.dataset.coId;
-    var idx = parseInt(el.dataset.i);
-    selProgStep(ci, idx);
-  });
-}
-
-
-function selProgStep(coId, i) {
-  state.progressStep = i;
-  renderProgStepBar(coId);
-  renderProgItems(coId);
-}
-
-function renderProgItems(coId) {
-  var s     = _eqSetup(coId, state.progEqIdx) || {};
-  var sel   = new Set(s.sel||[]);
-  var done  = new Set(s.done||[]);
-  var canE  = canEdit();
-  var step  = STEPS[state.progressStep||0];
-  var items = state.master.filter(function(r){ return r['프로세스']===step.key && sel.has(r.id); });
-
-  if (!items.length) {
-    gid('prBody').innerHTML = '<div class="empty" style="margin-top:30px">'
-      + '<div class="ei">📭</div><h3>'+t('empty_step')+'</h3>'
-      + '<p>' + t('step_setup_add') + '</p></div>';
-    return;
-  }
-
-  var sc  = items.filter(function(r){ return done.has(r.id); }).length;
-  var pct = Math.round(sc/items.length*100);
-
-  var html = '<div class="pr-items-hdr">'
-    + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">'
-    + '<b style="font-size:18px">' + step.e + ' ' + t(step.s) + '</b>'
-    + '<span class="t2 sm">' + sc + '/' + items.length + ' ' + t('col_done') + '</span>'
-    + (pct===100 ? '<span class="b br" style="margin-left:4px">'+t('prog_badge_done')+'</span>' : '')
-    + '</div>'
-    + '<div class="pb" style="height:7px;margin-bottom:0">'
-    + '<div class="pf" style="width:' + pct + '%"></div></div>'
-    + '</div>'
-    + '<div class="pr-tbl-wrap">'
-    + '<table class="pr-tbl"><thead><tr>'
-    + '<th style="width:50px">' + t('col_done') + '</th>'
-    + '<th style="width:22%">' + t('col_task') + '</th>'
-    + '<th style="width:30%">' + t('col_point') + '</th>'
-    + '<th style="width:80px">' + t('col_req') + '</th>'
-    + '<th style="width:13%">' + t('col_dept1') + '</th>'
-    + '<th style="width:11%">' + t('col_doc') + '</th>'
-    + '<th style="width:10%">' + t('col_schedule') + '</th>'
-    + '<th style="width:12%">' + t('col_done') + '</th>'
-    + '</tr></thead><tbody>';
-
-  items.forEach(function(r){
-    var isDone = done.has(r.id);
-    var c  = (s.custom||{})[r.id] || {};
-    var dp = c['총괄담당부서'] !== undefined ? c['총괄담당부서'] : r['총괄담당부서']||'';
-    var dc = c['필요문서']     !== undefined ? c['필요문서']     : r['필요문서']||'';
-    var tg = (s.tgt||{})[r.id] || '';
-    var da = (s.doneAt||{})[r.id] || '';
-    var rq = c['필수여부']     !== undefined ? c['필수여부']     : r['필수여부'];
-    var cp = c['체크포인트']   !== undefined ? c['체크포인트']   : r['체크포인트']||'';
-    html += '<tr class="pr-row' + (isDone?' pr-done-row':'') + '">'
-      + '<td style="text-align:center;vertical-align:middle">'
-      + (canE
-        ? '<input type="checkbox"' + (isDone?' checked':'') + ' class="pr-chk"'
-          + ' data-coid="' + xe(coId) + '" data-id="' + r.id + '">'
-        : (isDone ? '✅' : '⬜'))
-      + '</td>'
-      + '<td class="fw">' + xe(r['세부검토항목']) + '</td>'
-      + '<td class="t2 sm">' + xe(cp) + '</td>'
-      + '<td>' + bdg(rq) + '</td>'
-      + '<td class="sm">' + xe(dp) + '</td>'
-      + '<td class="t2 sm">' + xe(dc) + '</td>'
-      + '<td class="t2 sm">' + xe(tg) + '</td>'
-      + '<td class="t3 sm">' + xe(da) + '</td>'
-      + '</tr>';
-  });
-  html += '</tbody></table></div></div>';
-  gid('prBody').innerHTML = html;
-  // 이벤트 위임은 _initProgChk()에서 1회만 등록
-}
-
-
-function renderProg() { loadProg(); }
 
 function togDone(coId, id, checked) {
-  var s = _eqSetup(coId, state.progEqIdx);
+  var eqIdx = _dtEqIdx !== null ? _dtEqIdx : state.progEqIdx;
+  var s = _eqSetup(coId, eqIdx);
   if (!s) return;
   if (!s.done)   s.done   = [];
   if (!s.doneAt) s.doneAt = {};
   if (checked) { if (s.done.indexOf(id)<0) s.done.push(id); s.doneAt[id] = new Date().toLocaleString('ko-KR'); }
   else { s.done = s.done.filter(function(x){return x!==id;}); delete s.doneAt[id]; }
   saveAll();
-  renderProgStat(coId);
-  renderProgStepBar(coId);
-  renderProgItems(coId);
+  // detail 페이지에서 호출된 경우 detail 갱신
+  if (document.getElementById('dtStepBar')) {
+    _dtRenderStepBar();
+    _dtRenderBody();
+  }
 }
 
 
@@ -2978,92 +2617,6 @@ function getStepName(i) {
   return t(key) || INVEST_STEPS[i] || '';
 }
 
-/* ─────────────────────────────────────────────────────
-   pgEquip: 메인 진입점
-───────────────────────────────────────────────────── */
-function pgEquip() {
-  var canE = canEdit();
-  gid('pg_equip').innerHTML =
-    '<div class="pg-hdr">'
-    + '<div class="ph" style="margin-bottom:10px">'
-    + '<div><h1 class="pt">' + t('nav_equip') + '</h1>'
-    + '<p class="ps">' + t('equip_sub') + '</p></div>'
-    + '<div class="flex-g" style="align-items:center;gap:8px">'
-    + eqBuildFilterBar()
-    + (canEdit() ? '<button class="btn bp bsm" id="eqAddBtn" onclick="_openEqFromPage()" style="display:none">'+t('eq_add')+'</button>' : '')
-    + '</div></div>'
-    + '<div id="eqStatRow" class="eq-stat-row"></div>'
-    + '</div>'
-    + '<div class="pg-body"><div id="eqBody" class="eq-tbl-wrap">'
-    + '<div class="empty"><div class="ei">🏭</div><h3>' + t('empty_co') + '</h3></div>'
-    + '</div></div>';
-  adjustPageLayout('pg_equip');
-  // 기업 선택 이벤트
-  var sel = gid('eqCoSel2');
-  if (sel) sel.addEventListener('change', loadEquipTbl);
-}
-
-function eqBuildFilterBar() {
-  var coOpts = state.companies.map(function(c){
-    return '<option value="' + xe(c.id) + '">' + xe(c.name) + '</option>';
-  }).join('');
-  var canE = canEdit();
-  return '<div class="eq-filterbar">'
-    + '<span class="eq-filter-label">' + t('equip_filter_co') + '</span>'
-    + '<select id="eqCoSel2">'
-    + '<option value="">' + t('equip_filter_co') + '</option>' + coOpts
-    + '</select>'
-    + '<span class="eq-filter-label">' + t('equip_filter_vend') + '</span>'
-    + '<select id="eqVendSel" onchange="renderEquipTbl()"><option value="">전체 업체</option></select>'
-    + '<span class="eq-filter-label">' + t('equip_filter_proc') + '</span>'
-    + '<select id="eqGongSel" onchange="renderEquipTbl()"><option value="">전체 공정</option></select>'
-    + '</div>';
-}
-
-/* ─────────────────────────────────────────────────────
-   데이터 로드 & 렌더링
-───────────────────────────────────────────────────── */
-function loadEquipTbl() {
-  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
-  if (!coId) {
-    gid('eqStatRow').innerHTML = '';
-    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">🏭</div><h3>' + t('empty_co') + '</h3></div>';
-    return;
-  }
-  if (!state.equipments[coId]) state.equipments[coId] = [];
-  // 기업별 필터 옵션 갱신
-  var vendSel = gid('eqVendSel');
-  if (vendSel) {
-    var vends = _getVend(coId);
-    vendSel.innerHTML = '<option value="">' + t('equip_filter_vend') + '</option>'
-      + vends.map(function(v){ return '<option value="' + xe(v.code) + '">' + xe(v.name) + '</option>'; }).join('');
-  }
-  var gongSel = gid('eqGongSel');
-  if (gongSel) {
-    var gongs = _getGong(coId);
-    gongSel.innerHTML = '<option value="">' + t('equip_filter_proc') + '</option>'
-      + gongs.map(function(g){ return '<option value="' + xe(g.code) + '">[' + xe(g.code) + '] ' + xe(g.name) + '</option>'; }).join('');
-  }
-  // 설비 추가 버튼 표시
-  var addBtn = gid('eqAddBtn');
-  if (addBtn) addBtn.style.display = '';
-  renderEquipStat2(coId);
-  renderEquipTbl();
-  adjustPageLayout('pg_equip');
-}
-
-function renderEquipStat2(coId) {
-  var eqs = state.equipments[coId] || [];
-  var tot = eqs.length;
-  var done100 = eqs.filter(function(eq){ return calcEqPct2(eq) === 100; }).length;
-  var avgPct = tot ? Math.round(eqs.reduce(function(a,eq){ return a + calcEqPct2(eq); }, 0) / tot) : 0;
-  var totalAmt = eqs.reduce(function(a,eq){ return a + (parseFloat((eq.amt||'').replace(/,/g,''))||0); }, 0);
-  gid('eqStatRow').innerHTML =
-    '<div class="eq-stat-card"><span class="eq-stat-lbl">🏭 총 설비</span><span class="eq-stat-val" style="color:var(--ac)">' + tot + ' ' + t('col_eq') + '</span></div>'
-    + '<div class="eq-stat-card"><span class="eq-stat-lbl">✅ 양산 완료</span><span class="eq-stat-val" style="color:var(--gr)">' + done100 + ' ' + t('col_eq') + '</span></div>'
-    + '<div class="eq-stat-card"><span class="eq-stat-lbl">📊 평균 진행률</span><span class="eq-stat-val" style="color:var(--pu)">' + avgPct + '%</span></div>'
-    + '<div class="eq-stat-card"><span class="eq-stat-lbl">💰 투자금액</span><span class="eq-stat-val" style="color:var(--or);font-size:15px">' + (totalAmt ? fmtAmt(totalAmt) : '-') + '</span></div>';
-}
 
 function fmtAmt(v) {
   if (v >= 1e8) return (v/1e8).toFixed(1) + '억원';
@@ -3094,238 +2647,8 @@ function getStepStatus(eq, si) {
   return '';
 }
 
-/* ─────────────────────────────────────────────────────
-   테이블 렌더링 (메인 진척 표)
-───────────────────────────────────────────────────── */
-function renderEquipTbl() {
-  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
-  if (!coId) return;
-  var vendF = gid('eqVendSel') ? gid('eqVendSel').value : '';
-  var gongF = gid('eqGongSel') ? gid('eqGongSel').value : '';
-  var eqs   = (state.equipments[coId] || []);
-  var canE  = canEdit();
 
-  // 필터 적용
-  var filtered = eqs.filter(function(eq) {
-    if (vendF && eq.vendCode !== vendF) return false;
-    if (gongF && eq.gongCode !== gongF) return false;
-    return true;
-  });
 
-  if (!filtered.length) {
-    gid('eqBody').innerHTML = '<div class="empty"><div class="ei">📭</div><h3>'+t('empty_eq')+'</h3>'
-      + (canE ? '<p>' + t('eq_add') + '</p>' : '') + '</div>';
-    return;
-  }
-
-  // 헤더 컬럼폭 정의
-  var stepCW = 118; // 날짜셀 너비
-
-  var html = '<table class="eq-tbl">';
-  // 헤더 1행 (colspan 그룹)
-  html += '<thead><tr>'
-    + '<th class="th-fix" style="width:90px" rowspan="2">PO No<br>/ EQ_ID</th>'
-    + '<th class="th-fix2" style="width:130px" rowspan="2">' + t('col_proc_code') + ' · ' + t('col_proc_name') + '</th>'
-    + '<th class="th-fix3" style="width:140px" rowspan="2">' + t('col_eq_name') + '<br><span style="font-weight:400;color:var(--t3)">' + t('col_model') + ' / ' + t('equip_filter_vend') + '</span></th>'
-    + '<th style="width:50px" rowspan="2">' + t('col_category') + '</th>'
-    + '<th colspan="' + INVEST_STEPS.length + '" style="background:rgba(88,166,255,.08);color:var(--ac)">'+t('invest_proc_title')+'</th>'
-    + '<th style="width:80px" rowspan="2">' + t('lbl_vend_mgr') + '</th>'
-    + '<th style="width:80px" rowspan="2">' + t('lbl_uti_mgr') + '</th>'
-    + '<th style="width:50px" rowspan="2">' + t('col_rate') + '</th>';
-  if (canE) html += '<th style="width:60px" rowspan="2">' + t('edit') + '</th>';
-  html += '</tr><tr>';
-  INVEST_STEPS.forEach(function(s, _si) {
-    html += '<th style="width:' + stepCW + 'px;background:rgba(88,166,255,.05)">' + xe(getStepName(_si)) + '</th>';
-  });
-  html += '</tr></thead><tbody>';
-
-  // 공정별 그룹핑
-  var gongMap = {};
-  filtered.forEach(function(eq) { 
-    var k = eq.gongCode || '_none';
-    if (!gongMap[k]) gongMap[k] = [];
-    gongMap[k].push(eq);
-  });
-
-  Object.keys(gongMap).forEach(function(gCode) {
-    var gong = GONG_MASTER.find(function(g){ return g.code === gCode; }) || {code: gCode, name: t('setup_select_co') || '미지정'};
-    var rows = gongMap[gCode];
-
-    rows.forEach(function(eq, ri) {
-      var idx = eqs.indexOf(eq);
-      var pct = calcEqPct2(eq);
-      var pctColor = pct === 100 ? 'var(--gr)' : pct >= 50 ? 'var(--ac)' : 'var(--or)';
-      var vend = VENDOR_MASTER.find(function(v){ return v.code === eq.vendCode; });
-      var vendNm = vend ? vend.name : (eq.vendNm || '-');
-
-      html += '<tr class="eq-row-eq">';
-      
-      // PO No / EQ_ID (sticky)
-      html += '<td class="td-fix" style="font-size:11px;font-family:monospace">'
-        + '<div style="color:var(--ac)">' + xe(eq.poNo || '-') + '</div>'
-        + '<div style="color:var(--t3)">' + xe(eq.eqId || '-') + '</div>'
-        + '</td>';
-
-      // 공정 (sticky)
-      html += '<td class="td-fix2">'
-        + '<div style="font-size:11px;color:var(--t3)">' + xe(gong.code) + '</div>'
-        + '<div style="font-size:12px;font-weight:500">' + xe(gong.name) + '</div>'
-        + '</td>';
-
-      // 설비명 / 모델 / 업체 (sticky)
-      html += '<td class="td-fix3">'
-        + '<div style="font-weight:600;font-size:12px">' + xe(eq.name) + '</div>'
-        + '<div style="font-size:11px;color:var(--t2)">' + xe(eq.model || '') + '</div>'
-        + '<div><span class="eq-chip">' + xe(vendNm) + '</span></div>'
-        + '</td>';
-
-      // 구분: 목표/실적 행
-      html += '<td style="padding:0">'
-        + '<div class="eq-date-row" style="padding:3px 6px;border-bottom:1px solid var(--bd2)">'
-        + '<span class="eq-date-lbl" style="background:rgba(88,166,255,.15);color:var(--ac)">' + t('lbl_tgt_hdr') + '</span>'
-        + '</div>'
-        + '<div class="eq-date-row" style="padding:3px 6px">'
-        + '<span class="eq-date-lbl" style="background:rgba(63,185,80,.15);color:var(--gr)">' + t('lbl_act_hdr') + '</span>'
-        + '</div>'
-        + '</td>';
-
-      // 투자 단계 날짜
-      INVEST_STEPS.forEach(function(s, si) {
-        var tgt = (eq.target || {})[si] || '';
-        var act = (eq.actual || {})[si] || '';
-        var status = getStepStatus(eq, si);
-        var bgClass = status === 'done' ? 'eq-step-done' : status === 'delay' ? 'eq-step-delay' : status === 'wip' ? 'eq-step-wip' : '';
-        html += '<td class="' + bgClass + '" style="padding:0;min-width:' + stepCW + 'px">';
-        if (canE) {
-          html += '<div style="border-bottom:1px solid var(--bd2)">'
-            + '<input type="date" class="eq-date-input eq-date-target" value="' + xe(tgt) + '"'
-            + ' data-coid="' + xe(coId) + '" data-idx="' + idx + '" data-si="' + si + '" data-type="target"'
-            + ' onchange="eqSaveDate(this)" title="'+t('lbl_tgt_date')+'">'
-            + '</div>'
-            + '<div>'
-            + '<input type="date" class="eq-date-input eq-date-actual" value="' + xe(act) + '"'
-            + ' data-coid="' + xe(coId) + '" data-idx="' + idx + '" data-si="' + si + '" data-type="actual"'
-            + ' onchange="eqSaveDate(this)" title="'+t('lbl_act_date')+'">'
-            + '</div>';
-        } else {
-          html += '<div style="border-bottom:1px solid var(--bd2);padding:3px 5px;font-size:11px;color:var(--ac);font-family:monospace">' + (tgt||'-') + '</div>'
-            + '<div style="padding:3px 5px;font-size:11px;color:var(--gr);font-family:monospace">' + (act||'-') + '</div>';
-        }
-        html += '</td>';
-      });
-
-      // 설비업체 담당자
-      html += '<td style="font-size:11px;padding:4px 6px">'
-        + '<div>' + xe(eq.vendMgr || '') + '</div>'
-        + '<div style="color:var(--t3)">' + xe(eq.vendTel || '') + '</div>'
-        + '</td>';
-
-      // UTI 담당자
-      html += '<td style="font-size:11px;padding:4px 6px">'
-        + '<div>' + xe(eq.utiMgr || '') + '</div>'
-        + '<div style="color:var(--t3)">' + xe(eq.utiTel || '') + '</div>'
-        + '</td>';
-
-      // 진행률
-      html += '<td class="eq-pct-cell">'
-        + '<div class="eq-pct-val" style="color:' + pctColor + '">' + pct + '%</div>'
-        + '<div class="eq-mini-bar"><div class="eq-mini-fill" style="width:' + pct + '%;background:' + pctColor + '"></div></div>'
-        + '</td>';
-
-      // 관리 버튼
-      if (canE) {
-        html += '<td>'
-          + '<button class="eq-btn-edit" data-co="' + xe(coId) + '" data-idx="' + idx + '" onclick="openEqEditModal(this.dataset.co,parseInt(this.dataset.idx))" title="수정">✏️</button>'
-          + '<button class="eq-btn-edit eq-btn-del" data-co="' + xe(coId) + '" data-idx="' + idx + '" onclick="eqDel(this.dataset.co,parseInt(this.dataset.idx))" title="삭제">🗑️</button>'
-          + '</td>';
-      }
-
-      html += '</tr>';
-    });
-  });
-
-  html += '</tbody></table>';
-  gid('eqBody').innerHTML = html;
-  renderEquipStat2(coId);
-}
-
-/* ─────────────────────────────────────────────────────
-   날짜 저장
-───────────────────────────────────────────────────── */
-function eqSaveDate(inp) {
-  var coId = inp.dataset.coid;
-  var idx  = parseInt(inp.dataset.idx);
-  var si   = parseInt(inp.dataset.si);
-  var type = inp.dataset.type; // 'target' or 'actual'
-  var val  = inp.value;
-
-  var eq = state.equipments[coId][idx];
-  if (!eq.target) eq.target = {};
-  if (!eq.actual) eq.actual = {};
-  if (type === 'target') eq.target[si] = val;
-  else eq.actual[si] = val;
-
-  saveAll();
-
-  // 실적일 지연 색상 처리
-  if (type === 'actual') {
-    var tgtVal = (eq.target||{})[si]||'';
-    var actVal = val;
-    inp.classList.remove('eq-date-delay');
-    if (actVal && tgtVal && actVal > tgtVal) {
-      inp.classList.add('eq-date-delay');
-    }
-  }
-  // 목표일 변경 시: 해당 단계 실적 input도 지연 재계산
-  if (type === 'target') {
-    var actInp = inp.closest('tr') ? inp.closest('tr').querySelector('input[data-si="' + si + '"][data-type="actual"]') : null;
-    if (actInp) {
-      var actVal2 = actInp.value;
-      actInp.classList.remove('eq-date-delay');
-      if (actVal2 && val && actVal2 > val) actInp.classList.add('eq-date-delay');
-    }
-  }
-
-  // 셀 배경색 갱신 (부분)
-  var status = getStepStatus(eq, si);
-  var td = inp.closest('td');
-  if (td) {
-    td.classList.remove('eq-step-done','eq-step-delay','eq-step-wip');
-    if (status) td.classList.add('eq-step-' + status);
-  }
-
-  // 진행률 칸 갱신
-  renderEquipStat2(coId);
-  var row = inp.closest('tr');
-  if (row) {
-    var pctCell = row.querySelector('.eq-pct-cell');
-    if (pctCell) {
-      var pct = calcEqPct2(eq);
-      var pctColor = pct === 100 ? 'var(--gr)' : pct >= 50 ? 'var(--ac)' : 'var(--or)';
-      pctCell.innerHTML = '<div class="eq-pct-val" style="color:' + pctColor + '">' + pct + '%</div>'
-        + '<div class="eq-mini-bar"><div class="eq-mini-fill" style="width:' + pct + '%;background:' + pctColor + '"></div></div>';
-    }
-  }
-}
-
-/* ─────────────────────────────────────────────────────
-   설비 추가/수정 모달
-───────────────────────────────────────────────────── */
-
-function _openEqFromPage() {
-  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
-  if (!coId) { toast('오류','기업을 먼저 선택하세요.','error'); return; }
-  _openEqModal(coId, null, null);
-}
-function openEqAddModal() {
-  var coId = gid('eqCoSel2') ? gid('eqCoSel2').value : '';
-  if (!coId) return;
-  _openEqModal(coId, null, null);
-}
-function openEqEditModal(coId, idx) {
-  var eq = (state.equipments[coId]||[])[idx];
-  _openEqModal(coId, idx, eq||null);
-}
 
 /* ═══════════════════════════════════════════════════
    📅 커스텀 캘린더 피커
@@ -3734,12 +3057,12 @@ function _saveEqModal(coId, idx) {
   }
   saveAll();
   _closeEqModal();
-  // ① 신규 등록: 기업관리 / ② 수정: 설비투자진척 으로 분기
+  // ① 신규 등록: 기업관리 / ② 수정: 설비별 실적 현황 으로 분기
   if (isEdit) {
-    navTo('equip');
+    navTo('detail');
     setTimeout(function(){
-      var sel = document.getElementById('eqCoSel2');
-      if (sel && sel.value !== coId) { sel.value = coId; loadEquipTbl(); }
+      var coSel = document.getElementById('dtCoSel');
+      if (coSel) { coSel.value = coId; _dtLoadCo(true); }
     }, 80);
   } else {
     _coTab = 'company';
@@ -3754,7 +3077,11 @@ function eqDel(coId, idx) {
   if (!confirm('[' + eq.name + '] 설비를 삭제하시겠습니까?\n(모든 날짜 데이터가 삭제됩니다)')) return;
   state.equipments[coId].splice(idx, 1);
   saveAll();
-  renderEquipTbl();
+  // pgDetail 갱신
+  var dtCoSel = document.getElementById('dtCoSel');
+  if (dtCoSel && dtCoSel.value === coId) {
+    _dtLoadCo();
+  }
   toast('삭제 완료', eq.name + ' 삭제됐습니다.', 'success');
 }
 
@@ -3783,6 +3110,9 @@ function pgDetail() {
     + '</select>'
     + '<span style="font-size:21px;color:var(--t2)">' + t('detail_select_eq') + '</span>'
     + '<select id="dtEqSel" onchange="_dtLoadEq()" style="padding:5px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);font-size:21px;font-family:inherit;outline:none"><option value="">— 선택 —</option></select>'
+    + (canEdit() ? '<button class="btn bp bsm" id="dtEqAddBtn" onclick="_dtAddEq()" style="margin-left:6px" title="설비 추가">➕ 설비추가</button>'
+      + '<button class="btn bsm" id="dtEqEditBtn" onclick="_dtEditEq()" style="margin-left:4px;display:none" title="설비 수정">✏️</button>'
+      + '<button class="btn bsm" id="dtEqDelBtn" onclick="_dtDelEq()" style="margin-left:2px;display:none" title="설비 삭제">🗑️</button>' : '')
     + '<div id="dtEqInfoBar" style="display:none;margin-left:auto;align-items:center;gap:16px;flex-wrap:wrap">'
     // 설비명
     + '<span id="dtEqNameLbl" style="display:none"></span>'
@@ -3865,6 +3195,11 @@ function _dtLoadEq() {
   _dtRenderStepBar();
   _dtRenderBody();
   _dtUpdateDateCard();
+  // 편집/삭제 버튼 표시
+  var editBtn = document.getElementById('dtEqEditBtn');
+  var delBtn = document.getElementById('dtEqDelBtn');
+  if (editBtn) editBtn.style.display = '';
+  if (delBtn) delBtn.style.display = '';
 }
 
 function _dtClear() {
@@ -3900,6 +3235,30 @@ function _dtClear() {
   // 설비 드롭다운 초기화
   var eqSel = document.getElementById('dtEqSel');
   if (eqSel) eqSel.innerHTML = '<option value="">' + t('sel_eq') + '</option>';
+
+  // 편집/삭제 버튼 숨기기
+  var editBtn2 = document.getElementById('dtEqEditBtn');
+  var delBtn2 = document.getElementById('dtEqDelBtn');
+  if (editBtn2) editBtn2.style.display = 'none';
+  if (delBtn2) delBtn2.style.display = 'none';
+}
+
+function _dtAddEq() {
+  var coId = document.getElementById('dtCoSel') ? document.getElementById('dtCoSel').value : '';
+  if (!coId) { toast('알림','기업을 먼저 선택하세요.','error'); return; }
+  _openEqModal(coId, null, null);
+}
+function _dtEditEq() {
+  if (!_dtCoId || _dtEqIdx === null) return;
+  var eq = (state.equipments[_dtCoId]||[])[_dtEqIdx];
+  if (eq) _openEqModal(_dtCoId, _dtEqIdx, eq);
+}
+function _dtDelEq() {
+  if (!_dtCoId || _dtEqIdx === null) return;
+  eqDel(_dtCoId, _dtEqIdx);
+  // 삭제 후 화면 갱신
+  _dtEqIdx = null;
+  _dtLoadCo();
 }
 
 function _dtRenderStepBar() {
@@ -4759,6 +4118,120 @@ function delCo(id) {
   var c = state.companies.filter(function(x){ return x.id===id; })[0];
   if (!confirm('"' + c.name + '" 기업을 삭제하시겠습니까?')) return;
   state.companies = state.companies.filter(function(x){ return x.id!==id; });
+  delete state.equipments[id];
+  delete state.vendorMaster[id];
+  saveAll(); pgCompany();
+  toast('삭제', c.name + ' 기업이 삭제되었습니다.', 'success');
+}
+
+/* ── 페이지 이동 헬퍼 ── */
+function goSetup(coId) {
+  navTo('setup');
+  setTimeout(function(){
+    var coSel = document.getElementById('setupCoSel');
+    if (coSel) { coSel.value = coId; coSel.dispatchEvent(new Event('change')); }
+  }, 60);
+}
+function goProg(coId) {
+  navTo('detail');
+  setTimeout(function(){
+    var coSel = document.getElementById('dtCoSel');
+    if (coSel) { coSel.value = coId; _dtLoadCo(); }
+  }, 60);
+}
+function goEquip(coId) {
+  navTo('detail');
+  setTimeout(function(){
+    var coSel = document.getElementById('dtCoSel');
+    if (coSel) { coSel.value = coId; _dtLoadCo(); }
+    if (canEdit()) {
+      setTimeout(function(){ _openEqModal(coId, null, null); }, 150);
+    }
+  }, 80);
+}
+
+/* ── Export ── */
+function exportMaster() {
+  var rows = [['프로세스','구분','세부검토항목','체크포인트','필수여부','필요문서','총괄담당부서','합의부서','승인부서','표준일정']];
+  MASTER_DB.forEach(function(r) {
+    rows.push([r['프로세스'],r['구분'],r['세부검토항목'],r['체크포인트'],r['필수여부'],r['필요문서'],r['총괄담당부서'],r['합의부서'],r['승인부서'],r['표준일정']]);
+  });
+  var csv = rows.map(function(r){ return r.map(function(c){ return '"'+(c||'').replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  dlCSV('EQ_PMS_MasterDB.csv', csv);
+}
+function expSetup() {
+  var coSel = document.getElementById('setupCoSel');
+  var eqSel = document.getElementById('setupEqSel');
+  if (!coSel || !eqSel) return;
+  var coId = coSel.value, eqIdx = parseInt(eqSel.value);
+  var co = state.companies.filter(function(c){ return c.id===coId; })[0];
+  var eq = (state.equipments[coId]||[])[eqIdx];
+  if (!co || !eq) { toast('알림','기업/설비를 선택하세요.','error'); return; }
+  var s = eq.setup || {};
+  var sel = s.sel || [], done = s.done || [];
+  var rows = [['No','프로세스','구분','세부검토항목','선택','완료','완료일시']];
+  MASTER_DB.forEach(function(r) {
+    var sid = 'chk_' + r.id;
+    rows.push([r.id, r['프로세스'], r['구분'], r['세부검토항목'],
+      sel.indexOf(sid)>=0?'O':'', done.indexOf(sid)>=0?'O':'',
+      (s.doneAt||{})[sid]||'']);
+  });
+  var csv = rows.map(function(r){ return r.map(function(c){ return '"'+(c||'').replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  dlCSV('EQ_PMS_Setup_' + co.name + '_' + eq.name + '.csv', csv);
+}
+function dlCSV(filename, csv) {
+  var BOM = '﻿';
+  var blob = new Blob([BOM + csv], {type:'text/csv;charset=utf-8;'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ── UI Helpers ── */
+function CM(id) { gid(id).style.display = 'none'; }
+function toggleDrawer() {
+  var d = gid('mobDrawer'), o = gid('mobOverlay');
+  var open = d.classList.contains('open');
+  if (open) { d.classList.remove('open'); o.classList.remove('open'); }
+  else { d.classList.add('open'); o.classList.add('open'); }
+}
+function mobNavTo(p) {
+  navTo(p);
+  toggleDrawer();
+}
+function closeDrawer() {
+  gid('mobDrawer').classList.remove('open');
+  gid('mobOverlay').classList.remove('open');
+}
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded', function() {
+  window.addEventListener('resize', function() {
+    ['pg_master','pg_setup','pg_detail'].forEach(function(pgId) {
+      if (gid(pgId) && gid(pgId).style.display !== 'none') adjustPageLayout(pgId);
+    });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      ['itemModal','coModal','eqModal','gongModal','vendModal','gmGongModal','gmVendModal'].forEach(function(id) {
+        var m = gid(id); if (m && m.style.display !== 'none') CM(id);
+      });
+    }
+  });
+  navTo('dashboard');
+});
+</script>
+</body>
+</html>
+; pgCompany();
+  toast('등록 완료', nm + ' 기업이 등록되었습니다.', 'success');
+}
+function delCo(id) {
+  var c = state.companies.filter(function(x){ return x.id===id; })[0];
+  if (!confirm('"' + c.name + '" 기업을 삭제하시겠습니까?')) return;
+  state.companies = state.companies.filter(function(x){ return x.id!==id; });
   delete state.setups[id];
   delete state.equipments[id];
   saveAll(); pgCompany();
@@ -4769,23 +4242,20 @@ function goSetup(coId) {
   setTimeout(function(){ if(gid('coSel')){ gid('coSel').value = coId; loadCo(); } }, 60);
 }
 function goProg(coId) {
-  navTo('progress');
-  setTimeout(function(){ if(gid('prCoSel')){ gid('prCoSel').value = coId; state.progressStep=0; loadProg(); } }, 60);
-}
-/* ③ 설비관리 버튼 → 설비투자진척 페이지로 이동 + 설비추가 모달 바로 오픈 */
-function goEquip(coId) {
-  navTo('equip');
+  navTo('detail');
   setTimeout(function(){
-    var sel = gid('eqCoSel2');
-    if (sel) {
-      sel.value = coId;
-      loadEquipTbl();
-      // 기업 선택 후 설비추가 모달 자동 오픈 (관리자만)
-      if (canEdit()) {
-        setTimeout(function(){ _openEqModal(coId, null, null); }, 150);
-      }
+    var coSel = document.getElementById('dtCoSel');
+    if (coSel) { coSel.value = coId; _dtLoadCo(); }
+  }, 60);
+}
+function goEquip(coId) {
+  navTo('detail');
+  setTimeout(function(){
+    var coSel = document.getElementById('dtCoSel');
+    if (coSel) { coSel.value = coId; _dtLoadCo(); }
+    if (canEdit()) {
+      setTimeout(function(){ _openEqModal(coId, null, null); }, 150);
     }
-
   }, 80);
 }
 
@@ -4815,7 +4285,7 @@ function expSetup() {
   dlCSV(rows.join('\n'), 'setup_' + co.name + '_' + new Date().toISOString().slice(0,10) + '.csv');
 }
 function dlCSV(data, fname) {
-  var blob = new Blob(['\uFEFF' + data], { type:'text/csv;charset=utf-8;' });
+  var blob = new Blob(['﻿' + data], { type:'text/csv;charset=utf-8;' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = fname;
@@ -4831,61 +4301,43 @@ function toggleDrawer() {
   var drawer = gid('mobDrawer');
   var overlay = gid('mobOverlay');
   var btn = gid('hbgBtn');
+  if (!drawer) return;
   var isOpen = drawer.classList.contains('open');
   if (isOpen) {
     drawer.classList.remove('open');
-    overlay.classList.remove('show');
+    overlay.classList.remove('open');
     btn.classList.remove('open');
   } else {
     drawer.classList.add('open');
-    overlay.classList.add('show');
+    overlay.classList.add('open');
     btn.classList.add('open');
   }
 }
+function mobNavTo(p) { closeDrawer(); navTo(p); }
 function closeDrawer() {
   var drawer = gid('mobDrawer');
   var overlay = gid('mobOverlay');
   var btn = gid('hbgBtn');
+  if (!drawer) return;
   drawer.classList.remove('open');
-  overlay.classList.remove('show');
+  overlay.classList.remove('open');
   if (btn) btn.classList.remove('open');
 }
-function mobNavTo(p) {
-  closeDrawer();
-  navTo(p);
-  // 모바일 드로어 메뉴 active 상태 업데이트
-  document.querySelectorAll('.mob-nb').forEach(function(b) { b.classList.remove('active'); });
-  var mb = document.querySelector('.mob-nb[data-mp="' + p + '"]');
-  if (mb) mb.classList.add('active');
-}
 
-/* ── EVENTS ─────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', function(){
-  // 창 크기 변경 시 레이아웃 재계산 + 드로어 닫기
+/* ── INIT ───────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) closeDrawer();
-    ['pg_master','pg_setup','pg_progress'].forEach(function(id) {
-      var pg = document.getElementById(id);
-      if (pg && pg.style.display !== 'none') adjustPageLayout(id);
+    ['pg_master','pg_setup','pg_detail'].forEach(function(id) {
+      if (gid(id) && gid(id).style.display !== 'none') adjustPageLayout(id);
     });
   });
-  // ESC 키로 드로어 닫기
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeDrawer();
-  });
-  // 연락처 입력 숫자/하이픈만 허용 (동적 생성 포함)
-  document.addEventListener('input', function(e) {
-    var el = e.target;
-    if (el && (el.id === 'gM_tel' || el.id === 'vM_tel' || el.id === 'eqM_vtel' || el.id === 'eqM_utel')) {
-      var v = el.value.replace(/[^0-9\-]/g, '');
-      if (el.value !== v) el.value = v;
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.mov').forEach(function(m) { m.style.display = 'none'; });
+      closeDrawer();
     }
   });
-  gid('btnLogin').addEventListener('click', doLogin);
-  gid('loginPw').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
-  gid('loginId').addEventListener('keydown', function(e){ if(e.key==='Enter') gid('loginPw').focus(); });
-  gid('itemModal').addEventListener('click', function(e){ if(e.target===this) CM('itemModal'); });
-  gid('coModal').addEventListener('click',   function(e){ if(e.target===this) CM('coModal');   });
+  navTo('dashboard');
 });
 
 </script>
