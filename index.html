@@ -2437,7 +2437,7 @@ function renderSProc(coId) {
     var sc    = items.filter(function(r){ return sel[r.id]; }).length;
     var cls   = state.setupStep === i ? ' active' : '';
     return '<div class="pi' + cls + '" onclick="selSStep(\'' + coId + '\',' + i + ')">'
-      + '<div><div class="pnm">' + s.e + ' ' + s.s + '</div>'
+      + '<div><div class="pnm">' + s.e + ' ' + s.key.replace(/\(.*$/,'').trim() + '</div>'
       + '<div class="psb">' + items.length + '개 항목</div></div>'
       + '<div class="pst"><div class="psc">' + sc + '</div>'
       + '<div class="pstot">/ ' + items.length + '</div></div>'
