@@ -1759,12 +1759,12 @@ function pgDash() {
 
   // ── 기업별 설비 투자 진척 집계 ──
   function calcEqInfo(coId, eq) {
-    var t = eq.target || {}, a = eq.actual || {};
+    var tg = eq.target || {}, a = eq.actual || {};
     var stepDone   = STEPS.filter(function(_,i){ return !!a[i]; }).length;
     var stepTotal  = STEPS.length;
     // 11단계 중 지연 (실적>목표 or 목표지났는데 실적없음)
     var delayed = STEPS.filter(function(_,i){
-      var tgt=t[i]||'', act=a[i]||'';
+      var tgt=tg[i]||'', act=a[i]||'';
       return (act && tgt && act>tgt) || (tgt && !act && today>tgt);
     }).length;
     return { stepDone:stepDone, stepTotal:stepTotal, delayed:delayed, pct:Math.round(stepDone/stepTotal*100) };
@@ -1962,12 +1962,12 @@ function pgDash() {
   filteredCos.forEach(function(co){
     var eqs = state.equipments[co.id]||[];
     eqs.forEach(function(eq, ei){
-      var t=eq.target||{}, a=eq.actual||{};
+      var tg=eq.target||{}, a=eq.actual||{};
       var info = calcEqInfo(co.id, eq);
       var rowBg = info.delayed>0 ? 'rgba(248,81,73,.04)' : 'transparent';
       html += '<tr style="border-bottom:1px solid var(--bd2);background:'+rowBg+'">'        + '<td style="padding:7px 12px;font-size:17px;white-space:nowrap">'+xe(co.name)+'</td>'        + '<td style="padding:7px 12px;font-weight:600;white-space:nowrap">'+(ei+1) + '. '+xe(eq.name)+'</td>';
       STEPS.forEach(function(_,si){
-        var tgt=t[si]||'', act=a[si]||'';
+        var tgt=tg[si]||'', act=a[si]||'';
         var isDelay = (act&&tgt&&act>tgt)||(tgt&&!act&&today>tgt);
         var icon = act ? (isDelay?'🔴':'✅') : (tgt&&today>tgt?'⚠️': tgt?'📅':'⬜');
         var cell = act ? act : (tgt?tgt:'');
@@ -3946,12 +3946,12 @@ function _dtSaveDate(type, val) {
   var rows = document.querySelectorAll('#dtBody table tbody tr');
   var si = _dtStepIdx;
   if (rows[si]) {
-    var t = (eq.target||{})[si]||'', a = (eq.actual||{})[si]||'';
+    var tg = (eq.target||{})[si]||'', a = (eq.actual||{})[si]||'';
     var today2 = new Date().toISOString().slice(0,10);
-    var delay2 = t&&a&&a>t, overdue2 = t&&!a&&today2>t;
-    var stIcon2 = a?'✅':overdue2?'⚠️':t?'📅':'⬜';
+    var delay2 = tg&&a&&a>tg, overdue2 = tg&&!a&&today2>tg;
+    var stIcon2 = a?'✅':overdue2?'⚠️':tg?'📅':'⬜';
     var cells = rows[si].querySelectorAll('td');
-    if (cells[2]) cells[2].textContent = t||'-';
+    if (cells[2]) cells[2].textContent = tg||'-';
     if (cells[3]) cells[3].textContent = stIcon2;
     if (cells[4] && type==='actual') cells[4].querySelector('input') && (cells[4].querySelector('input').value = a);
   }
@@ -4403,10 +4403,10 @@ function kpiDrill(type) {
   // 기간 필터 적용 헬퍼
   function getEqs(coId){ return (state.equipments[coId]||[]).filter(function(eq){ return isEqInKpiRange(eq,_kpiRange); }); }
   function calcEqInfo(coId, eq) {
-    var t=eq.target||{}, a=eq.actual||{};
+    var tg=eq.target||{}, a=eq.actual||{};
     var stepDone=STEPS.filter(function(_,i){return !!a[i];}).length;
     var delayed=STEPS.filter(function(_,i){
-      var tgt=t[i]||'',act=a[i]||'';
+      var tgt=tg[i]||'',act=a[i]||'';
       return (act&&tgt&&act>tgt)||(tgt&&!act&&today>tgt);
     }).length;
     return {stepDone:stepDone,stepTotal:STEPS.length,delayed:delayed,pct:Math.round(stepDone/STEPS.length*100)};
