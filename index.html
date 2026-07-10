@@ -4533,7 +4533,7 @@ function kpiDrill(type) {
           hasMissing=true;
           var items=missing.slice(0,10).map(function(it){
             var db=MASTER_DB.find(function(d){ return d.id===it; });
-            return db?xe(db.item):xe(String(it));
+            return db?xe(db['세부검토항목']||db['체크포인트']||String(it)):xe(String(it));
           }).join(', ');
           if(missing.length>10) items+=' 외 '+(missing.length-10)+'건';
           h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td style="text-align:left;font-size:12px;color:var(--re)">'+items+'</td></tr>';
