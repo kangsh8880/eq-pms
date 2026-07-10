@@ -4500,7 +4500,7 @@ function kpiDrill(type) {
   } else if(type==='checklist') {
     // ── 체크리스트 완료율 드릴다운: 단계별/설비별 체크리스트 현황 ──
     h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 단계별 체크리스트 완료 현황 — 어느 단계의 점검이 미흡한지 파악</div>';
-    h+='<table><thead><tr><th>기업</th><th>설비명</th><th>선택항목</th><th>완료항목</th><th>완료율</th><th>미완료 항목수</th></tr></thead><tbody>';
+    h+='<table><thead><tr><th>기업</th><th>설비명</th><th>진행단계</th><th>선택항목</th><th>완료항목</th><th>완료율</th><th>미완료 항목수</th></tr></thead><tbody>';
     filteredCos.forEach(function(co){
       getEqs(co.id).forEach(function(eq){
         var su=eq.setup||{};
@@ -4513,7 +4513,10 @@ function kpiDrill(type) {
         var rate=selCnt?Math.round(doneCnt/selCnt*100):0;
         var remain=Math.max(selCnt-doneCnt,0);
         var cls=rate>=100?'kp-ok':rate>=80?'':'kp-ng';
-        h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td>'+selCnt+'</td><td>'+doneCnt+'</td><td class="'+cls+'">'+rate+'%</td><td class="'+(remain>0?'kp-ng':'kp-ok')+'">'+(remain>0?remain+'건':'✓')+'</td></tr>';
+        var act=eq.actual||{}, curStep=-1;
+        for(var si=10;si>=0;si--){ if(act[si]){ curStep=si; break; } }
+        var stepLabel=curStep===10?'<span class="kp-ok">완료</span>':curStep>=0?'<span style="color:var(--ac)">'+(curStep+1)+'단계 '+INVEST_STEPS[curStep]+'</span>':'<span style="color:#999">미착수</span>';
+        h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td style="font-size:12px">'+stepLabel+'</td><td>'+selCnt+'</td><td>'+doneCnt+'</td><td class="'+cls+'">'+rate+'%</td><td class="'+(remain>0?'kp-ng':'kp-ok')+'">'+(remain>0?remain+'건':'✓')+'</td></tr>';
       });
     });
     h+='</tbody></table>';
