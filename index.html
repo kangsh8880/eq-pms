@@ -1725,7 +1725,7 @@ function pgDash() {
   var kpiFromEl = document.getElementById('kpiDateFrom');
   var kpiToEl   = document.getElementById('kpiDateTo');
   var kpiFrom='', kpiTo='';
-  if(kpiFromEl && kpiToEl){
+  if(kpiFromEl && kpiToEl && kpiFromEl.value && kpiToEl.value){
     kpiFrom = kpiFromEl.value; kpiTo = kpiToEl.value;
   } else {
     // 디폴트: 6개월전 해당월 1일 ~ 전체 설비 중 11단계 목표일 최대값
