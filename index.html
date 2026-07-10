@@ -4129,11 +4129,11 @@ function _renderCoGong(canE) {
     + '</tr></thead><tbody>';
   gongs.forEach(function(g, i) {
     html += '<tr>'
-      + '<td style="text-align:center;color:var(--t2);font-size:13px">' + g.seq + '</td>'
-      + '<td style="font-size:14px;color:var(--ac)">' + xe(g.code) + '</td>'
+      + '<td style="text-align:center;color:var(--t2)">' + g.seq + '</td>'
+      + '<td style="color:var(--ac)">' + xe(g.code) + '</td>'
       + '<td style="font-weight:500">' + xe(g.name) + '</td>'
-      + '<td style="font-size:14px">' + xe(g.manager||'-') + '</td>'
-      + '<td style="font-size:14px;color:var(--t2)">' + xe(g.contact||'-') + '</td>'
+      + '<td>' + xe(g.manager||'-') + '</td>'
+      + '<td style="color:var(--t2)">' + xe(g.contact||'-') + '</td>'
       + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openGongModal(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delGong(' + i + ')">🗑️</button></td>' : '')
       + '</tr>';
   });
@@ -4204,10 +4204,10 @@ function _renderCoVendor(canE) {
     + '</tr></thead><tbody>';
   vends.forEach(function(v, i) {
     html += '<tr>'
-      + '<td style="font-size:14px;color:var(--ac)">' + xe(v.code) + '</td>'
+      + '<td style="color:var(--ac)">' + xe(v.code) + '</td>'
       + '<td style="font-weight:600">' + xe(v.name) + '</td>'
-      + '<td style="font-size:14px">' + xe(v.manager||'-') + '</td>'
-      + '<td style="font-size:14px;color:var(--t2)">' + xe(v.contact||'-') + '</td>'
+      + '<td>' + xe(v.manager||'-') + '</td>'
+      + '<td style="color:var(--t2)">' + xe(v.contact||'-') + '</td>'
       + (canE ? '<td style="text-align:center"><button class="eq-btn-edit" onclick="_openVendModal(' + i + ')">✏️</button><button class="eq-btn-edit eq-btn-del" onclick="_delVend(' + i + ')">🗑️</button></td>' : '')
       + '</tr>';
   });
