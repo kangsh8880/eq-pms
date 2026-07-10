@@ -1838,10 +1838,10 @@ function pgDash() {
     filteredCos.forEach(function(c){
       (state.equipments[c.id]||[]).filter(isEqInRange).forEach(function(eq){
         var a=eq.actual||{}, a0=a[0]||'', a10=a[10]||'';
-        if(a0&&a10){ ltDays.push(Math.round((new Date(a10)-new Date(a0))/(86400000))); }
+        if(a0&&a10){ ltDays.push((new Date(a10)-new Date(a0))/(86400000)); }
       });
     });
-    var avgLT = ltDays.length>0 ? Math.round(ltDays.reduce(function(s,v){return s+v;},0)/ltDays.length) : 0;
+    var avgLT = ltDays.length>0 ? Math.round(ltDays.reduce(function(s,v){return s+v;},0)/ltDays.length*10)/10 : 0;
     return ''
     // Card 1: 납기준수율
     + '<div class="kp-card" onclick="kpiDrill(\'delivery\')" style="background:linear-gradient(135deg,#e8f0fe,#d0e2ff);border-radius:10px;padding:16px;text-align:center">'
@@ -1856,7 +1856,7 @@ function pgDash() {
     // Card 3: 전체 리드타임
     + '<div class="kp-card" onclick="kpiDrill(\'leadtime\')" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:10px;padding:16px;text-align:center">'
     + '<div style="font-size:14px;color:#e65100;font-weight:600;margin-bottom:6px">⏱️ 전체 리드타임</div>'
-    + '<div style="font-size:32px;font-weight:800;color:'+(avgLT<=90?'#0a7c42':avgLT<=180?'#b45309':'#cc0000')+'">'+(avgLT>0?avgLT+'일':'-')+'</div>'
+    + '<div style="font-size:32px;font-weight:800;color:'+(avgLT<=90?'#0a7c42':avgLT<=180?'#b45309':'#cc0000')+'">'+(avgLT>0?avgLT.toFixed(1)+'일':'-')+'</div>'
     + '<div style="font-size:11px;color:#555;margin-top:4px">완료 '+ltDays.length+'건 평균 · <span style="color:var(--ac)">클릭→상세</span></div></div>'
     // Card 4: 양산이관 완료율
     + '<div class="kp-card" onclick="kpiDrill(\'transfer\')" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:10px;padding:16px;text-align:center">'
@@ -4548,17 +4548,17 @@ function kpiDrill(type) {
         STEPS.forEach(function(_,si){
           var cur=act[si]||'', prev=si>0?(act[si-1]||''):'';
           if(cur&&prev){
-            var d=Math.round((new Date(cur)-new Date(prev))/(86400000));
+            var d=Math.round((new Date(cur)-new Date(prev))/(86400000)*10)/10;
             totalDays+=d;
             var cls=d>30?'kp-ng':d>14?'':'kp-ok';
-            h+='<td class="'+cls+'">'+d+'</td>';
+            h+='<td class="'+cls+'">'+d.toFixed(1)+'</td>';
           } else { h+='<td class="kp-na">-</td>'; }
           if(si===0&&cur) hasFirst=true;
           if(si===10&&cur) hasLast=true;
         });
         if(hasFirst&&hasLast){
-          var tt=Math.round((new Date(act[10])-new Date(act[0]))/(86400000));
-          h+='<td style="font-weight:700;color:var(--ac)">'+tt+'일</td>';
+          var tt=Math.round((new Date(act[10])-new Date(act[0]))/(86400000)*10)/10;
+          h+='<td style="font-weight:700;color:var(--ac)">'+tt.toFixed(1)+'일</td>';
         } else { h+='<td class="kp-na">진행중</td>'; }
         h+='</tr>';
       });
@@ -4573,13 +4573,13 @@ function kpiDrill(type) {
       filteredCos.forEach(function(co){
         getEqs(co.id).forEach(function(eq){
           var a=eq.actual||{}, cur=a[si]||'', prev=a[si-1]||'';
-          if(cur&&prev) days.push(Math.round((new Date(cur)-new Date(prev))/(86400000)));
+          if(cur&&prev) days.push((new Date(cur)-new Date(prev))/(86400000));
         });
       });
       if(days.length){
-        var avg=Math.round(days.reduce(function(s,v){return s+v;},0)/days.length);
-        var mn=Math.min.apply(null,days), mx=Math.max.apply(null,days);
-        h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td style="font-weight:700">'+avg+'</td><td>'+mn+'</td><td>'+mx+'</td><td>'+days.length+'</td></tr>';
+        var avg=Math.round(days.reduce(function(s,v){return s+v;},0)/days.length*10)/10;
+        var mn=Math.round(Math.min.apply(null,days)*10)/10, mx=Math.round(Math.max.apply(null,days)*10)/10;
+        h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td style="font-weight:700">'+avg.toFixed(1)+'</td><td>'+mn.toFixed(1)+'</td><td>'+mx.toFixed(1)+'</td><td>'+days.length+'</td></tr>';
       } else { h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td colspan="4" class="kp-na">데이터 없음</td></tr>'; }
     });
     h+='</tbody></table>';
