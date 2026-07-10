@@ -172,6 +172,23 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .mcls{width:28px;height:28px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .mcls:hover{border-color:var(--re);color:var(--re)}
 .mbdy{padding:20px}
+
+/* KPI Drill-down Popup — resizable & draggable */
+.kpi-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2000;backdrop-filter:blur(2px)}
+.kpi-popup{position:fixed;z-index:2001;background:var(--bg2);border:1px solid var(--bd);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);min-width:420px;min-height:300px;display:flex;flex-direction:column;overflow:hidden;resize:both}
+.kpi-popup .kp-hdr{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;cursor:move;user-select:none;background:var(--bg3);border-radius:12px 12px 0 0;flex-shrink:0}
+.kpi-popup .kp-hdr h3{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.kpi-popup .kp-hdr .kp-badge{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600}
+.kpi-popup .kp-close{width:26px;height:26px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
+.kpi-popup .kp-close:hover{border-color:var(--re);color:var(--re)}
+.kpi-popup .kp-body{padding:16px;overflow-y:auto;flex:1}
+.kpi-popup table{width:100%;border-collapse:collapse;font-size:14px}
+.kpi-popup th{padding:8px 10px;text-align:center;border-bottom:2px solid var(--bd);background:var(--bg3);font-weight:600;white-space:nowrap;position:sticky;top:0}
+.kpi-popup td{padding:7px 10px;border-bottom:1px solid var(--bd2);text-align:center}
+.kpi-popup td:first-child{text-align:left}
+.kp-ok{color:var(--gr);font-weight:700}.kp-ng{color:var(--re);font-weight:700}.kp-na{color:var(--t3)}
+.kp-card{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.kp-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
 .mftr{padding:13px 20px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:7px}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .frow.s1{grid-template-columns:1fr}
@@ -947,6 +964,16 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 </div>
 
 <!-- ── MODAL: 항목 편집 ─────────────────────────── -->
+<!-- KPI Drill-down Popup -->
+<div class="kpi-popup-overlay" id="kpiOverlay" style="display:none" onclick="closeKpiPopup()"></div>
+<div class="kpi-popup" id="kpiPopup" style="display:none;top:10%;left:15%;width:70vw;height:70vh">
+  <div class="kp-hdr" id="kpiPopupHdr">
+    <h3 id="kpiPopupTitle">KPI</h3>
+    <button class="kp-close" onclick="closeKpiPopup()">×</button>
+  </div>
+  <div class="kp-body" id="kpiPopupBody"></div>
+</div>
+
 <div class="mov" id="itemModal" style="display:none">
   <div class="mdl">
     <div class="mhdr"><h3 id="mT">항목 수정</h3><button class="mcls" onclick="CM('itemModal')">✕</button></div>
@@ -1755,36 +1782,45 @@ function pgDash() {
   + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">'
   + '📊 종합 프로세스 KPI</div>'
   + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;padding:14px 16px">'
-  // Card 1: 납기준수율
-  + '<div style="background:linear-gradient(135deg,#e8f0fe,#d0e2ff);border-radius:10px;padding:16px;text-align:center">'
-  + '<div style="font-size:14px;color:#1a3a5c;font-weight:600;margin-bottom:6px">납기준수율</div>'
-  + '<div style="font-size:32px;font-weight:800;color:'+(deliveryRate>=95?'#0a7c42':deliveryRate>=80?'#b45309':'#cc0000')+'">'+deliveryRate+'%</div>'
-  + '<div style="font-size:12px;color:#555;margin-top:4px">준수 '+onTimeEq+' / 전체 '+totalEq+'</div></div>'
-  // Card 2: 전체 진척률
-  + '<div style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:10px;padding:16px;text-align:center">'
-  + '<div style="font-size:14px;color:#1b5e20;font-weight:600;margin-bottom:6px">양산이관 완료율</div>'
-  + '<div style="font-size:32px;font-weight:800;color:'+(overallPct>=90?'#0a7c42':overallPct>=50?'#b45309':'#cc0000')+'">'+overallPct+'%</div>'
-  + '<div style="font-size:12px;color:#555;margin-top:4px">완료 '+doneEq+' / 전체 '+totalEq+'</div></div>'
-  // Card 3: 일정 준수율
-  + '<div style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:10px;padding:16px;text-align:center">'
-  + '<div style="font-size:14px;color:#e65100;font-weight:600;margin-bottom:6px">일정 준수율</div>'
-  + '<div style="font-size:32px;font-weight:800;color:'+(scheduleRate>=90?'#0a7c42':scheduleRate>=70?'#b45309':'#cc0000')+'">'+scheduleRate+'%</div>'
-  + '<div style="font-size:12px;color:#555;margin-top:4px">준수 '+totalStepsOnTime+' / 전체 '+totalStepsAll+' 단계</div></div>'
-  // Card 4: 지연 설비
-  + '<div style="background:linear-gradient(135deg,#fce4ec,#f8bbd0);border-radius:10px;padding:16px;text-align:center">'
-  + '<div style="font-size:14px;color:#880e4f;font-weight:600;margin-bottom:6px">지연 설비</div>'
-  + '<div style="font-size:32px;font-weight:800;color:'+(delayEq===0?'#0a7c42':'#cc0000')+'">'+delayEq+'</div>'
-  + '<div style="font-size:12px;color:#555;margin-top:4px">전체 '+totalEq+'대 중</div></div>'
-  // Card 5: 체크리스트 완료율
-  + '<div style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);border-radius:10px;padding:16px;text-align:center">'
-  + '<div style="font-size:14px;color:#4a148c;font-weight:600;margin-bottom:6px">체크리스트 완료율</div>'
-  + '<div style="font-size:32px;font-weight:800;color:'+(chkRate>=90?'#0a7c42':chkRate>=50?'#b45309':'#cc0000')+'">'+chkRate+'%</div>'
-  + '<div style="font-size:12px;color:#555;margin-top:4px">'+totalChkDone+' / '+totalChkAll+' 항목</div></div>'
-  // Card 6: 기업 수
-  + '<div style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border-radius:10px;padding:16px;text-align:center">'
-  + '<div style="font-size:14px;color:#006064;font-weight:600;margin-bottom:6px">관리 기업</div>'
-  + '<div style="font-size:32px;font-weight:800;color:#00838f">'+totalCo+'</div>'
-  + '<div style="font-size:12px;color:#555;margin-top:4px">총 '+totalEq+'대 설비</div></div>'
+  // ── KPI TOP5 (클릭→드릴다운 팝업) ──
+  + (function(){
+    var delayRate = totalEq>0 ? Math.round(delayEq/totalEq*100) : 0;
+    // 전체 리드타임 평균 계산
+    var ltDays=[], ltToday=new Date().toISOString().slice(0,10);
+    filteredCos.forEach(function(c){
+      (state.equipments[c.id]||[]).forEach(function(eq){
+        var a=eq.actual||{}, a0=a[0]||'', a10=a[10]||'';
+        if(a0&&a10){ ltDays.push(Math.round((new Date(a10)-new Date(a0))/(86400000))); }
+      });
+    });
+    var avgLT = ltDays.length>0 ? Math.round(ltDays.reduce(function(s,v){return s+v;},0)/ltDays.length) : 0;
+    return ''
+    // Card 1: 납기준수율
+    + '<div class="kp-card" onclick="kpiDrill(\'delivery\')" style="background:linear-gradient(135deg,#e8f0fe,#d0e2ff);border-radius:10px;padding:16px;text-align:center">'
+    + '<div style="font-size:14px;color:#1a3a5c;font-weight:600;margin-bottom:6px">📊 납기준수율</div>'
+    + '<div style="font-size:32px;font-weight:800;color:'+(deliveryRate>=95?'#0a7c42':deliveryRate>=80?'#b45309':'#cc0000')+'">'+deliveryRate+'%</div>'
+    + '<div style="font-size:11px;color:#555;margin-top:4px">준수 '+onTimeEq+' / 전체 '+totalEq+' · <span style="color:var(--ac)">클릭→상세</span></div></div>'
+    // Card 2: 체크리스트 완료율
+    + '<div class="kp-card" onclick="kpiDrill(\'checklist\')" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);border-radius:10px;padding:16px;text-align:center">'
+    + '<div style="font-size:14px;color:#4a148c;font-weight:600;margin-bottom:6px">📋 체크리스트 완료율</div>'
+    + '<div style="font-size:32px;font-weight:800;color:'+(chkRate>=90?'#0a7c42':chkRate>=50?'#b45309':'#cc0000')+'">'+chkRate+'%</div>'
+    + '<div style="font-size:11px;color:#555;margin-top:4px">'+totalChkDone+' / '+totalChkAll+' 항목 · <span style="color:var(--ac)">클릭→상세</span></div></div>'
+    // Card 3: 전체 리드타임
+    + '<div class="kp-card" onclick="kpiDrill(\'leadtime\')" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:10px;padding:16px;text-align:center">'
+    + '<div style="font-size:14px;color:#e65100;font-weight:600;margin-bottom:6px">⏱️ 전체 리드타임</div>'
+    + '<div style="font-size:32px;font-weight:800;color:'+(avgLT<=90?'#0a7c42':avgLT<=180?'#b45309':'#cc0000')+'">'+(avgLT>0?avgLT+'일':'-')+'</div>'
+    + '<div style="font-size:11px;color:#555;margin-top:4px">완료 '+ltDays.length+'건 평균 · <span style="color:var(--ac)">클릭→상세</span></div></div>'
+    // Card 4: 양산이관 완료율
+    + '<div class="kp-card" onclick="kpiDrill(\'transfer\')" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:10px;padding:16px;text-align:center">'
+    + '<div style="font-size:14px;color:#1b5e20;font-weight:600;margin-bottom:6px">🏭 양산이관 완료율</div>'
+    + '<div style="font-size:32px;font-weight:800;color:'+(overallPct>=90?'#0a7c42':overallPct>=50?'#b45309':'#cc0000')+'">'+overallPct+'%</div>'
+    + '<div style="font-size:11px;color:#555;margin-top:4px">완료 '+doneEq+' / 전체 '+totalEq+' · <span style="color:var(--ac)">클릭→상세</span></div></div>'
+    // Card 5: 지연 설비 비율
+    + '<div class="kp-card" onclick="kpiDrill(\'delay\')" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0);border-radius:10px;padding:16px;text-align:center">'
+    + '<div style="font-size:14px;color:#880e4f;font-weight:600;margin-bottom:6px">⚠️ 지연 설비 비율</div>'
+    + '<div style="font-size:32px;font-weight:800;color:'+(delayRate===0?'#0a7c42':'#cc0000')+'">'+delayRate+'%</div>'
+    + '<div style="font-size:11px;color:#555;margin-top:4px">지연 '+delayEq+' / 전체 '+totalEq+' · <span style="color:var(--ac)">클릭→상세</span></div></div>';
+  })()
   + '</div></div>'
   // ── 기업별 진척 현황 ──
   + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">' + t('dash_co_table') + '</div>'  + '<div style="overflow-x:auto">'  + '<table style="width:100%;border-collapse:collapse;font-size:18px">'  + '<thead><tr style="background:var(--bg3)">'  + '<th style="padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap">' + t('col_co') + '</th>'  + '<th style="padding:9px 12px;text-align:center;border-bottom:1px solid var(--bd)">' + t('col_eq_cnt') + '</th>';
@@ -4272,6 +4308,287 @@ function closeDrawer() {
   gid('mobOverlay').classList.remove('open');
 }
 
+/* ── KPI Popup: Drag & Resize ── */
+(function(){
+  var popup=null,hdr=null,isDrag=false,dx=0,dy=0;
+  document.addEventListener('mousedown',function(e){
+    hdr=document.getElementById('kpiPopupHdr');
+    popup=document.getElementById('kpiPopup');
+    if(!hdr||!popup) return;
+    if(e.target===hdr||hdr.contains(e.target)){
+      if(e.target.tagName==='BUTTON') return;
+      isDrag=true;
+      var r=popup.getBoundingClientRect();
+      dx=e.clientX-r.left; dy=e.clientY-r.top;
+      e.preventDefault();
+    }
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!isDrag||!popup) return;
+    popup.style.left=Math.max(0,e.clientX-dx)+'px';
+    popup.style.top=Math.max(0,e.clientY-dy)+'px';
+  });
+  document.addEventListener('mouseup',function(){ isDrag=false; });
+})();
+
+function openKpiPopup(title, bodyHtml, badgeColor, badgeText) {
+  var ov=gid('kpiOverlay'), pp=gid('kpiPopup'), ti=gid('kpiPopupTitle'), bd=gid('kpiPopupBody');
+  ti.innerHTML=title+(badgeText?(' <span class="kp-badge" style="background:'+badgeColor+'">'+badgeText+'</span>'):'');
+  bd.innerHTML=bodyHtml;
+  ov.style.display='block'; pp.style.display='flex';
+}
+function closeKpiPopup(){
+  gid('kpiOverlay').style.display='none'; gid('kpiPopup').style.display='none';
+}
+
+function kpiDrill(type) {
+  var today = new Date().toISOString().slice(0,10);
+  var filteredCos = getFilteredCos();
+  var h='';
+  function calcEqInfo(coId, eq) {
+    var t=eq.target||{}, a=eq.actual||{};
+    var stepDone=STEPS.filter(function(_,i){return !!a[i];}).length;
+    var delayed=STEPS.filter(function(_,i){
+      var tgt=t[i]||'',act=a[i]||'';
+      return (act&&tgt&&act>tgt)||(tgt&&!act&&today>tgt);
+    }).length;
+    return {stepDone:stepDone,stepTotal:STEPS.length,delayed:delayed,pct:Math.round(stepDone/STEPS.length*100)};
+  }
+
+  if(type==='delivery') {
+    // ── 납기준수율 드릴다운: 단계별 일정 준수율 ──
+    h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 단계별 일정 준수율 — 11단계 각각의 목표일 대비 실적 준수/차질 현황</div>';
+    // 단계별 집계
+    var stageStats=STEPS.map(function(){ return {total:0,onTime:0,late:0,pending:0}; });
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var tgt=eq.target||{}, act=eq.actual||{};
+        STEPS.forEach(function(_,si){
+          var t1=tgt[si]||'', a1=act[si]||'';
+          if(!t1) return;
+          stageStats[si].total++;
+          if(a1&&t1){ if(a1<=t1) stageStats[si].onTime++; else stageStats[si].late++; }
+          else if(!a1&&today>t1) stageStats[si].late++;
+          else stageStats[si].pending++;
+        });
+      });
+    });
+    h+='<table><thead><tr><th>단계</th><th>대상</th><th>준수</th><th>차질</th><th>진행중</th><th>준수율</th></tr></thead><tbody>';
+    STEPS.forEach(function(s,si){
+      var st=stageStats[si], rate=st.total?Math.round(st.onTime/st.total*100):0;
+      var cls=rate>=90?'kp-ok':rate>=50?'':'kp-ng';
+      h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td>'+st.total+'</td><td class="kp-ok">'+st.onTime+'</td><td class="kp-ng">'+st.late+'</td><td class="kp-na">'+st.pending+'</td><td class="'+cls+'">'+rate+'%</td></tr>';
+    });
+    h+='</tbody></table>';
+    // 설비별 상세
+    h+='<div style="margin:18px 0 10px;font-weight:700;font-size:15px">📋 설비별 양산이관 준수 현황</div>';
+    h+='<table><thead><tr><th>기업</th><th>설비명</th><th>목표일</th><th>실적일</th><th>지연일</th><th>판정</th></tr></thead><tbody>';
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var tgt=(eq.target||{})[10]||'', act=(eq.actual||{})[10]||'';
+        var delay='',judge='';
+        if(act&&tgt){
+          var d=Math.round((new Date(act)-new Date(tgt))/(86400000));
+          delay=d>0?'+'+d+'일':'0';
+          judge=d<=0?'<span class="kp-ok">준수</span>':'<span class="kp-ng">차질(+'+d+'일)</span>';
+        } else if(tgt&&!act&&today>tgt){
+          var d2=Math.round((new Date(today)-new Date(tgt))/(86400000));
+          delay='+'+d2+'일'; judge='<span class="kp-ng">차질(진행중)</span>';
+        } else { delay='-'; judge='<span class="kp-na">대기</span>'; }
+        h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td>'+(tgt||'-')+'</td><td>'+(act||'-')+'</td><td>'+delay+'</td><td>'+judge+'</td></tr>';
+      });
+    });
+    h+='</tbody></table>';
+    openKpiPopup('📊 납기준수율 드릴다운',h,'#2b4c7e','일정');
+
+  } else if(type==='checklist') {
+    // ── 체크리스트 완료율 드릴다운: 단계별/설비별 체크리스트 현황 ──
+    h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 단계별 체크리스트 완료 현황 — 어느 단계의 점검이 미흡한지 파악</div>';
+    h+='<table><thead><tr><th>기업</th><th>설비명</th><th>선택항목</th><th>완료항목</th><th>완료율</th><th>미완료 항목수</th></tr></thead><tbody>';
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var su=eq.setup||{};
+        var selCnt=(su.sel||[]).length+Object.keys(su.custom||{}).length;
+        var doneCnt=(su.done||[]).length;
+        var rate=selCnt?Math.round(doneCnt/selCnt*100):0;
+        var remain=selCnt-doneCnt;
+        var cls=rate>=100?'kp-ok':rate>=80?'':'kp-ng';
+        h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td>'+selCnt+'</td><td>'+doneCnt+'</td><td class="'+cls+'">'+rate+'%</td><td class="'+(remain>0?'kp-ng':'kp-ok')+'">'+(remain>0?remain+'건':'✓')+'</td></tr>';
+      });
+    });
+    h+='</tbody></table>';
+    // 미완료 항목 상세
+    h+='<div style="margin:18px 0 10px;font-weight:700;font-size:15px">⚠️ 미완료 체크리스트 항목 상세</div>';
+    h+='<table><thead><tr><th>기업</th><th>설비명</th><th>미완료 항목</th></tr></thead><tbody>';
+    var hasMissing=false;
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var su=eq.setup||{};
+        var allItems=(su.sel||[]).slice();
+        Object.keys(su.custom||{}).forEach(function(k){ allItems.push('CUSTOM:'+k); });
+        var doneSet=su.done||[];
+        var missing=allItems.filter(function(it){ return doneSet.indexOf(it)===-1; });
+        if(missing.length>0){
+          hasMissing=true;
+          var items=missing.slice(0,10).map(function(it){
+            if(it.indexOf('CUSTOM:')===0) return xe((su.custom||{})[it.replace('CUSTOM:','')]||it);
+            var db=MASTER_DB.find(function(d){ return d.id===it; });
+            return db?xe(db.item):xe(it);
+          }).join(', ');
+          if(missing.length>10) items+=' 외 '+(missing.length-10)+'건';
+          h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td style="text-align:left;font-size:12px;color:var(--re)">'+items+'</td></tr>';
+        }
+      });
+    });
+    if(!hasMissing) h+='<tr><td colspan="3" style="color:var(--gr);text-align:center">✅ 모든 체크리스트 항목 완료</td></tr>';
+    h+='</tbody></table>';
+    openKpiPopup('📋 체크리스트 완료율 드릴다운',h,'#4a148c','품질');
+
+  } else if(type==='leadtime') {
+    // ── 전체 리드타임 드릴다운: 설비별 단계별 소요일수 ──
+    h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 설비별 단계간 소요일수 — 어느 단계에서 시간이 많이 걸렸는지 분석</div>';
+    h+='<table><thead><tr><th>기업</th><th>설비명</th>';
+    STEPS.forEach(function(_,si){ h+='<th style="font-size:11px">'+(si+1)+'단계</th>'; });
+    h+='<th>전체(일)</th></tr></thead><tbody>';
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var act=eq.actual||{};
+        h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td>';
+        var totalDays=0, hasFirst=false, hasLast=false;
+        STEPS.forEach(function(_,si){
+          var cur=act[si]||'', prev=si>0?(act[si-1]||''):'';
+          if(cur&&prev){
+            var d=Math.round((new Date(cur)-new Date(prev))/(86400000));
+            totalDays+=d;
+            var cls=d>30?'kp-ng':d>14?'':'kp-ok';
+            h+='<td class="'+cls+'">'+d+'</td>';
+          } else { h+='<td class="kp-na">-</td>'; }
+          if(si===0&&cur) hasFirst=true;
+          if(si===10&&cur) hasLast=true;
+        });
+        if(hasFirst&&hasLast){
+          var tt=Math.round((new Date(act[10])-new Date(act[0]))/(86400000));
+          h+='<td style="font-weight:700;color:var(--ac)">'+tt+'일</td>';
+        } else { h+='<td class="kp-na">진행중</td>'; }
+        h+='</tr>';
+      });
+    });
+    h+='</tbody></table>';
+    // 단계별 평균 소요일
+    h+='<div style="margin:18px 0 10px;font-weight:700;font-size:15px">📊 단계별 평균 소요일수</div>';
+    h+='<table><thead><tr><th>단계</th><th>평균(일)</th><th>최소</th><th>최대</th><th>건수</th></tr></thead><tbody>';
+    STEPS.forEach(function(_,si){
+      if(si===0){ h+='<tr><td>1. '+xe(getStepName(0))+'</td><td colspan="4" class="kp-na">기준점</td></tr>'; return; }
+      var days=[];
+      filteredCos.forEach(function(co){
+        (state.equipments[co.id]||[]).forEach(function(eq){
+          var a=eq.actual||{}, cur=a[si]||'', prev=a[si-1]||'';
+          if(cur&&prev) days.push(Math.round((new Date(cur)-new Date(prev))/(86400000)));
+        });
+      });
+      if(days.length){
+        var avg=Math.round(days.reduce(function(s,v){return s+v;},0)/days.length);
+        var mn=Math.min.apply(null,days), mx=Math.max.apply(null,days);
+        h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td style="font-weight:700">'+avg+'</td><td>'+mn+'</td><td>'+mx+'</td><td>'+days.length+'</td></tr>';
+      } else { h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td colspan="4" class="kp-na">데이터 없음</td></tr>'; }
+    });
+    h+='</tbody></table>';
+    openKpiPopup('⏱️ 전체 리드타임 드릴다운',h,'#e65100','일정');
+
+  } else if(type==='transfer') {
+    // ── 양산이관 완료율 드릴다운: 설비별 진행 단계 현황 ──
+    h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 설비별 현재 진행 단계 — 어디에서 정체되고 있는지 파악</div>';
+    h+='<table><thead><tr><th>기업</th><th>설비명</th><th>완료단계</th><th>현재단계</th><th>진척률</th><th>상태</th></tr></thead><tbody>';
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var inf=calcEqInfo(co.id,eq);
+        var curStage='완료';
+        if(inf.pct<100){
+          for(var si=0;si<STEPS.length;si++){
+            if(!(eq.actual||{})[si]){ curStage=(si+1)+'. '+getStepName(si); break; }
+          }
+        }
+        var cls=inf.pct===100?'kp-ok':inf.pct>=50?'':'kp-ng';
+        var status=inf.pct===100?'<span class="kp-ok">✅ 완료</span>':inf.delayed>0?'<span class="kp-ng">⚠️ 지연</span>':'<span style="color:var(--ac)">🔄 진행중</span>';
+        h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td>'+inf.stepDone+'/'+inf.stepTotal+'</td><td>'+xe(curStage)+'</td><td class="'+cls+'">'+inf.pct+'%</td><td>'+status+'</td></tr>';
+      });
+    });
+    h+='</tbody></table>';
+    // 단계별 정체 분포
+    h+='<div style="margin:18px 0 10px;font-weight:700;font-size:15px">📊 단계별 정체 설비 분포</div>';
+    h+='<table><thead><tr><th>현재 정체 단계</th><th>설비수</th><th>비율</th></tr></thead><tbody>';
+    var stageHold=STEPS.map(function(){ return 0; });
+    var completedCnt=0;
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var inf=calcEqInfo(co.id,eq);
+        if(inf.pct===100){ completedCnt++; return; }
+        for(var si=0;si<STEPS.length;si++){
+          if(!(eq.actual||{})[si]){ stageHold[si]++; break; }
+        }
+      });
+    });
+    var totalAll=0; stageHold.forEach(function(v){totalAll+=v;});
+    STEPS.forEach(function(_,si){
+      if(stageHold[si]>0){
+        var pct=totalAll?Math.round(stageHold[si]/totalAll*100):0;
+        h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td class="kp-ng">'+stageHold[si]+'대</td><td>'+pct+'%</td></tr>';
+      }
+    });
+    if(completedCnt>0) h+='<tr><td>✅ 양산이관 완료</td><td class="kp-ok">'+completedCnt+'대</td><td>-</td></tr>';
+    if(totalAll===0&&completedCnt===0) h+='<tr><td colspan="3" class="kp-na">등록된 설비 없음</td></tr>';
+    h+='</tbody></table>';
+    openKpiPopup('🏭 양산이관 완료율 드릴다운',h,'#2e7d32','진도');
+
+  } else if(type==='delay') {
+    // ── 지연 설비 비율 드릴다운: 지연 설비 상세 ──
+    h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 지연 설비 상세 — 어떤 설비의 어떤 단계에서 지연이 발생했는지</div>';
+    h+='<table><thead><tr><th>기업</th><th>설비명</th><th>지연단계</th><th>목표일</th><th>실적일</th><th>지연일수</th></tr></thead><tbody>';
+    var hasDelay=false;
+    filteredCos.forEach(function(co){
+      (state.equipments[co.id]||[]).forEach(function(eq){
+        var tgt=eq.target||{}, act=eq.actual||{};
+        STEPS.forEach(function(_,si){
+          var t1=tgt[si]||'', a1=act[si]||'';
+          var isLate=false, delayDays=0;
+          if(a1&&t1&&a1>t1){ isLate=true; delayDays=Math.round((new Date(a1)-new Date(t1))/(86400000)); }
+          else if(t1&&!a1&&today>t1){ isLate=true; delayDays=Math.round((new Date(today)-new Date(t1))/(86400000)); a1='(미완료)'; }
+          if(isLate){
+            hasDelay=true;
+            h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td><td class="kp-ng">'+(si+1)+'. '+xe(getStepName(si))+'</td><td>'+t1+'</td><td>'+(a1||'-')+'</td><td class="kp-ng">+'+delayDays+'일</td></tr>';
+          }
+        });
+      });
+    });
+    if(!hasDelay) h+='<tr><td colspan="6" style="color:var(--gr);text-align:center">✅ 지연 설비 없음</td></tr>';
+    h+='</tbody></table>';
+    // 단계별 지연 빈도
+    h+='<div style="margin:18px 0 10px;font-weight:700;font-size:15px">📊 단계별 지연 발생 빈도</div>';
+    h+='<table><thead><tr><th>단계</th><th>지연건수</th><th>평균지연(일)</th></tr></thead><tbody>';
+    STEPS.forEach(function(_,si){
+      var delays=[];
+      filteredCos.forEach(function(co){
+        (state.equipments[co.id]||[]).forEach(function(eq){
+          var t1=(eq.target||{})[si]||'', a1=(eq.actual||{})[si]||'';
+          if(a1&&t1&&a1>t1) delays.push(Math.round((new Date(a1)-new Date(t1))/(86400000)));
+          else if(t1&&!a1&&today>t1) delays.push(Math.round((new Date(today)-new Date(t1))/(86400000)));
+        });
+      });
+      if(delays.length){
+        var avg=Math.round(delays.reduce(function(s,v){return s+v;},0)/delays.length);
+        h+='<tr><td>'+(si+1)+'. '+xe(getStepName(si))+'</td><td class="kp-ng">'+delays.length+'건</td><td class="kp-ng">'+avg+'일</td></tr>';
+      }
+    });
+    h+='</tbody></table>';
+    openKpiPopup('⚠️ 지연 설비 비율 드릴다운',h,'#cc0000','리스크');
+  }
+}
+
+function getFilteredCos(){
+  var fv=gid('dashCoFilter')?gid('dashCoFilter').value:'';
+  return state.master.filter(function(c){ return !fv||c.id===fv; });
+}
+
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', function() {
@@ -4281,6 +4598,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
+      closeKpiPopup();
       ['itemModal','coModal','eqModal','gongModal','vendModal','gmGongModal','gmVendModal'].forEach(function(id) {
         var m = gid(id); if (m && m.style.display !== 'none') CM(id);
       });
