@@ -182,6 +182,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .kpi-popup .kp-hdr .kp-badge{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600}
 .kpi-popup .kp-close{width:26px;height:26px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
 .kpi-popup .kp-close:hover{border-color:var(--re);color:var(--re)}
+.col-resize-handle:hover{background:var(--ac) !important;opacity:.5}
 .kpi-popup .kp-body{padding:16px;overflow-y:auto;flex:1}
 .kpi-popup table{width:100%;border-collapse:collapse;font-size:14px}
 .kpi-popup th{padding:8px 10px;text-align:center;border-bottom:2px solid var(--bd);background:var(--bg3);font-weight:600;white-space:nowrap;position:sticky;top:0}
@@ -967,7 +968,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 <!-- ── MODAL: 항목 편집 ─────────────────────────── -->
 <!-- KPI Drill-down Popup -->
 <div class="kpi-popup-overlay" id="kpiOverlay" style="display:none" onclick="closeKpiPopup()"></div>
-<div class="kpi-popup" id="kpiPopup" style="display:none;top:10%;left:15%;width:70vw;height:70vh">
+<div class="kpi-popup" id="kpiPopup" style="display:none;width:70vw;height:70vh">
   <div class="kp-hdr" id="kpiPopupHdr">
     <h3 id="kpiPopupTitle">KPI</h3>
     <button class="kp-close" onclick="closeKpiPopup()">×</button>
@@ -4422,7 +4423,40 @@ function openKpiPopup(title, bodyHtml, badgeColor, badgeText) {
   ti.innerHTML=title+(badgeText?(' <span class="kp-badge" style="background:'+badgeColor+'">'+badgeText+'</span>'):'');
   bd.innerHTML=bodyHtml;
   ov.style.display='block'; pp.style.display='flex';
+  // 화면 중앙 배치
+  var pw=pp.offsetWidth, ph=pp.offsetHeight;
+  pp.style.left=Math.max(0,(window.innerWidth-pw)/2)+'px';
+  pp.style.top=Math.max(0,(window.innerHeight-ph)/2)+'px';
+  // 컬럼 리사이즈 핸들 추가
+  pp.querySelectorAll('th').forEach(function(th){
+    if(th.querySelector('.col-resize-handle')) return;
+    th.style.position='relative';
+    var handle=document.createElement('div');
+    handle.className='col-resize-handle';
+    handle.style.cssText='position:absolute;right:0;top:0;bottom:0;width:4px;cursor:col-resize;background:transparent;z-index:1';
+    handle.addEventListener('mousedown',function(e){
+      e.preventDefault(); e.stopPropagation();
+      var startX=e.clientX, startW=th.offsetWidth;
+      function onMove(ev){ th.style.width=Math.max(40,startW+(ev.clientX-startX))+'px'; th.style.minWidth=th.style.width; }
+      function onUp(){ document.removeEventListener('mousemove',onMove); document.removeEventListener('mouseup',onUp); }
+      document.addEventListener('mousemove',onMove);
+      document.addEventListener('mouseup',onUp);
+    });
+    th.appendChild(handle);
+  });
 }
+// 팝업 드래그 이동
+(function(){
+  var hdr=gid('kpiPopupHdr'), pp=gid('kpiPopup'), dx=0, dy=0, dragging=false;
+  hdr.addEventListener('mousedown',function(e){
+    if(e.target.closest('.kp-close')) return;
+    dragging=true; dx=e.clientX-pp.offsetLeft; dy=e.clientY-pp.offsetTop;
+    document.addEventListener('mousemove',onMove); document.addEventListener('mouseup',onUp);
+    e.preventDefault();
+  });
+  function onMove(e){ if(!dragging) return; pp.style.left=Math.max(0,e.clientX-dx)+'px'; pp.style.top=Math.max(0,e.clientY-dy)+'px'; }
+  function onUp(){ dragging=false; document.removeEventListener('mousemove',onMove); document.removeEventListener('mouseup',onUp); }
+})()
 function closeKpiPopup(){
   gid('kpiOverlay').style.display='none'; gid('kpiPopup').style.display='none';
 }
