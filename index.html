@@ -1848,27 +1848,27 @@ function pgDash() {
     return ''
     // Card 1: 납기준수율
     + '<div class="kp-card" onclick="kpiDrill(\'delivery\')" style="background:linear-gradient(135deg,#e8f0fe,#d0e2ff);border-radius:10px;padding:16px;text-align:center">'
-    + '<div style="font-size:14px;color:#1a3a5c;font-weight:600;margin-bottom:6px">📊 납기준수율</div>'
+    + '<div style="font-size:24px;color:#1a3a5c;font-weight:600;margin-bottom:6px">📊 납기준수율</div>'
     + '<div style="font-size:32px;font-weight:800;color:'+(deliveryRate>=95?'#0a7c42':deliveryRate>=80?'#b45309':'#cc0000')+'">'+deliveryRate+'%</div>'
     + '<div style="font-size:11px;color:#555;margin-top:4px">준수 '+onTimeEq+' / 대상 '+deliveryBase+' · <span style="color:var(--ac)">클릭→상세</span></div></div>'
     // Card 2: 체크리스트 완료율
     + '<div class="kp-card" onclick="kpiDrill(\'checklist\')" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);border-radius:10px;padding:16px;text-align:center">'
-    + '<div style="font-size:14px;color:#4a148c;font-weight:600;margin-bottom:6px">📋 체크리스트 완료율</div>'
+    + '<div style="font-size:24px;color:#4a148c;font-weight:600;margin-bottom:6px">📋 체크리스트 완료율</div>'
     + '<div style="font-size:32px;font-weight:800;color:'+(chkRate>=90?'#0a7c42':chkRate>=50?'#b45309':'#cc0000')+'">'+chkRate+'%</div>'
     + '<div style="font-size:11px;color:#555;margin-top:4px">'+totalChkDone+' / '+totalChkAll+' 항목 · <span style="color:var(--ac)">클릭→상세</span></div></div>'
     // Card 3: 전체 리드타임
     + '<div class="kp-card" onclick="kpiDrill(\'leadtime\')" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:10px;padding:16px;text-align:center">'
-    + '<div style="font-size:14px;color:#e65100;font-weight:600;margin-bottom:6px">⏱️ 전체 리드타임</div>'
+    + '<div style="font-size:24px;color:#e65100;font-weight:600;margin-bottom:6px">⏱️ 전체 리드타임</div>'
     + '<div style="font-size:32px;font-weight:800;color:'+(avgLT<=90?'#0a7c42':avgLT<=180?'#b45309':'#cc0000')+'">'+(avgLT>0?avgLT.toFixed(1)+'일':'-')+'</div>'
     + '<div style="font-size:11px;color:#555;margin-top:4px">완료 '+ltDays.length+'건 평균 · <span style="color:var(--ac)">클릭→상세</span></div></div>'
     // Card 4: 양산이관 완료율
     + '<div class="kp-card" onclick="kpiDrill(\'transfer\')" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:10px;padding:16px;text-align:center">'
-    + '<div style="font-size:14px;color:#1b5e20;font-weight:600;margin-bottom:6px">🏭 양산이관 완료율</div>'
+    + '<div style="font-size:24px;color:#1b5e20;font-weight:600;margin-bottom:6px">🏭 양산이관 완료율</div>'
     + '<div style="font-size:32px;font-weight:800;color:'+(overallPct>=90?'#0a7c42':overallPct>=50?'#b45309':'#cc0000')+'">'+overallPct+'%</div>'
     + '<div style="font-size:11px;color:#555;margin-top:4px">완료 '+doneEq+' / 전체 '+totalEq+' · <span style="color:var(--ac)">클릭→상세</span></div></div>'
     // Card 5: 지연 설비 비율
     + '<div class="kp-card" onclick="kpiDrill(\'delay\')" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0);border-radius:10px;padding:16px;text-align:center">'
-    + '<div style="font-size:14px;color:#880e4f;font-weight:600;margin-bottom:6px">⚠️ 지연 설비 비율</div>'
+    + '<div style="font-size:24px;color:#880e4f;font-weight:600;margin-bottom:6px">⚠️ 지연 설비 비율</div>'
     + '<div style="font-size:32px;font-weight:800;color:'+(delayRate===0?'#0a7c42':'#cc0000')+'">'+delayRate+'%</div>'
     + '<div style="font-size:11px;color:#555;margin-top:4px">지연 '+delayEq+' / 전체 '+totalEq+' · <span style="color:var(--ac)">클릭→상세</span></div></div>';
   })()
