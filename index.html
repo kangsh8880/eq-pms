@@ -1801,10 +1801,14 @@ function pgDash() {
         if(t1) totalStepsAll++;
         if(a1 && t1){ totalStepsDone++; if(a1<=t1) totalStepsOnTime++; }
       });
-      // 체크리스트 완료율: sel이 전체 선택항목, custom은 sel의 부분집합(오버라이드)
+      // 체크리스트 완료율: chkActual에 완료일이 입력된 항목 기준
       var su=eq.setup||{};
-      var chkSel=(su.sel||[]).length;
-      var chkDone=(su.done||[]).length;
+      var selIds=su.sel||[];
+      var chkSel=selIds.length;
+      var chkAct=eq.chkActual||{};
+      var actDoneIds=[];
+      Object.keys(chkAct).forEach(function(si){ Object.keys(chkAct[si]).forEach(function(id){ if(chkAct[si][id]) actDoneIds.push(parseInt(id)); }); });
+      var chkDone=selIds.filter(function(id){ return actDoneIds.indexOf(id)>=0; }).length;
       totalChkDone+=chkDone; totalChkAll+=chkSel;
     });
   });
@@ -4461,8 +4465,12 @@ function kpiDrill(type) {
     filteredCos.forEach(function(co){
       getEqs(co.id).forEach(function(eq){
         var su=eq.setup||{};
-        var selCnt=(su.sel||[]).length;
-        var doneCnt=(su.done||[]).length;
+        var selIds=su.sel||[];
+        var selCnt=selIds.length;
+        var chkAct=eq.chkActual||{};
+        var actIds=[];
+        Object.keys(chkAct).forEach(function(si){ Object.keys(chkAct[si]).forEach(function(id){ if(chkAct[si][id]) actIds.push(parseInt(id)); }); });
+        var doneCnt=selIds.filter(function(id){ return actIds.indexOf(id)>=0; }).length;
         var rate=selCnt?Math.round(doneCnt/selCnt*100):0;
         var remain=Math.max(selCnt-doneCnt,0);
         var cls=rate>=100?'kp-ok':rate>=80?'':'kp-ng';
@@ -4478,8 +4486,10 @@ function kpiDrill(type) {
       getEqs(co.id).forEach(function(eq){
         var su=eq.setup||{};
         var allItems=(su.sel||[]).slice();
-        var doneSet=su.done||[];
-        var missing=allItems.filter(function(it){ return doneSet.indexOf(it)===-1; });
+        var chkAct2=eq.chkActual||{};
+        var actIds2=[];
+        Object.keys(chkAct2).forEach(function(si){ Object.keys(chkAct2[si]).forEach(function(id){ if(chkAct2[si][id]) actIds2.push(parseInt(id)); }); });
+        var missing=allItems.filter(function(it){ return actIds2.indexOf(it)===-1; });
         if(missing.length>0){
           hasMissing=true;
           var items=missing.slice(0,10).map(function(it){
