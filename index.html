@@ -2442,6 +2442,11 @@ function pgSetup() {
     + '</div>'
     + '</div>';
   adjustPageLayout('pg_setup');
+  // 기업이 있으면 첫 번째 기업 자동 선택
+  if (state.companies.length && gid('coSel')) {
+    gid('coSel').value = state.companies[0].id;
+    loadCo();
+  }
 }
 
 function loadCo() {
@@ -3301,10 +3306,16 @@ function pgDetail() {
     + '<div class="empty"><div class="ei">📊</div><h3>'+t('empty_detail')+'</h3></div>'
     + '</div>';
 
-  if (_dtCoId) {
+  // 기업 자동 선택: 이전 선택값 또는 첫 번째 기업
+  var autoCoId = _dtCoId || (state.companies.length ? state.companies[0].id : null);
+  if (autoCoId) {
     setTimeout(function(){
       var coSel = document.getElementById('dtCoSel');
-      if (coSel) { coSel.value = _dtCoId; _dtLoadCo(true); }
+      if (coSel) {
+        coSel.value = autoCoId;
+        _dtCoId = autoCoId;
+        _dtLoadCo(_dtCoId === autoCoId);
+      }
     }, 50);
   }
 }
@@ -3328,15 +3339,22 @@ function _dtLoadCo(keepEq) {
     eqSel.value = _dtEqIdx;
     _dtLoadEq();
   } else {
-    // 기업 변경 시 본문 완전 초기화
-    _dtEqIdx = null;
-    _dtStepIdx = 0;
-    var sb2 = document.getElementById('dtStepBar');
-    if (sb2) sb2.innerHTML = '';
-    var bd2 = document.getElementById('dtBody');
-    if (bd2) bd2.innerHTML = '<div class="empty"><div class="ei">📊</div><h3>설비를 선택하세요</h3></div>';
-    var infoBar2 = document.getElementById('dtEqInfoBar');
-    if (infoBar2) infoBar2.style.display = 'none';
+    // 설비가 있으면 첫 번째 설비 자동 선택
+    if (eqs.length) {
+      _dtEqIdx = 0;
+      _dtStepIdx = 0;
+      eqSel.value = '0';
+      _dtLoadEq();
+    } else {
+      _dtEqIdx = null;
+      _dtStepIdx = 0;
+      var sb2 = document.getElementById('dtStepBar');
+      if (sb2) sb2.innerHTML = '';
+      var bd2 = document.getElementById('dtBody');
+      if (bd2) bd2.innerHTML = '<div class="empty"><div class="ei">📊</div><h3>설비를 선택하세요</h3></div>';
+      var infoBar2 = document.getElementById('dtEqInfoBar');
+      if (infoBar2) infoBar2.style.display = 'none';
+    }
   }
 }
 
