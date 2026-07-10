@@ -1790,11 +1790,12 @@ function pgDash() {
     var eqs = (state.equipments[c.id]||[]).filter(isEqInRange);
     eqs.forEach(function(eq){
       var tgt=eq.target||{}, act=eq.actual||{};
-      // 납기준수율: 양산이관(10단계) 목표일이 있는 설비만 대상
+      // 납기준수율: 양산이관(11단계) 목표일이 기간(kpiTo) 이내인 설비만 대상
       var tgtLast=tgt[10]||'', actLast=act[10]||'';
-      if(tgtLast){ deliveryBase++; }
-      if(actLast && tgtLast){ if(actLast<=tgtLast) onTimeEq++; else lateEq++; }
-      else if(tgtLast && !actLast && today>tgtLast){ lateEq++; }
+      if(tgtLast && (!kpiTo || tgtLast<=kpiTo)){ deliveryBase++;
+        if(actLast){ if(actLast<=tgtLast) onTimeEq++; else lateEq++; }
+        else if(today>tgtLast){ lateEq++; }
+      }
       // 단계별 일정 준수율
       STEPS.forEach(function(_,si){
         var t1=tgt[si]||'', a1=act[si]||'';
@@ -4444,7 +4445,8 @@ function kpiDrill(type) {
   if(type==='delivery') {
     // ── 납기준수율 드릴다운: 단계별 일정 준수율 ──
     h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 단계별 일정 준수율 — 11단계 각각의 목표일 대비 실적 준수/차질 현황</div>';
-    // 단계별 집계
+    // 단계별 집계 (목표일이 kpiTo 이내인 것만 대상)
+    var kpiTo=_kpiRange.to||'';
     var stageStats=STEPS.map(function(){ return {total:0,onTime:0,late:0,pending:0}; });
     filteredCos.forEach(function(co){
       getEqs(co.id).forEach(function(eq){
@@ -4452,6 +4454,7 @@ function kpiDrill(type) {
         STEPS.forEach(function(_,si){
           var t1=tgt[si]||'', a1=act[si]||'';
           if(!t1) return;
+          if(kpiTo && t1>kpiTo){ stageStats[si].pending++; return; }
           stageStats[si].total++;
           if(a1&&t1){ if(a1<=t1) stageStats[si].onTime++; else stageStats[si].late++; }
           else if(!a1&&today>t1) stageStats[si].late++;
@@ -4473,7 +4476,9 @@ function kpiDrill(type) {
       getEqs(co.id).forEach(function(eq){
         var tgt=(eq.target||{})[10]||'', act=(eq.actual||{})[10]||'';
         var delay='',judge='';
-        if(act&&tgt){
+        if(tgt && kpiTo && tgt>kpiTo){
+          delay='-'; judge='<span class="kp-na">기간외</span>';
+        } else if(act&&tgt){
           var d=Math.round((new Date(act)-new Date(tgt))/(86400000));
           delay=d>0?'+'+d+'일':'0';
           judge=d<=0?'<span class="kp-ok">준수</span>':'<span class="kp-ng">차질(+'+d+'일)</span>';
