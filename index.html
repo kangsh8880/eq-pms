@@ -3704,8 +3704,15 @@ function _dtDetailHtml(eq, si, canE) {
   });
   var items = allItems.filter(function(r){ return selIds.indexOf(r['id']) >= 0; });
 
-  // 선택 항목 없으면 전체 표시 (fallback)
-  if (!items.length && allItems.length) items = allItems;
+  // Setup 미설정 시 체크리스트를 보여주지 않음
+  if (!selIds.length) {
+    return '<div style="padding:48px 24px;text-align:center;color:var(--t2)">'
+      + '<div style="font-size:48px;margin-bottom:16px">⚙️</div>'
+      + '<h3 style="font-size:18px;font-weight:600;color:var(--tx);margin:0 0 8px">프로세스 Setup이 필요합니다</h3>'
+      + '<p style="font-size:14px;margin:0;line-height:1.6">이 설비의 체크리스트가 아직 설정되지 않았습니다.<br>'
+      + '<strong>프로세스 Setup</strong> 탭에서 점검 항목을 먼저 선택해 주세요.</p>'
+      + '</div>';
+  }
 
   var doneCnt  = items.filter(function(r){ return chkSi[r['id']]; }).length;
   var totalCnt = items.length;
@@ -3714,7 +3721,6 @@ function _dtDetailHtml(eq, si, canE) {
   var html = '<div style="padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--bg2)">'
     + '<div>'
     + '<span style="font-size:18px;font-weight:700">📝 ' + xe(getStepName(si)) + ' ' + t('invest_proc_title') + '</span>'
-    + (selIds.length ? '' : '<span style="font-size:13px;color:var(--or);margin-left:8px">(Setup 미설정 — 전체 표시)</span>')
     + '</div>'
     + '<div style="display:flex;align-items:center;gap:12px">'
     + '<span style="font-size:14px;color:var(--t2)" class="dt-cnt-lbl">' + doneCnt + '/' + totalCnt + ' ' + t('col_done') + '</span>'
@@ -3845,7 +3851,7 @@ function _dtChkToggle(inp) {
   var stepKeywords = ['설비투자기획','설비 사양정의','투자심의','발주','제작','FAT','출하(물류/통관)','설치','시운전/SAT','Qual(검증)','양산이관/정산'];
   var kw = stepKeywords[si] || '';
   var allItems = MASTER_DB.filter(function(r){ return r['프로세스'] && r['프로세스'].indexOf(kw)===0; });
-  var items = selIds.length>0 ? allItems.filter(function(r){ return selIds.indexOf(r['id'])>=0; }) : allItems;
+  var items = selIds.length>0 ? allItems.filter(function(r){ return selIds.indexOf(r['id'])>=0; }) : [];
   var chkSi = eq.chkActual[si] || {};
   var doneCnt = items.filter(function(r){ return chkSi[r['id']]; }).length;
   var pct = items.length ? Math.round(doneCnt/items.length*100) : 0;
@@ -3937,9 +3943,10 @@ function _dtCalcStepInfo(si) {
   ];
   var kw = stepKeywords[si] || '';
   var allItems = MASTER_DB.filter(function(r){ return r['프로세스'] && r['프로세스'].indexOf(kw) === 0; });
-  var items = selIds.length > 0
-    ? allItems.filter(function(r){ return selIds.indexOf(r['id']) >= 0; })
-    : allItems;
+  // Setup 미설정 시 0/0 반환
+  if (!selIds.length) return { done: 0, total: 0, pct: 0 };
+
+  var items = allItems.filter(function(r){ return selIds.indexOf(r['id']) >= 0; });
 
   // 설비별 완료 항목
   var chkSi = (eq && eq.chkActual && eq.chkActual[si]) ? eq.chkActual[si] : {};
