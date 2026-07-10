@@ -57,7 +57,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);
 .lout:hover{border-color:var(--re);color:var(--re)}
 
 /* MAIN */
-.main{padding:24px 28px;max-width:100%;margin:0;flex:1 1 0;min-height:0;overflow:hidden}
+.main{padding:0;max-width:100%;margin:0;flex:1 1 0;min-height:0;overflow:hidden}
+#pg_master,#pg_setup,#pg_detail,#pg_company{padding:24px 28px}
 .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .pt{font-size:25px;font-weight:700}
 .ps{font-size:17px;color:var(--t2);margin-top:2px}
@@ -1720,6 +1721,42 @@ function pgDash() {
     ? state.companies.filter(function(c){ return c.id === dashCoId; })
     : state.companies;
 
+  // ── KPI 기간 필터 (From ~ To) ──
+  var kpiFromEl = document.getElementById('kpiDateFrom');
+  var kpiToEl   = document.getElementById('kpiDateTo');
+  var kpiFrom='', kpiTo='';
+  if(kpiFromEl && kpiToEl){
+    kpiFrom = kpiFromEl.value; kpiTo = kpiToEl.value;
+  } else {
+    // 디폴트: 6개월전 해당월 1일 ~ 전체 설비 중 11단계 목표일 최대값
+    var d6 = new Date(); d6.setMonth(d6.getMonth()-6);
+    kpiFrom = d6.getFullYear()+'-'+String(d6.getMonth()+1).padStart(2,'0')+'-01';
+    // 전체 설비의 목표일 중 가장 늦은 날짜
+    var maxTgt = today;
+    state.companies.forEach(function(c){
+      (state.equipments[c.id]||[]).forEach(function(eq){
+        var tgt=eq.target||{};
+        for(var si=10;si>=0;si--){ if(tgt[si]&&tgt[si]>maxTgt){ maxTgt=tgt[si]; } }
+      });
+    });
+    kpiTo = maxTgt;
+  }
+
+  // 기간 내 설비 필터: 설비의 어떤 목표일이든 기간과 겹치면 포함
+  function isEqInRange(eq){
+    var tgt=eq.target||{}, act=eq.actual||{};
+    // 설비의 첫 목표일과 마지막 목표일 범위
+    var eqFirst='', eqLast='';
+    for(var i=0;i<STEPS.length;i++){ if(tgt[i]){ if(!eqFirst) eqFirst=tgt[i]; eqLast=tgt[i]; } }
+    if(!eqFirst && !eqLast){
+      // 목표일 없으면 실적일 기준
+      for(var j=0;j<STEPS.length;j++){ if(act[j]){ if(!eqFirst) eqFirst=act[j]; eqLast=act[j]; } }
+    }
+    if(!eqFirst) return true; // 일자 없는 설비는 항상 포함
+    // 기간 겹침 판단: eqFirst <= kpiTo && eqLast >= kpiFrom
+    return (!kpiTo || eqFirst<=kpiTo) && (!kpiFrom || eqLast>=kpiFrom);
+  }
+
   // ── 기업별 설비 투자 진척 집계 ──
   function calcEqInfo(coId, eq) {
     var t = eq.target || {}, a = eq.actual || {};
@@ -1733,11 +1770,11 @@ function pgDash() {
     return { stepDone:stepDone, stepTotal:stepTotal, delayed:delayed, pct:Math.round(stepDone/stepTotal*100) };
   }
 
-  // ── 전체 KPI ──
+  // ── 전체 KPI (기간 필터 적용) ──
   var totalCo  = filteredCos.length;
   var totalEq  = 0, doneEq=0, delayEq=0;
   filteredCos.forEach(function(c){
-    var eqs = state.equipments[c.id]||[];
+    var eqs = (state.equipments[c.id]||[]).filter(isEqInRange);
     totalEq += eqs.length;
     eqs.forEach(function(eq){
       var inf = calcEqInfo(c.id, eq);
@@ -1746,11 +1783,11 @@ function pgDash() {
     });
   });
 
-  // ── 종합 KPI 계산 ──
+  // ── 종합 KPI 계산 (기간 필터 적용) ──
   var onTimeEq=0, lateEq=0, totalStepsDone=0, totalStepsOnTime=0, totalStepsAll=0;
   var totalChkDone=0, totalChkAll=0;
   filteredCos.forEach(function(c){
-    var eqs = state.equipments[c.id]||[];
+    var eqs = (state.equipments[c.id]||[]).filter(isEqInRange);
     eqs.forEach(function(eq){
       var tgt=eq.target||{}, act=eq.actual||{};
       // 납기준수율: 양산이관(10단계) 목표일 대비 실적
@@ -1779,8 +1816,15 @@ function pgDash() {
   var html = '<div style="padding:14px 16px">'
   // ── 종합 프로세스 KPI ──
   + '<div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;margin-bottom:14px;overflow:hidden">'
-  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);font-size:20px;font-weight:700">'
-  + '📊 종합 프로세스 KPI</div>'
+  + '<div style="padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">'
+  + '<div style="font-size:20px;font-weight:700">📊 종합 프로세스 KPI</div>'
+  + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+  + '<span style="font-size:13px;color:var(--t2);font-weight:600">📅 기간</span>'
+  + '<input type="date" id="kpiDateFrom" value="'+kpiFrom+'" onchange="pgDash()" style="padding:4px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:13px;font-family:inherit;outline:none">'
+  + '<span style="font-size:13px;color:var(--t3)">~</span>'
+  + '<input type="date" id="kpiDateTo" value="'+kpiTo+'" onchange="pgDash()" style="padding:4px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--tx);font-size:13px;font-family:inherit;outline:none">'
+  + '<button onclick="document.getElementById(\'kpiDateFrom\').value=\'\';document.getElementById(\'kpiDateTo\').value=\'\';pgDash()" style="padding:3px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:5px;color:var(--t2);font-size:12px;cursor:pointer;font-family:inherit">초기화</button>'
+  + '</div></div>'
   + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;padding:14px 16px">'
   // ── KPI TOP5 (클릭→드릴다운 팝업) ──
   + (function(){
@@ -1788,7 +1832,7 @@ function pgDash() {
     // 전체 리드타임 평균 계산
     var ltDays=[], ltToday=new Date().toISOString().slice(0,10);
     filteredCos.forEach(function(c){
-      (state.equipments[c.id]||[]).forEach(function(eq){
+      (state.equipments[c.id]||[]).filter(isEqInRange).forEach(function(eq){
         var a=eq.actual||{}, a0=a[0]||'', a10=a[10]||'';
         if(a0&&a10){ ltDays.push(Math.round((new Date(a10)-new Date(a0))/(86400000))); }
       });
@@ -4344,7 +4388,10 @@ function closeKpiPopup(){
 function kpiDrill(type) {
   var today = new Date().toISOString().slice(0,10);
   var filteredCos = getFilteredCos();
+  var _kpiRange = getKpiDateRange();
   var h='';
+  // 기간 필터 적용 헬퍼
+  function getEqs(coId){ return (state.equipments[coId]||[]).filter(function(eq){ return isEqInKpiRange(eq,_kpiRange); }); }
   function calcEqInfo(coId, eq) {
     var t=eq.target||{}, a=eq.actual||{};
     var stepDone=STEPS.filter(function(_,i){return !!a[i];}).length;
@@ -4361,7 +4408,7 @@ function kpiDrill(type) {
     // 단계별 집계
     var stageStats=STEPS.map(function(){ return {total:0,onTime:0,late:0,pending:0}; });
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var tgt=eq.target||{}, act=eq.actual||{};
         STEPS.forEach(function(_,si){
           var t1=tgt[si]||'', a1=act[si]||'';
@@ -4384,7 +4431,7 @@ function kpiDrill(type) {
     h+='<div style="margin:18px 0 10px;font-weight:700;font-size:15px">📋 설비별 양산이관 준수 현황</div>';
     h+='<table><thead><tr><th>기업</th><th>설비명</th><th>목표일</th><th>실적일</th><th>지연일</th><th>판정</th></tr></thead><tbody>';
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var tgt=(eq.target||{})[10]||'', act=(eq.actual||{})[10]||'';
         var delay='',judge='';
         if(act&&tgt){
@@ -4406,7 +4453,7 @@ function kpiDrill(type) {
     h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 단계별 체크리스트 완료 현황 — 어느 단계의 점검이 미흡한지 파악</div>';
     h+='<table><thead><tr><th>기업</th><th>설비명</th><th>선택항목</th><th>완료항목</th><th>완료율</th><th>미완료 항목수</th></tr></thead><tbody>';
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var su=eq.setup||{};
         var selCnt=(su.sel||[]).length+Object.keys(su.custom||{}).length;
         var doneCnt=(su.done||[]).length;
@@ -4422,7 +4469,7 @@ function kpiDrill(type) {
     h+='<table><thead><tr><th>기업</th><th>설비명</th><th>미완료 항목</th></tr></thead><tbody>';
     var hasMissing=false;
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var su=eq.setup||{};
         var allItems=(su.sel||[]).slice();
         Object.keys(su.custom||{}).forEach(function(k){ allItems.push('CUSTOM:'+k); });
@@ -4451,7 +4498,7 @@ function kpiDrill(type) {
     STEPS.forEach(function(_,si){ h+='<th style="font-size:11px">'+(si+1)+'단계</th>'; });
     h+='<th>전체(일)</th></tr></thead><tbody>';
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var act=eq.actual||{};
         h+='<tr><td>'+xe(co.name)+'</td><td>'+xe(eq.name)+'</td>';
         var totalDays=0, hasFirst=false, hasLast=false;
@@ -4481,7 +4528,7 @@ function kpiDrill(type) {
       if(si===0){ h+='<tr><td>1. '+xe(getStepName(0))+'</td><td colspan="4" class="kp-na">기준점</td></tr>'; return; }
       var days=[];
       filteredCos.forEach(function(co){
-        (state.equipments[co.id]||[]).forEach(function(eq){
+        getEqs(co.id).forEach(function(eq){
           var a=eq.actual||{}, cur=a[si]||'', prev=a[si-1]||'';
           if(cur&&prev) days.push(Math.round((new Date(cur)-new Date(prev))/(86400000)));
         });
@@ -4500,7 +4547,7 @@ function kpiDrill(type) {
     h='<div style="margin-bottom:16px"><b style="color:var(--ac)">📌 보조지표:</b> 설비별 현재 진행 단계 — 어디에서 정체되고 있는지 파악</div>';
     h+='<table><thead><tr><th>기업</th><th>설비명</th><th>완료단계</th><th>현재단계</th><th>진척률</th><th>상태</th></tr></thead><tbody>';
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var inf=calcEqInfo(co.id,eq);
         var curStage='완료';
         if(inf.pct<100){
@@ -4520,7 +4567,7 @@ function kpiDrill(type) {
     var stageHold=STEPS.map(function(){ return 0; });
     var completedCnt=0;
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var inf=calcEqInfo(co.id,eq);
         if(inf.pct===100){ completedCnt++; return; }
         for(var si=0;si<STEPS.length;si++){
@@ -4546,7 +4593,7 @@ function kpiDrill(type) {
     h+='<table><thead><tr><th>기업</th><th>설비명</th><th>지연단계</th><th>목표일</th><th>실적일</th><th>지연일수</th></tr></thead><tbody>';
     var hasDelay=false;
     filteredCos.forEach(function(co){
-      (state.equipments[co.id]||[]).forEach(function(eq){
+      getEqs(co.id).forEach(function(eq){
         var tgt=eq.target||{}, act=eq.actual||{};
         STEPS.forEach(function(_,si){
           var t1=tgt[si]||'', a1=act[si]||'';
@@ -4568,7 +4615,7 @@ function kpiDrill(type) {
     STEPS.forEach(function(_,si){
       var delays=[];
       filteredCos.forEach(function(co){
-        (state.equipments[co.id]||[]).forEach(function(eq){
+        getEqs(co.id).forEach(function(eq){
           var t1=(eq.target||{})[si]||'', a1=(eq.actual||{})[si]||'';
           if(a1&&t1&&a1>t1) delays.push(Math.round((new Date(a1)-new Date(t1))/(86400000)));
           else if(t1&&!a1&&today>t1) delays.push(Math.round((new Date(today)-new Date(t1))/(86400000)));
@@ -4587,6 +4634,19 @@ function kpiDrill(type) {
 function getFilteredCos(){
   var fv=gid('dashCoFilter')?gid('dashCoFilter').value:'';
   return state.master.filter(function(c){ return !fv||c.id===fv; });
+}
+function getKpiDateRange(){
+  var fe=gid('kpiDateFrom'), te=gid('kpiDateTo');
+  return { from: fe?fe.value:'', to: te?te.value:'' };
+}
+function isEqInKpiRange(eq, range){
+  if(!range.from && !range.to) return true;
+  var STEPS=INVEST_STEPS, tgt=eq.target||{}, act=eq.actual||{};
+  var eqFirst='', eqLast='';
+  for(var i=0;i<STEPS.length;i++){ if(tgt[i]){ if(!eqFirst) eqFirst=tgt[i]; eqLast=tgt[i]; } }
+  if(!eqFirst){ for(var j=0;j<STEPS.length;j++){ if(act[j]){ if(!eqFirst) eqFirst=act[j]; eqLast=act[j]; } } }
+  if(!eqFirst) return true;
+  return (!range.to || eqFirst<=range.to) && (!range.from || eqLast>=range.from);
 }
 
 /* ── Init ── */
